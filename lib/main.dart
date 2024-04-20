@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:ocula_care/presentation/login/login_view.dart';
+import 'package:ocula_care/presentation/sign_up/sign_up_view.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       builder: (context, child) => const MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
-        home: LoginView(),
+        home: (SignUpScreen()),
       ),
       designSize: const Size(375, 667),
     );
