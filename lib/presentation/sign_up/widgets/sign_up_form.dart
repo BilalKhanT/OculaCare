@@ -15,8 +15,7 @@ class SignUpForm extends StatelessWidget {
     return Form(
       key: signUpCubit.formKey,
       child: Padding(
-        padding: const EdgeInsets.symmetric(
-            horizontal: 10.0, vertical: 20.0),
+        padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
         child: Column(
           children: <Widget>[
             TextFormField(
@@ -48,11 +47,18 @@ class SignUpForm extends StatelessWidget {
                 if (value == null || value.isEmpty) {
                   return 'Please enter a username';
                 }
+                String pattern = r'^[a-zA-Z][a-zA-Z0-9._]*$';
+                RegExp regExp = RegExp(pattern);
+                if (!regExp.hasMatch(value)) {
+                  return 'Please enter a valid username {letters, numbers, dot, underscore}';
+                }
                 signUpCubit.userNameController.text = value;
                 return null;
               },
             ),
-            SizedBox(height: screenHeight * 0.01,),
+            SizedBox(
+              height: screenHeight * 0.01,
+            ),
             TextFormField(
               controller: signUpCubit.emailController,
               decoration: InputDecoration(
@@ -82,20 +88,34 @@ class SignUpForm extends StatelessWidget {
                 if (value == null || value.isEmpty) {
                   return 'Please enter an email';
                 }
-                if (!value.contains('@')) {
+                String pattern =
+                    r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$';
+                RegExp regExp = RegExp(pattern);
+                if (!regExp.hasMatch(value)) {
                   return 'Please enter a valid email address';
                 }
                 signUpCubit.emailController.text = value;
                 return null;
               },
             ),
-            SizedBox(height: screenHeight * 0.01,),
+            SizedBox(
+              height: screenHeight * 0.01,
+            ),
             TextFormField(
               controller: signUpCubit.passwordController,
               decoration: InputDecoration(
                 prefixIcon: const Icon(
                   Icons.lock_outline,
                   color: AppColors.appColor,
+                ),
+                suffixIcon: IconButton(
+                  onPressed: signUpCubit.togglePasswordVisibility(),
+                  icon: Icon(
+                    signUpCubit.passwordToggle
+                        ? Icons.visibility_off
+                        : Icons.visibility,
+                    color: AppColors.appColor,
+                  ),
                 ),
                 hintText: 'Password',
                 hintStyle: TextStyle(
@@ -123,17 +143,34 @@ class SignUpForm extends StatelessWidget {
                 if (value.length < 6) {
                   return 'Password must be at least 6 characters long';
                 }
+                String pattern =
+                    r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[._])[A-Za-z._\d]{6,}$';
+                RegExp regExp = RegExp(pattern);
+                if (!regExp.hasMatch(value)) {
+                  return 'Password must include upper and lower case letters, digits, and . or _';
+                }
                 signUpCubit.passwordController.text = value;
                 return null;
               },
             ),
-            SizedBox(height: screenHeight * 0.01,),
+            SizedBox(
+              height: screenHeight * 0.01,
+            ),
             TextFormField(
               controller: signUpCubit.confirmPassController,
               decoration: InputDecoration(
                 prefixIcon: const Icon(
                   Icons.lock_outline,
                   color: AppColors.appColor,
+                ),
+                suffixIcon: IconButton(
+                  onPressed: signUpCubit.togglePasswordVisibility2(),
+                  icon: Icon(
+                    signUpCubit.passwordToggle2
+                        ? Icons.visibility_off
+                        : Icons.visibility,
+                    color: AppColors.appColor,
+                  ),
                 ),
                 hintText: 'Confirm Password',
                 hintStyle: TextStyle(
@@ -158,16 +195,16 @@ class SignUpForm extends StatelessWidget {
                 if (value == null || value.isEmpty) {
                   return 'Please confirm your password';
                 }
-                if (signUpCubit.passwordController.text !=
-                    value) {
+                if (signUpCubit.passwordController.text != value) {
                   return 'Passwords do not match';
                 }
-                signUpCubit.confirmPassController.text =
-                    value;
+                signUpCubit.confirmPassController.text = value;
                 return null;
               },
             ),
-            SizedBox(height: screenHeight * 0.05,),
+            SizedBox(
+              height: screenHeight * 0.05,
+            ),
             CustomFlatButton(
               onTap: () {},
               text: 'Register',
