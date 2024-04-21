@@ -47,10 +47,10 @@ class SignUpForm extends StatelessWidget {
                 if (value == null || value.isEmpty) {
                   return 'Please enter a username';
                 }
-                String pattern = r'^[a-zA-Z][a-zA-Z0-9._]*$';
+                String pattern = r'^[a-zA-Z]+(?: [a-zA-Z]+)*$';
                 RegExp regExp = RegExp(pattern);
                 if (!regExp.hasMatch(value)) {
-                  return 'Please enter a valid username {letters, numbers, dot, underscore}';
+                  return 'Please enter a valid username';
                 }
                 signUpCubit.userNameController.text = value;
                 return null;
@@ -206,7 +206,15 @@ class SignUpForm extends StatelessWidget {
               height: screenHeight * 0.05,
             ),
             CustomFlatButton(
-              onTap: () {},
+              onTap: () async {
+                bool flag = await signUpCubit.submitForm();
+                if (flag) {
+                  print('Success');
+                }
+                else{
+                  print('FUCK HGYA');
+                }
+              },
               text: 'Register',
             ),
           ],

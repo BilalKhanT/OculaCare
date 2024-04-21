@@ -1,6 +1,10 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:ocula_care/logic/sign_up_cubit/sign_up_state.dart';
+import 'package:http/http.dart' as http;
 
 class SignUpCubit extends Cubit<SignUpState> {
   SignUpCubit() : super(SignUpStateInitial());
@@ -32,9 +36,41 @@ class SignUpCubit extends Cubit<SignUpState> {
     emit(SignUpStateLoaded());
   }
 
-  void submitForm() {
+  Future<bool> submitForm() async {
     if (formKey.currentState!.validate()) {
+      try {
+        var url = Uri.parse('http://115.186.169.44:3000/api/users/signup');
+        var response = await http.post(
+          url,
+          headers: {'Content-Type': 'application/json'},
+          body: jsonEncode({
+            'email': emailController.text.trim(),
+            'username': userNameController.text.trim(),
+            'password': passwordController.text.trim(),
+          }),
+        );
 
+        log('Response status: ${response.statusCode}');
+        log('Response body: ${response.body}');
+
+        if (response.statusCode == 200) {
+          var data = jsonDecode(response.body);
+          var otp = data['otp'];
+          if (otp == 'Email already exists') {
+            return false;
+          } else {
+            return true;
+          }
+        } else {
+          log('Server error with status code: ${response.statusCode}');
+          return false;
+        }
+      } catch (e) {
+        log('Network error: $e');
+        return false;
+      }
+    } else {
+      return false;
     }
   }
 }
