@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:ocula_care/presentation/sign_up/sign_up_view.dart';
+import 'configs/routes/router.dart';
+import 'multi_bloc_provider.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  runApp(
+    const ProvideMultiBloc(child: MyApp()),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -11,13 +16,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.sizeOf(context).height;
+    double screenWidth = MediaQuery.sizeOf(context).width;
     return ScreenUtilInit(
-      builder: (context, child) => const MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
-        home: (SignUpScreen()),
-      ),
-      designSize: const Size(375, 667),
+      builder: (context, child) {
+        return MaterialApp.router(
+          debugShowCheckedModeBanner: false,
+          title: 'OculaCare',
+          routerConfig: router,
+        );
+      },
+      designSize: Size(screenWidth, screenHeight),
     );
   }
 }
