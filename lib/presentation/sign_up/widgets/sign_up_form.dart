@@ -6,7 +6,11 @@ import '../../../logic/sign_up_cubit/sign_up_cubit.dart';
 import 'cstm_flat_btn.dart';
 
 class SignUpForm extends StatelessWidget {
-  const SignUpForm({Key? key}) : super(key: key);
+  const SignUpForm(
+      {Key? key, required this.passVisible, required this.confirmPassVisible})
+      : super(key: key);
+  final bool passVisible;
+  final bool confirmPassVisible;
 
   @override
   Widget build(BuildContext context) {
@@ -109,11 +113,11 @@ class SignUpForm extends StatelessWidget {
                   color: AppColors.appColor,
                 ),
                 suffixIcon: IconButton(
-                  onPressed: signUpCubit.togglePasswordVisibility(),
+                  onPressed: () {
+                    signUpCubit.togglePasswordVisibility();
+                  },
                   icon: Icon(
-                    signUpCubit.passwordToggle
-                        ? Icons.visibility_off
-                        : Icons.visibility,
+                    passVisible ? Icons.visibility_off : Icons.visibility,
                     color: AppColors.appColor,
                   ),
                 ),
@@ -135,7 +139,7 @@ class SignUpForm extends StatelessWidget {
                 color: Colors.black,
                 letterSpacing: 1.0,
               ),
-              obscureText: true,
+              obscureText: !passVisible,
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Please enter a password';
@@ -164,9 +168,9 @@ class SignUpForm extends StatelessWidget {
                   color: AppColors.appColor,
                 ),
                 suffixIcon: IconButton(
-                  onPressed: signUpCubit.togglePasswordVisibility2(),
+                  onPressed: () => signUpCubit.togglePasswordVisibility2(),
                   icon: Icon(
-                    signUpCubit.passwordToggle2
+                    confirmPassVisible
                         ? Icons.visibility_off
                         : Icons.visibility,
                     color: AppColors.appColor,
@@ -190,7 +194,7 @@ class SignUpForm extends StatelessWidget {
                 color: Colors.black,
                 letterSpacing: 1.0,
               ),
-              obscureText: true,
+              obscureText: !confirmPassVisible,
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Please confirm your password';
@@ -210,8 +214,7 @@ class SignUpForm extends StatelessWidget {
                 bool flag = await signUpCubit.submitForm();
                 if (flag) {
                   print('Success');
-                }
-                else{
+                } else {
                   print('FUCK HGYA');
                 }
               },

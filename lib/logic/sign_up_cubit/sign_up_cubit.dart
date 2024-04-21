@@ -26,20 +26,24 @@ class SignUpCubit extends Cubit<SignUpState> {
 
   togglePasswordVisibility() {
     passwordToggle = !passwordToggle;
+    emit(SignUpStateInitial());
+    emit(SignUpStateLoaded(passwordToggle, passwordToggle2));
   }
 
   togglePasswordVisibility2() {
     passwordToggle2 = !passwordToggle2;
+    emit(SignUpStateInitial());
+    emit(SignUpStateLoaded(passwordToggle, passwordToggle2));
   }
 
   loadSignUpScreen() {
-    emit(SignUpStateLoaded());
+    emit(SignUpStateLoaded(passwordToggle, passwordToggle2));
   }
 
   Future<bool> submitForm() async {
     if (formKey.currentState!.validate()) {
       try {
-        var url = Uri.parse('http://115.186.169.44:3000/api/users/signup');
+        var url = Uri.parse('http://192.168.18.34:3000/api/users/signup');
         var response = await http.post(
           url,
           headers: {'Content-Type': 'application/json'},

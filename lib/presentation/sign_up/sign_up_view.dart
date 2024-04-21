@@ -25,8 +25,10 @@ class SignUpScreen extends StatelessWidget {
             context.read<SignUpCubit>().dispose();
             context.pop();
           },
-          icon: const Icon(Icons.arrow_back_ios_new,
-          color: AppColors.appColor,),
+          icon: const Icon(
+            Icons.arrow_back_ios_new,
+            color: AppColors.appColor,
+          ),
         ),
       ),
       body: SizedBox(
@@ -69,63 +71,85 @@ class SignUpScreen extends StatelessWidget {
                           color: AppColors.textGrey,
                         ),
                       ),
-                      SizedBox(height: screenHeight * 0.03,),
-                      const SignUpForm(),
-                      SizedBox(height: screenHeight * 0.01,),
+                      SizedBox(
+                        height: screenHeight * 0.03,
+                      ),
+                      SignUpForm(
+                        passVisible: state.passVisible,
+                        confirmPassVisible: state.confirmPassvisible,
+                      ),
+                      SizedBox(
+                        height: screenHeight * 0.01,
+                      ),
                       Center(
-                        child: Text('or',
+                        child: Text(
+                          'or',
                           style: TextStyle(
                             fontFamily: 'Poppins',
                             fontSize: 16.sp,
                             fontWeight: FontWeight.w100,
                             color: AppColors.textGrey,
                             letterSpacing: 1.0,
-                          ),),
+                          ),
+                        ),
                       ),
                       Center(
-                        child: Text('signup with',
+                        child: Text(
+                          'signup with',
                           style: TextStyle(
                             fontFamily: 'Poppins',
                             fontSize: 16.sp,
                             fontWeight: FontWeight.w100,
                             color: AppColors.textGrey,
                             letterSpacing: 1.0,
-                          ),),
+                          ),
+                        ),
                       ),
-                      SizedBox(height: screenHeight * 0.03,),
+                      SizedBox(
+                        height: screenHeight * 0.03,
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           CustomImageButton(
-                            onTap: (){},
+                            onTap: () {},
                             imagePath: 'assets/images/googleIcon.png',
                           ),
-                          const SizedBox(width: 5.0,),
+                          const SizedBox(
+                            width: 5.0,
+                          ),
                           CustomImageButton(
-                            onTap: (){},
+                            onTap: () {},
                             imagePath: 'assets/images/fbIcon.png',
                           )
                         ],
                       ),
-                      SizedBox(height: screenHeight * 0.03,),
+                      SizedBox(
+                        height: screenHeight * 0.03,
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text('Already have an account.',
+                          Text(
+                            'Already have an account.',
                             style: TextStyle(
                               fontFamily: 'Poppins',
                               fontSize: 16.sp,
                               fontWeight: FontWeight.w100,
                               color: AppColors.textGrey,
-                            ),),
-                          const SizedBox(width: 5.0,),
-                          Text('Login',
-                            style: TextStyle(
-                            fontFamily: 'Poppins',
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.appColor,
+                            ),
                           ),
+                          const SizedBox(
+                            width: 5.0,
+                          ),
+                          Text(
+                            'Login',
+                            style: TextStyle(
+                              fontFamily: 'Poppins',
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.appColor,
+                            ),
                           )
                         ],
                       ),
