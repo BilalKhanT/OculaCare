@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ocula_care/configs/routes/route_names.dart';
+import 'package:ocula_care/logic/login_cubit/login_cubit.dart';
 import 'package:ocula_care/logic/sign_up_cubit/sign_up_cubit.dart';
 import 'package:ocula_care/logic/sign_up_cubit/sign_up_state.dart';
 import 'package:ocula_care/presentation/sign_up/widgets/cstm_flat_btn.dart';
@@ -19,18 +21,18 @@ class SignUpScreen extends StatelessWidget {
     double screenWidth = MediaQuery.sizeOf(context).width;
     return Scaffold(
       backgroundColor: AppColors.screenBackground,
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            context.read<SignUpCubit>().dispose();
-            context.pop();
-          },
-          icon: const Icon(
-            Icons.arrow_back_ios_new,
-            color: AppColors.appColor,
-          ),
-        ),
-      ),
+      // appBar: AppBar(
+      //   leading: IconButton(
+      //     onPressed: () {
+      //       context.read<SignUpCubit>().dispose();
+      //       context.pop();
+      //     },
+      //     icon: const Icon(
+      //       Icons.arrow_back_ios_new,
+      //       color: AppColors.appColor,
+      //     ),
+      //   ),
+      // ),
       body: SizedBox(
         height: screenHeight,
         width: screenWidth,
@@ -142,13 +144,19 @@ class SignUpScreen extends StatelessWidget {
                           const SizedBox(
                             width: 5.0,
                           ),
-                          Text(
-                            'Login',
-                            style: TextStyle(
-                              fontFamily: 'Poppins',
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w600,
-                              color: AppColors.appColor,
+                          InkWell(
+                            onTap: () {
+                              context.read<LoginCubit>().loadLoginScreen();
+                              context.push(RouteNames.loginRoute);
+                            },
+                            child: Text(
+                              'Login',
+                              style: TextStyle(
+                                fontFamily: 'Poppins',
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w600,
+                                color: AppColors.appColor,
+                              ),
                             ),
                           )
                         ],

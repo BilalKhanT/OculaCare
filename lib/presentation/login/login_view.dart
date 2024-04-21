@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
 import 'package:ocula_care/presentation/login/widgets/login_form.dart';
 
 import '../../configs/presentation/constants/colors.dart';
@@ -17,18 +16,18 @@ class LoginScreen extends StatelessWidget {
     double screenWidth = MediaQuery.sizeOf(context).width;
     return Scaffold(
       backgroundColor: AppColors.screenBackground,
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            context.read<LoginCubit>().dispose();
-            context.pop();
-          },
-          icon: const Icon(
-            Icons.arrow_back_ios_new,
-            color: AppColors.appColor,
-          ),
-        ),
-      ),
+      // appBar: AppBar(
+      //   leading: IconButton(
+      //     onPressed: () {
+      //       context.read<LoginCubit>().dispose();
+      //       context.pop();
+      //     },
+      //     icon: const Icon(
+      //       Icons.arrow_back_ios_new,
+      //       color: AppColors.appColor,
+      //     ),
+      //   ),
+      // ),
       body: SizedBox(
         height: screenHeight,
         width: screenWidth,

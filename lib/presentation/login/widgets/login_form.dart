@@ -99,12 +99,6 @@ class LoginForm extends StatelessWidget {
                 if (value.length < 6) {
                   return 'Password must be at least 6 characters long';
                 }
-                String pattern =
-                    r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[._])[A-Za-z._\d]{6,}$';
-                RegExp regExp = RegExp(pattern);
-                if (!regExp.hasMatch(value)) {
-                  return 'Password must include upper and lower case letters, digits, and . or _';
-                }
                 loginCubit.passwordController.text = value;
                 return null;
               },
@@ -114,7 +108,12 @@ class LoginForm extends StatelessWidget {
             ),
             CustomFlatButton(
               onTap: () async {
-
+                bool flag = await loginCubit.submitForm();
+                if (flag) {
+                  print('Success');
+                } else {
+                  print('FUCK HGYA');
+                }
               },
               text: 'Login',
             ),

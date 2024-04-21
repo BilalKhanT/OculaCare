@@ -5,6 +5,8 @@ import 'package:ocula_care/data/repositories/local/preferences/shared_prefs.dart
 import 'package:ocula_care/presentation/onboarding/onboarding_view.dart';
 import 'package:ocula_care/presentation/sign_up/sign_up_view.dart';
 
+import '../../presentation/login/login_view.dart';
+
 final navigatorKey = GlobalKey<NavigatorState>();
 
 final router = GoRouter(
@@ -17,6 +19,10 @@ final router = GoRouter(
     GoRoute(
       path: RouteNames.onBoardingRoute,
       builder: (context, state) => const OnBoardingScreen(),
+    ),
+    GoRoute(
+      path: RouteNames.loginRoute,
+      builder: (context, state) => const LoginScreen(),
     ),
   ],
   initialLocation: sharedPrefs.isLoggedIn ? RouteNames.signUpRoute : RouteNames.onBoardingRoute,
