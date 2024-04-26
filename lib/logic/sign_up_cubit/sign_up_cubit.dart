@@ -15,6 +15,7 @@ class SignUpCubit extends Cubit<SignUpState> {
   bool passwordToggle = false;
   bool passwordToggle2 = false;
 
+
   dispose() {
     userNameController.clear();
     emailController.clear();
@@ -45,4 +46,8 @@ class SignUpCubit extends Cubit<SignUpState> {
       return false;
     }
   }
+
+
+}
+
 }

@@ -6,6 +6,7 @@ import 'package:ocula_care/presentation/img_capture/img_capture_view.dart';
 import 'package:ocula_care/presentation/onboarding/onboarding_view.dart';
 import 'package:ocula_care/presentation/sign_up/sign_up_view.dart';
 
+import '../../presentation/login/login_view.dart';
 import '../../data/repositories/local/preferences/shared_prefs.dart';
 import '../../presentation/otp/otp_view.dart';
 
@@ -22,6 +23,10 @@ final router = GoRouter(
     GoRoute(
       path: RouteNames.onBoardingRoute,
       builder: (context, state) => const OnBoardingScreen(),
+    ),
+    GoRoute(
+      path: RouteNames.loginRoute,
+      builder: (context, state) => const LoginScreen(),
     ),
     GoRoute(
       path: RouteNames.otpRoute,

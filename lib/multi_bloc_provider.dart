@@ -4,6 +4,8 @@ import 'package:ocula_care/logic/image_capture/img_capture_cubit.dart';
 import 'package:ocula_care/logic/otp_cubit/otp_cubit.dart';
 import 'package:ocula_care/logic/sign_up_cubit/sign_up_cubit.dart';
 
+import 'logic/login_cubit/login_cubit.dart';
+
 class ProvideMultiBloc extends StatelessWidget {
   final Widget child;
 
@@ -14,6 +16,9 @@ class ProvideMultiBloc extends StatelessWidget {
     return MultiBlocProvider(providers: [
       BlocProvider(
         create: (context) => SignUpCubit(),
+      ),
+      BlocProvider(
+        create: (context) => LoginCubit(),
       ),
       BlocProvider(
         create: (context) => ImageCaptureCubit(),
