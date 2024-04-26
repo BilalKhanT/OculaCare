@@ -21,18 +21,19 @@ class SignUpScreen extends StatelessWidget {
     double screenWidth = MediaQuery.sizeOf(context).width;
     return Scaffold(
       backgroundColor: AppColors.screenBackground,
-      // appBar: AppBar(
-      //   leading: IconButton(
-      //     onPressed: () {
-      //       context.read<SignUpCubit>().dispose();
-      //       context.pop();
-      //     },
-      //     icon: const Icon(
-      //       Icons.arrow_back_ios_new,
-      //       color: AppColors.appColor,
-      //     ),
-      //   ),
-      // ),
+      appBar: AppBar(
+        backgroundColor: AppColors.screenBackground,
+        leading: IconButton(
+          onPressed: () {
+            context.read<SignUpCubit>().dispose();
+            context.pop();
+          },
+          icon: const Icon(
+            Icons.arrow_back_ios_new,
+            color: AppColors.appColor,
+          ),
+        ),
+      ),
       body: SizedBox(
         height: screenHeight,
         width: screenWidth,
@@ -74,14 +75,11 @@ class SignUpScreen extends StatelessWidget {
                         ),
                       ),
                       SizedBox(
-                        height: screenHeight * 0.03,
+                        height: screenHeight * 0.01,
                       ),
                       SignUpForm(
                         passVisible: state.passVisible,
                         confirmPassVisible: state.confirmPassvisible,
-                      ),
-                      SizedBox(
-                        height: screenHeight * 0.01,
                       ),
                       Center(
                         child: Text(

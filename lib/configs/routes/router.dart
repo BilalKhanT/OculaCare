@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ocula_care/configs/routes/route_names.dart';
-import 'package:ocula_care/data/repositories/local/preferences/shared_prefs.dart';
+import 'package:ocula_care/presentation/home/home_view.dart';
+import 'package:ocula_care/presentation/img_capture/img_capture_view.dart';
 import 'package:ocula_care/presentation/onboarding/onboarding_view.dart';
 import 'package:ocula_care/presentation/sign_up/sign_up_view.dart';
 
 import '../../presentation/login/login_view.dart';
+import '../../data/repositories/local/preferences/shared_prefs.dart';
+import '../../presentation/otp/otp_view.dart';
+
 
 final navigatorKey = GlobalKey<NavigatorState>();
 
@@ -24,6 +28,18 @@ final router = GoRouter(
       path: RouteNames.loginRoute,
       builder: (context, state) => const LoginScreen(),
     ),
+    GoRoute(
+      path: RouteNames.otpRoute,
+      builder: (context, state) => const OtpScreen(),
+    ),
+    GoRoute(
+      path: RouteNames.homeRoute,
+      builder: (context, state) => const HomeScreen(),
+    ),
+    GoRoute(
+      path: RouteNames.imgCaptureRoute,
+      builder: (context, state) => const ImageCaptureScreen(),
+    ),
   ],
-  initialLocation: sharedPrefs.isLoggedIn ? RouteNames.signUpRoute : RouteNames.onBoardingRoute,
+  initialLocation: sharedPrefs.isLoggedIn ? RouteNames.homeRoute : RouteNames.onBoardingRoute,
 );

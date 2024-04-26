@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ocula_care/logic/image_capture/img_capture_cubit.dart';
+import 'package:ocula_care/logic/otp_cubit/otp_cubit.dart';
 import 'package:ocula_care/logic/sign_up_cubit/sign_up_cubit.dart';
 
 import 'logic/login_cubit/login_cubit.dart';
@@ -17,6 +19,12 @@ class ProvideMultiBloc extends StatelessWidget {
       ),
       BlocProvider(
         create: (context) => LoginCubit(),
+      ),
+      BlocProvider(
+        create: (context) => ImageCaptureCubit(),
+      ),
+      BlocProvider(
+        create: (context) => OtpCubit(),
       ),
     ], child: child);
   }
