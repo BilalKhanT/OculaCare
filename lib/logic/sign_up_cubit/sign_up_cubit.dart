@@ -78,4 +78,5 @@ class SignUpCubit extends Cubit<SignUpState> {
       return false;
     }
   }
+
 }

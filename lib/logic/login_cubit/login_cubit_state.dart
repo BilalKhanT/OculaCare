@@ -9,6 +9,10 @@ class LoginStateInitial extends LoginState {}
 
 class LoginStateLoading extends LoginState {}
 
+class LoginStateForgotPassword extends LoginState {}
+
+class LoginStateResetPassword extends LoginState {}
+
 class LoginStateLoaded extends LoginState {
   final bool passVisible;
 

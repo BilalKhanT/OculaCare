@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ocula_care/presentation/login/widgets/forgot_password_form.dart';
 import 'package:ocula_care/presentation/login/widgets/login_form.dart';
+import 'package:ocula_care/presentation/login/widgets/reset_password_form.dart';
 
 import '../../configs/presentation/constants/colors.dart';
 import '../../logic/login_cubit/login_cubit.dart';
@@ -74,9 +76,7 @@ class LoginScreen extends StatelessWidget {
                       LoginForm(
                         passVisible: state.passVisible,
                       ),
-                      SizedBox(
-                        height: screenHeight * 0.01,
-                      ),
+                      SizedBox(height: screenHeight * 0.01,),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -106,7 +106,72 @@ class LoginScreen extends StatelessWidget {
                     ],
                   ),
                 );
-              } else {
+              }else if(state is LoginStateForgotPassword){
+                return Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 20.0, vertical: 10.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Reset Password',
+                        style: TextStyle(
+                          fontFamily: 'Poppins',
+                          fontSize: 32.sp,
+                          color: AppColors.appColor,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 1.0,
+                        ),
+                      ),
+                      Text(
+                        'Enter Registered Email',
+                        style: TextStyle(
+                          fontFamily: 'Poppins',
+                          fontSize: 16.sp,
+                          color: AppColors.textGrey,
+                        ),
+                      ),
+                      SizedBox(
+                        height: screenHeight * 0.03,
+                      ),
+                      const ForgotPasswordForm(),
+                    ],
+                  ),
+                );
+              }else if(state is LoginStateResetPassword){
+                return Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 20.0, vertical: 10.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'New Password',
+                        style: TextStyle(
+                          fontFamily: 'Poppins',
+                          fontSize: 32.sp,
+                          color: AppColors.appColor,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 1.0,
+                        ),
+                      ),
+                      Text(
+                        'Enter New Password',
+                        style: TextStyle(
+                          fontFamily: 'Poppins',
+                          fontSize: 16.sp,
+                          color: AppColors.textGrey,
+                        ),
+                      ),
+                      SizedBox(
+                        height: screenHeight * 0.03,
+                      ),
+                      const ResetPasswordForm(),
+                    ],
+                  ),
+                );
+              }
+              else {
                 return const SizedBox.shrink();
               }
             }),

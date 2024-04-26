@@ -66,4 +66,12 @@ class LoginCubit extends Cubit<LoginState> {
       return false;
     }
   }
+
+  Future forgetPassword() async{
+    emit(LoginStateForgotPassword());
+  }
+
+  Future resetPassword() async{
+    emit(LoginStateResetPassword());
+  }
 }
