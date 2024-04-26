@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:ocula_care/configs/routes/route_names.dart';
+import 'package:ocula_care/configs/utils/utils,dart.dart';
+import 'package:ocula_care/logic/otp_cubit/otp_cubit.dart';
 import '../../../configs/presentation/constants/colors.dart';
 import '../../../logic/sign_up_cubit/sign_up_cubit.dart';
 import 'cstm_flat_btn.dart';
@@ -212,10 +216,14 @@ class SignUpForm extends StatelessWidget {
             CustomFlatButton(
               onTap: () async {
                 bool flag = await signUpCubit.submitForm();
-                if (flag) {
-                  print('Success');
-                } else {
-                  print('FUCK HGYA');
+                if (flag == true) {
+                  if (context.mounted) {
+                    context.read<OtpCubit>().sendOtp(
+                        signUpCubit.emailController.text.trim(),
+                        signUpCubit.userNameController.text.trim(),
+                        signUpCubit.passwordController.text.trim());
+                    context.push(RouteNames.otpRoute);
+                  }
                 }
               },
               text: 'Register',

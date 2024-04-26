@@ -20,6 +20,7 @@ class SignUpScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.screenBackground,
       appBar: AppBar(
+        backgroundColor: AppColors.screenBackground,
         leading: IconButton(
           onPressed: () {
             context.read<SignUpCubit>().dispose();
@@ -72,14 +73,11 @@ class SignUpScreen extends StatelessWidget {
                         ),
                       ),
                       SizedBox(
-                        height: screenHeight * 0.03,
+                        height: screenHeight * 0.01,
                       ),
                       SignUpForm(
                         passVisible: state.passVisible,
                         confirmPassVisible: state.confirmPassvisible,
-                      ),
-                      SizedBox(
-                        height: screenHeight * 0.01,
                       ),
                       Center(
                         child: Text(
