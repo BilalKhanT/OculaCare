@@ -1,4 +1,3 @@
-
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,7 +13,6 @@ class SignUpCubit extends Cubit<SignUpState> {
   final confirmPassController = TextEditingController();
   bool passwordToggle = false;
   bool passwordToggle2 = false;
-
 
   dispose() {
     userNameController.clear();
@@ -46,8 +44,4 @@ class SignUpCubit extends Cubit<SignUpState> {
       return false;
     }
   }
-
-
-}
-
 }
