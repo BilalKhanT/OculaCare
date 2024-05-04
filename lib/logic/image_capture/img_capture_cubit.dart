@@ -4,6 +4,9 @@
 
 
 
+import 'dart:io';
+import 'dart:math';
+import 'package:image/image.dart' as img;
 import 'package:bloc/bloc.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
@@ -101,14 +104,6 @@ class ImageCaptureCubit extends Cubit<ImageCaptureState> {
         else {
           emit(ImageCaptureStateLoaded(false, 1));
         }
-        // final FaceLandmark? leftEye = face.landmarks[FaceLandmarkType.leftEye];
-        // final FaceLandmark? rightEye = face.landmarks[FaceLandmarkType.rightEye];
-        // if (leftEye != null && rightEye != null) {
-        //   emit(ImageCaptureStateLoaded(false));
-        // }
-        // else {
-        //   emit(ImageCaptureStateLoaded(true));
-        // }
       }
     }
     isProcessing = false;
@@ -127,5 +122,63 @@ class ImageCaptureCubit extends Cubit<ImageCaptureState> {
       default:
         return InputImageRotation.rotation0deg;
     }
+  }
+
+  void captureEyeImage() async {
+    cameraController.stopImageStream();
+    XFile imageFile = await cameraController.takePicture();
+    emit(ImageCaptureStateLoading());
+    InputImage eyeImage = InputImage.fromFilePath(imageFile.path);
+    final List<Face>? faces = await faceDetector?.processImage(eyeImage);
+    for (Face face in faces!) {
+      final FaceLandmark? leftEye = face.landmarks[FaceLandmarkType.leftEye];
+      final FaceLandmark? rightEye = face.landmarks[FaceLandmarkType.rightEye];
+       await cropImage(leftEye!.position, rightEye!.position, imageFile);
+    }
+  }
+
+  void uploadEyeImage(XFile image) async {
+    cameraController.stopImageStream();
+    emit(ImageCaptureStateLoading());
+    InputImage eyeImage = InputImage.fromFilePath(image.path);
+    final List<Face>? faces = await faceDetector?.processImage(eyeImage);
+    for (Face face in faces!) {
+      final FaceLandmark? leftEye = face.landmarks[FaceLandmarkType.leftEye];
+      final FaceLandmark? rightEye = face.landmarks[FaceLandmarkType.rightEye];
+      await cropImage(leftEye!.position, rightEye!.position, image);
+    }
+  }
+
+  Future<void> cropImage(Point<int> leftEyePosition, Point<int> rightEyePosition, XFile faceImage, {int cropWidth = 100, int cropHeight = 100}) async {
+    Uint8List imageBytes = await File(faceImage.path).readAsBytes();
+    img.Image? originalImage = img.decodeImage(imageBytes);
+
+    final int? faceImageWidth = originalImage?.width;
+    final int? faceImageHeight = originalImage?.height;
+
+    final int leftX = leftEyePosition.x.clamp(0, faceImageWidth! - 1);
+    final int leftY = leftEyePosition.y.clamp(0, faceImageHeight! - 1);
+    final int rightX = rightEyePosition.x.clamp(0, faceImageWidth - 1);
+    final int rightY = rightEyePosition.y.clamp(0, faceImageHeight - 1);
+
+    final int leftCropX = (leftX - cropWidth ~/ 2).clamp(0, faceImageWidth - cropWidth);
+    final int leftCropY = (leftY - cropHeight ~/ 2).clamp(0, faceImageHeight - cropHeight);
+    final int rightCropX = (rightX - cropWidth ~/ 2).clamp(0, faceImageWidth - cropWidth);
+    final int rightCropY = (rightY - cropHeight ~/ 2).clamp(0, faceImageHeight - cropHeight);
+
+    img.Image leftCroppedImage = img.copyCrop(originalImage!, x: leftCropX, y: leftCropY, width: cropWidth, height: cropHeight);
+    img.Image rightCroppedImage = img.copyCrop(originalImage, x: rightCropX, y: rightCropY, width: cropWidth, height: cropHeight);
+
+    leftCroppedImage = img.adjustColor(leftCroppedImage, brightness: 1.5);
+    rightCroppedImage = img.adjustColor(rightCroppedImage, brightness: 1.5);
+
+    String newPathLeft = faceImage.path.replaceAll('.jpg', '_left_cropped.jpg');
+    String newPathRight = faceImage.path.replaceAll('.jpg', '_right_cropped.jpg');
+    File(newPathLeft).writeAsBytesSync(img.encodeJpg(leftCroppedImage));
+    File(newPathRight).writeAsBytesSync(img.encodeJpg(rightCroppedImage));
+    XFile leftEyeXFile = XFile(newPathLeft);
+    XFile rightEyeXFile = XFile(newPathRight);
+
+    emit(ImagesCropped(leftEyeXFile, rightEyeXFile));
   }
 }

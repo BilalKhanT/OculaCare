@@ -22,3 +22,10 @@ class ImageCaptureStateFailure extends ImageCaptureState {
 
   ImageCaptureStateFailure(this.message);
 }
+
+class ImagesCropped extends ImageCaptureState {
+  final XFile leftEye;
+  final XFile rightEye;
+
+  ImagesCropped(this.leftEye, this.rightEye);
+}

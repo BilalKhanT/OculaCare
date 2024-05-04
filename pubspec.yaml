@@ -35,6 +35,8 @@ dependencies:
   lottie: ^3.1.0
   google_mlkit_face_detection: ^0.10.1
   pinput: ^4.0.0
+  image: ^4.1.7
+  image_picker: ^1.1.1
 
 dev_dependencies:
   flutter_test:
