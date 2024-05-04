@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:ocula_care/presentation/login/widgets/forgot_password_btn.dart';
+import 'package:OculaCare/presentation/login/widgets/forgot_password_btn.dart';
 import '../../../configs/presentation/constants/colors.dart';
 import '../../../logic/login_cubit/login_cubit.dart';
 import '../../sign_up/widgets/cstm_flat_btn.dart';

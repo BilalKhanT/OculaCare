@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ocula_care/configs/presentation/constants/colors.dart';
-import 'package:ocula_care/configs/routes/route_names.dart';
-import 'package:ocula_care/logic/sign_up_cubit/sign_up_cubit.dart';
-import 'package:ocula_care/presentation/sign_up/widgets/cstm_flat_btn.dart';
+import 'package:OculaCare/configs/presentation/constants/colors.dart';
+import 'package:OculaCare/configs/routes/route_names.dart';
+import 'package:OculaCare/logic/sign_up_cubit/sign_up_cubit.dart';
+import 'package:OculaCare/presentation/sign_up/widgets/cstm_flat_btn.dart';
 import 'data_onboarding/content_model.dart';
 
 class OnBoardingScreen extends StatefulWidget {

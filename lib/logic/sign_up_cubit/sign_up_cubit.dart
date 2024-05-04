@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ocula_care/logic/sign_up_cubit/sign_up_state.dart';
+import 'package:OculaCare/logic/sign_up_cubit/sign_up_state.dart';
 
 class SignUpCubit extends Cubit<SignUpState> {
   SignUpCubit() : super(SignUpStateInitial());

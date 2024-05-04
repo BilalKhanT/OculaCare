@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ocula_care/logic/otp_cubit/otp_cubit.dart';
-import 'package:ocula_care/logic/otp_cubit/otp_state.dart';
+import 'package:OculaCare/logic/otp_cubit/otp_cubit.dart';
+import 'package:OculaCare/logic/otp_cubit/otp_state.dart';
 import 'package:pinput/pinput.dart';
 import '../../configs/presentation/constants/colors.dart';
 

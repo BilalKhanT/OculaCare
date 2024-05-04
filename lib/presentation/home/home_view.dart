@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ocula_care/configs/routes/route_names.dart';
-import 'package:ocula_care/logic/image_capture/img_capture_cubit.dart';
+import 'package:OculaCare/configs/routes/route_names.dart';
+import 'package:OculaCare/logic/image_capture/img_capture_cubit.dart';
 
 import '../../configs/presentation/constants/colors.dart';
 
