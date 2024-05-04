@@ -100,6 +100,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 );
               },
               text: currentIndex == contents.length - 1 ? "Get Started" : "Next",
+              btnColor: AppColors.appColor,
             ),
           ),
           // Container(

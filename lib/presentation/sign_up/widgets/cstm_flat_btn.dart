@@ -5,11 +5,13 @@ import '../../../configs/presentation/constants/colors.dart';
 class CustomFlatButton extends StatelessWidget {
   final VoidCallback onTap;
   final String text;
+  final Color btnColor;
 
   const CustomFlatButton({
     Key? key,
     required this.onTap,
     required this.text,
+    required this.btnColor,
   }) : super(key: key);
 
   @override
@@ -18,7 +20,7 @@ class CustomFlatButton extends StatelessWidget {
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
-          color: AppColors.appColor,
+          color: btnColor,
           borderRadius: BorderRadius.circular(8.0),
         ),
         child: Padding(

@@ -124,6 +124,7 @@ class LoginForm extends StatelessWidget {
                 }
               },
               text: 'Login',
+              btnColor: AppColors.appColor,
             ),
           ],
         ),

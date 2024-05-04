@@ -24,9 +24,11 @@ class ImageCaptureScreen extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: AppColors.screenBackground,
           leading: IconButton(
-            onPressed: () {
-              context.read<ImageCaptureCubit>().dispose();
-              context.go(RouteNames.homeRoute);
+            onPressed: () async {
+              await context.read<ImageCaptureCubit>().dispose();
+              if (context.mounted) {
+                context.go(RouteNames.homeRoute);
+              }
             },
             icon: const Icon(
               Icons.arrow_back_ios_new,
@@ -71,16 +73,33 @@ class ImageCaptureScreen extends StatelessWidget {
                               repeat: true,
                             ),
                           ),
-                          disable == true ? Text(state.status == 1 ? ' No Face Detected' : 'Please place eyes with in camera frame',
-                          style: TextStyle(
-                            fontSize: 16.sp,
-                            fontFamily: 'Poppins',
-                            color: Colors.red,
-                            fontWeight: FontWeight.bold,
-                          ),) : const SizedBox.shrink(),
+                          disable == true
+                              ? Text(
+                                  state.status == 1
+                                      ? ' No Face Detected'
+                                      : 'Please place eyes with in camera frame',
+                                  style: TextStyle(
+                                    fontSize: 16.sp,
+                                    fontFamily: 'Poppins',
+                                    color: Colors.red,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                )
+                              : const SizedBox.shrink(),
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 20.0),
-                            child: disable ? CustomFlatButton(onTap: () {}, text: 'Disabled') : CustomFlatButton(onTap: () {}, text: 'Capture'),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 30.0, vertical: 20.0),
+                            child: disable
+                                ? CustomFlatButton(
+                                    onTap: () {},
+                                    text: 'Disabled',
+                                    btnColor: Colors.grey,
+                                  )
+                                : CustomFlatButton(
+                                    onTap: () {},
+                                    text: 'Capture',
+                                    btnColor: AppColors.appColor,
+                                  ),
                           )
                         ],
                       ),

@@ -128,6 +128,7 @@ class ResetPasswordForm extends StatelessWidget {
                 }
               },
               text: 'Submit Email',
+              btnColor: AppColors.appColor,
             ),
           ],
         ),

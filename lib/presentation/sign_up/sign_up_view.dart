@@ -26,7 +26,7 @@ class SignUpScreen extends StatelessWidget {
         leading: IconButton(
           onPressed: () {
             context.read<SignUpCubit>().dispose();
-            context.pop();
+            context.push(RouteNames.homeRoute);
           },
           icon: const Icon(
             Icons.arrow_back_ios_new,

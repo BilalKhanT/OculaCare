@@ -59,6 +59,7 @@ class ForgotPasswordForm extends StatelessWidget {
                 loginCubit.resetPassword();
               },
               text: 'Submit Email',
+              btnColor: AppColors.appColor,
             ),
           ],
         ),
