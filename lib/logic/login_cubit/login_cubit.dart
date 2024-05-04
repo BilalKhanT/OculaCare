@@ -45,17 +45,9 @@ class LoginCubit extends Cubit<LoginState> {
         log('Response body: ${response.body}');
 
         if (response.statusCode == 200) {
-          var data = jsonDecode(response.body);
-          var otp = data['otp'];
-          if (otp == 'User Not Found') {
-            return false;
-          } else if(otp == 'Incorrect Password'){
-            return false;
-          } else {
-            return true;
-          }
+          return true;
         } else {
-          log('Server error with status code: ${response.statusCode}');
+
           return false;
         }
       } catch (e) {

@@ -1,8 +1,11 @@
+import 'package:OculaCare/configs/utils/utils,dart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:OculaCare/presentation/login/widgets/forgot_password_btn.dart';
+import 'package:go_router/go_router.dart';
 import '../../../configs/presentation/constants/colors.dart';
+import '../../../configs/routes/route_names.dart';
 import '../../../logic/login_cubit/login_cubit.dart';
 import '../../sign_up/widgets/cstm_flat_btn.dart';
 
@@ -118,9 +121,11 @@ class LoginForm extends StatelessWidget {
               onTap: () async {
                 bool flag = await loginCubit.submitForm();
                 if (flag) {
-                  print('Success');
+                  if (context.mounted) {
+                    context.go(RouteNames.homeRoute);
+                  }
                 } else {
-                  print('FUCK HGYA');
+                  AppUtils.showToast(context, "Login Error", "Invalid login credentials", true);
                 }
               },
               text: 'Login',
