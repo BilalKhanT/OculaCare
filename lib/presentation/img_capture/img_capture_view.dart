@@ -1,9 +1,6 @@
 import 'dart:io';
-
 import 'package:camera/camera.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -14,8 +11,7 @@ import 'package:OculaCare/logic/image_capture/img_capture_state.dart';
 import 'package:OculaCare/presentation/sign_up/widgets/cstm_flat_btn.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
-
-import '../../configs/utils/utils,dart.dart';
+import '../../configs/utils/utils.dart';
 
 class ImageCaptureScreen extends StatelessWidget {
   const ImageCaptureScreen({Key? key}) : super(key: key);
