@@ -58,7 +58,7 @@ class ImageCaptureScreen extends StatelessWidget {
                 bool disable = state.disable;
                 CameraController camera =
                     context.read<ImageCaptureCubit>().cameraController;
-                return Stack(
+                return camera.value.isInitialized == true ? Stack(
                   children: [
                     SizedBox(
                       height: height,
@@ -143,6 +143,8 @@ class ImageCaptureScreen extends StatelessWidget {
                       ),
                     ),
                   ],
+                ) : const Center(
+                  child: CircularProgressIndicator(color: AppColors.appColor,),
                 );
               } else if (state is ImagesCropped) {
                 return Padding(

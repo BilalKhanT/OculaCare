@@ -1,4 +1,6 @@
 
+import 'dart:convert';
+
 import 'package:flutter_file_dialog/flutter_file_dialog.dart';
 import 'dart:io';
 import 'dart:math';
@@ -7,7 +9,7 @@ import 'package:bloc/bloc.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:OculaCare/configs/utils/utils,dart.dart';
+import 'package:http/http.dart' as http;
 import 'img_capture_state.dart';
 import 'package:google_mlkit_face_detection/google_mlkit_face_detection.dart';
 
@@ -21,8 +23,10 @@ class ImageCaptureCubit extends Cubit<ImageCaptureState> {
   FaceDetector? faceDetector;
   List<Face>? facesList;
   bool isProcessing = false;
+  bool isCapturing = false;
 
   Future<void> dispose() async {
+    cameraController.stopImageStream();
     isProcessing = false;
     emit(ImageCaptureStateInitial());
     cameraController.dispose();
@@ -87,18 +91,20 @@ class ImageCaptureCubit extends Cubit<ImageCaptureState> {
 
   detectEyePresence(InputImage inputImage) async {
     final List<Face>? faces = await faceDetector?.processImage(inputImage);
-    if (faces!.isEmpty) {
-      emit(ImageCaptureStateInitial());
-      emit(ImageCaptureStateLoaded(true, 1));
-    }
-    else {
-      emit(ImageCaptureStateInitial());
-      for (Face face in faces) {
-        if (face.leftEyeOpenProbability! < 0.2 || face.rightEyeOpenProbability! < 0.2) {
-          emit(ImageCaptureStateLoaded(true, 0));
-        }
-        else {
-          emit(ImageCaptureStateLoaded(false, 1));
+    if (!isCapturing) {
+      if (faces!.isEmpty) {
+        emit(ImageCaptureStateInitial());
+        emit(ImageCaptureStateLoaded(true, 1));
+      }
+      else {
+        emit(ImageCaptureStateInitial());
+        for (Face face in faces) {
+          if (face.leftEyeOpenProbability! < 0.2 || face.rightEyeOpenProbability! < 0.2) {
+            emit(ImageCaptureStateLoaded(true, 0));
+          }
+          else {
+            emit(ImageCaptureStateLoaded(false, 1));
+          }
         }
       }
     }
@@ -121,9 +127,23 @@ class ImageCaptureCubit extends Cubit<ImageCaptureState> {
   }
 
   void captureEyeImage() async {
-    cameraController.stopImageStream();
-    XFile imageFile = await cameraController.takePicture();
+    isCapturing = true;
     emit(ImageCaptureStateLoading());
+    await cameraController.stopImageStream();
+    await cameraController.dispose();
+    _cameras = await availableCameras();
+    final frontCamera = _cameras.firstWhere(
+          (camera) => camera.lensDirection == CameraLensDirection.front,
+      orElse: () => _cameras.first,
+    );
+    cameraController = CameraController(
+      frontCamera,
+      ResolutionPreset.ultraHigh,
+      imageFormatGroup: ImageFormatGroup.jpeg,
+      enableAudio: false,
+    );
+    await cameraController.initialize();
+    XFile imageFile = await cameraController.takePicture();
     InputImage eyeImage = InputImage.fromFilePath(imageFile.path);
     final List<Face>? faces = await faceDetector?.processImage(eyeImage);
     for (Face face in faces!) {
@@ -134,6 +154,7 @@ class ImageCaptureCubit extends Cubit<ImageCaptureState> {
   }
 
   void uploadEyeImage(XFile image) async {
+    isCapturing = true;
     cameraController.stopImageStream();
     emit(ImageCaptureStateLoading());
     InputImage eyeImage = InputImage.fromFilePath(image.path);
@@ -176,6 +197,7 @@ class ImageCaptureCubit extends Cubit<ImageCaptureState> {
     XFile rightEyeXFile = XFile(newPathRight);
 
     emit(ImagesCropped(leftEyeXFile, rightEyeXFile, false, false));
+    isCapturing = false;
   }
 
   void switchButtonLeft(XFile left, XFile right, bool leftFlag, bool rightFlag) {
@@ -197,5 +219,24 @@ class ImageCaptureCubit extends Cubit<ImageCaptureState> {
     else {
       return false;
     }
+  }
+
+  Future<void> uploadImageToServer(XFile leftEye, XFile rightEye) async{
+    String leftEyeBase64 = await imageToBase64(leftEye);
+    String rightEyeBase64 = await imageToBase64(rightEye);
+    Map<String, dynamic> payload = {
+      'left_eye': leftEyeBase64,
+      'right_eye': rightEyeBase64,
+    };
+    var response = await http.post(
+      Uri.parse('https://yourapi.com/upload'),
+      headers: {"Content-Type": "application/json"},
+      body: json.encode(payload),
+    );
+  }
+
+  Future<String> imageToBase64(XFile file) async {
+    List<int> imageBytes = await file.readAsBytes();
+    return base64Encode(imageBytes);
   }
 }
