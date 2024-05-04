@@ -24,3 +24,7 @@ class LoginStateFailure extends LoginState {
 
   LoginStateFailure(this.errorMsg);
 }
+
+class LoginSuccessState extends LoginState {}
+
+class LoginFailedState extends LoginState {}
