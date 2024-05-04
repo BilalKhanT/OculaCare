@@ -15,6 +15,8 @@ import 'package:OculaCare/presentation/sign_up/widgets/cstm_flat_btn.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
 
+import '../../configs/utils/utils,dart.dart';
+
 class ImageCaptureScreen extends StatelessWidget {
   const ImageCaptureScreen({Key? key}) : super(key: key);
 
@@ -150,55 +152,278 @@ class ImageCaptureScreen extends StatelessWidget {
                 return Padding(
                   padding: const EdgeInsets.symmetric(
                       horizontal: 20.0, vertical: 20.0),
-                  child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Left Eye',
-                            style: TextStyle(
-                              fontFamily: 'Poppins',
-                              fontSize: 24.sp,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
+                  child: Stack(
+                    children: [
+                      SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                context
+                                    .read<ImageCaptureCubit>()
+                                    .switchButtonLeft(
+                                        state.leftEye,
+                                        state.rightEye,
+                                        !state.leftOpen,
+                                        state.rightOpen);
+                              },
+                              child: Container(
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(15.0),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        offset: const Offset(1, 3),
+                                        blurRadius: 20,
+                                        color: const Color(0xFFD3D3D3)
+                                            .withOpacity(.99),
+                                      ),
+                                    ],
+                                  ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 15.0, vertical: 20.0),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: <Widget>[
+                                            Row(
+                                              children: [
+                                                Container(
+                                                  height: 50,
+                                                  width: 50,
+                                                  decoration: BoxDecoration(
+                                                    color: AppColors.appColor,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            50.0),
+                                                  ),
+                                                  child: const Icon(
+                                                    Icons
+                                                        .remove_red_eye_outlined,
+                                                    color: Colors.white,
+                                                  ),
+                                                ),
+                                                const SizedBox(
+                                                  width: 15.0,
+                                                ),
+                                                Text(
+                                                  'Left Eye',
+                                                  style: TextStyle(
+                                                    fontFamily: 'Poppins',
+                                                    fontSize: 20.sp,
+                                                    fontWeight: FontWeight.w600,
+                                                    color: Colors.black,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            const Icon(
+                                              Icons
+                                                  .keyboard_arrow_down_outlined,
+                                              color: AppColors.appColor,
+                                              size: 40.0,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      state.leftOpen == true
+                                          ? Row(
+                                              children: <Widget>[
+                                                Image.file(
+                                                  File(state.leftEye.path),
+                                                  height: 150,
+                                                ),
+                                                Expanded(
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            right: 20.0),
+                                                    child: CustomFlatButton(
+                                                      onTap: () async {
+                                                        bool flag = await context
+                                                            .read<
+                                                                ImageCaptureCubit>()
+                                                            .downloadFile(
+                                                                state.leftEye
+                                                                    .path,
+                                                                'image');
+                                                        if (context.mounted) {
+                                                          AppUtils.showToast(
+                                                              context,
+                                                              flag
+                                                                  ? 'Success'
+                                                                  : 'Failed',
+                                                              flag
+                                                                  ? 'File downloaded successfully'
+                                                                  : 'Failed to download file',
+                                                              !flag);
+                                                        }
+                                                      },
+                                                      text: 'Download',
+                                                      btnColor:
+                                                          AppColors.appColor,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            )
+                                          : const SizedBox.shrink(),
+                                    ],
+                                  )),
                             ),
-                          ),
-                          Center(
-                            child: Image.file(
-                              File(state.leftEye.path),
-                              height: 150,
+                            const SizedBox(
+                              height: 50,
                             ),
-                          ),
-                          const SizedBox(
-                            height: 50,
-                          ),
-                          Text(
-                            'Right Eye',
-                            style: TextStyle(
-                              fontFamily: 'Poppins',
-                              fontSize: 24.sp,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
+                            GestureDetector(
+                              onTap: () {
+                                context
+                                    .read<ImageCaptureCubit>()
+                                    .switchButtonRight(
+                                        state.leftEye,
+                                        state.rightEye,
+                                        state.leftOpen,
+                                        !state.rightOpen);
+                              },
+                              child: Container(
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(15.0),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        offset: const Offset(1, 3),
+                                        blurRadius: 20,
+                                        color: const Color(0xFFD3D3D3)
+                                            .withOpacity(.99),
+                                      ),
+                                    ],
+                                  ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 15.0, vertical: 20.0),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: <Widget>[
+                                            Row(
+                                              children: [
+                                                Container(
+                                                  height: 50,
+                                                  width: 50,
+                                                  decoration: BoxDecoration(
+                                                    color: AppColors.appColor,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            50.0),
+                                                  ),
+                                                  child: const Icon(
+                                                    Icons
+                                                        .remove_red_eye_outlined,
+                                                    color: Colors.white,
+                                                  ),
+                                                ),
+                                                const SizedBox(
+                                                  width: 15.0,
+                                                ),
+                                                Text(
+                                                  'Right Eye',
+                                                  style: TextStyle(
+                                                    fontFamily: 'Poppins',
+                                                    fontSize: 20.sp,
+                                                    fontWeight: FontWeight.w600,
+                                                    color: Colors.black,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            const Icon(
+                                              Icons
+                                                  .keyboard_arrow_down_outlined,
+                                              color: AppColors.appColor,
+                                              size: 40.0,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      state.rightOpen == true
+                                          ? Row(
+                                              children: <Widget>[
+                                                Image.file(
+                                                  File(state.rightEye.path),
+                                                  height: 150,
+                                                ),
+                                                Expanded(
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            right: 20.0),
+                                                    child: CustomFlatButton(
+                                                      onTap: () async {
+                                                        bool flag = await context
+                                                            .read<
+                                                                ImageCaptureCubit>()
+                                                            .downloadFile(
+                                                                state.rightEye
+                                                                    .path,
+                                                                'image');
+                                                        if (context.mounted) {
+                                                          AppUtils.showToast(
+                                                              context,
+                                                              flag
+                                                                  ? 'Success'
+                                                                  : 'Failed',
+                                                              flag
+                                                                  ? 'File downloaded successfully'
+                                                                  : 'Failed to download file',
+                                                              !flag);
+                                                        }
+                                                      },
+                                                      text: 'Download',
+                                                      btnColor:
+                                                          AppColors.appColor,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            )
+                                          : const SizedBox.shrink(),
+                                    ],
+                                  )),
                             ),
-                          ),
-                          Center(
-                            child: Image.file(
-                              File(state.rightEye.path),
-                              height: 150,
-                            ),
-                          ),
-                          const SizedBox(height: 150.0,),
-                          Row(
+                          ],
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Padding(
+                          padding: const EdgeInsets.only(bottom: 20.0),
+                          child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              Expanded(
+                              SizedBox(
+                                height: 60,
+                                width: width - ((width / 2) + 30),
                                 child: CustomFlatButton(
-                                  onTap: () {},
+                                  onTap: () {
+                                    context.read<ImageCaptureCubit>().initializeCamera();
+                                  },
                                   text: 'Recapture',
                                   btnColor: AppColors.appColor,
                                 ),
                               ),
-                              const SizedBox(width: 10.0,),
-                              Expanded(
+                              const SizedBox(width: 10.0),
+                              SizedBox(
+                                height: 60,
+                                width: width - ((width / 2) + 30),
                                 child: CustomFlatButton(
                                   onTap: () {},
                                   text: 'Upload',
@@ -207,8 +432,10 @@ class ImageCaptureScreen extends StatelessWidget {
                               ),
                             ],
                           ),
-                        ],
+                        ),
                       ),
+                    ],
+                  ),
                 );
               } else {
                 return const SizedBox.shrink();

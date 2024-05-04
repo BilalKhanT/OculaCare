@@ -1,9 +1,5 @@
 
-
-
-
-
-
+import 'package:flutter_file_dialog/flutter_file_dialog.dart';
 import 'dart:io';
 import 'dart:math';
 import 'package:image/image.dart' as img;
@@ -179,6 +175,27 @@ class ImageCaptureCubit extends Cubit<ImageCaptureState> {
     XFile leftEyeXFile = XFile(newPathLeft);
     XFile rightEyeXFile = XFile(newPathRight);
 
-    emit(ImagesCropped(leftEyeXFile, rightEyeXFile));
+    emit(ImagesCropped(leftEyeXFile, rightEyeXFile, false, false));
+  }
+
+  void switchButtonLeft(XFile left, XFile right, bool leftFlag, bool rightFlag) {
+    emit(ImageCaptureStateLoading());
+    emit(ImagesCropped(left, right, leftFlag, rightFlag));
+  }
+
+  void switchButtonRight(XFile left, XFile right, bool leftFlag, bool rightFlag) {
+    emit(ImageCaptureStateLoading());
+    emit(ImagesCropped(left, right, leftFlag, rightFlag));
+  }
+
+  Future<bool> downloadFile(String path, String suggestedName) async {
+    final params = SaveFileDialogParams(sourceFilePath: path, fileName: suggestedName);
+    final filePath = await FlutterFileDialog.saveFile(params: params);
+    if (filePath != null) {
+      return true;
+    }
+    else {
+      return false;
+    }
   }
 }
