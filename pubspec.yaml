@@ -1,4 +1,4 @@
-name: ocula_care
+name: OculaCare
 description: "Final Year Project."
 publish_to: 'none'
 version: 1.0.0+1
@@ -40,6 +40,14 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
+  flutter_launcher_icons: ^0.13.1
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/android_icon.png"
+  adaptive_icon_foreground: "assets/images/app_logo.png"
+  adaptive_icon_background: "#F9FAFB"
 
 
 flutter:
