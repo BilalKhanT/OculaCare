@@ -23,7 +23,9 @@ class ImageCaptureCubit extends Cubit<ImageCaptureState> {
   List<Face>? facesList;
   bool isProcessing = false;
 
-  void dispose() {
+  Future<void> dispose() async {
+    isProcessing = false;
+    emit(ImageCaptureStateInitial());
     cameraController.dispose();
     faceDetector?.close();
   }
@@ -93,7 +95,7 @@ class ImageCaptureCubit extends Cubit<ImageCaptureState> {
     else {
       emit(ImageCaptureStateInitial());
       for (Face face in faces) {
-        if (face.leftEyeOpenProbability! < 0.2 && face.rightEyeOpenProbability! < 0.2) {
+        if (face.leftEyeOpenProbability! < 0.2 || face.rightEyeOpenProbability! < 0.2) {
           emit(ImageCaptureStateLoaded(true, 0));
         }
         else {
