@@ -166,7 +166,7 @@ class ImageCaptureCubit extends Cubit<ImageCaptureState> {
     }
   }
 
-  Future<void> cropImage(Point<int> leftEyePosition, Point<int> rightEyePosition, XFile faceImage, {int cropWidth = 100, int cropHeight = 100}) async {
+  Future<void> cropImage(Point<int> leftEyePosition, Point<int> rightEyePosition, XFile faceImage, {int cropWidth = 250, int cropHeight = 250}) async {
     Uint8List imageBytes = await File(faceImage.path).readAsBytes();
     img.Image? originalImage = img.decodeImage(imageBytes);
 
@@ -186,8 +186,8 @@ class ImageCaptureCubit extends Cubit<ImageCaptureState> {
     img.Image leftCroppedImage = img.copyCrop(originalImage!, x: leftCropX, y: leftCropY, width: cropWidth, height: cropHeight);
     img.Image rightCroppedImage = img.copyCrop(originalImage, x: rightCropX, y: rightCropY, width: cropWidth, height: cropHeight);
 
-    leftCroppedImage = img.adjustColor(leftCroppedImage, brightness: 1.5);
-    rightCroppedImage = img.adjustColor(rightCroppedImage, brightness: 1.5);
+    leftCroppedImage = img.adjustColor(leftCroppedImage, brightness: 1.0);
+    rightCroppedImage = img.adjustColor(rightCroppedImage, brightness: 1.0);
 
     String newPathLeft = faceImage.path.replaceAll('.jpg', '_left_cropped.jpg');
     String newPathRight = faceImage.path.replaceAll('.jpg', '_right_cropped.jpg');

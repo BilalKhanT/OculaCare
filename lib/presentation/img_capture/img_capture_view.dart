@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:camera/camera.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -58,94 +59,99 @@ class ImageCaptureScreen extends StatelessWidget {
                 bool disable = state.disable;
                 CameraController camera =
                     context.read<ImageCaptureCubit>().cameraController;
-                return camera.value.isInitialized == true ? Stack(
-                  children: [
-                    SizedBox(
-                      height: height,
-                      width: width,
-                      child: CameraPreview(
-                        camera,
-                      ),
-                    ),
-                    Center(
-                      child: Column(
+                return camera.value.isInitialized == true
+                    ? Stack(
                         children: [
-                          Expanded(
-                            child: Lottie.asset(
-                              "assets/lotties/face_scan.json",
-                              repeat: true,
+                          SizedBox(
+                            height: height,
+                            width: width,
+                            child: CameraPreview(
+                              camera,
                             ),
                           ),
-                          disable == true
-                              ? Text(
-                                  state.status == 1
-                                      ? ' No Face Detected'
-                                      : 'Please place eyes with in camera frame',
-                                  style: TextStyle(
-                                    fontSize: 16.sp,
-                                    fontFamily: 'Poppins',
-                                    color: Colors.red,
-                                    fontWeight: FontWeight.bold,
+                          Center(
+                            child: Column(
+                              children: [
+                                Expanded(
+                                  child: Lottie.asset(
+                                    "assets/lotties/face_scan.json",
+                                    repeat: true,
                                   ),
-                                )
-                              : const SizedBox.shrink(),
-                          Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 30.0, vertical: 20.0),
-                              child: Row(
-                                children: [
-                                  disable
-                                      ? Expanded(
-                                          child: CustomFlatButton(
-                                            onTap: () {},
-                                            text: 'Disabled',
-                                            btnColor: Colors.grey,
-                                          ),
-                                        )
-                                      : Expanded(
-                                          child: CustomFlatButton(
-                                            onTap: () {
+                                ),
+                                disable == true
+                                    ? Text(
+                                        state.status == 1
+                                            ? ' No Face Detected'
+                                            : 'Please place eyes with in camera frame',
+                                        style: TextStyle(
+                                          fontSize: 16.sp,
+                                          fontFamily: 'Poppins',
+                                          color: Colors.red,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      )
+                                    : const SizedBox.shrink(),
+                                Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 30.0, vertical: 20.0),
+                                    child: Row(
+                                      children: [
+                                        disable
+                                            ? Expanded(
+                                                child: CustomFlatButton(
+                                                  onTap: () {},
+                                                  text: 'Disabled',
+                                                  btnColor: Colors.grey,
+                                                ),
+                                              )
+                                            : Expanded(
+                                                child: CustomFlatButton(
+                                                  onTap: () {
+                                                    context
+                                                        .read<
+                                                            ImageCaptureCubit>()
+                                                        .captureEyeImage();
+                                                  },
+                                                  text: 'Capture',
+                                                  btnColor: AppColors.appColor,
+                                                ),
+                                              ),
+                                        const SizedBox(
+                                          width: 10.0,
+                                        ),
+                                        IconButton(
+                                          onPressed: () async {
+                                            final pickedFile =
+                                                await ImagePicker().pickImage(
+                                              source: ImageSource.gallery,
+                                              maxWidth: 1800,
+                                              maxHeight: 1800,
+                                              imageQuality: 85,
+                                            );
+                                            if (context.mounted) {
                                               context
                                                   .read<ImageCaptureCubit>()
-                                                  .captureEyeImage();
-                                            },
-                                            text: 'Capture',
-                                            btnColor: AppColors.appColor,
+                                                  .uploadEyeImage(pickedFile!);
+                                            }
+                                          },
+                                          icon: const Icon(
+                                            Icons.image_outlined,
+                                            color: Colors.white,
+                                            size: 50,
                                           ),
-                                        ),
-                                  const SizedBox(
-                                    width: 10.0,
-                                  ),
-                                  IconButton(
-                                    onPressed: () async {
-                                      final pickedFile =
-                                          await ImagePicker().pickImage(
-                                        source: ImageSource.gallery,
-                                        maxWidth: 1800,
-                                        maxHeight: 1800,
-                                        imageQuality: 85,
-                                      );
-                                      if (context.mounted) {
-                                        context
-                                            .read<ImageCaptureCubit>()
-                                            .uploadEyeImage(pickedFile!);
-                                      }
-                                    },
-                                    icon: const Icon(
-                                      Icons.image_outlined,
-                                      color: Colors.white,
-                                      size: 50,
-                                    ),
-                                  )
-                                ],
-                              )),
+                                        )
+                                      ],
+                                    )),
+                              ],
+                            ),
+                          ),
                         ],
-                      ),
-                    ),
-                  ],
-                ) : const Center(
-                  child: CircularProgressIndicator(color: AppColors.appColor,),
-                );
+                      )
+                    : const Center(
+                        child: CircularProgressIndicator(
+                          color: AppColors.appColor,
+                        ),
+                      );
               } else if (state is ImagesCropped) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(
@@ -215,7 +221,7 @@ class ImageCaptureScreen extends StatelessWidget {
                                                   style: TextStyle(
                                                     fontFamily: 'Poppins',
                                                     fontSize: 20.sp,
-                                                    fontWeight: FontWeight.w600,
+                                                    fontWeight: FontWeight.w400,
                                                     color: Colors.black,
                                                   ),
                                                 ),
@@ -233,15 +239,21 @@ class ImageCaptureScreen extends StatelessWidget {
                                       state.leftOpen == true
                                           ? Row(
                                               children: <Widget>[
-                                                Image.file(
-                                                  File(state.leftEye.path),
-                                                  height: 150,
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          left: 10.0,
+                                                          bottom: 10.0),
+                                                  child: Image.file(
+                                                    File(state.leftEye.path),
+                                                    height: 150,
+                                                  ),
                                                 ),
                                                 Expanded(
                                                   child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            right: 20.0),
+                                                    padding: const EdgeInsets
+                                                        .symmetric(
+                                                        horizontal: 20.0),
                                                     child: CustomFlatButton(
                                                       onTap: () async {
                                                         bool flag = await context
@@ -337,7 +349,7 @@ class ImageCaptureScreen extends StatelessWidget {
                                                   style: TextStyle(
                                                     fontFamily: 'Poppins',
                                                     fontSize: 20.sp,
-                                                    fontWeight: FontWeight.w600,
+                                                    fontWeight: FontWeight.w400,
                                                     color: Colors.black,
                                                   ),
                                                 ),
@@ -355,15 +367,21 @@ class ImageCaptureScreen extends StatelessWidget {
                                       state.rightOpen == true
                                           ? Row(
                                               children: <Widget>[
-                                                Image.file(
-                                                  File(state.rightEye.path),
-                                                  height: 150,
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          left: 10.0,
+                                                          bottom: 10.0),
+                                                  child: Image.file(
+                                                    File(state.rightEye.path),
+                                                    height: 150,
+                                                  ),
                                                 ),
                                                 Expanded(
                                                   child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            right: 20.0),
+                                                    padding: const EdgeInsets
+                                                        .symmetric(
+                                                        horizontal: 20.0),
                                                     child: CustomFlatButton(
                                                       onTap: () async {
                                                         bool flag = await context
@@ -412,7 +430,9 @@ class ImageCaptureScreen extends StatelessWidget {
                                 width: width - ((width / 2) + 30),
                                 child: CustomFlatButton(
                                   onTap: () {
-                                    context.read<ImageCaptureCubit>().initializeCamera();
+                                    context
+                                        .read<ImageCaptureCubit>()
+                                        .initializeCamera();
                                   },
                                   text: 'Recapture',
                                   btnColor: AppColors.appColor,
