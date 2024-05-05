@@ -1,6 +1,8 @@
 
 import 'dart:convert';
 
+import 'package:OculaCare/configs/app/app_globals.dart';
+import 'package:OculaCare/data/models/disease_result/disease_result_model.dart';
 import 'package:flutter_file_dialog/flutter_file_dialog.dart';
 import 'dart:io';
 import 'dart:math';
@@ -228,17 +230,27 @@ class ImageCaptureCubit extends Cubit<ImageCaptureState> {
       'left_eye': leftEyeBase64,
       'right_eye': rightEyeBase64,
     };
-    var response = await http.post(
-      Uri.parse('http://192.168.18.37:5000/predict'),
-      headers: {"Content-Type": "application/json"},
-      body: json.encode(payload),
-    );
-    if (response.statusCode == 200) {
-      var data = jsonDecode(response.body);
-      print('--------------------------');
-      print('RESULT');
-      print(data);
-      print('--------------------------');
+    print('left_eye');
+    print(leftEyeBase64);
+    print('right_eye');
+    print(rightEyeBase64);
+    try{
+      var response = await http.post(
+        Uri.parse('http://192.168.18.37:8000/predict'),
+        headers: {"Content-Type": "application/json"},
+        body: json.encode(payload),
+      );
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+        DiseaseResultModel result = DiseaseResultModel.fromJson(data);
+        globalResults.add(result);
+      }
+      else{
+        print("Nothing ${response.statusCode}");
+      }
+    }
+    catch(e) {
+      print('error $e');
     }
   }
 
