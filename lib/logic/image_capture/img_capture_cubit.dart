@@ -229,7 +229,7 @@ class ImageCaptureCubit extends Cubit<ImageCaptureState> {
       'right_eye': rightEyeBase64,
     };
     var response = await http.post(
-      Uri.parse('https://192.168.18.37:5000/predict'),
+      Uri.parse('http://192.168.18.37:5000/predict'),
       headers: {"Content-Type": "application/json"},
       body: json.encode(payload),
     );
