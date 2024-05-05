@@ -119,14 +119,15 @@ class LoginForm extends StatelessWidget {
             ),
             CustomFlatButton(
               onTap: () async {
-                bool flag = await loginCubit.submitForm();
-                if (flag) {
-                  if (context.mounted) {
-                    context.go(RouteNames.homeRoute);
-                  }
-                } else {
-                  AppUtils.showToast(context, "Login Error", "Invalid login credentials", true);
-                }
+                context.go(RouteNames.homeRoute);
+                // bool flag = await loginCubit.submitForm();
+                // if (flag) {
+                //   if (context.mounted) {
+                //     context.go(RouteNames.homeRoute);
+                //   }
+                // } else {
+                //   AppUtils.showToast(context, "Login Error", "Invalid login credentials", true);
+                // }
               },
               text: 'Login',
               btnColor: AppColors.appColor,
