@@ -229,10 +229,17 @@ class ImageCaptureCubit extends Cubit<ImageCaptureState> {
       'right_eye': rightEyeBase64,
     };
     var response = await http.post(
-      Uri.parse('https://yourapi.com/upload'),
+      Uri.parse('https://192.168.18.37:5000/predict'),
       headers: {"Content-Type": "application/json"},
       body: json.encode(payload),
     );
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      print('--------------------------');
+      print('RESULT');
+      print(data);
+      print('--------------------------');
+    }
   }
 
   Future<String> imageToBase64(XFile file) async {

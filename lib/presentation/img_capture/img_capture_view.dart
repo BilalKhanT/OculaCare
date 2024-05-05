@@ -443,7 +443,9 @@ class ImageCaptureScreen extends StatelessWidget {
                                 height: 60,
                                 width: width - ((width / 2) + 30),
                                 child: CustomFlatButton(
-                                  onTap: () {},
+                                  onTap: () {
+                                    context.read<ImageCaptureCubit>().uploadImageToServer(state.leftEye, state.rightEye);
+                                  },
                                   text: 'Upload',
                                   btnColor: AppColors.appColor,
                                 ),
