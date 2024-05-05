@@ -1,4 +1,4 @@
-import 'package:OculaCare/configs/utils/utils,dart.dart';
+import 'package:OculaCare/configs/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -119,14 +119,15 @@ class LoginForm extends StatelessWidget {
             ),
             CustomFlatButton(
               onTap: () async {
-                bool flag = await loginCubit.submitForm();
-                if (flag) {
-                  if (context.mounted) {
-                    context.go(RouteNames.homeRoute);
-                  }
-                } else {
-                  AppUtils.showToast(context, "Login Error", "Invalid login credentials", true);
-                }
+                context.go(RouteNames.homeRoute);
+                // bool flag = await loginCubit.submitForm();
+                // if (flag) {
+                //   if (context.mounted) {
+                //     context.go(RouteNames.homeRoute);
+                //   }
+                // } else {
+                //   AppUtils.showToast(context, "Login Error", "Invalid login credentials", true);
+                // }
               },
               text: 'Login',
               btnColor: AppColors.appColor,
