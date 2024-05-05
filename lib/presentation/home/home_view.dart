@@ -55,7 +55,7 @@ class HomeScreen extends StatelessWidget {
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              Text(sharedPrefs.username,
+              Text('Bilal Khan',
                 style: TextStyle(
                   fontFamily: 'Poppins',
                   fontSize: 24.sp,
@@ -102,7 +102,7 @@ class HomeScreen extends StatelessWidget {
                 icon: Icons.receipt_outlined,
                 text: "View Detection Results.",
                 onTap: () {
-                  // Your onTap function logic here
+                  context.go(RouteNames.resultRoute);
                 },
               ),
             ],
