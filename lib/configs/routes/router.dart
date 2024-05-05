@@ -1,3 +1,4 @@
+import 'package:OculaCare/presentation/result/result_view.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:OculaCare/configs/routes/route_names.dart';
@@ -19,6 +20,10 @@ final router = GoRouter(
     GoRoute(
       path: RouteNames.signUpRoute,
       builder: (context, state) => const SignUpScreen(),
+    ),
+    GoRoute(
+      path: RouteNames.resultRoute,
+      builder: (context, state) => const ResultView(),
     ),
     GoRoute(
       path: RouteNames.onBoardingRoute,

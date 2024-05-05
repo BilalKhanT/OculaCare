@@ -5,4 +5,5 @@ class RouteNames {
   static const String otpRoute = '/otp';
   static const String homeRoute = '/home';
   static const String imgCaptureRoute = '/imgCapture';
+  static const String resultRoute = '/resultRoute';
 }
