@@ -43,7 +43,7 @@ class ScaffoldWithNavBar extends StatelessWidget {
               ),
               NavigationDestination(
                 icon: Icon(Icons.search_outlined),
-                label: 'Disease\nDetection',
+                label: 'Disease Detection',
               ),
               NavigationDestination(
                 icon: Icon(Icons.document_scanner_outlined),
