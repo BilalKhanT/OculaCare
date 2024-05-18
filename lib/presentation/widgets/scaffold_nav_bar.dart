@@ -43,19 +43,11 @@ class ScaffoldWithNavBar extends StatelessWidget {
               ),
               NavigationDestination(
                 icon: Icon(Icons.search_outlined),
-                label: 'Explore',
+                label: 'Disease\nDetection',
               ),
               NavigationDestination(
-                icon: Icon(Icons.discount_outlined),
-                label: 'Deals',
-              ),
-              NavigationDestination(
-                icon: Icon(Icons.shopping_cart_outlined),
-                label: 'Cart',
-              ),
-              NavigationDestination(
-                icon: Icon(Icons.more_horiz),
-                label: 'More',
+                icon: Icon(Icons.document_scanner_outlined),
+                label: 'Results',
               ),
             ],
           ),
