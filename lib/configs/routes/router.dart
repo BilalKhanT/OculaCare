@@ -84,8 +84,7 @@ final router = GoRouter(
     //   builder: (context, state) => const ImageCaptureScreen(),
     // ),
   ],
-  initialLocation: RouteNames.homeRoute
-  // initialLocation: sharedPrefs.isLoggedIn
-  //     ? RouteNames.homeRoute
-  //     : RouteNames.onBoardingRoute,
+  initialLocation: sharedPrefs.isLoggedIn
+      ? RouteNames.homeRoute
+      : RouteNames.onBoardingRoute,
 );
