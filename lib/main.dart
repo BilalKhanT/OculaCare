@@ -1,15 +1,22 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'configs/routes/router.dart';
 import 'multi_bloc_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  await initializeApp();
   runApp(
     const ProvideMultiBloc(child: MyApp()),
   );
 }
+
+Future<void> initializeApp() async {
+  initialize();
+}
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -20,10 +27,14 @@ class MyApp extends StatelessWidget {
     double screenWidth = MediaQuery.sizeOf(context).width;
     return ScreenUtilInit(
       builder: (context, child) {
-        return MaterialApp.router(
-          debugShowCheckedModeBanner: false,
-          title: 'OculaCare',
-          routerConfig: router,
+        return Listener(
+          onPointerDown: (event) {
+            FocusManager.instance.primaryFocus?.unfocus();
+          },
+          child: MaterialApp.router(
+            routerConfig: router,
+            debugShowCheckedModeBanner: false,
+          ),
         );
       },
       designSize: Size(screenWidth, screenHeight),
