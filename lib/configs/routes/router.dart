@@ -10,8 +10,8 @@ import '../../presentation/login/login_view.dart';
 import '../../data/repositories/local/preferences/shared_prefs.dart';
 import '../../presentation/otp/otp_view.dart';
 import '../../presentation/widgets/scaffold_nav_bar.dart';
+import 'package:nb_utils/nb_utils.dart';
 
-final navigatorKey = GlobalKey<NavigatorState>();
 final _shellHomeNavigatorKey = GlobalKey<NavigatorState>();
 final _shellDiseaseNavigatorKey = GlobalKey<NavigatorState>();
 final _shellResultsNavigatorKey = GlobalKey<NavigatorState>();
