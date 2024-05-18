@@ -24,7 +24,7 @@ final router = GoRouter(
             ScaffoldWithNavBar(navigationShell: navigationShell),
         branches: [
           StatefulShellBranch(
-              navigatorKey: _shellHomeNavigatorKey,
+              // navigatorKey: _shellHomeNavigatorKey,
               routes: <RouteBase>[
                 GoRoute(
                   path: RouteNames.homeRoute,
@@ -33,7 +33,7 @@ final router = GoRouter(
                 ),
               ]),
           StatefulShellBranch(
-              navigatorKey: _shellDiseaseNavigatorKey,
+              // navigatorKey: _shellDiseaseNavigatorKey,
               routes: <RouteBase>[
                 GoRoute(
                   path: RouteNames.imgCaptureRoute,
@@ -42,7 +42,7 @@ final router = GoRouter(
                 ),
               ]),
           StatefulShellBranch(
-              navigatorKey: _shellResultsNavigatorKey,
+              // navigatorKey: _shellResultsNavigatorKey,
               routes: <RouteBase>[
                 GoRoute(
                   path: RouteNames.resultRoute,
@@ -52,6 +52,7 @@ final router = GoRouter(
               ]),
         ]),
     GoRoute(
+      parentNavigatorKey: navigatorKey,
       path: RouteNames.signUpRoute,
       builder: (context, state) => const SignUpScreen(),
     ),
@@ -60,14 +61,17 @@ final router = GoRouter(
     //   builder: (context, state) => const ResultView(),
     // ),
     GoRoute(
+      parentNavigatorKey: navigatorKey,
       path: RouteNames.onBoardingRoute,
       builder: (context, state) => const OnBoardingScreen(),
     ),
     GoRoute(
+      // parentNavigatorKey: navigatorKey,
       path: RouteNames.loginRoute,
       builder: (context, state) => const LoginScreen(),
     ),
     GoRoute(
+      parentNavigatorKey: navigatorKey,
       path: RouteNames.otpRoute,
       builder: (context, state) => const OtpScreen(),
     ),
@@ -80,7 +84,8 @@ final router = GoRouter(
     //   builder: (context, state) => const ImageCaptureScreen(),
     // ),
   ],
-  initialLocation: sharedPrefs.isLoggedIn
-      ? RouteNames.homeRoute
-      : RouteNames.onBoardingRoute,
+  initialLocation: RouteNames.homeRoute
+  // initialLocation: sharedPrefs.isLoggedIn
+  //     ? RouteNames.homeRoute
+  //     : RouteNames.onBoardingRoute,
 );

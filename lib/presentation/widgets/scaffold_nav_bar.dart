@@ -15,6 +15,7 @@ class ScaffoldWithNavBar extends StatelessWidget {
     return PopScope(
       canPop: false,
       onPopInvoked: ((didPop) {
+        print(didPop);
         _onTap(context, 0);
       }),
       child: Scaffold(
