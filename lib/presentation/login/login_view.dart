@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,6 +8,7 @@ import 'package:OculaCare/presentation/login/widgets/reset_password_form.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../configs/presentation/constants/colors.dart';
+import '../../configs/routes/route_names.dart';
 import '../../logic/login_cubit/login_cubit.dart';
 import '../../logic/login_cubit/login_cubit_state.dart';
 
@@ -53,8 +55,20 @@ class LoginScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Center(child: Image.asset("assets/images/app_logo.png", height: screenHeight * 0.3,)),
-
+                      Center(child: Image.asset("assets/images/logo_ocula_login.png", height: screenHeight * 0.15,)),
+                      Center(
+                        child: Text(
+                          'OculaCare',
+                          style: TextStyle(
+                            fontFamily: 'PoppinsBold',
+                            fontSize: 32.sp,
+                            color: AppColors.appColor,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 1.0,
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 30.h,),
                       Text(
                         'Login',
                         style: TextStyle(
@@ -95,13 +109,16 @@ class LoginScreen extends StatelessWidget {
                           const SizedBox(
                             width: 5.0,
                           ),
-                          Text(
-                            'Signup',
-                            style: TextStyle(
-                              fontFamily: 'Poppins',
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w600,
-                              color: AppColors.appColor,
+                          GestureDetector(
+                            onTap: () => context.push(RouteNames.signUpRoute),
+                            child: Text(
+                              'Signup',
+                              style: TextStyle(
+                                fontFamily: 'Poppins',
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w600,
+                                color: AppColors.appColor,
+                              ),
                             ),
                           )
                         ],
