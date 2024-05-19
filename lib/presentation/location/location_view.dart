@@ -1,3 +1,4 @@
+import 'package:OculaCare/configs/presentation/constants/colors.dart';
 import 'package:OculaCare/presentation/location/widget/location_set_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -35,7 +36,7 @@ class LocationScreen extends StatelessWidget {
           builder: (context, state) {
             if (state is LocationLoading) {
               return const Center(
-                child: CircularProgressIndicator(color: Color(0xFFed5a23)),
+                child: CircularProgressIndicator(color: AppColors.appColor),
               );
             } else if (state is LocationError) {
               return Center(

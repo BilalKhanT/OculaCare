@@ -65,7 +65,7 @@ class MoreView extends StatelessWidget {
                         padding: const EdgeInsets.all(15),
                         child: GestureDetector(
                           onTap: () {
-                            if (!sharedPrefs.isLoggedIn) {
+                            if (!sharedPrefs.isProfileSetup) {
                               showDialog(
                                 context: context,
                                 builder: (context) {

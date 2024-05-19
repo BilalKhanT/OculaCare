@@ -22,6 +22,7 @@ class PatientProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.sizeOf(context).height;
     return Scaffold(
+      backgroundColor: AppColors.screenBackground,
       appBar: AppBar(
         title: Text(
           "Profile",
