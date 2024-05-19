@@ -19,6 +19,7 @@ class DiseaseDetectionScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.sizeOf(context).height;
     double screenWidth = MediaQuery.sizeOf(context).width;
+    final hour = DateTime.now().hour;
     return Scaffold(
       backgroundColor: AppColors.screenBackground,
       body: SizedBox(
@@ -30,33 +31,54 @@ class DiseaseDetectionScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text('Disease Detection',
-                  style: TextStyle(
-                    fontFamily: 'Poppins',
-                    fontSize: 24.sp,
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.appColor,
-                  ),
-                ),
-                SizedBox(height: 5.h,),
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.0),
-                    color: Colors.grey.shade200,
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
-                    child: Center(
-                      child: Text('Utilize our advanced ML technology to analyze images of your eyes. Simply capture a photo, and our system will assess it for signs of eye diseases.',
-                        style: TextStyle(
-                          fontFamily: 'Poppins',
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w400,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text( hour < 12 ? 'Good Morning' : 'Good Evening',
+                          style: TextStyle(
+                            fontFamily: 'Poppins',
+                            fontSize: 27.sp,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                            letterSpacing: 1,
+                          ),
                         ),
-                        textAlign: TextAlign.justify,),
+                        Text('Bilal Khan',
+                          style: TextStyle(
+                            fontFamily: 'Poppins',
+                            fontSize: 22.sp,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.grey.shade600,
+                            letterSpacing: 1,
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
+                    SvgPicture.asset('assets/svgs/notifcation.svg', height: 35.h,),
+                  ],
                 ),
+                SizedBox(height: 10.h,),
+                // Container(
+                //   decoration: BoxDecoration(
+                //     borderRadius: BorderRadius.circular(10.0),
+                //     color: Colors.grey.shade200,
+                //   ),
+                //   child: Padding(
+                //     padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
+                //     child: Center(
+                //       child: Text('Utilize our advanced ML technology to analyze images of your eyes. Simply capture a photo, and our system will assess it for signs of eye diseases.',
+                //         style: TextStyle(
+                //           fontFamily: 'Poppins',
+                //           fontSize: 14.sp,
+                //           fontWeight: FontWeight.w400,
+                //         ),
+                //         textAlign: TextAlign.justify,),
+                //     ),
+                //   ),
+                // ),
                 const SizedBox(height: 20,),
                 SizedBox(
                   width: screenWidth,
@@ -71,7 +93,14 @@ class DiseaseDetectionScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(height: 40,),
+                Text('Disease Detection',
+                  style: TextStyle(
+                    fontFamily: 'PoppinsBold',
+                    fontSize: 24.sp,
+                    color: Colors.black,
+                  ),
+                ),
+                const SizedBox(height: 20,),
                 customWidget(
                   icon: SvgPicture.asset('assets/svgs/eye_scan.svg',
                     // ignore: deprecated_member_use
@@ -92,7 +121,7 @@ class DiseaseDetectionScreen extends StatelessWidget {
                     }
                   },
                 ),
-                const SizedBox(height: 40,),
+                const SizedBox(height: 20,),
                 customWidget(
                   icon: SvgPicture.asset('assets/svgs/detection_result.svg',
                     // ignore: deprecated_member_use
@@ -104,7 +133,7 @@ class DiseaseDetectionScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 40.h,),
                 Center(
-                  child: Text('This is is an AI guided diagnosis, seek medical expertise for professional guidance.',
+                  child: Text('Note: This is is an AI guided diagnosis, seek medical expertise for professional guidance.',
                     style: TextStyle(
                       fontFamily: 'Poppins',
                       fontSize: 11.sp,
