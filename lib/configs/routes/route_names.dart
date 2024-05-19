@@ -13,4 +13,5 @@ class RouteNames {
   static const String detectionRoute = '/detectionRoute';
   static const String testRoute = '/testRoute';
   static const String therapyRoute = '/therapyRoute';
+  static const String feedbackRoute = '/feedbackRoute';
 }

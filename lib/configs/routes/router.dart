@@ -1,4 +1,5 @@
 import 'package:OculaCare/presentation/disease_detection/disease_detection_view.dart';
+import 'package:OculaCare/presentation/feedback/feedback_view.dart';
 import 'package:OculaCare/presentation/location/location_view.dart';
 import 'package:OculaCare/presentation/more_section/more_view.dart';
 import 'package:OculaCare/presentation/more_section/pdf_view.dart';
@@ -91,6 +92,11 @@ final router = GoRouter(
       parentNavigatorKey: navigatorKey,
       path: RouteNames.onBoardingRoute,
       builder: (context, state) => const OnBoardingScreen(),
+    ),
+    GoRoute(
+      parentNavigatorKey: navigatorKey,
+      path: RouteNames.feedbackRoute,
+      builder: (context, state) => const FeedbackView(),
     ),
     GoRoute(
       parentNavigatorKey: navigatorKey,
