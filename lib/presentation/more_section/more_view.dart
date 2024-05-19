@@ -239,18 +239,7 @@ class MoreView extends StatelessWidget {
                               text: "Feedback",
                               icon: "assets/svgs/feedback.svg",
                               onTap: () {
-                                if (!sharedPrefs.isLoggedIn) {
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) {
-                                      return const Dialog(child: NeedToSetupProfileWidget());
-                                    },
-                                  );
-                                  return;
-                                } else {
-                                  // context.read<ContactUsCubit>().getList();
-                                  // context.push(RouteNames.feedbackRoute);
-                                }
+                                context.push(RouteNames.feedbackRoute);
                               },
                             ),
                             divider(),
