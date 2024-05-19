@@ -9,4 +9,5 @@ class RouteNames {
   static const String profileRoute = '/profileRoute';
   static const String moreRoute = '/moreRoute';
   static const String pdfViewRoute = '/pdfViewRoute';
+  static const String locationRoute = '/locationRoute';
 }

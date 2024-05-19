@@ -1,3 +1,4 @@
+import 'package:OculaCare/presentation/location/location_view.dart';
 import 'package:OculaCare/presentation/more_section/more_view.dart';
 import 'package:OculaCare/presentation/more_section/pdf_view.dart';
 import 'package:OculaCare/presentation/patient_profile/profile_view.dart';
@@ -16,8 +17,10 @@ import '../../presentation/widgets/scaffold_nav_bar.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 final _shellHomeNavigatorKey = GlobalKey<NavigatorState>();
-final _shellDiseaseNavigatorKey = GlobalKey<NavigatorState>();
-final _shellResultsNavigatorKey = GlobalKey<NavigatorState>();
+final _shellDetectNavigatorKey = GlobalKey<NavigatorState>();
+final _shellTestNavigatorKey = GlobalKey<NavigatorState>();
+final _shellTherapyNavigatorKey = GlobalKey<NavigatorState>();
+final _shellMoreNavigatorKey = GlobalKey<NavigatorState>();
 
 final router = GoRouter(
   navigatorKey: navigatorKey,
@@ -27,7 +30,7 @@ final router = GoRouter(
             ScaffoldWithNavBar(navigationShell: navigationShell),
         branches: [
           StatefulShellBranch(
-              // navigatorKey: _shellHomeNavigatorKey,
+              navigatorKey: _shellHomeNavigatorKey,
               routes: <RouteBase>[
                 GoRoute(
                   path: RouteNames.homeRoute,
@@ -36,7 +39,7 @@ final router = GoRouter(
                 ),
               ]),
           StatefulShellBranch(
-              // navigatorKey: _shellDiseaseNavigatorKey,
+              navigatorKey: _shellDetectNavigatorKey,
               routes: <RouteBase>[
                 GoRoute(
                   path: RouteNames.imgCaptureRoute,
@@ -45,7 +48,7 @@ final router = GoRouter(
                 ),
               ]),
           StatefulShellBranch(
-            // navigatorKey: _shellResultsNavigatorKey,
+            navigatorKey: _shellTestNavigatorKey,
               routes: <RouteBase>[
                 GoRoute(
                   path: RouteNames.resultRoute,
@@ -54,7 +57,7 @@ final router = GoRouter(
                 ),
               ]),
           StatefulShellBranch(
-              // navigatorKey: _shellResultsNavigatorKey,
+              navigatorKey: _shellTherapyNavigatorKey,
               routes: <RouteBase>[
                 GoRoute(
                   path: RouteNames.resultRoute,
@@ -63,7 +66,7 @@ final router = GoRouter(
                 ),
               ]),
           StatefulShellBranch(
-            // navigatorKey: _shellDiseaseNavigatorKey,
+            navigatorKey: _shellMoreNavigatorKey,
               routes: <RouteBase>[
                 GoRoute(
                   path: RouteNames.moreRoute,
@@ -98,12 +101,13 @@ final router = GoRouter(
     ),
     GoRoute(
       parentNavigatorKey: navigatorKey,
-      path: RouteNames.otpRoute,
-      builder: (context, state) => const OtpScreen(),
+      path: RouteNames.locationRoute,
+      builder: (context, state) => const LocationScreen(),
     ),
     GoRoute(
-      path: RouteNames.homeRoute,
-      builder: (context, state) => const HomeScreen(),
+      parentNavigatorKey: navigatorKey,
+      path: RouteNames.otpRoute,
+      builder: (context, state) => const OtpScreen(),
     ),
     GoRoute(
       parentNavigatorKey: navigatorKey,
