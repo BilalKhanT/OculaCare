@@ -1,4 +1,5 @@
 import 'package:OculaCare/logic/patient_profile/patient_profile_cubit.dart';
+import 'package:OculaCare/logic/patient_profile/upload_profile_photo_cubit.dart';
 import 'package:OculaCare/logic/pdf_cubit/pdf_cubit_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,6 +22,9 @@ class ProvideMultiBloc extends StatelessWidget {
       ),
       BlocProvider(
         create: (context) => LoginCubit(),
+      ),
+      BlocProvider(
+        create: (context) => UploadProfilePhotoCubit(),
       ),
       BlocProvider(
         create: (context) => ImageCaptureCubit(),
