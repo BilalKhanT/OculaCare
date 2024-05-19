@@ -1,3 +1,4 @@
+import 'package:OculaCare/presentation/sign_up/widgets/cstm_flat_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -54,20 +55,25 @@ class OtpScreen extends StatelessWidget {
                   Text('Verification',
                   style: TextStyle(
                     fontFamily: 'Poppins',
-                    fontSize: 28.sp,
+                    fontSize: 32.sp,
+                    fontWeight: FontWeight.bold,
                     letterSpacing: 1.0,
+                    color: AppColors.appColor,
                   ),),
                   SizedBox(height: screenHeight * 0.03,),
                   Text('Enter the code sent to the email',
                     style: TextStyle(
                       fontFamily: 'Poppins',
-                      fontSize: 18.sp,
+                      fontSize: 16.sp,
+                      color: Colors.grey.shade700
                     ),),
                   Text(state.email,
                     style: TextStyle(
                       fontFamily: 'Poppins',
-                      fontSize: 18.sp,
+                      fontSize: 16.sp,
+                        color: Colors.grey.shade700
                     ),),
+                  SizedBox(height: 40.h,),
                   Pinput(
                     mainAxisAlignment: MainAxisAlignment.center,
                     animationCurve: Curves.easeIn,
@@ -76,6 +82,11 @@ class OtpScreen extends StatelessWidget {
                     validator: (value) {
                       return value == state.otp ? null : 'Pin is incorrect';
                     },
+                  ),
+                  SizedBox(height: 40.h,),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: CustomFlatButton(onTap: () {}, text: 'Verify', btnColor: AppColors.appColor),
                   ),
                 ],
               );

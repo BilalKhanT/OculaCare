@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:OculaCare/presentation/login/widgets/forgot_password_form.dart';
 import 'package:OculaCare/presentation/login/widgets/login_form.dart';
 import 'package:OculaCare/presentation/login/widgets/reset_password_form.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../configs/presentation/constants/colors.dart';
 import '../../logic/login_cubit/login_cubit.dart';
@@ -18,18 +19,18 @@ class LoginScreen extends StatelessWidget {
     double screenWidth = MediaQuery.sizeOf(context).width;
     return Scaffold(
       backgroundColor: AppColors.screenBackground,
-      // appBar: AppBar(
-      //   leading: IconButton(
-      //     onPressed: () {
-      //       context.read<LoginCubit>().dispose();
-      //       context.pop();
-      //     },
-      //     icon: const Icon(
-      //       Icons.arrow_back_ios_new,
-      //       color: AppColors.appColor,
-      //     ),
-      //   ),
-      // ),
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            context.read<LoginCubit>().dispose();
+            context.pop();
+          },
+          icon: const Icon(
+            Icons.arrow_back_ios_new,
+            color: AppColors.appColor,
+          ),
+        ),
+      ),
       body: SizedBox(
         height: screenHeight,
         width: screenWidth,
