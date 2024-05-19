@@ -1,5 +1,6 @@
-<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect x="3" y="9.75" width="4.5" height="4.5" rx="2.25" fill="#1D2939"/>
-<rect x="9.75" y="9.75" width="4.5" height="4.5" rx="2.25" fill="#1D2939"/>
-<rect x="16.5" y="9.75" width="4.5" height="4.5" rx="2.25" fill="#1D2939"/>
+<?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+<svg width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="5" cy="12" r="2" stroke="#1C274C" stroke-width="1.5"/>
+<circle cx="12" cy="12" r="2" stroke="#1C274C" stroke-width="1.5"/>
+<circle cx="19" cy="12" r="2" stroke="#1C274C" stroke-width="1.5"/>
 </svg>
