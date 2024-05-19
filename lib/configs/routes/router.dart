@@ -1,3 +1,4 @@
+import 'package:OculaCare/presentation/more_section/more_view.dart';
 import 'package:OculaCare/presentation/patient_profile/profile_view.dart';
 import 'package:OculaCare/presentation/result/result_view.dart';
 import 'package:flutter/material.dart';
@@ -49,6 +50,15 @@ final router = GoRouter(
                   path: RouteNames.resultRoute,
                   pageBuilder: (context, state) =>
                       const MaterialPage(child: ResultView()),
+                ),
+              ]),
+          StatefulShellBranch(
+            // navigatorKey: _shellDiseaseNavigatorKey,
+              routes: <RouteBase>[
+                GoRoute(
+                  path: RouteNames.moreRoute,
+                  pageBuilder: (context, state) =>
+                  const MaterialPage(child: MoreView()),
                 ),
               ]),
         ]),
