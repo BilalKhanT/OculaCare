@@ -1,4 +1,5 @@
 import 'package:OculaCare/configs/utils/utils.dart';
+import 'package:OculaCare/data/repositories/local/preferences/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -119,6 +120,7 @@ class LoginForm extends StatelessWidget {
             ),
             CustomFlatButton(
               onTap: () async {
+                sharedPrefs.isLoggedIn = true;
                 context.go(RouteNames.homeRoute);
                 // bool flag = await loginCubit.submitForm();
                 // if (flag) {
