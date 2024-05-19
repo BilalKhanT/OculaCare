@@ -28,12 +28,13 @@ class ImageCaptureScreen extends StatelessWidget {
         backgroundColor: AppColors.screenBackground,
         appBar: AppBar(
           backgroundColor: AppColors.screenBackground,
-          title: const Text(
+          title: Text(
             'Image Capture',
             style: TextStyle(
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.w700,
               fontFamily: 'Poppins',
-              color: AppColors.appColor,
+              fontSize: 16.sp,
+              color: Colors.black,
             ),
           ),
           leading: IconButton(
