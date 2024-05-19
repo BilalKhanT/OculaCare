@@ -1,4 +1,5 @@
 import 'package:OculaCare/logic/image_capture/img_capture_cubit.dart';
+import 'package:OculaCare/logic/patient_profile/patient_profile_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -136,7 +137,8 @@ class MoreView extends StatelessWidget {
                               text: "Account",
                               icon: "assets/svgs/account.svg",
                               onTap: () {
-                                context.push(RouteNames.profileRoute);
+                                context.read<PatientProfileCubit>().loadPatientProfile('eee');
+                                context.go(RouteNames.profileRoute);
                               },
                             ),
                             divider(),
