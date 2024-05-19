@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:OculaCare/configs/presentation/constants/colors.dart';
 import 'package:OculaCare/configs/routes/route_names.dart';
@@ -11,8 +12,8 @@ import 'package:OculaCare/logic/image_capture/img_capture_cubit.dart';
 import 'package:OculaCare/logic/image_capture/img_capture_state.dart';
 import 'package:OculaCare/presentation/sign_up/widgets/cstm_flat_btn.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:lottie/lottie.dart';
 import '../../configs/utils/utils.dart';
+import '../widgets/border_painter.dart';
 
 class ImageCaptureScreen extends StatelessWidget {
   const ImageCaptureScreen({Key? key}) : super(key: key);
@@ -27,6 +28,14 @@ class ImageCaptureScreen extends StatelessWidget {
         backgroundColor: AppColors.screenBackground,
         appBar: AppBar(
           backgroundColor: AppColors.screenBackground,
+          title: const Text(
+            'Image Capture',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontFamily: 'Poppins',
+              color: AppColors.appColor,
+            ),
+          ),
           leading: IconButton(
             onPressed: () async {
               await context.read<ImageCaptureCubit>().dispose();
@@ -72,12 +81,26 @@ class ImageCaptureScreen extends StatelessWidget {
                           Center(
                             child: Column(
                               children: [
+                                SizedBox(height: 150.h,),
                                 Expanded(
-                                  child: Lottie.asset(
-                                    "assets/lotties/face_scan.json",
-                                    repeat: true,
+                                  child: Column(
+                                    children: [
+                                      CustomPaint(
+                                        foregroundPainter: BorderPainter(),
+                                        child: SizedBox(
+                                          width: MediaQuery.sizeOf(context).width * 0.75,
+                                          height: MediaQuery.sizeOf(context).height * 0.175,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
+                                // Expanded(
+                                //   child: Lottie.asset(
+                                //     "assets/lotties/face_scan.json",
+                                //     repeat: true,
+                                //   ),
+                                // ),
                                 disable == true
                                     ? Text(
                                         state.status == 1
@@ -118,8 +141,8 @@ class ImageCaptureScreen extends StatelessWidget {
                                         const SizedBox(
                                           width: 10.0,
                                         ),
-                                        IconButton(
-                                          onPressed: () async {
+                                        GestureDetector(
+                                          onTap: () async {
                                             final pickedFile =
                                                 await ImagePicker().pickImage(
                                               source: ImageSource.gallery,
@@ -133,11 +156,11 @@ class ImageCaptureScreen extends StatelessWidget {
                                                   .uploadEyeImage(pickedFile!);
                                             }
                                           },
-                                          icon: const Icon(
-                                            Icons.image_outlined,
-                                            color: Colors.white,
-                                            size: 50,
-                                          ),
+                                          child: SvgPicture.asset('assets/svgs/gallery.svg',
+                                            height: 50.h,
+                                            width: 50.h,
+                                            // ignore: deprecated_member_use
+                                          color: Colors.grey.shade300,),
                                         )
                                       ],
                                     )),
