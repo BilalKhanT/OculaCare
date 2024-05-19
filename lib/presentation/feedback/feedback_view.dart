@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../configs/presentation/constants/colors.dart';
 import '../../configs/routes/route_names.dart';
+import '../../configs/utils/utils.dart';
 import '../../logic/auth_cubit/auth_cubit.dart';
 import '../../logic/feedback_cubit/feedback_cubit.dart';
 import '../../logic/feedback_cubit/feedback_state.dart';
@@ -96,7 +99,7 @@ class FeedbackView extends StatelessWidget {
                       height: 50,
                       margin: const EdgeInsets.only(top: 10),
                       decoration: BoxDecoration(
-                        color: const Color(0xFFed5a23),
+                        color: AppColors.appColor,
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: const Center(
@@ -357,10 +360,10 @@ class FeedbackView extends StatelessWidget {
                                   .textFeedbackNode,
                               keyboardType: TextInputType.multiline,
                               expands: true,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: Colors.black,
-                                fontFamily: 'Montserrat',
-                                fontSize: 14,
+                                fontFamily: 'Poppins',
+                                fontSize: 14.sp,
                               ),
                               decoration: const InputDecoration(
                                 hintText: "Add text here (optional)",
@@ -378,43 +381,15 @@ class FeedbackView extends StatelessWidget {
                               if (state is FeedbackLiked) {
                                 if (state.selectionStatus.values
                                     .every((element) => element == false)) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Center(
-                                          child: Text(
-                                            'Please select at least one option',
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 14,
-                                              fontFamily: 'Poppins',
-                                            ),
-                                          )),
-                                      duration: Duration(seconds: 2),
-                                      backgroundColor: Colors.red,
-                                    ),
-                                  );
-                                  return;
+                                  AppUtils.showToast(context, 'Error', 'Please select atleast one option', true);
+                              return;
                                 }
                               }
                               if (state is FeedbackUnLiked) {
                                 if (state.selectionStatus.values
                                     .toList()
                                     .every((element) => element == false)) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Center(
-                                          child: Text(
-                                            'Please select at least one option',
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 14,
-                                              fontFamily: 'Poppins',
-                                            ),
-                                          )),
-                                      duration: Duration(seconds: 2),
-                                      backgroundColor: Colors.red,
-                                    ),
-                                  );
+                                  AppUtils.showToast(context, 'Error', 'Please select atleast one option', true);
                                   return;
                                 }
                               }
@@ -477,7 +452,7 @@ class FeedbackView extends StatelessWidget {
                                     height: 40,
                                     margin: const EdgeInsets.only(top: 10),
                                     decoration: BoxDecoration(
-                                      color: const Color(0xFFed5a23),
+                                      color: AppColors.appColor,
                                       borderRadius: BorderRadius.circular(10),
                                     ),
                                     child: const Center(
