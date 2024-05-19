@@ -114,8 +114,9 @@ class LoginScreen extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(
                       horizontal: 20.0, vertical: 10.0),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
+                      SizedBox(height: screenHeight * 0.3,),
                       Text(
                         'Reset Password',
                         style: TextStyle(
@@ -146,8 +147,9 @@ class LoginScreen extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(
                       horizontal: 20.0, vertical: 10.0),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
+                      SizedBox(height: screenHeight * 0.3,),
                       Text(
                         'New Password',
                         style: TextStyle(
