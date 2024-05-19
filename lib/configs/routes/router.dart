@@ -106,6 +106,7 @@ final router = GoRouter(
       builder: (context, state) => const HomeScreen(),
     ),
     GoRoute(
+      parentNavigatorKey: navigatorKey,
       path: RouteNames.profileRoute,
       builder: (context, state) => const PatientProfileScreen(),
     ),

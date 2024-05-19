@@ -24,6 +24,7 @@ class PDFViewScreen extends StatelessWidget {
           "Document",
           style: TextStyle(
             fontFamily: 'Poppins',
+            fontWeight: FontWeight.w800,
             fontSize: 18.sp,
           ),
         ),

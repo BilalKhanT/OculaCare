@@ -6,6 +6,8 @@ import 'package:bloc/bloc.dart';
 class PatientProfileCubit extends Cubit<PatientProfileState> {
   PatientProfileCubit() : super(PatientProfileStateInitial());
 
+
+
   Future<void> loadPatientProfile(String email) async {
     emit(PatientProfileStateLoading());
     try {
