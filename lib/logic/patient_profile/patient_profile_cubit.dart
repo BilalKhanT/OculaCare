@@ -8,6 +8,8 @@ class PatientProfileCubit extends Cubit<PatientProfileState> {
   PatientProfileCubit() : super(PatientProfileStateInitial());
 
   final addressController = TextEditingController();
+  final phoneController = TextEditingController();
+  final ageController = TextEditingController();
 
   Future<void> loadPatientProfile(String email) async {
     emit(PatientProfileStateLoading());
