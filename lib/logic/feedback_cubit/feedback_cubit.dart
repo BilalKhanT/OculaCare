@@ -15,10 +15,10 @@ class FeedbackCubit extends Cubit<FeedbackState> {
 
   //liked feedback track
   Map<String, bool> likedItems = {
-    "Easy to search items": false,
-    "Easy to track my past orders": false,
-    "Easy to create shopping list": false,
-    "Easy to see my loyalty points": false,
+    "Easy to capture image": false,
+    "Easy to track my past results": false,
+    "Easy to take tests": false,
+    "Easy to see my therapy points": false,
     "All of the above": false,
   };
   void likedFeedbackState() {
@@ -46,10 +46,10 @@ class FeedbackCubit extends Cubit<FeedbackState> {
   //unliked feedback track
 
   Map<String, bool> unlikedItems = {
-    "Difficult to search items": false,
-    "Difficult to track my past orders": false,
-    "Difficult to create shopping list": false,
-    "Difficult to see my loyalty points": false,
+    "Difficult to capture image": false,
+    "Difficult to track my past results": false,
+    "Difficult to take tests": false,
+    "Difficult to see my therapy points": false,
     "All of the above": false,
   };
   void toggleUnLikedItem(String itemName) {
