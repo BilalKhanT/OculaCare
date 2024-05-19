@@ -1,4 +1,5 @@
 import 'package:OculaCare/presentation/more_section/more_view.dart';
+import 'package:OculaCare/presentation/more_section/pdf_view.dart';
 import 'package:OculaCare/presentation/patient_profile/profile_view.dart';
 import 'package:OculaCare/presentation/result/result_view.dart';
 import 'package:flutter/material.dart';
@@ -84,6 +85,11 @@ final router = GoRouter(
       parentNavigatorKey: navigatorKey,
       path: RouteNames.onBoardingRoute,
       builder: (context, state) => const OnBoardingScreen(),
+    ),
+    GoRoute(
+      parentNavigatorKey: navigatorKey,
+      path: RouteNames.pdfViewRoute,
+      builder: (context, state) => PDFViewScreen(),
     ),
     GoRoute(
       // parentNavigatorKey: navigatorKey,
