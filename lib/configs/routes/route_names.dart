@@ -6,4 +6,5 @@ class RouteNames {
   static const String homeRoute = '/home';
   static const String imgCaptureRoute = '/imgCapture';
   static const String resultRoute = '/resultRoute';
+  static const String profileRoute = '/profileRoute';
 }

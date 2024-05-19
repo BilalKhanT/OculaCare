@@ -1,3 +1,4 @@
+import 'package:OculaCare/presentation/patient_profile/profile_view.dart';
 import 'package:OculaCare/presentation/result/result_view.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -40,6 +41,10 @@ final router = GoRouter(
     GoRoute(
       path: RouteNames.homeRoute,
       builder: (context, state) => const HomeScreen(),
+    ),
+    GoRoute(
+      path: RouteNames.profileRoute,
+      builder: (context, state) => const PatientProfileScreen(),
     ),
     GoRoute(
       path: RouteNames.imgCaptureRoute,
