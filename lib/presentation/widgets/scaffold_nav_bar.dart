@@ -27,7 +27,7 @@ class ScaffoldWithNavBar extends StatelessWidget {
               TextStyle(
                 fontFamily: 'Poppins',
                 color: Colors.black,
-                fontSize: 16.sp,
+                fontSize: 14.sp,
                 fontWeight: FontWeight.bold,
               ),
             ),
