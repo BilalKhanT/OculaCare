@@ -8,6 +8,7 @@ import 'package:go_router/go_router.dart';
 import '../../configs/presentation/constants/colors.dart';
 import '../../configs/routes/route_names.dart';
 import '../../data/repositories/local/preferences/shared_prefs.dart';
+import '../../logic/pdf_cubit/pdf_cubit_state.dart';
 import '../widgets/need_to_setup_profile_widget.dart';
 
 
@@ -25,6 +26,39 @@ class MoreView extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
+                      Container(
+                        padding: const EdgeInsets.all(10),
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Leaflets",
+                                style: TextStyle(
+                                    fontFamily: "Poppins",
+                                    color: AppColors.appColor,
+                                    fontWeight: FontWeight.bold,
+                                    letterSpacing: 1,
+                                    fontSize: 17.sp),
+                              ),
+                              const SizedBox(
+                                height: 7,
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  context
+                                      .read<PDFCubit>()
+                                      .fetchAndInitializePDFList();
+                                  context.push(RouteNames.pdfViewRoute);
+                                },
+                                child: Center(
+                                  child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(10),
+                                      child:
+                                      Image.asset("assets/images/eye_leaflet.jpg")),
+                                ),
+                              )
+                            ]),
+                      ),
                       Container(
                         color: AppColors.appColor.withOpacity(0.2),
                         padding: const EdgeInsets.all(15),
@@ -307,7 +341,7 @@ class MoreView extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              "Version 1.1.1 (2)",
+                              "Version 0.0.1 (1)",
                               style: TextStyle(
                                 fontSize: 12.sp,
                                 color: Colors.grey.shade400,
