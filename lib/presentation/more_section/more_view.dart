@@ -138,7 +138,7 @@ class MoreView extends StatelessWidget {
                               icon: "assets/svgs/account.svg",
                               onTap: () {
                                 context.read<PatientProfileCubit>().loadPatientProfile('eee');
-                                context.go(RouteNames.profileRoute);
+                                context.push(RouteNames.profileRoute);
                               },
                             ),
                             divider(),
