@@ -21,17 +21,17 @@ List<OnBoardingContent> contents = [
       title: 'Timely Detection',
       image: 'assets/images/onboarding_vector.png',
       discription:
-          "Industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it "),
+          "Timely identify eye diseases with our advanced detection tools."),
   OnBoardingContent(
       title: 'Therapies',
       image: 'assets/images/onboarding_vector.png',
       discription:
-          "Industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it "),
+          "Access personalized therapy plans to improve your eye health."),
   OnBoardingContent(
       title: 'Vision Tests',
       image: 'assets/images/onboarding_vector.png',
       discription:
-          "Industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it "),
+          "Take comprehensive vision tests to monitor your eye health."),
 ];
 
 List<EducationModel> education = [
