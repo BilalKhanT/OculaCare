@@ -28,7 +28,7 @@ class ScaffoldWithNavBar extends StatelessWidget {
                 fontFamily: 'Poppins',
                 color: Colors.black,
                 fontSize: 14.sp,
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w600,
               ),
             ),
             indicatorColor: Colors.grey.shade200,
@@ -44,12 +44,16 @@ class ScaffoldWithNavBar extends StatelessWidget {
                 label: 'Home',
               ),
               NavigationDestination(
-                icon: SvgPicture.asset('assets/svgs/charm_search.svg'),
-                label: 'Detection',
+                icon: SvgPicture.asset('assets/svgs/eye_scan.svg'),
+                label: 'Detect',
+              ),
+              NavigationDestination(
+                icon: SvgPicture.asset('assets/svgs/tests.svg'),
+                label: 'Test',
               ),
               NavigationDestination(
                 icon: SvgPicture.asset('assets/svgs/results.svg'),
-                label: 'Results',
+                label: 'Therapy',
               ),
               NavigationDestination(
                 icon: SvgPicture.asset("assets/svgs/dots.svg"),

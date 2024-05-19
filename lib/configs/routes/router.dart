@@ -44,6 +44,15 @@ final router = GoRouter(
                 ),
               ]),
           StatefulShellBranch(
+            // navigatorKey: _shellResultsNavigatorKey,
+              routes: <RouteBase>[
+                GoRoute(
+                  path: RouteNames.resultRoute,
+                  pageBuilder: (context, state) =>
+                  const MaterialPage(child: ResultView()),
+                ),
+              ]),
+          StatefulShellBranch(
               // navigatorKey: _shellResultsNavigatorKey,
               routes: <RouteBase>[
                 GoRoute(

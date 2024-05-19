@@ -50,10 +50,22 @@ class MoreView extends StatelessWidget {
                             child: Center(
                               child: Column(
                                 children: [
-                                  SvgPicture.asset(
-                                    "assets/svgs/detect_disease.svg",
-                                    // ignore: deprecated_member_use
-                                    color: AppColors.appColor,
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      SvgPicture.asset(
+                                        "assets/svgs/eye_scan.svg",
+                                        // ignore: deprecated_member_use
+                                        color: AppColors.appColor,
+                                      ),
+                                      SizedBox(width: 5.w,),
+                                      Text('Scan&Detect',
+                                      style: TextStyle(
+                                        color: AppColors.appColor,
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 20.sp,
+                                      ),),
+                                    ],
                                   ),
                                   const SizedBox(
                                     height: 5,
@@ -96,7 +108,7 @@ class MoreView extends StatelessWidget {
                             divider(),
                             MoreTab(
                               text: "Address Book",
-                              icon: "assets/svgs/bookmark.svg",
+                              icon: "assets/svgs/bookmark_hospital.svg",
                               onTap: () {
 
                               },
@@ -122,7 +134,7 @@ class MoreView extends StatelessWidget {
                             divider(),
                             MoreTab(
                               text: "View Bookmarked Hospitals",
-                              icon: "assets/svgs/bookmark.svg",
+                              icon: "assets/svgs/hospital.svg",
                               onTap: () {
                                 if (!sharedPrefs.isProfileSetup) {
                                   showDialog(
@@ -140,7 +152,7 @@ class MoreView extends StatelessWidget {
                             divider(),
                             MoreTab(
                               text: "View Detection Results",
-                              icon: "assets/svgs/terms-and-conditions.svg",
+                              icon: "assets/svgs/detection_result.svg",
                               onTap: () {
                                 if (!sharedPrefs.isProfileSetup) {
                                   showDialog(
