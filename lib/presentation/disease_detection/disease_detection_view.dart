@@ -20,6 +20,7 @@ class DiseaseDetectionScreen extends StatelessWidget {
     double screenHeight = MediaQuery.sizeOf(context).height;
     double screenWidth = MediaQuery.sizeOf(context).width;
     return Scaffold(
+      backgroundColor: AppColors.screenBackground,
       body: SizedBox(
         height: screenHeight,
         width: screenWidth,

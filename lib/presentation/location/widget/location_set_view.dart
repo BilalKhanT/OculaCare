@@ -37,7 +37,7 @@ class LocationSetView extends StatelessWidget {
         ),
         const Center(
           child: Icon(Icons.location_pin,
-              size: 40, color: Color(0xFFed5a23)), // Floating marker
+              size: 40, color: AppColors.appColor), // Floating marker
         ),
         Positioned(
           bottom: 20,
@@ -76,20 +76,22 @@ class LocationSetView extends StatelessWidget {
                   const SizedBox(
                     height: 30.0,
                   ),
-                  Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15.0),
-                        color: AppColors.appColor),
-                    child: const Padding(
-                      padding:
-                      EdgeInsets.symmetric(vertical: 15.0, horizontal: 50.0),
-                      child: Text(
-                        'Save Address',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.w600,
+                  Center(
+                    child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15.0),
+                          color: AppColors.appColor),
+                      child: const Padding(
+                        padding:
+                        EdgeInsets.symmetric(vertical: 15.0, horizontal: 50.0),
+                        child: Text(
+                          'Save Address',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                       ),
                     ),
