@@ -12,6 +12,11 @@ class SharedPrefs {
     _sharedPrefs?.setBool('isLoggedIn', value);
   }
 
+  bool get isProfileSetup => _sharedPrefs?.getBool('isProfileSetup') ?? false;
+  set isProfileSetup(bool value) {
+    _sharedPrefs?.setBool('isProfileSetup', value);
+  }
+
   String get otp => _sharedPrefs?.getString('otp') ?? '';
   set otp(String value) {
     _sharedPrefs?.setString('otp', value);
