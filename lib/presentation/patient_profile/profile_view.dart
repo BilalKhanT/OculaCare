@@ -8,7 +8,10 @@ import 'package:OculaCare/presentation/patient_profile/widgets/gender_row.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import '../../logic/location_cubit/location_cubit.dart';
+import '../../logic/patient_profile/gender_cubit.dart';
 import '../../logic/patient_profile/upload_profile_photo_cubit.dart';
 
 class PatientProfileScreen extends StatelessWidget {
@@ -29,7 +32,7 @@ class PatientProfileScreen extends StatelessWidget {
           ),
           leading: IconButton(
             onPressed: () {
-              context.go(RouteNames.moreRoute);
+              context.pop();
             },
             icon: const Icon(
               Icons.arrow_back_ios_new_outlined,
@@ -120,7 +123,10 @@ class PatientProfileScreen extends StatelessWidget {
                           fontSize: 20.sp,
                         ),
                       ),
-                      const GenderRow(),
+                      BlocProvider(
+                        create: (_) => GenderCubit(),
+                        child: const GenderRow(),
+                      ),
                       SizedBox(
                         height: 20.h,
                       ),
@@ -130,6 +136,40 @@ class PatientProfileScreen extends StatelessWidget {
                           fontFamily: 'Poppins',
                           fontWeight: FontWeight.w800,
                           fontSize: 20.sp,
+                        ),
+                      ),
+                      TextFormField(
+                        controller: context.read<PatientProfileCubit>().addressController,
+                        readOnly: true,
+                        decoration: InputDecoration(
+                          prefixIcon: const Icon(Icons.location_on_outlined, color: AppColors.appColor,),
+                          suffixIcon: IconButton(
+                            onPressed: () {
+                              context.read<LocationCubit>().setLocation();
+                              context.push(RouteNames.locationRoute);
+                            },
+                            icon: const Icon(
+                              Icons.add,
+                              color: AppColors.appColor,
+                            ),
+                          ),
+                          hintText: 'Add Address',
+                          hintStyle: TextStyle(
+                            fontFamily: 'Poppins',
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w100,
+                            color: AppColors.textGrey,
+                            letterSpacing: 1.0,
+                          ),
+                          focusedBorder: const UnderlineInputBorder(
+                            borderSide: BorderSide(color: AppColors.appColor),
+                          ),
+                        ),
+                        style: TextStyle(
+                          fontFamily: 'Poppins',
+                          fontSize: 16.sp,
+                          color: Colors.black,
+                          letterSpacing: 1.0,
                         ),
                       ),
                     ],
