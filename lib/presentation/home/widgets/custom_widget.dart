@@ -49,7 +49,7 @@ Widget customWidget({
                 style: TextStyle(
                   fontSize: 16.sp,
                   fontFamily: 'Poppins',
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.w400,
                 ),
               ),
             ),
