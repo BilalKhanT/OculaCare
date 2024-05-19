@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 
 class ScaffoldWithNavBar extends StatelessWidget {
@@ -15,7 +17,6 @@ class ScaffoldWithNavBar extends StatelessWidget {
     return PopScope(
       canPop: false,
       onPopInvoked: ((didPop) {
-        print(didPop);
         _onTap(context, 0);
       }),
       child: Scaffold(
@@ -26,7 +27,7 @@ class ScaffoldWithNavBar extends StatelessWidget {
               TextStyle(
                 fontFamily: 'Poppins',
                 color: Colors.black,
-                fontSize: MediaQuery.sizeOf(context).width * 0.03,
+                fontSize: 16.sp,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -37,18 +38,22 @@ class ScaffoldWithNavBar extends StatelessWidget {
           child: NavigationBar(
             onDestinationSelected: (index) => _onTap(context, index),
             selectedIndex: navigationShell.currentIndex,
-            destinations: const [
+            destinations: [
               NavigationDestination(
-                icon: Icon(Icons.home_outlined),
+                icon: SvgPicture.asset('assets/svgs/house.svg'),
                 label: 'Home',
               ),
               NavigationDestination(
-                icon: Icon(Icons.search_outlined),
-                label: 'Disease Detection',
+                icon: SvgPicture.asset('assets/svgs/charm_search.svg'),
+                label: 'Detection',
               ),
               NavigationDestination(
-                icon: Icon(Icons.document_scanner_outlined),
+                icon: SvgPicture.asset('assets/svgs/results.svg'),
                 label: 'Results',
+              ),
+              NavigationDestination(
+                icon: SvgPicture.asset("assets/svgs/dots.svg"),
+                label: 'More',
               ),
             ],
           ),
