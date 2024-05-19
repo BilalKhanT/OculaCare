@@ -40,6 +40,7 @@ dependencies:
   path_provider: ^2.1.3
   flutter_file_dialog: ^3.0.2
   nb_utils: ^7.0.2
+  flutter_pdfview: ^1.2.7
 
 dev_dependencies:
   flutter_test:
@@ -63,6 +64,7 @@ flutter:
     - assets/images/
     - assets/svgs/
     - assets/lotties/
+    - assets/pdfs/
   #   - images/a_dot_ham.jpeg
 
   fonts:
