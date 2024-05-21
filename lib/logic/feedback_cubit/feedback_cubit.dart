@@ -82,11 +82,10 @@ class FeedbackCubit extends Cubit<FeedbackState> {
   }
 
   //submit feedback
-  Future<void> submitFeedback(
-      List<String> data, String customFeedback, int rating) async {
+  Future<void> submitFeedback(String category,
+      List<String> data, String customFeedback) async {
     emit(FeedbackLoading());
     // FeedbackRepository feedbackRepo = FeedbackRepository();
-    // await feedbackRepo.postFeedback(data, customFeedback, rating);
     emit(FeedbackCompleted());
   }
 

@@ -403,6 +403,11 @@ class FeedbackView extends StatelessWidget {
                                 return GestureDetector(
                                   onTap: () {
                                     if (state is FeedbackLiked) {
+                                      if (state.selectionStatus.values
+                                          .every((element) => element == false)) {
+                                        AppUtils.showToast(context, 'Error', 'Please select atleast one option', true);
+                                        return;
+                                      }
                                       List<String> list = state
                                           .selectionStatus.entries
                                           .where((entry) => entry.value == true)
@@ -416,15 +421,20 @@ class FeedbackView extends StatelessWidget {
                                       list.remove("");
                                       context
                                           .read<FeedbackCubit>()
-                                          .submitFeedback(
+                                          .submitFeedback('Liked',
                                           list,
                                           context
                                               .read<FeedbackCubit>()
                                               .textFeedbackController
-                                              .text,
-                                          5);
+                                              .text);
                                     }
                                     if (state is FeedbackUnLiked) {
+                                      if (state.selectionStatus.values
+                                          .toList()
+                                          .every((element) => element == false)) {
+                                        AppUtils.showToast(context, 'Error', 'Please select atleast one option', true);
+                                        return;
+                                      }
                                       List<String> list = state
                                           .selectionStatus.entries
                                           .where((entry) => entry.value == true)
@@ -439,13 +449,12 @@ class FeedbackView extends StatelessWidget {
 
                                       context
                                           .read<FeedbackCubit>()
-                                          .submitFeedback(
+                                          .submitFeedback('Unliked',
                                           list,
                                           context
                                               .read<FeedbackCubit>()
                                               .textFeedbackController
-                                              .text,
-                                          1);
+                                              .text);
                                     }
                                   },
                                   child: Container(
