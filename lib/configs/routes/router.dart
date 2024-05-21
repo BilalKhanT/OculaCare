@@ -104,7 +104,7 @@ final router = GoRouter(
       builder: (context, state) => PDFViewScreen(),
     ),
     GoRoute(
-      // parentNavigatorKey: navigatorKey,
+      parentNavigatorKey: navigatorKey,
       path: RouteNames.loginRoute,
       builder: (context, state) => const LoginScreen(),
     ),

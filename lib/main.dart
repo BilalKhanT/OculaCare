@@ -2,7 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'configs/app/environment/env_configs.dart';
 import 'configs/routes/router.dart';
+import 'data/repositories/local/preferences/shared_prefs.dart';
 import 'multi_bloc_provider.dart';
 
 void main() async {
@@ -14,6 +16,8 @@ void main() async {
 }
 
 Future<void> initializeApp() async {
+  sharedPrefs.init();
+  EnvConfigs.getInstance();
   initialize();
 }
 

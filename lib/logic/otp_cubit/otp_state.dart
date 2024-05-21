@@ -11,6 +11,8 @@ class OtpStateLoading extends OtpState {}
 
 class OtpEmailExists extends OtpState {}
 
+class Registered extends OtpState {}
+
 class OtpStateLoaded extends OtpState {
   final String email;
   final String otp;

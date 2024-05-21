@@ -39,6 +39,7 @@ class SignUpCubit extends Cubit<SignUpState> {
 
   Future<bool> submitForm() async {
     if (formKey.currentState!.validate()) {
+      dispose();
       return true;
     } else {
       return false;

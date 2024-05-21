@@ -381,7 +381,7 @@ class FeedbackView extends StatelessWidget {
                               if (state is FeedbackLiked) {
                                 if (state.selectionStatus.values
                                     .every((element) => element == false)) {
-                                  AppUtils.showToast(context, 'Error', 'Please select atleast one option', true);
+                                  AppUtils.showToast(context, 'Error', 'Please select at least one option', true);
                               return;
                                 }
                               }
@@ -389,7 +389,7 @@ class FeedbackView extends StatelessWidget {
                                 if (state.selectionStatus.values
                                     .toList()
                                     .every((element) => element == false)) {
-                                  AppUtils.showToast(context, 'Error', 'Please select atleast one option', true);
+                                  AppUtils.showToast(context, 'Error', 'Please select at least one option', true);
                                   return;
                                 }
                               }
@@ -405,7 +405,7 @@ class FeedbackView extends StatelessWidget {
                                     if (state is FeedbackLiked) {
                                       if (state.selectionStatus.values
                                           .every((element) => element == false)) {
-                                        AppUtils.showToast(context, 'Error', 'Please select atleast one option', true);
+                                        AppUtils.showToast(context, 'Error', 'Please select at least one option', true);
                                         return;
                                       }
                                       List<String> list = state
@@ -432,7 +432,7 @@ class FeedbackView extends StatelessWidget {
                                       if (state.selectionStatus.values
                                           .toList()
                                           .every((element) => element == false)) {
-                                        AppUtils.showToast(context, 'Error', 'Please select atleast one option', true);
+                                        AppUtils.showToast(context, 'Error', 'Please select at least one option', true);
                                         return;
                                       }
                                       List<String> list = state
