@@ -40,7 +40,12 @@ class FeedbackView extends StatelessWidget {
           ),
         ),
       ),
-      body: BlocBuilder<FeedbackCubit, FeedbackState>(
+      body: BlocConsumer<FeedbackCubit, FeedbackState>(
+        listener: (context, state) {
+          if (state is FeedbackServerError) {
+            AppUtils.showToast(context, 'Server Error', 'Server error has occurred, please try again later', true);
+          }
+        },
         builder: (context, state) {
           if (state is FeedbackLoading) {
             return const Center(
@@ -234,15 +239,7 @@ class FeedbackView extends StatelessWidget {
                                 const EdgeInsets.only(left: 30, right: 30),
                                 child: InkWell(
                                   onTap: () {
-                                    if (itemName == "All of the above") {
-                                      context
-                                          .read<FeedbackCubit>()
-                                          .selectAllLikedItems();
-                                    } else {
-                                      context
-                                          .read<FeedbackCubit>()
-                                          .toggleLikedItem(itemName);
-                                    }
+                                    context.read<FeedbackCubit>().toggleLikedItem(itemName);
                                   },
                                   child: Container(
                                     height: MediaQuery.sizeOf(context).height *
@@ -284,15 +281,7 @@ class FeedbackView extends StatelessWidget {
                                 const EdgeInsets.only(left: 30, right: 30),
                                 child: InkWell(
                                   onTap: () {
-                                    if (itemName == "All of the above") {
-                                      context
-                                          .read<FeedbackCubit>()
-                                          .selectAllUnLikedItems();
-                                    } else {
-                                      context
-                                          .read<FeedbackCubit>()
-                                          .toggleUnLikedItem(itemName);
-                                    }
+                                    context.read<FeedbackCubit>().toggleUnLikedItem(itemName);
                                   },
                                   child: Container(
                                     height: MediaQuery.sizeOf(context).height *
@@ -382,7 +371,7 @@ class FeedbackView extends StatelessWidget {
                                 if (state.selectionStatus.values
                                     .every((element) => element == false)) {
                                   AppUtils.showToast(context, 'Error', 'Please select at least one option', true);
-                              return;
+                                  return;
                                 }
                               }
                               if (state is FeedbackUnLiked) {
