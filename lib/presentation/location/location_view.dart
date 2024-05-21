@@ -51,13 +51,16 @@ class LocationScreen extends StatelessWidget {
               final marker = Marker(
                 markerId: const MarkerId('currentLocation'),
                 position:
-                LatLng(state.position.latitude, state.position.longitude),
+                    LatLng(state.position.latitude, state.position.longitude),
               );
-              return SizedBox.shrink();
+              return const SizedBox.shrink();
             } else if (state is LocationSet) {
               return LocationSetView(
-                  position: state.initialPosition,
-                  userAddress: state.address);
+                position: state.initialPosition,
+                userAddress: state.address,
+                lat: state.latitude,
+                long: state.longitude,
+              );
             }
             return const SizedBox.shrink();
           },
