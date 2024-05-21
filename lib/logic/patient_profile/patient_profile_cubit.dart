@@ -10,6 +10,23 @@ class PatientProfileCubit extends Cubit<PatientProfileState> {
   final addressController = TextEditingController();
   final phoneController = TextEditingController();
   final ageController = TextEditingController();
+  late double lat;
+  late double long;
+  late String gender;
+  late String imageBase64;
+
+  void setImage(String image) {
+    imageBase64 = image;
+  }
+
+  void setGender(String userGender) {
+    gender = userGender;
+  }
+
+  Future<void> setCoordinates(double latitude, double longitude) async{
+    lat = latitude;
+    long = longitude;
+  }
 
   Future<void> loadPatientProfile(String email) async {
     emit(PatientProfileStateLoading());
@@ -29,6 +46,10 @@ class PatientProfileCubit extends Cubit<PatientProfileState> {
 
   Future<void> savePatientProfile() async{
     emit(PatientProfileStateLoading());
+    String phone = '+92${phoneController.text}';
+    String address = addressController.text;
+    String age = ageController.text;
+     print(phone + address + lat.toString() + long.toString() + gender + age + imageBase64);
     try {
       //http call to store profile data
       //emit loaded state
