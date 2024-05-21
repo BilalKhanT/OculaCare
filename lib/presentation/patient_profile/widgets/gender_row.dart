@@ -20,7 +20,7 @@ class GenderRow extends StatelessWidget {
               value: 'male',
               groupValue: selectedGender,
               onChanged: (value) =>
-                  context.read<GenderCubit>().selectGender(value!),
+                  context.read<GenderCubit>().selectGender(value!, context),
             ),
             Text('Male',
                 style: TextStyle(
@@ -33,7 +33,7 @@ class GenderRow extends StatelessWidget {
               value: 'female',
               groupValue: selectedGender,
               onChanged: (value) =>
-                  context.read<GenderCubit>().selectGender(value!),
+                  context.read<GenderCubit>().selectGender(value!, context),
             ),
             Text('Female',
                 style: TextStyle(
@@ -46,7 +46,7 @@ class GenderRow extends StatelessWidget {
               value: 'other',
               groupValue: selectedGender,
               onChanged: (value) =>
-                  context.read<GenderCubit>().selectGender(value!),
+                  context.read<GenderCubit>().selectGender(value!, context),
             ),
             Text('Other',
                 style: TextStyle(
