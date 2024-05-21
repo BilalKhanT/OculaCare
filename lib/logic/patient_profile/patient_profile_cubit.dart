@@ -74,7 +74,7 @@ class PatientProfileCubit extends Cubit<PatientProfileState> {
         emit(PatientProfileStateFailure('Ops, something went wrong ${response.statusCode}'));
       }
     } catch (e) {
-      print('$e');
+      log('$e');
       emit(PatientProfileStateFailure('Ops, something went wrong'));
     }
   }
