@@ -1,8 +1,10 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'package:OculaCare/data/repositories/local/preferences/shared_prefs.dart';
 import 'package:OculaCare/logic/patient_profile/patient_profile_state.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:http/http.dart' as http;
 
 class PatientProfileCubit extends Cubit<PatientProfileState> {
   PatientProfileCubit() : super(PatientProfileStateInitial());
@@ -49,12 +51,30 @@ class PatientProfileCubit extends Cubit<PatientProfileState> {
     String phone = '+92${phoneController.text}';
     String address = addressController.text;
     String age = ageController.text;
-     print(phone + address + lat.toString() + long.toString() + gender + age + imageBase64);
     try {
-      //http call to store profile data
-      //emit loaded state
+      var url = Uri.parse('http://192.168.18.29:3000/api/patients/update-profile');
+      var response = await http.post(
+        url,
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          'email': sharedPrefs.email,
+          'profileImage': imageBase64,
+          'age': age,
+          'gender': gender,
+          'contactNumber': phone,
+          'lat': lat.toString(),
+          'long': long.toString(),
+          'locationName': address,
+        }),
+      );
+      if (response.statusCode == 200) {
+
+      }
+      else {
+        emit(PatientProfileStateFailure('Ops, something went wrong ${response.statusCode}'));
+      }
     } catch (e) {
-      log('$e');
+      print('$e');
       emit(PatientProfileStateFailure('Ops, something went wrong'));
     }
   }
