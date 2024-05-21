@@ -26,6 +26,11 @@ class SharedPrefs {
   set username(String value) {
     _sharedPrefs?.setString('username', value);
   }
+
+  String get email => _sharedPrefs?.getString('email') ?? '';
+  set email(String value) {
+    _sharedPrefs?.setString('email', value);
+  }
 }
 
 final sharedPrefs = SharedPrefs();

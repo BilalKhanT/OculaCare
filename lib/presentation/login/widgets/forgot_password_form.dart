@@ -12,8 +12,9 @@ class ForgotPasswordForm extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.sizeOf(context).height;
     final loginCubit = context.read<LoginCubit>();
+    final formKey = GlobalKey<FormState>();
     return Form(
-      key: loginCubit.formKey,
+      key: formKey,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
         child: Column(

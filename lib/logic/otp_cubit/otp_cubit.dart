@@ -17,6 +17,7 @@ class OtpCubit extends Cubit<OtpState> {
   late String userPassword;
 
   Future<void> sendOtp(String email, String name, String password) async {
+    print('aaaa ${email + name + password}');
     emit(OtpStateLoading());
     userEmail = email;
     userName = name;

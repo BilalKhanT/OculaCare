@@ -1,15 +1,15 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:OculaCare/data/repositories/local/preferences/shared_prefs.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'login_cubit_state.dart';
 import 'package:http/http.dart' as http;
 
 class LoginCubit extends Cubit<LoginState> {
-  LoginCubit() : super(LoginStateInitial());
+  LoginCubit() : super(LoginStateLoaded(false));
 
-  final formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   bool passwordToggle = false;
@@ -25,46 +25,46 @@ class LoginCubit extends Cubit<LoginState> {
     emit(LoginStateLoaded(passwordToggle));
   }
 
-  loadLoginScreen() {
-    emit(LoginStateLoaded(passwordToggle));
-  }
+  loadLoginScreen() {}
 
-  Future<bool> submitForm() async {
+  Future<bool> submitForm(GlobalKey<FormState> formKey) async {
     if (formKey.currentState!.validate()) {
-      try {
-        var url = Uri.parse('http://192.168.18.34:3000/api/users/login');
-        var response = await http.post(
-          url,
-          headers: {'Content-Type': 'application/json'},
-          body: jsonEncode({
-            'email': emailController.text.trim(),
-            'password': passwordController.text.trim(),
-          }),
-        );
-
-        log('Response status: ${response.statusCode}');
-        log('Response body: ${response.body}');
-
-        if (response.statusCode == 200) {
-          return true;
-        } else {
-
-          return false;
-        }
-      } catch (e) {
-        log('Network error: $e');
-        return false;
-      }
+      return true;
     } else {
       return false;
     }
   }
 
-  Future forgetPassword() async{
+  Future<void> loginUser() async {
+    emit(LoginStateLoading());
+    try {
+      var url = Uri.parse('http://192.168.18.29:3000/api/patients/login');
+      var response = await http.post(
+        url,
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          'email': emailController.text.trim(),
+          'password': passwordController.text.trim(),
+        }),
+      );
+      sharedPrefs.email = emailController.text.trim();
+      dispose();
+      if (response.statusCode == 200) {
+        emit(LoginSuccess());
+      } else {
+        emit(LoginFailure());
+      }
+    } catch (e) {
+      emit(LoginFailure());
+      log('Network error: $e');
+    }
+  }
+
+  Future forgetPassword() async {
     emit(LoginStateForgotPassword());
   }
 
-  Future resetPassword() async{
+  Future resetPassword() async {
     emit(LoginStateResetPassword());
   }
 }

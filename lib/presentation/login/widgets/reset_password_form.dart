@@ -11,9 +11,10 @@ class ResetPasswordForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.sizeOf(context).height;
+    final formKey = GlobalKey<FormState>();
     final loginCubit = context.read<LoginCubit>();
     return Form(
-      key: loginCubit.formKey,
+      key: formKey,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
         child: Column(
@@ -120,7 +121,7 @@ class ResetPasswordForm extends StatelessWidget {
             ),
             CustomFlatButton(
               onTap: () async {
-                bool flag = await loginCubit.submitForm();
+                bool flag = await loginCubit.submitForm(formKey);
                 if (flag) {
                   print('Success');
                 } else {

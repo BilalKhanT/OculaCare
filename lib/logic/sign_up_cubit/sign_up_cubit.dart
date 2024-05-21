@@ -6,13 +6,10 @@ import 'package:OculaCare/logic/sign_up_cubit/sign_up_state.dart';
 class SignUpCubit extends Cubit<SignUpState> {
   SignUpCubit() : super(SignUpStateInitial());
 
-  final formKey = GlobalKey<FormState>();
   final userNameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPassController = TextEditingController();
-  bool passwordToggle = false;
-  bool passwordToggle2 = false;
 
   dispose() {
     userNameController.clear();
@@ -21,25 +18,12 @@ class SignUpCubit extends Cubit<SignUpState> {
     confirmPassController.clear();
   }
 
-  togglePasswordVisibility() {
-    passwordToggle = !passwordToggle;
-    emit(SignUpStateInitial());
-    emit(SignUpStateLoaded(passwordToggle, passwordToggle2));
-  }
-
-  togglePasswordVisibility2() {
-    passwordToggle2 = !passwordToggle2;
-    emit(SignUpStateInitial());
-    emit(SignUpStateLoaded(passwordToggle, passwordToggle2));
-  }
-
   loadSignUpScreen() {
-    emit(SignUpStateLoaded(passwordToggle, passwordToggle2));
+    emit(SignUpStateLoaded());
   }
 
-  Future<bool> submitForm() async {
+  Future<bool> submitForm(GlobalKey<FormState> formKey) async {
     if (formKey.currentState!.validate()) {
-      dispose();
       return true;
     } else {
       return false;

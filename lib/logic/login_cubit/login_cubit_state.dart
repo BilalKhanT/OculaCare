@@ -19,6 +19,10 @@ class LoginStateLoaded extends LoginState {
   LoginStateLoaded(this.passVisible);
 }
 
+class LoginSuccess extends LoginState {}
+
+class LoginFailure extends LoginState {}
+
 class LoginStateFailure extends LoginState {
   final String errorMsg;
 

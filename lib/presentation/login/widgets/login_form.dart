@@ -11,15 +11,15 @@ import '../../../logic/login_cubit/login_cubit.dart';
 import '../../sign_up/widgets/cstm_flat_btn.dart';
 
 class LoginForm extends StatelessWidget {
-  const LoginForm({Key? key, required this.passVisible}) : super(key: key);
-  final bool passVisible;
+  const LoginForm({Key? key,}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final formKey = GlobalKey<FormState>();
     double screenHeight = MediaQuery.sizeOf(context).height;
     final loginCubit = context.read<LoginCubit>();
     return Form(
-      key: loginCubit.formKey,
+      key: formKey,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
         child: Column(
@@ -72,7 +72,7 @@ class LoginForm extends StatelessWidget {
                     loginCubit.togglePasswordVisibility();
                   },
                   icon: Icon(
-                    passVisible ? Icons.visibility_off : Icons.visibility,
+                    loginCubit.passwordToggle ? Icons.visibility_off : Icons.visibility,
                     color: AppColors.appColor,
                   ),
                 ),
@@ -94,7 +94,7 @@ class LoginForm extends StatelessWidget {
                 color: Colors.black,
                 letterSpacing: 1.0,
               ),
-              obscureText: !passVisible,
+              obscureText: !loginCubit.passwordToggle,
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Please enter a password';
@@ -120,16 +120,10 @@ class LoginForm extends StatelessWidget {
             ),
             CustomFlatButton(
               onTap: () async {
-                sharedPrefs.isLoggedIn = true;
-                context.go(RouteNames.homeRoute);
-                // bool flag = await loginCubit.submitForm();
-                // if (flag) {
-                //   if (context.mounted) {
-                //     context.go(RouteNames.homeRoute);
-                //   }
-                // } else {
-                //   AppUtils.showToast(context, "Login Error", "Invalid login credentials", true);
-                // }
+                bool flag = await loginCubit.submitForm(formKey);
+                if (flag == true) {
+                  await context.read<LoginCubit>().loginUser();
+                }
               },
               text: 'Login',
               btnColor: AppColors.appColor,
