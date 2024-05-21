@@ -1,6 +1,8 @@
 import 'package:OculaCare/configs/presentation/constants/colors.dart';
+import 'package:OculaCare/logic/patient_profile/patient_profile_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../../logic/location_cubit/location_cubit.dart';
@@ -8,10 +10,14 @@ import '../../../logic/location_cubit/location_cubit.dart';
 class LocationSetView extends StatelessWidget {
   final LatLng position;
   final String userAddress;
+  final double lat;
+  final double long;
   const LocationSetView(
       {super.key,
-        required this.position,
-        required this.userAddress});
+      required this.position,
+      required this.userAddress,
+      required this.lat,
+      required this.long});
 
   @override
   Widget build(BuildContext context) {
@@ -77,20 +83,32 @@ class LocationSetView extends StatelessWidget {
                     height: 30.0,
                   ),
                   Center(
-                    child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15.0),
-                          color: AppColors.appColor),
-                      child: const Padding(
-                        padding:
-                        EdgeInsets.symmetric(vertical: 15.0, horizontal: 50.0),
-                        child: Text(
-                          'Save Address',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.w600,
+                    child: GestureDetector(
+                      onTap: () async {
+                        context
+                            .read<PatientProfileCubit>()
+                            .addressController
+                            .text = userAddress;
+                        await context
+                            .read<PatientProfileCubit>()
+                            .setCoordinates(lat, long);
+                        context.pop();
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15.0),
+                            color: AppColors.appColor),
+                        child: const Padding(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 15.0, horizontal: 50.0),
+                          child: Text(
+                            'Add Address',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
                         ),
                       ),
