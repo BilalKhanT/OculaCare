@@ -10,7 +10,7 @@ abstract class AppUtils {
       context: context,
       type: ToastificationType.success,
       style: ToastificationStyle.flat,
-      autoCloseDuration: const Duration(seconds: 4),
+      autoCloseDuration: const Duration(seconds: 6),
       title: Text(
         title,
         style: TextStyle(
