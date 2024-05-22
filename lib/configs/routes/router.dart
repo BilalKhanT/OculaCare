@@ -82,7 +82,10 @@ final router = GoRouter(
     GoRoute(
       parentNavigatorKey: navigatorKey,
       path: RouteNames.signUpRoute,
-      builder: (context, state) => const SignUpScreen(),
+      builder: (context, state) {
+        final flow = state.extra as String;
+        return SignUpScreen(flow: flow,);
+      }
     ),
     // GoRoute(
     //   path: RouteNames.resultRoute,

@@ -12,7 +12,9 @@ import 'package:OculaCare/presentation/sign_up/widgets/sign_up_form.dart';
 import '../../configs/presentation/constants/colors.dart';
 
 class SignUpScreen extends StatelessWidget {
-  const SignUpScreen({Key? key}) : super(key: key);
+  const SignUpScreen({Key? key, required this.flow}) : super(key: key);
+
+  final String flow;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +29,12 @@ class SignUpScreen extends StatelessWidget {
           leading: IconButton(
             onPressed: () {
               context.read<SignUpCubit>().dispose();
-              Navigator.of(context).popUntil(ModalRoute.withName(RouteNames.loginRoute));
+              if (flow == 'login') {
+                context.go(RouteNames.loginRoute);
+              }
+              else if (flow == 'boarding') {
+                context.go(RouteNames.onBoardingRoute);
+              }
             },
             icon: const Icon(
               Icons.arrow_back_ios_new,

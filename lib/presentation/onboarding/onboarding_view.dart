@@ -92,7 +92,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               onTap: () {
                 if (currentIndex == contents.length - 1) {
                   context.read<SignUpCubit>().loadSignUpScreen();
-                  context.push(RouteNames.signUpRoute);
+                  context.push(RouteNames.signUpRoute, extra: 'boarding');
                 }
                 _controller.nextPage(
                   duration: const Duration(milliseconds: 100),

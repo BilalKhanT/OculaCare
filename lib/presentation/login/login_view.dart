@@ -28,7 +28,7 @@ class LoginScreen extends StatelessWidget {
           leading: IconButton(
             onPressed: () {
               context.read<LoginCubit>().dispose();
-              Navigator.of(context).popUntil(ModalRoute.withName(RouteNames.signUpRoute));
+              context.go(RouteNames.signUpRoute, extra: 'login');
             },
             icon: const Icon(
               Icons.arrow_back_ios_new,
@@ -200,7 +200,7 @@ class LoginScreen extends StatelessWidget {
                                 width: 5.0,
                               ),
                               GestureDetector(
-                                onTap: () => context.push(RouteNames.signUpRoute),
+                                onTap: () => context.go(RouteNames.signUpRoute, extra: 'login'),
                                 child: Text(
                                   'Signup',
                                   style: TextStyle(
