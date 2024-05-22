@@ -136,7 +136,15 @@ class SignUpScreen extends StatelessWidget {
                                 width: 5.0,
                               ),
                               CustomImageButton(
-                                onTap: () {},
+                                onTap: () async {
+                                  bool flag = await context.read<SignUpCubit>().createUserWithFacebook();
+                                  if (!flag) {
+                                    AppUtils.showToast(context, 'Email Already Registered', 'Please use a different google account to register a new account', true);
+                                  }
+                                  else {
+                                    context.go(RouteNames.homeRoute);
+                                  }
+                                },
                                 imagePath: 'assets/images/fbIcon.png',
                               )
                             ],
