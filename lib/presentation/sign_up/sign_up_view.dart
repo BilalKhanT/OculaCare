@@ -126,6 +126,7 @@ class SignUpScreen extends StatelessWidget {
                                     AppUtils.showToast(context, 'Email Already Registered', 'Please use a different google account to register a new account', true);
                                   }
                                   else {
+                                    AppUtils.showToast(context, 'Update Password', 'Your account password has been set as \'******\', update it in profile', false);
                                     context.go(RouteNames.homeRoute);
                                   }
                                 },

@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
 
+import '../../data/models/patient/patient_model.dart';
+
 abstract class PatientProfileState extends Equatable {
   @override
   List<Object> get props => [];
@@ -11,8 +13,12 @@ class PatientProfileStateLoading extends PatientProfileState {}
 
 class PatientProfileStateSetUp extends PatientProfileState {}
 
-class PatientProfileStateLoaded extends PatientProfileState {
+class PatientProfileStateEdit extends PatientProfileState {}
 
+class PatientProfileStateLoaded extends PatientProfileState {
+  final Patient patientData;
+
+  PatientProfileStateLoaded(this.patientData);
 }
 
 class PatientProfileStateFailure extends PatientProfileState {
