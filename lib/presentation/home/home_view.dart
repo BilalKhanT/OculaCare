@@ -1,3 +1,4 @@
+import 'package:OculaCare/data/repositories/local/preferences/shared_prefs.dart';
 import 'package:OculaCare/presentation/home/widgets/educ_widget.dart';
 import 'package:OculaCare/presentation/home/widgets/grid_btn_widget.dart';
 import 'package:OculaCare/presentation/onboarding/data_onboarding/content_model.dart';
@@ -72,7 +73,7 @@ class HomeScreen extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          'Bilal Khan',
+                          sharedPrefs.userName,
                           style: TextStyle(
                             fontFamily: 'Poppins',
                             fontSize: 22.sp,
