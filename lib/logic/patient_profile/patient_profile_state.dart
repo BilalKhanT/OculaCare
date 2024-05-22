@@ -13,6 +13,8 @@ class PatientProfileStateLoading extends PatientProfileState {}
 
 class PatientProfileStateSetUp extends PatientProfileState {}
 
+class PatientProfileStateEdit extends PatientProfileState {}
+
 class PatientProfileStateLoaded extends PatientProfileState {
   final Patient patientData;
 

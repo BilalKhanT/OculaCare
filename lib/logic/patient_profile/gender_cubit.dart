@@ -9,4 +9,8 @@ class GenderCubit extends Cubit<String> {
     context.read<PatientProfileCubit>().setGender(gender);
     emit(gender);
   }
+
+  setGender(String gender) {
+    emit(gender);
+  }
 }
