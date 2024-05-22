@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "495205479847",
+    "project_id": "oculacare",
+    "storage_bucket": "oculacare.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:495205479847:android:3084aa3ee17080b02a3282",
+        "android_client_info": {
+          "package_name": "com.example.ocula_care"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "495205479847-autf19969tt8lfa2737njgvq4f47l248.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.ocula_care",
+            "certificate_hash": "d0218278320e1a2694396387e82d68f8a78521b6"
+          }
+        },
+        {
+          "client_id": "495205479847-ri9agl1nb3rh3iq63p7t371mrds2im6k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD4ZYB2aUh9JHJOujanqthG-LTeb0N6M2k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "495205479847-ri9agl1nb3rh3iq63p7t371mrds2im6k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
