@@ -13,7 +13,11 @@ class PatientProfileStateLoading extends PatientProfileState {}
 
 class PatientProfileStateSetUp extends PatientProfileState {}
 
-class PatientProfileStateEdit extends PatientProfileState {}
+class PatientProfileStateEdit extends PatientProfileState {
+  final String image;
+
+  PatientProfileStateEdit(this.image);
+}
 
 class PatientProfileStateLoaded extends PatientProfileState {
   final Patient patientData;

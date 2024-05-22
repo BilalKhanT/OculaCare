@@ -87,6 +87,8 @@ class SignUpCubit extends Cubit<SignUpState> {
         }),
       );
       if (response.statusCode == 200) {
+        sharedPrefs.isProfileSetup = false;
+        sharedPrefs.email = email;
         sharedPrefs.userName = userName;
         sharedPrefs.password = '******';
         return true;

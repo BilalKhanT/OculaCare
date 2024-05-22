@@ -25,4 +25,20 @@ class UploadProfilePhotoCubit extends Cubit<UploadProfilePhotoState> {
       emit(UploadProfilePhotoStateError('Ops, something went wrong'));
     }
   }
+
+  Future<String> changeProfilePhoto() async{
+    emit(UploadProfilePhotoStateLoading());
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      image = pickedFile;
+      final base64Image = base64Encode(await File(pickedFile.path).readAsBytes());
+      emit(UpdateProfilePhotoStateLoaded(base64Image));
+      return base64Image;
+    }
+    else {
+      emit(UploadProfilePhotoStateError('Ops, something went wrong'));
+      return '';
+    }
+  }
 }

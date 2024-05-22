@@ -10,14 +10,14 @@ class GenderRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<GenderCubit, String>(
+    return BlocBuilder<GenderCubit, String?>(
       builder: (context, selectedGender) {
         return Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Radio<String>(
               activeColor: AppColors.appColor,
-              value: 'male',
+              value: 'Male',
               groupValue: selectedGender,
               onChanged: (value) =>
                   context.read<GenderCubit>().selectGender(value!, context),
@@ -30,7 +30,7 @@ class GenderRow extends StatelessWidget {
             SizedBox(width: 10.w),
             Radio<String>(
               activeColor: AppColors.appColor,
-              value: 'female',
+              value: 'Female',
               groupValue: selectedGender,
               onChanged: (value) =>
                   context.read<GenderCubit>().selectGender(value!, context),
@@ -43,7 +43,7 @@ class GenderRow extends StatelessWidget {
             SizedBox(width: 10.w),
             Radio<String>(
               activeColor: AppColors.appColor,
-              value: 'other',
+              value: 'Other',
               groupValue: selectedGender,
               onChanged: (value) =>
                   context.read<GenderCubit>().selectGender(value!, context),

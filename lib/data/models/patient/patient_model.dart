@@ -1,21 +1,17 @@
 import '../address/address_model.dart';
 
 class PatientModel {
-  final String message;
   final Patient patient;
 
   PatientModel({
-    required this.message,
     required this.patient,
   });
 
   factory PatientModel.fromJson(Map<String, dynamic> json) => PatientModel(
-    message: json["message"],
     patient: Patient.fromJson(json["patient"]),
   );
 
   Map<String, dynamic> toJson() => {
-    "message": message,
     "patient": patient.toJson(),
   };
 }
@@ -46,7 +42,7 @@ class Patient {
     age: json["age"],
     gender: json["gender"],
     contactNumber: json["contactNumber"],
-    address: Address.fromJson(json["address"]),
+    address: json["address"] != null ? Address.fromJson(json["address"]) : null,
   );
 
   Map<String, dynamic> toJson() => {

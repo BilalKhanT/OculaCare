@@ -1,13 +1,21 @@
+import 'package:OculaCare/configs/utils/utils.dart';
 import 'package:OculaCare/data/repositories/local/preferences/shared_prefs.dart';
 import 'package:OculaCare/presentation/home/widgets/educ_widget.dart';
 import 'package:OculaCare/presentation/home/widgets/grid_btn_widget.dart';
 import 'package:OculaCare/presentation/onboarding/data_onboarding/content_model.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../configs/presentation/constants/colors.dart';
+import '../../configs/routes/route_names.dart';
+import '../../logic/image_capture/img_capture_cubit.dart';
+import '../../logic/pdf_cubit/pdf_cubit_state.dart';
+import '../widgets/need_to_setup_profile_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -39,11 +47,18 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
           actions: [
-            Padding(
-              padding: const EdgeInsets.only(right: 15.0),
-              child: SvgPicture.asset(
-                'assets/svgs/notifcation.svg',
-                height: 35.h,
+            GestureDetector(
+              onTap: () => AppUtils.showToast(
+                  context,
+                  'Feature Under Development',
+                  'Hold on as we build this feature',
+                  false),
+              child: Padding(
+                padding: const EdgeInsets.only(right: 15.0),
+                child: SvgPicture.asset(
+                  'assets/svgs/notifcation.svg',
+                  height: 35.h,
+                ),
               ),
             ),
           ],
@@ -93,13 +108,14 @@ class HomeScreen extends StatelessWidget {
                     child: CarouselSlider(
                       items: [
                         Container(
-                          margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                          margin: const EdgeInsets.symmetric(
+                              vertical: 5, horizontal: 10),
                           child: SizedBox(
-                            height: 150.h,
+                              height: 150.h,
                               child: Image.asset(
-                            'assets/images/eye_banner1.jpeg',
-                            fit: BoxFit.cover,
-                          )),
+                                'assets/images/eye_banner1.jpeg',
+                                fit: BoxFit.cover,
+                              )),
                         ),
                         Container(
                           margin: const EdgeInsets.all(5),
@@ -143,7 +159,7 @@ class HomeScreen extends StatelessWidget {
                         ),
                       ],
                       options: CarouselOptions(
-                        initialPage: 2,
+                          initialPage: 2,
                           height: 149,
                           aspectRatio: 16 / 9,
                           autoPlay: true,
@@ -152,7 +168,9 @@ class HomeScreen extends StatelessWidget {
                           enableInfiniteScroll: false),
                     ),
                   ),
-                  SizedBox(height: 30.h,),
+                  SizedBox(
+                    height: 30.h,
+                  ),
                   Padding(
                     padding: const EdgeInsets.only(left: 15),
                     child: SizedBox(
@@ -162,12 +180,24 @@ class HomeScreen extends StatelessWidget {
                         return SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
                           child: Row(
-                            mainAxisAlignment:
-                            MainAxisAlignment.spaceEvenly,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               GridButtonWidget(
                                 onTap: () {
-              
+                                  if (!sharedPrefs.isProfileSetup) {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return const Dialog(
+                                            child: NeedToSetupProfileWidget());
+                                      },
+                                    );
+                                    return;
+                                  }
+                                  context
+                                      .read<ImageCaptureCubit>()
+                                      .initializeCamera();
+                                  context.push(RouteNames.imgCaptureRoute);
                                 },
                                 iconData: "assets/svgs/eye_scan.svg",
                                 constraints: constraints,
@@ -179,7 +209,11 @@ class HomeScreen extends StatelessWidget {
                               ),
                               GridButtonWidget(
                                 onTap: () {
-              
+                                  AppUtils.showToast(
+                                      context,
+                                      'Feature Under Development',
+                                      'Hold on as we build this feature',
+                                      false);
                                 },
                                 iconData: "assets/svgs/tests.svg",
                                 constraints: constraints,
@@ -191,7 +225,11 @@ class HomeScreen extends StatelessWidget {
                               ),
                               GridButtonWidget(
                                 onTap: () {
-              
+                                  AppUtils.showToast(
+                                      context,
+                                      'Feature Under Development',
+                                      'Hold on as we build this feature',
+                                      false);
                                 },
                                 iconData: "assets/svgs/hospital.svg",
                                 constraints: constraints,
@@ -203,7 +241,10 @@ class HomeScreen extends StatelessWidget {
                               ),
                               GridButtonWidget(
                                 onTap: () {
-              
+                                  context
+                                      .read<PDFCubit>()
+                                      .fetchAndInitializePDFList();
+                                  context.push(RouteNames.pdfViewRoute);
                                 },
                                 constraints: constraints,
                                 iconData: 'assets/svgs/leaflet.svg',
@@ -216,7 +257,9 @@ class HomeScreen extends StatelessWidget {
                       }),
                     ),
                   ),
-                  SizedBox(height: 30.h,),
+                  SizedBox(
+                    height: 30.h,
+                  ),
                   Padding(
                     padding: const EdgeInsets.only(left: 5.0),
                     child: Text(
@@ -229,13 +272,14 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: 10.h,),
+                  SizedBox(
+                    height: 10.h,
+                  ),
                   SizedBox(
                     width: MediaQuery.sizeOf(context).width,
                     height: MediaQuery.sizeOf(context).height * 0.36,
                     child: ListView.builder(
-                      itemCount:
-                      education.length,
+                      itemCount: education.length,
                       itemBuilder: (ctx, index) {
                         EducationModel model = education[index];
                         return Padding(

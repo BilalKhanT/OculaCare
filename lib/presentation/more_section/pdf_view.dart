@@ -29,7 +29,7 @@ class PDFViewScreen extends StatelessWidget {
           ),
         ),
         leading: IconButton(
-          onPressed: () => context.go(RouteNames.moreRoute),
+          onPressed: () => context.pop(),
           icon: const Icon(Icons.arrow_back_ios_new_outlined, color: AppColors.appColor,),
         ),
       ),

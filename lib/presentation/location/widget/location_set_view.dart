@@ -89,6 +89,10 @@ class LocationSetView extends StatelessWidget {
                             .read<PatientProfileCubit>()
                             .addressController
                             .text = userAddress;
+                        context
+                            .read<PatientProfileCubit>()
+                            .updateAddressController
+                            .text = userAddress;
                         await context
                             .read<PatientProfileCubit>()
                             .setCoordinates(lat, long);
