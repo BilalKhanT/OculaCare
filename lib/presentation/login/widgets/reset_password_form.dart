@@ -1,3 +1,4 @@
+import 'package:OculaCare/configs/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,7 +21,7 @@ class ResetPasswordForm extends StatelessWidget {
         child: Column(
           children: <Widget>[
             TextFormField(
-              controller: loginCubit.passwordController,
+              controller: loginCubit.recoveryPassController,
               decoration: InputDecoration(
                 prefixIcon: const Icon(
                   Icons.lock_outline,
@@ -74,6 +75,7 @@ class ResetPasswordForm extends StatelessWidget {
               height: screenHeight * 0.01,
             ),
             TextFormField(
+              controller: loginCubit.recoveryConfirmPassController,
               decoration: InputDecoration(
                 prefixIcon: const Icon(
                   Icons.lock_outline,
@@ -112,7 +114,7 @@ class ResetPasswordForm extends StatelessWidget {
                 if (loginCubit.passwordController.text != value) {
                   return 'Passwords do not match';
                 }
-                loginCubit.passwordController.text.toString();
+                loginCubit.recoveryConfirmPassController.text = value;
                 return null;
               },
             ),
@@ -121,11 +123,12 @@ class ResetPasswordForm extends StatelessWidget {
             ),
             CustomFlatButton(
               onTap: () async {
-                bool flag = await loginCubit.submitForm(formKey);
+                bool flag = await loginCubit.changePassword();
                 if (flag) {
-                  print('Success');
+                  AppUtils.showToast(context, 'Password Changed Successfully', 'Your password has been changed successfully.', false);
+                  context.read<LoginCubit>().loadLoginScreen();
                 } else {
-                  print('FUCK HGYA');
+                  AppUtils.showToast(context, 'Server Error', 'Please try again later.', true);
                 }
               },
               text: 'Submit Email',

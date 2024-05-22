@@ -13,6 +13,8 @@ class LoginCubit extends Cubit<LoginState> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final recoveryEmailController = TextEditingController();
+  final recoveryPassController = TextEditingController();
+  final recoveryConfirmPassController = TextEditingController();
 
   dispose() {
     emailController.clear();
@@ -62,6 +64,30 @@ class LoginCubit extends Cubit<LoginState> {
 
   Future<void> checkRecoveryEmail() async{
 
+  }
+
+  Future<bool> changePassword() async {
+    try {
+      var url = Uri.parse('http://192.168.18.29:3000/api/patients/update-password');
+      var response = await http.post(
+        url,
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          'email': sharedPrefs.email,
+          'newPassword': recoveryPassController.text.trim(),
+        }),
+      );
+      if (response.statusCode == 200) {
+        return true;
+      }
+      else {
+        return false;
+      }
+    }
+    catch (e) {
+      print('$e');
+      return false;
+    }
   }
 
   Future resetPassword() async {
