@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:OculaCare/configs/app/environment/env_configs.dart';
+import 'package:OculaCare/data/repositories/local/preferences/shared_prefs.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
@@ -17,7 +18,6 @@ class OtpCubit extends Cubit<OtpState> {
   late String userPassword;
 
   Future<void> sendOtp(String email, String name, String password) async {
-    print('aaaa ${email + name + password}');
     emit(OtpStateLoading());
     userEmail = email;
     userName = name;
@@ -50,6 +50,36 @@ class OtpCubit extends Cubit<OtpState> {
     }
   }
 
+  Future<void> sendRecoveryOTP (String email) async{
+    emit(OtpStateLoading());
+    try {
+      var url = Uri.parse('http://192.168.18.29:3000/api/patients/recovery-otp');
+      var response = await http.post(
+        url,
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          'email': email,
+          'username': sharedPrefs.userName,
+        }),
+      );
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+        var otp = data['otp'];
+        verificationOTP = otp.toString();
+        emit(OtpStateLoaded(otp, email));
+      }
+      else if (response.statusCode == 409) {
+        emit(OtpEmailNotExists());
+      }else {
+        log('Server error with status code: ${response.statusCode}');
+        emit(OtpStateFailure('Ops, something went wrong'));
+      }
+    } catch (e) {
+      log('Network error: $e');
+      emit(OtpStateFailure('Ops, something went wrong'));
+    }
+  }
+
   bool verifyOtp() {
     if (userOTP == verificationOTP) {
       return true;
@@ -59,7 +89,11 @@ class OtpCubit extends Cubit<OtpState> {
     }
   }
 
-  Future<void> registerUser() async {
+  Future<void> registerUser(String flow) async {
+    if (flow == 'recover') {
+      emit(LoadChangePasswordState());
+      return;
+    }
     try {
       var url = Uri.parse('http://192.168.18.29:3000/api/patients/register');
       var response = await http.post(
@@ -72,6 +106,7 @@ class OtpCubit extends Cubit<OtpState> {
         }),
       );
       if (response.statusCode == 200) {
+        sharedPrefs.userName = userName;
         emit(Registered());
       }
       else {

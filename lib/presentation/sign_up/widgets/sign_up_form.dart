@@ -238,7 +238,7 @@ class SignUpForm extends StatelessWidget {
                         signUpCubit.userNameController.text.trim(),
                         signUpCubit.passwordController.text.trim());
                     context.read<SignUpCubit>().dispose();
-                    context.push(RouteNames.otpRoute);
+                    context.push(RouteNames.otpRoute, extra: 'signup');
                   }
                 }
               },

@@ -22,9 +22,9 @@ class SharedPrefs {
     _sharedPrefs?.setString('otp', value);
   }
 
-  String get username => _sharedPrefs?.getString('username') ?? '';
-  set username(String value) {
-    _sharedPrefs?.setString('username', value);
+  String get userName => _sharedPrefs?.getString('userName') ?? '';
+  set userName(String value) {
+    _sharedPrefs?.setString('userName', value);
   }
 
   String get email => _sharedPrefs?.getString('email') ?? '';

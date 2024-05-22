@@ -28,7 +28,7 @@ class ResetPasswordForm extends StatelessWidget {
                 ),
                 suffixIcon: IconButton(
                   onPressed: () {
-                    loginCubit.togglePasswordVisibility();
+                    // loginCubit.togglePasswordVisibility();
                   },
                   icon: const Icon(Icons.visibility,
                     color: AppColors.appColor,
@@ -80,7 +80,7 @@ class ResetPasswordForm extends StatelessWidget {
                   color: AppColors.appColor,
                 ),
                 suffixIcon: IconButton(
-                  onPressed: () => loginCubit.togglePasswordVisibility(),
+                  onPressed: () {},
                   icon: const Icon(
                         Icons.visibility_off,
                     color: AppColors.appColor,

@@ -1,7 +1,12 @@
+import 'package:OculaCare/configs/routes/route_names.dart';
+import 'package:OculaCare/data/repositories/local/preferences/shared_prefs.dart';
+import 'package:OculaCare/logic/otp_cubit/otp_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import '../../../configs/presentation/constants/colors.dart';
+import '../../../configs/utils/utils.dart';
 import '../../../logic/login_cubit/login_cubit.dart';
 import '../../sign_up/widgets/cstm_flat_btn.dart';
 
@@ -20,7 +25,7 @@ class ForgotPasswordForm extends StatelessWidget {
         child: Column(
           children: <Widget>[
             TextFormField(
-              controller: loginCubit.emailController,
+              controller: loginCubit.recoveryEmailController,
               decoration: InputDecoration(
                 prefixIcon: const Icon(
                   Icons.mail_outline_outlined,
@@ -48,7 +53,7 @@ class ForgotPasswordForm extends StatelessWidget {
                 if (value == null || value.isEmpty) {
                   return 'Please enter an email';
                 }
-                loginCubit.emailController.text = value;
+                loginCubit.recoveryEmailController.text = value;
                 return null;
               },
             ),
@@ -57,7 +62,9 @@ class ForgotPasswordForm extends StatelessWidget {
             ),
             CustomFlatButton(
               onTap: () async {
-                loginCubit.resetPassword();
+                context.read<OtpCubit>().sendRecoveryOTP(loginCubit.recoveryEmailController.text.trim());
+                loginCubit.recoveryEmailController.clear();
+                context.push(RouteNames.otpRoute, extra: 'recover');
               },
               text: 'Submit Email',
               btnColor: AppColors.appColor,

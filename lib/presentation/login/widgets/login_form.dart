@@ -1,13 +1,11 @@
-import 'package:OculaCare/configs/utils/utils.dart';
-import 'package:OculaCare/data/repositories/local/preferences/shared_prefs.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:OculaCare/presentation/login/widgets/forgot_password_btn.dart';
-import 'package:go_router/go_router.dart';
 import '../../../configs/presentation/constants/colors.dart';
-import '../../../configs/routes/route_names.dart';
 import '../../../logic/login_cubit/login_cubit.dart';
+import '../../../logic/login_cubit/login_pass_cubit.dart';
 import '../../sign_up/widgets/cstm_flat_btn.dart';
 
 class LoginForm extends StatelessWidget {
@@ -60,52 +58,55 @@ class LoginForm extends StatelessWidget {
             SizedBox(
               height: screenHeight * 0.01,
             ),
-            TextFormField(
-              controller: loginCubit.passwordController,
-              decoration: InputDecoration(
-                prefixIcon: const Icon(
-                  Icons.lock_outline,
-                  color: AppColors.appColor,
-                ),
-                suffixIcon: IconButton(
-                  onPressed: () {
-                    loginCubit.togglePasswordVisibility();
-                  },
-                  icon: Icon(
-                    loginCubit.passwordToggle ? Icons.visibility_off : Icons.visibility,
-                    color: AppColors.appColor,
-                  ),
-                ),
-                hintText: 'Password',
-                hintStyle: TextStyle(
-                  fontFamily: 'Poppins',
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w100,
-                  color: AppColors.textGrey,
-                  letterSpacing: 1.0,
-                ),
-                focusedBorder: const UnderlineInputBorder(
-                  borderSide: BorderSide(color: AppColors.appColor),
-                ),
-              ),
-              style: TextStyle(
-                fontFamily: 'Poppins',
-                fontSize: 16.sp,
-                color: Colors.black,
-                letterSpacing: 1.0,
-              ),
-              obscureText: !loginCubit.passwordToggle,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter a password';
-                }
-                if (value.length < 6) {
-                  return 'Password must be at least 6 characters long';
-                }
-                loginCubit.passwordController.text = value;
-                return null;
-              },
-            ),
+            BlocBuilder<LoginPassCubit, LoginPassState>(
+                builder: (context, state) {
+                  return TextFormField(
+                    controller: loginCubit.passwordController,
+                    decoration: InputDecoration(
+                      prefixIcon: const Icon(
+                        Icons.lock_outline,
+                        color: AppColors.appColor,
+                      ),
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          context.read<LoginPassCubit>().togglePasswordVisibility();
+                        },
+                        icon: Icon(
+                          context.read<LoginPassCubit>().passwordToggle ? Icons.visibility_off : Icons.visibility,
+                          color: AppColors.appColor,
+                        ),
+                      ),
+                      hintText: 'Password',
+                      hintStyle: TextStyle(
+                        fontFamily: 'Poppins',
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w100,
+                        color: AppColors.textGrey,
+                        letterSpacing: 1.0,
+                      ),
+                      focusedBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: AppColors.appColor),
+                      ),
+                    ),
+                    style: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontSize: 16.sp,
+                      color: Colors.black,
+                      letterSpacing: 1.0,
+                    ),
+                    obscureText: !context.read<LoginPassCubit>().passwordToggle,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter a password';
+                      }
+                      if (value.length < 6) {
+                        return 'Password must be at least 6 characters long';
+                      }
+                      loginCubit.passwordController.text = value;
+                      return null;
+                    },
+                  );
+                }),
             SizedBox(
               height: screenHeight * 0.03,
             ),

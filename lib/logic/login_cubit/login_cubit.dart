@@ -8,24 +8,20 @@ import 'login_cubit_state.dart';
 import 'package:http/http.dart' as http;
 
 class LoginCubit extends Cubit<LoginState> {
-  LoginCubit() : super(LoginStateLoaded(false));
+  LoginCubit() : super(LoginStateInitial());
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-  bool passwordToggle = false;
+  final recoveryEmailController = TextEditingController();
 
   dispose() {
     emailController.clear();
     passwordController.clear();
   }
 
-  togglePasswordVisibility() {
-    passwordToggle = !passwordToggle;
-    emit(LoginStateInitial());
-    emit(LoginStateLoaded(passwordToggle));
+  loadLoginScreen() {
+    emit(LoginStateLoaded());
   }
-
-  loadLoginScreen() {}
 
   Future<bool> submitForm(GlobalKey<FormState> formKey) async {
     if (formKey.currentState!.validate()) {
@@ -62,6 +58,10 @@ class LoginCubit extends Cubit<LoginState> {
 
   Future forgetPassword() async {
     emit(LoginStateForgotPassword());
+  }
+
+  Future<void> checkRecoveryEmail() async{
+
   }
 
   Future resetPassword() async {

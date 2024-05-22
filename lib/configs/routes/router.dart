@@ -52,12 +52,12 @@ final router = GoRouter(
                 ),
               ]),
           StatefulShellBranch(
-            navigatorKey: _shellTestNavigatorKey,
+              navigatorKey: _shellTestNavigatorKey,
               routes: <RouteBase>[
                 GoRoute(
                   path: RouteNames.testRoute,
                   pageBuilder: (context, state) =>
-                  const MaterialPage(child: TestView()),
+                      const MaterialPage(child: TestView()),
                 ),
               ]),
           StatefulShellBranch(
@@ -70,12 +70,12 @@ final router = GoRouter(
                 ),
               ]),
           StatefulShellBranch(
-            navigatorKey: _shellMoreNavigatorKey,
+              navigatorKey: _shellMoreNavigatorKey,
               routes: <RouteBase>[
                 GoRoute(
                   path: RouteNames.moreRoute,
                   pageBuilder: (context, state) =>
-                  const MaterialPage(child: MoreView()),
+                      const MaterialPage(child: MoreView()),
                 ),
               ]),
         ]),
@@ -116,7 +116,12 @@ final router = GoRouter(
     GoRoute(
       parentNavigatorKey: navigatorKey,
       path: RouteNames.otpRoute,
-      builder: (context, state) => const OtpScreen(),
+      builder: (context, state) {
+        final flow = state.extra as String;
+        return OtpScreen(
+          flow: flow,
+        );
+      },
     ),
     GoRoute(
       parentNavigatorKey: navigatorKey,

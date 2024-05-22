@@ -12,7 +12,9 @@ import '../../configs/presentation/constants/colors.dart';
 import '../../logic/login_cubit/login_cubit.dart';
 
 class OtpScreen extends StatelessWidget {
-  const OtpScreen({Key? key}) : super(key: key);
+  const OtpScreen({Key? key, required this.flow}) : super(key: key);
+
+  final String flow;
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +42,15 @@ class OtpScreen extends StatelessWidget {
             if (state is OtpEmailExists) {
               AppUtils.showToast(context, 'Email Already Registered', 'Please use a different email to register', true);
               context.pop();
+            }
+            else if (state is OtpEmailNotExists) {
+              AppUtils.showToast(context, 'Email Not Found', 'Please enter registered email to receive recovery OTP', true);
+              context.pop();
+            }
+            else if (state is LoadChangePasswordState) {
+              AppUtils.showToast(context, 'OTP Verified', 'OTP has been successfully verified.', false);
+              context.read<LoginCubit>().resetPassword();
+              context.pushReplacement(RouteNames.loginRoute);
             }
             else if (state is Registered) {
               AppUtils.showToast(context, 'Account Registered Successfully', 'Your account has been registered, please login.', false);
@@ -114,7 +125,7 @@ class OtpScreen extends StatelessWidget {
                             AppUtils.showToast(context, 'Invalid OTP', 'Please enter the correct OTP', true);
                             return;
                           }
-                          context.read<OtpCubit>().registerUser();
+                          context.read<OtpCubit>().registerUser(flow);
                         },
                         text: 'Verify',
                         btnColor: AppColors.appColor),

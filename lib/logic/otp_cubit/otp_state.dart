@@ -11,6 +11,8 @@ class OtpStateLoading extends OtpState {}
 
 class OtpEmailExists extends OtpState {}
 
+class OtpEmailNotExists extends OtpState {}
+
 class Registered extends OtpState {}
 
 class OtpStateLoaded extends OtpState {
@@ -19,6 +21,8 @@ class OtpStateLoaded extends OtpState {
 
   OtpStateLoaded(this.otp, this.email);
 }
+
+class LoadChangePasswordState extends OtpState {}
 
 class OtpStateFailure extends OtpState {
   final String errorMsg;

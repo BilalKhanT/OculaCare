@@ -1,3 +1,4 @@
+import 'package:OculaCare/presentation/sign_up/sign_up_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -27,7 +28,7 @@ class LoginScreen extends StatelessWidget {
           leading: IconButton(
             onPressed: () {
               context.read<LoginCubit>().dispose();
-              context.pop();
+              Navigator.of(context).popUntil(ModalRoute.withName(RouteNames.signUpRoute));
             },
             icon: const Icon(
               Icons.arrow_back_ios_new,
