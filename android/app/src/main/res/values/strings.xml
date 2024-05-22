@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="facebook_app_id">987469236153309</string>
+    <string name="fb_login_protocol_scheme">fb987469236153309</string>
+    <string name="facebook_client_token">ff7896f5fd72b701c1fe34f6544f13f6</string>
+    <string name="app_name">"OculaCare"</string>
+
+</resources>
