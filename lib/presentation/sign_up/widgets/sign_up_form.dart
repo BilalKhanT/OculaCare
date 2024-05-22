@@ -97,7 +97,7 @@ class SignUpForm extends StatelessWidget {
                   return 'Please enter an email';
                 }
                 String pattern =
-                    r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$';
+                    r'^[a-zA-Z0-9._%+-]{6,}@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$';
                 RegExp regExp = RegExp(pattern);
                 if (!regExp.hasMatch(value)) {
                   return 'Please enter a valid email address';
@@ -158,7 +158,7 @@ class SignUpForm extends StatelessWidget {
                       return 'Password must be at least 6 characters long';
                     }
                     String pattern =
-                        r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[._])[A-Za-z._\d]{6,}$';
+                        r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s])[A-Za-z\d\W]{6,}$';
                     RegExp regExp = RegExp(pattern);
                     if (!regExp.hasMatch(value)) {
                       return 'Password must include upper and lower case letters, digits, and . or _';

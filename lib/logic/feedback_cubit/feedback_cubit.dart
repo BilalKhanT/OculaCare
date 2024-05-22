@@ -5,6 +5,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:http/http.dart' as http;
+import '../../configs/app/app_globals.dart';
 import '../auth_cubit/auth_cubit.dart';
 import '../keyboard_listener_cubit/keyboard_list_cubit.dart';
 import '../keyboard_listener_cubit/keyboard_list_state.dart';
@@ -113,7 +114,7 @@ class FeedbackCubit extends Cubit<FeedbackState> {
       String category, List<String> data, String customFeedback) async {
     emit(FeedbackLoading());
     try {
-      var url = Uri.parse('http://192.168.18.29:3000/api/feedback/submit');
+      var url = Uri.parse('http://$ipAddress:3000/api/feedback/submit');
       var response = await http.post(
         url,
         headers: {'Content-Type': 'application/json'},

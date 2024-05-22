@@ -69,7 +69,7 @@ class ResetPasswordForm extends StatelessWidget {
                       return 'Password must be at least 6 characters long';
                     }
                     String pattern =
-                        r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[._])[A-Za-z._\d]{6,}$';
+                        r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s])[A-Za-z\d\W]{6,}$';
                     RegExp regExp = RegExp(pattern);
                     if (!regExp.hasMatch(value)) {
                       return 'Password must include upper and lower case letters, digits, and . or _';
@@ -142,6 +142,10 @@ class ResetPasswordForm extends StatelessWidget {
             ),
             CustomFlatButton(
               onTap: () async {
+                bool check = await loginCubit.submitForm(formKey);
+                if (!check) {
+                  return;
+                }
                 bool flag = await loginCubit.changePassword();
                 if (flag) {
                   AppUtils.showToast(context, 'Password Changed Successfully', 'Your password has been changed successfully.', false);
@@ -150,7 +154,7 @@ class ResetPasswordForm extends StatelessWidget {
                   AppUtils.showToast(context, 'Server Error', 'Please try again later.', true);
                 }
               },
-              text: 'Submit Email',
+              text: 'Submit Password',
               btnColor: AppColors.appColor,
             ),
           ],

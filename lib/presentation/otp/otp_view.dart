@@ -134,6 +134,32 @@ class OtpScreen extends StatelessWidget {
                         text: 'Verify',
                         btnColor: AppColors.appColor),
                   ),
+                  SizedBox(height: 40.h,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        'Didn\'t receive code?',
+                        style: TextStyle(
+                            fontFamily: 'Poppins',
+                            fontSize: 16.sp,
+                            color: Colors.grey.shade700),
+                      ),
+                      SizedBox(width: 10.w,),
+                      GestureDetector(
+                        onTap: () {
+                          context.read<OtpCubit>().resendOtp(flow, state.email, state.name);
+                        },
+                        child: Text(
+                          'Resend OTP',
+                          style: TextStyle(
+                              fontFamily: 'Poppins',
+                              fontSize: 16.sp,
+                              color: AppColors.appColor),
+                        ),
+                      ),
+                    ],
+                  ),
                 ],
               );
             } else {

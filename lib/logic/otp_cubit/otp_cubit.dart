@@ -1,10 +1,8 @@
 import 'dart:convert';
 import 'dart:developer';
-import 'package:OculaCare/configs/app/environment/env_configs.dart';
+import 'package:OculaCare/configs/app/app_globals.dart';
 import 'package:OculaCare/data/repositories/local/preferences/shared_prefs.dart';
 import 'package:bloc/bloc.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:go_router/go_router.dart';
 import 'otp_state.dart';
 import 'package:http/http.dart' as http;
 
@@ -23,7 +21,7 @@ class OtpCubit extends Cubit<OtpState> {
     userName = name;
     userPassword = password;
     try {
-      var url = Uri.parse('http://192.168.18.29:3000/api/patients/otp');
+      var url = Uri.parse('http://$ipAddress:3000/api/patients/otp');
       var response = await http.post(
         url,
         headers: {'Content-Type': 'application/json'},
@@ -36,7 +34,69 @@ class OtpCubit extends Cubit<OtpState> {
         var data = jsonDecode(response.body);
         var otp = data['otp'];
         verificationOTP = otp.toString();
-        emit(OtpStateLoaded(otp, email));
+        emit(OtpStateLoaded(otp, email, name));
+      }
+      else if (response.statusCode == 409) {
+        emit(OtpEmailExists());
+      }
+      else if (response.statusCode == 400) {
+        emit(InvalidEmail());
+      }else {
+        log('Server error with status code: ${response.statusCode}');
+        emit(OtpStateFailure('Ops, something went wrong'));
+      }
+    } catch (e) {
+      log('Network error: $e');
+      emit(OtpStateFailure('Ops, something went wrong'));
+    }
+  }
+
+  Future<void> resendOtp(String flow, String email, String name) async {
+    emit(OtpStateLoading());
+    if (flow == 'recover') {
+      try {
+        var url = Uri.parse('http://$ipAddress:3000/api/patients/recovery-otp');
+        var response = await http.post(
+          url,
+          headers: {'Content-Type': 'application/json'},
+          body: jsonEncode({
+            'email': email,
+            'username': name,
+          }),
+        );
+        if (response.statusCode == 200) {
+          var data = jsonDecode(response.body);
+          var otp = data['otp'];
+          verificationOTP = otp.toString();
+          emit(OtpStateLoaded(otp, email, name));
+        }
+        else if (response.statusCode == 409) {
+          emit(OtpEmailNotExists());
+        }else {
+          log('Server error with status code: ${response.statusCode}');
+          emit(OtpStateFailure('Ops, something went wrong'));
+        }
+      } catch (e) {
+        log('Network error: $e');
+        emit(OtpStateFailure('Ops, something went wrong'));
+      }
+      return;
+    }
+    try {
+      var url = Uri.parse('http://$ipAddress:3000/api/patients/otp');
+      var response = await http.post(
+        url,
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          'email': email,
+          'username': name,
+        }),
+      );
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+        var otp = data['otp'];
+        verificationOTP = otp.toString();
+        emit(OtpStateLoaded(otp, email, name));
       }
       else if (response.statusCode == 409) {
         emit(OtpEmailExists());
@@ -56,7 +116,7 @@ class OtpCubit extends Cubit<OtpState> {
   Future<void> sendRecoveryOTP (String email) async{
     emit(OtpStateLoading());
     try {
-      var url = Uri.parse('http://192.168.18.29:3000/api/patients/recovery-otp');
+      var url = Uri.parse('http://$ipAddress:3000/api/patients/recovery-otp');
       var response = await http.post(
         url,
         headers: {'Content-Type': 'application/json'},
@@ -69,7 +129,7 @@ class OtpCubit extends Cubit<OtpState> {
         var data = jsonDecode(response.body);
         var otp = data['otp'];
         verificationOTP = otp.toString();
-        emit(OtpStateLoaded(otp, email));
+        emit(OtpStateLoaded(otp, email, sharedPrefs.userName));
       }
       else if (response.statusCode == 409) {
         emit(OtpEmailNotExists());
@@ -98,7 +158,7 @@ class OtpCubit extends Cubit<OtpState> {
       return;
     }
     try {
-      var url = Uri.parse('http://192.168.18.29:3000/api/patients/register');
+      var url = Uri.parse('http://$ipAddress:3000/api/patients/register');
       var response = await http.post(
         url,
         headers: {'Content-Type': 'application/json'},

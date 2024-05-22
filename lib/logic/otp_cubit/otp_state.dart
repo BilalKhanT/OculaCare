@@ -19,9 +19,10 @@ class Registered extends OtpState {}
 
 class OtpStateLoaded extends OtpState {
   final String email;
+  final String name;
   final String otp;
 
-  OtpStateLoaded(this.otp, this.email);
+  OtpStateLoaded(this.otp, this.email, this.name);
 }
 
 class LoadChangePasswordState extends OtpState {}

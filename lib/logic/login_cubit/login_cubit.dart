@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:OculaCare/data/repositories/local/preferences/shared_prefs.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import '../../configs/app/app_globals.dart';
 import 'login_cubit_state.dart';
 import 'package:http/http.dart' as http;
 
@@ -36,7 +37,7 @@ class LoginCubit extends Cubit<LoginState> {
   Future<void> loginUser() async {
     emit(LoginStateLoading());
     try {
-      var url = Uri.parse('http://192.168.18.29:3000/api/patients/login');
+      var url = Uri.parse('http://$ipAddress:3000/api/patients/login');
       var response = await http.post(
         url,
         headers: {'Content-Type': 'application/json'},
@@ -68,7 +69,7 @@ class LoginCubit extends Cubit<LoginState> {
 
   Future<bool> changePassword() async {
     try {
-      var url = Uri.parse('http://192.168.18.29:3000/api/patients/update-password');
+      var url = Uri.parse('http://$ipAddress:3000/api/patients/update-password');
       var response = await http.post(
         url,
         headers: {'Content-Type': 'application/json'},

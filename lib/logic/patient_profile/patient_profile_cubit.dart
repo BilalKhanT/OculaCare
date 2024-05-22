@@ -6,6 +6,8 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 
+import '../../configs/app/app_globals.dart';
+
 class PatientProfileCubit extends Cubit<PatientProfileState> {
   PatientProfileCubit() : super(PatientProfileStateInitial());
 
@@ -52,7 +54,7 @@ class PatientProfileCubit extends Cubit<PatientProfileState> {
     String address = addressController.text;
     String age = ageController.text;
     try {
-      var url = Uri.parse('http://192.168.18.29:3000/api/patients/update-profile');
+      var url = Uri.parse('http://$ipAddress:3000/api/patients/update-profile');
       var response = await http.post(
         url,
         headers: {'Content-Type': 'application/json'},
