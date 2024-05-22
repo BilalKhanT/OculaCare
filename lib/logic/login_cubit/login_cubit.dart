@@ -49,6 +49,7 @@ class LoginCubit extends Cubit<LoginState> {
       sharedPrefs.email = emailController.text.trim();
       dispose();
       if (response.statusCode == 200) {
+        sharedPrefs.isLoggedIn = true;
         emit(LoginSuccess());
       } else {
         emit(LoginFailure());

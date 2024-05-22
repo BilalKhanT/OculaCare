@@ -170,6 +170,7 @@ class OtpCubit extends Cubit<OtpState> {
       );
       if (response.statusCode == 200) {
         sharedPrefs.userName = userName;
+        sharedPrefs.password = userPassword;
         emit(Registered());
       }
       else {

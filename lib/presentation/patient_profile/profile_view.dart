@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:OculaCare/configs/presentation/constants/colors.dart';
 import 'package:OculaCare/configs/routes/route_names.dart';
@@ -5,9 +6,11 @@ import 'package:OculaCare/logic/patient_profile/patient_profile_cubit.dart';
 import 'package:OculaCare/logic/patient_profile/patient_profile_state.dart';
 import 'package:OculaCare/logic/patient_profile/upload_profile_photo_state.dart';
 import 'package:OculaCare/presentation/patient_profile/widgets/gender_row.dart';
+import 'package:OculaCare/presentation/patient_profile/widgets/profile_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import '../../logic/location_cubit/location_cubit.dart';
@@ -24,14 +27,7 @@ class PatientProfileScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.screenBackground,
       appBar: AppBar(
-        title: Text(
-          "Profile",
-          style: TextStyle(
-            fontFamily: 'Poppins',
-            fontWeight: FontWeight.w800,
-            fontSize: 20.sp,
-          ),
-        ),
+        backgroundColor: AppColors.screenBackground,
         leading: IconButton(
           onPressed: () {
             context.pop();
@@ -60,10 +56,13 @@ class PatientProfileScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    BlocBuilder<UploadProfilePhotoCubit, UploadProfilePhotoState>(
+                    BlocBuilder<UploadProfilePhotoCubit,
+                        UploadProfilePhotoState>(
                       builder: (context, state) {
                         return Center(
-                          child: context.read<UploadProfilePhotoCubit>().image !=
+                          child: context
+                                      .read<UploadProfilePhotoCubit>()
+                                      .image !=
                                   null
                               ? GestureDetector(
                                   onTap: () async {
@@ -138,7 +137,7 @@ class PatientProfileScreen extends StatelessWidget {
                     ),
                     TextFormField(
                       controller:
-                      context.read<PatientProfileCubit>().ageController,
+                          context.read<PatientProfileCubit>().ageController,
                       readOnly: true,
                       decoration: InputDecoration(
                         prefixIcon: const Icon(
@@ -146,7 +145,8 @@ class PatientProfileScreen extends StatelessWidget {
                           color: AppColors.appColor,
                         ),
                         suffixIcon: ConstrainedBox(
-                          constraints: BoxConstraints(maxHeight: screenHeight * 0.2),
+                          constraints:
+                              BoxConstraints(maxHeight: screenHeight * 0.2),
                           child: PopupMenuButton<int>(
                             surfaceTintColor: Colors.white,
                             elevation: 3.0,
@@ -166,14 +166,16 @@ class PatientProfileScreen extends StatelessWidget {
                             itemBuilder: (BuildContext context) {
                               return List<PopupMenuEntry<int>>.generate(
                                 100,
-                                    (int index) => PopupMenuItem(
+                                (int index) => PopupMenuItem(
                                   value: index + 18,
-                                  child: Text((index + 18).toString(),
+                                  child: Text(
+                                    (index + 18).toString(),
                                     style: TextStyle(
                                       fontFamily: 'Poppins',
                                       fontSize: 18.sp,
                                       color: Colors.black,
-                                    ),),
+                                    ),
+                                  ),
                                 ),
                               );
                             },
@@ -272,7 +274,7 @@ class PatientProfileScreen extends StatelessWidget {
                         }
                         return null;
                       },
-                
+
                       countries: const ["PK"],
                       selectorTextStyle: TextStyle(
                         color: Colors.black,
@@ -286,13 +288,14 @@ class PatientProfileScreen extends StatelessWidget {
                       ),
                       initialValue: PhoneNumber(isoCode: 'PK'),
                     ),
-                
                     SizedBox(
                       height: 50.h,
                     ),
                     CustomFlatButton(
                       onTap: () async {
-                        context.read<PatientProfileCubit>().savePatientProfile();
+                        context
+                            .read<PatientProfileCubit>()
+                            .savePatientProfile();
                       },
                       text: 'Save',
                       btnColor: AppColors.appColor,
@@ -302,7 +305,143 @@ class PatientProfileScreen extends StatelessWidget {
               ),
             );
           } else if (state is PatientProfileStateLoaded) {
-            return const SizedBox.shrink();
+            final patient = state.patientData;
+            return Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 15.0, vertical: 20.0),
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Center(
+                      child: CircleAvatar(
+                          radius: 80.h,
+                          backgroundImage: MemoryImage(base64Decode(patient.profileImage!)),
+                        ),
+                    ),
+                    SizedBox(height: 10.h,),
+                    Center(
+                      child: Text(
+                        patient.username!,
+                        style: TextStyle(
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w800,
+                          fontSize: 22.sp,
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 30.h,),
+                    Divider(
+                        height: 0.2,
+                        color: Colors.grey.withOpacity(0.3),
+                      ),
+                    SizedBox(height: 10.h,),
+                    Text(
+                      'ACCOUNT DETAILS',
+                      style: TextStyle(
+                        fontFamily: 'Poppins',
+                        color: AppColors.appColor,
+                        fontWeight: FontWeight.w800,
+                        fontSize: 20.sp,
+                      ),
+                    ),
+                    SizedBox(height: 30.h,),
+                    ProfileListTile(
+                      leading: SvgPicture.asset("assets/svgs/profileEmail.svg"),
+                      title: 'Email',
+                      value: patient.email!,
+                    ),
+                    SizedBox(height: 20.h,),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 8.w),
+                      child: Divider(
+                        height: 0.2,
+                        color: Colors.grey.withOpacity(0.3),
+                      ),
+                    ),
+                    SizedBox(height: 20.h,),
+                    ProfileListTile(
+                      leading: SvgPicture.asset("assets/svgs/account.svg"),
+                      title: 'Gender',
+                      value: patient.gender!,
+                    ),
+                    SizedBox(height: 20.h,),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 8.w),
+                      child: Divider(
+                        height: 0.2,
+                        color: Colors.grey.withOpacity(0.3),
+                      ),
+                    ),
+                    SizedBox(height: 20.h,),
+                    ProfileListTile(
+                      leading: SvgPicture.asset("assets/svgs/profileAge.svg"),
+                      title: 'Age',
+                      value: patient.age.toString(),
+                    ),
+                    SizedBox(height: 20.h,),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 8.w),
+                      child: Divider(
+                        height: 0.2,
+                        color: Colors.grey.withOpacity(0.3),
+                      ),
+                    ),
+                    SizedBox(height: 20.h,),
+                    ProfileListTile(
+                      leading: SvgPicture.asset("assets/svgs/profilePhone.svg"),
+                      title: 'Contact',
+                      value: patient.contactNumber!,
+                    ),
+                    SizedBox(height: 20.h,),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 8.w),
+                      child: Divider(
+                        height: 0.2,
+                        color: Colors.grey.withOpacity(0.3),
+                      ),
+                    ),
+                    SizedBox(height: 20.h,),
+                    ProfileListTile(
+                      leading: SvgPicture.asset("assets/svgs/profileAddress.svg"),
+                      title: 'Address',
+                      value: patient.address!.locationName!,
+                    ),
+                    SizedBox(height: 20.h,),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 8.w),
+                      child: Divider(
+                        height: 0.2,
+                        color: Colors.grey.withOpacity(0.3),
+                      ),
+                    ),
+                    SizedBox(height: 30.h,),
+                    Center(
+                      child: SizedBox(
+                        width: MediaQuery.sizeOf(context).width - 230,
+                        child:
+                        OutlinedButton(
+                            style: OutlinedButton.styleFrom(
+                                shape: const StadiumBorder(),
+                                backgroundColor: AppColors.appColor,
+                                padding: const EdgeInsets.symmetric(vertical: 18),
+                                minimumSize: const Size(double.infinity, 25)),
+                            onPressed: () {
+
+                            },
+                            child: Text('Edit Profile',
+                              style: TextStyle(
+                                fontFamily: 'Poppins',
+                                color: Colors.white,
+                                fontWeight: FontWeight.w700,
+                                fontSize: 18.sp,
+                            ),)),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
           } else if (state is PatientProfileStateFailure) {
             return Center(
               child: Text(

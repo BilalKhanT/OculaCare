@@ -1,3 +1,4 @@
+import 'package:OculaCare/logic/sign_up_cubit/sign_up_cubit.dart';
 import 'package:OculaCare/presentation/sign_up/sign_up_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -200,7 +201,9 @@ class LoginScreen extends StatelessWidget {
                                 width: 5.0,
                               ),
                               GestureDetector(
-                                onTap: () => context.go(RouteNames.signUpRoute, extra: 'login'),
+                                onTap: () {
+                                  context.read<SignUpCubit>().loadSignUpScreen();
+                                  context.go(RouteNames.signUpRoute, extra: 'login'); },
                                 child: Text(
                                   'Signup',
                                   style: TextStyle(
