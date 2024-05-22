@@ -43,6 +43,10 @@ class OtpScreen extends StatelessWidget {
               AppUtils.showToast(context, 'Email Already Registered', 'Please use a different email to register', true);
               context.pop();
             }
+            else if (state is InvalidEmail) {
+              AppUtils.showToast(context, 'Email Doesn\'t Exists', 'Please enter valid email to register', true);
+              context.pop();
+            }
             else if (state is OtpEmailNotExists) {
               AppUtils.showToast(context, 'Email Not Found', 'Please enter registered email to receive recovery OTP', true);
               context.pop();

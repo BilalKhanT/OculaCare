@@ -40,6 +40,9 @@ class OtpCubit extends Cubit<OtpState> {
       }
       else if (response.statusCode == 409) {
         emit(OtpEmailExists());
+      }
+      else if (response.statusCode == 400) {
+        emit(InvalidEmail());
       }else {
         log('Server error with status code: ${response.statusCode}');
         emit(OtpStateFailure('Ops, something went wrong'));

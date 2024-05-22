@@ -13,6 +13,8 @@ class OtpEmailExists extends OtpState {}
 
 class OtpEmailNotExists extends OtpState {}
 
+class InvalidEmail extends OtpState {}
+
 class Registered extends OtpState {}
 
 class OtpStateLoaded extends OtpState {
