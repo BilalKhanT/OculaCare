@@ -46,7 +46,7 @@ class DiseaseDetectionScreen extends StatelessWidget {
                             letterSpacing: 1,
                           ),
                         ),
-                        Text('Bilal Khan',
+                        Text(sharedPrefs.userName,
                           style: TextStyle(
                             fontFamily: 'Poppins',
                             fontSize: 22.sp,

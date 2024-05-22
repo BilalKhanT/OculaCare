@@ -88,6 +88,7 @@ class SignUpCubit extends Cubit<SignUpState> {
       );
       if (response.statusCode == 200) {
         sharedPrefs.userName = userName;
+        sharedPrefs.password = '******';
         return true;
       }
       else if (response.statusCode == 409) {

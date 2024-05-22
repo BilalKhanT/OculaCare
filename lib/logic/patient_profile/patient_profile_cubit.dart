@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'package:OculaCare/data/models/address/address_model.dart';
 import 'package:OculaCare/data/repositories/local/preferences/shared_prefs.dart';
 import 'package:OculaCare/logic/patient_profile/patient_profile_state.dart';
 import 'package:bloc/bloc.dart';
@@ -7,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 
 import '../../configs/app/app_globals.dart';
+import '../../data/models/patient/patient_model.dart';
 
 class PatientProfileCubit extends Cubit<PatientProfileState> {
   PatientProfileCubit() : super(PatientProfileStateInitial());
@@ -27,7 +29,7 @@ class PatientProfileCubit extends Cubit<PatientProfileState> {
     gender = userGender;
   }
 
-  Future<void> setCoordinates(double latitude, double longitude) async{
+  Future<void> setCoordinates(double latitude, double longitude) async {
     lat = latitude;
     long = longitude;
   }
@@ -48,7 +50,7 @@ class PatientProfileCubit extends Cubit<PatientProfileState> {
     }
   }
 
-  Future<void> savePatientProfile() async{
+  Future<void> savePatientProfile() async {
     emit(PatientProfileStateLoading());
     String phone = '+92${phoneController.text}';
     String address = addressController.text;
@@ -70,10 +72,24 @@ class PatientProfileCubit extends Cubit<PatientProfileState> {
         }),
       );
       if (response.statusCode == 200) {
-
-      }
-      else {
-        emit(PatientProfileStateFailure('Ops, something went wrong ${response.statusCode}'));
+        final patientAddress = Address(
+          lat: lat,
+          long: long,
+          locationName: address,
+        );
+        final patient = Patient(
+          email: sharedPrefs.email,
+          username: sharedPrefs.userName,
+          profileImage: imageBase64,
+          age: int.parse(age),
+          gender: gender,
+          contactNumber: phone,
+          address: patientAddress,
+        );
+        emit(PatientProfileStateLoaded(patient));
+      } else {
+        emit(PatientProfileStateFailure(
+            'Ops, something went wrong ${response.statusCode}'));
       }
     } catch (e) {
       log('$e');
