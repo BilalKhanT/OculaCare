@@ -128,7 +128,7 @@ class _ResultViewState extends State<ResultView> {
                                           color: Colors.black,
                                         ),),
                                       Expanded(
-                                        child: Text(diseaseResults[index].leftEye.message,
+                                        child: Text(diseaseResults[index].rightEye.message,
                                           style: TextStyle(
                                             fontFamily: 'Poppins',
                                             fontSize: 18.sp,

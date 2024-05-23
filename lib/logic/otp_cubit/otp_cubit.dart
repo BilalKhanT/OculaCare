@@ -169,6 +169,7 @@ class OtpCubit extends Cubit<OtpState> {
         }),
       );
       if (response.statusCode == 200) {
+        sharedPrefs.email = userEmail;
         sharedPrefs.isProfileSetup = false;
         sharedPrefs.userName = userName;
         sharedPrefs.password = userPassword;

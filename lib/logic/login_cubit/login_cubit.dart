@@ -84,6 +84,7 @@ class LoginCubit extends Cubit<LoginState> {
         return true;
       }
       else {
+        print(response.statusCode);
         return false;
       }
     }
