@@ -2,9 +2,14 @@ import 'dart:developer';
 import 'package:OculaCare/data/repositories/local/preferences/shared_prefs.dart';
 import 'package:OculaCare/logic/patient_profile/patient_profile_state.dart';
 import 'package:bloc/bloc.dart';
+import 'package:flutter/cupertino.dart';
 
 class PatientProfileCubit extends Cubit<PatientProfileState> {
   PatientProfileCubit() : super(PatientProfileStateInitial());
+
+  final addressController = TextEditingController();
+  final phoneController = TextEditingController();
+  final ageController = TextEditingController();
 
   Future<void> loadPatientProfile(String email) async {
     emit(PatientProfileStateLoading());

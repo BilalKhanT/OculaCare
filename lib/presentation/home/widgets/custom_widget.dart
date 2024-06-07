@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../configs/presentation/constants/colors.dart';
 
 Widget customWidget({
-  required IconData icon,
+  required Widget icon,
   required String text,
   required VoidCallback onTap,
 }) {
@@ -37,9 +37,9 @@ Widget customWidget({
                 color: AppColors.appColor,
                 borderRadius: BorderRadius.circular(50.0),
               ),
-              child: Icon(
-                icon,
-                color: Colors.white,
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: icon,
               ),
             ),
             const SizedBox(width: 10),
@@ -49,7 +49,7 @@ Widget customWidget({
                 style: TextStyle(
                   fontSize: 16.sp,
                   fontFamily: 'Poppins',
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ),
@@ -63,7 +63,7 @@ Widget customWidget({
               ),
               child: const Icon(
                 Icons.arrow_forward_ios_outlined,
-                color: Colors.black,
+                color: AppColors.appColor,
               ),
             ),
           ],

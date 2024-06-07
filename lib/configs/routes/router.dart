@@ -1,5 +1,11 @@
+import 'package:OculaCare/presentation/disease_detection/disease_detection_view.dart';
+import 'package:OculaCare/presentation/location/location_view.dart';
+import 'package:OculaCare/presentation/more_section/more_view.dart';
+import 'package:OculaCare/presentation/more_section/pdf_view.dart';
 import 'package:OculaCare/presentation/patient_profile/profile_view.dart';
 import 'package:OculaCare/presentation/result/result_view.dart';
+import 'package:OculaCare/presentation/tests/test_view.dart';
+import 'package:OculaCare/presentation/therapy/therapy_view.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:OculaCare/configs/routes/route_names.dart';
@@ -14,8 +20,10 @@ import '../../presentation/widgets/scaffold_nav_bar.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 final _shellHomeNavigatorKey = GlobalKey<NavigatorState>();
-final _shellDiseaseNavigatorKey = GlobalKey<NavigatorState>();
-final _shellResultsNavigatorKey = GlobalKey<NavigatorState>();
+final _shellDetectNavigatorKey = GlobalKey<NavigatorState>();
+final _shellTestNavigatorKey = GlobalKey<NavigatorState>();
+final _shellTherapyNavigatorKey = GlobalKey<NavigatorState>();
+final _shellMoreNavigatorKey = GlobalKey<NavigatorState>();
 
 final router = GoRouter(
   navigatorKey: navigatorKey,
@@ -25,7 +33,7 @@ final router = GoRouter(
             ScaffoldWithNavBar(navigationShell: navigationShell),
         branches: [
           StatefulShellBranch(
-              // navigatorKey: _shellHomeNavigatorKey,
+              navigatorKey: _shellHomeNavigatorKey,
               routes: <RouteBase>[
                 GoRoute(
                   path: RouteNames.homeRoute,
@@ -34,21 +42,39 @@ final router = GoRouter(
                 ),
               ]),
           StatefulShellBranch(
-              // navigatorKey: _shellDiseaseNavigatorKey,
+              navigatorKey: _shellDetectNavigatorKey,
               routes: <RouteBase>[
                 GoRoute(
-                  path: RouteNames.imgCaptureRoute,
+                  path: RouteNames.detectionRoute,
                   pageBuilder: (context, state) =>
-                      const MaterialPage(child: ImageCaptureScreen()),
+                      const MaterialPage(child: DiseaseDetectionScreen()),
                 ),
               ]),
           StatefulShellBranch(
-              // navigatorKey: _shellResultsNavigatorKey,
+            navigatorKey: _shellTestNavigatorKey,
               routes: <RouteBase>[
                 GoRoute(
-                  path: RouteNames.resultRoute,
+                  path: RouteNames.testRoute,
                   pageBuilder: (context, state) =>
-                      const MaterialPage(child: ResultView()),
+                  const MaterialPage(child: TestView()),
+                ),
+              ]),
+          StatefulShellBranch(
+              navigatorKey: _shellTherapyNavigatorKey,
+              routes: <RouteBase>[
+                GoRoute(
+                  path: RouteNames.therapyRoute,
+                  pageBuilder: (context, state) =>
+                      const MaterialPage(child: TherapyView()),
+                ),
+              ]),
+          StatefulShellBranch(
+            navigatorKey: _shellMoreNavigatorKey,
+              routes: <RouteBase>[
+                GoRoute(
+                  path: RouteNames.moreRoute,
+                  pageBuilder: (context, state) =>
+                  const MaterialPage(child: MoreView()),
                 ),
               ]),
         ]),
@@ -67,9 +93,19 @@ final router = GoRouter(
       builder: (context, state) => const OnBoardingScreen(),
     ),
     GoRoute(
+      parentNavigatorKey: navigatorKey,
+      path: RouteNames.pdfViewRoute,
+      builder: (context, state) => PDFViewScreen(),
+    ),
+    GoRoute(
       // parentNavigatorKey: navigatorKey,
       path: RouteNames.loginRoute,
       builder: (context, state) => const LoginScreen(),
+    ),
+    GoRoute(
+      parentNavigatorKey: navigatorKey,
+      path: RouteNames.locationRoute,
+      builder: (context, state) => const LocationScreen(),
     ),
     GoRoute(
       parentNavigatorKey: navigatorKey,
@@ -77,21 +113,20 @@ final router = GoRouter(
       builder: (context, state) => const OtpScreen(),
     ),
     GoRoute(
-      path: RouteNames.homeRoute,
-      builder: (context, state) => const HomeScreen(),
-    ),
-    GoRoute(
+      parentNavigatorKey: navigatorKey,
       path: RouteNames.profileRoute,
       builder: (context, state) => const PatientProfileScreen(),
     ),
     GoRoute(
+      parentNavigatorKey: navigatorKey,
       path: RouteNames.imgCaptureRoute,
       builder: (context, state) => const ImageCaptureScreen(),
     ),
-    // GoRoute(
-    //   path: RouteNames.homeRoute,
-    //   builder: (context, state) => const HomeScreen(),
-    // ),
+    GoRoute(
+      parentNavigatorKey: navigatorKey,
+      path: RouteNames.resultRoute,
+      builder: (context, state) => const ResultView(),
+    ),
     // GoRoute(
     //   path: RouteNames.imgCaptureRoute,
     //   builder: (context, state) => const ImageCaptureScreen(),

@@ -40,6 +40,12 @@ dependencies:
   path_provider: ^2.1.3
   flutter_file_dialog: ^3.0.2
   nb_utils: ^7.0.2
+  flutter_pdfview: ^1.2.7
+  google_maps_flutter: ^2.5.3
+  geocoding: ^3.0.0
+  geolocator: ^11.0.0
+  permission_handler: ^11.3.1
+  intl_phone_number_input: ^0.7.4
 
 dev_dependencies:
   flutter_test:
@@ -63,6 +69,7 @@ flutter:
     - assets/images/
     - assets/svgs/
     - assets/lotties/
+    - assets/pdfs/
   #   - images/a_dot_ham.jpeg
 
   fonts:

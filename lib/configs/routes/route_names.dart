@@ -7,4 +7,10 @@ class RouteNames {
   static const String imgCaptureRoute = '/imgCapture';
   static const String resultRoute = '/resultRoute';
   static const String profileRoute = '/profileRoute';
+  static const String moreRoute = '/moreRoute';
+  static const String pdfViewRoute = '/pdfViewRoute';
+  static const String locationRoute = '/locationRoute';
+  static const String detectionRoute = '/detectionRoute';
+  static const String testRoute = '/testRoute';
+  static const String therapyRoute = '/therapyRoute';
 }
