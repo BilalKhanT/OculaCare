@@ -76,7 +76,7 @@ class SignUpCubit extends Cubit<SignUpState> {
 
   Future<bool> registerGoogleUser(String email, String userName) async {
     try {
-      var url = Uri.parse('http://$ipAddress:3000/api/patients/register-google');
+      var url = Uri.parse('$ipServer/api/patients/register-google');
       var response = await http.post(
         url,
         headers: {'Content-Type': 'application/json'},
