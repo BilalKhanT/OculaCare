@@ -37,6 +37,14 @@ class SharedPrefs {
   set email(String value) {
     _sharedPrefs?.setString('email', value);
   }
+
+  List<String>? getStringList(String key) {
+    return _sharedPrefs?.getStringList(key);
+  }
+
+  Future<bool> setStringList(String key, List<String> value) async {
+    return await _sharedPrefs?.setStringList(key, value) ?? false;
+  }
 }
 
 final sharedPrefs = SharedPrefs();
