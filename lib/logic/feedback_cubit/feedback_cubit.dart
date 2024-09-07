@@ -17,7 +17,6 @@ class FeedbackCubit extends Cubit<FeedbackState> {
     listenToKeyboardFocus();
   }
 
-  // liked feedback track
   Map<String, bool> likedItems = {
     "Easy to capture image": false,
     "Easy to track my past results": false,
@@ -60,7 +59,6 @@ class FeedbackCubit extends Cubit<FeedbackState> {
     }
   }
 
-  // unliked feedback track
   Map<String, bool> unlikedItems = {
     "Difficult to capture image": false,
     "Difficult to track my past results": false,
@@ -114,7 +112,7 @@ class FeedbackCubit extends Cubit<FeedbackState> {
       String category, List<String> data, String customFeedback) async {
     emit(FeedbackLoading());
     try {
-      var url = Uri.parse('http://$ipAddress:3000/api/feedback/submit');
+      var url = Uri.parse('$ipServer/api/feedback/submit');
       var response = await http.post(
         url,
         headers: {'Content-Type': 'application/json'},
@@ -135,7 +133,6 @@ class FeedbackCubit extends Cubit<FeedbackState> {
     }
   }
 
-  // text feedback
   final textFeedbackController = TextEditingController();
   final FocusNode textFeedbackNode = FocusNode();
 
@@ -158,7 +155,6 @@ class FeedbackCubit extends Cubit<FeedbackState> {
     }
   }
 
-  // feedback completed
   void toggleFeedbackCompleted() {
     emit(FeedbackCompleted());
   }
