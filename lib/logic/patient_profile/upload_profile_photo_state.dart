@@ -11,6 +11,11 @@ class UploadProfilePhotoStateLoaded extends UploadProfilePhotoState {
   UploadProfilePhotoStateLoaded(this.image);
 }
 
+class UpdateProfilePhotoStateLoaded extends UploadProfilePhotoState {
+  final String image;
+  UpdateProfilePhotoStateLoaded(this.image);
+}
+
 class UploadProfilePhotoStateError extends UploadProfilePhotoState {
   final String message;
 

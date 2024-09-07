@@ -1,7 +1,11 @@
+import 'package:OculaCare/configs/routes/route_names.dart';
+import 'package:OculaCare/logic/otp_cubit/otp_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import '../../../configs/presentation/constants/colors.dart';
+import '../../../data/repositories/local/preferences/shared_prefs.dart';
 import '../../../logic/login_cubit/login_cubit.dart';
 import '../../sign_up/widgets/cstm_flat_btn.dart';
 
@@ -12,14 +16,15 @@ class ForgotPasswordForm extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.sizeOf(context).height;
     final loginCubit = context.read<LoginCubit>();
+    final formKey = GlobalKey<FormState>();
     return Form(
-      key: loginCubit.formKey,
+      key: formKey,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
         child: Column(
           children: <Widget>[
             TextFormField(
-              controller: loginCubit.emailController,
+              controller: loginCubit.recoveryEmailController,
               decoration: InputDecoration(
                 prefixIcon: const Icon(
                   Icons.mail_outline_outlined,
@@ -47,7 +52,13 @@ class ForgotPasswordForm extends StatelessWidget {
                 if (value == null || value.isEmpty) {
                   return 'Please enter an email';
                 }
-                loginCubit.emailController.text = value;
+                String pattern =
+                    r'^[a-zA-Z0-9._%+-]{6,}@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$';
+                RegExp regExp = RegExp(pattern);
+                if (!regExp.hasMatch(value)) {
+                  return 'Please enter a valid email address';
+                }
+                loginCubit.recoveryEmailController.text = value;
                 return null;
               },
             ),
@@ -56,7 +67,13 @@ class ForgotPasswordForm extends StatelessWidget {
             ),
             CustomFlatButton(
               onTap: () async {
-                loginCubit.resetPassword();
+                bool check = await loginCubit.submitForm(formKey);
+                if (!check) {
+                  return;
+                }
+                context.read<OtpCubit>().sendRecoveryOTP(loginCubit.recoveryEmailController.text.trim());
+                loginCubit.recoveryEmailController.clear();
+                context.push(RouteNames.otpRoute, extra: 'recover');
               },
               text: 'Submit Email',
               btnColor: AppColors.appColor,

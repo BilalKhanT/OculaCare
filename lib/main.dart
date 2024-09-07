@@ -1,12 +1,19 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'configs/routes/router.dart';
+import 'data/repositories/local/preferences/shared_prefs.dart';
 import 'multi_bloc_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
   await initializeApp();
   runApp(
     const ProvideMultiBloc(child: MyApp()),
@@ -14,6 +21,8 @@ void main() async {
 }
 
 Future<void> initializeApp() async {
+  Firebase.initializeApp();
+  sharedPrefs.init();
   initialize();
 }
 

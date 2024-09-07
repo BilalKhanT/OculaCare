@@ -1,4 +1,5 @@
 import 'package:OculaCare/logic/image_capture/img_capture_cubit.dart';
+import 'package:OculaCare/logic/login_cubit/login_cubit.dart';
 import 'package:OculaCare/logic/patient_profile/patient_profile_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -137,7 +138,7 @@ class MoreView extends StatelessWidget {
                               text: "Account",
                               icon: "assets/svgs/account.svg",
                               onTap: () {
-                                context.read<PatientProfileCubit>().loadPatientProfile('eee');
+                                context.read<PatientProfileCubit>().loadPatientProfile(sharedPrefs.email);
                                 context.push(RouteNames.profileRoute);
                               },
                             ),
@@ -239,18 +240,7 @@ class MoreView extends StatelessWidget {
                               text: "Feedback",
                               icon: "assets/svgs/feedback.svg",
                               onTap: () {
-                                if (!sharedPrefs.isLoggedIn) {
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) {
-                                      return const Dialog(child: NeedToSetupProfileWidget());
-                                    },
-                                  );
-                                  return;
-                                } else {
-                                  // context.read<ContactUsCubit>().getList();
-                                  // context.push(RouteNames.feedbackRoute);
-                                }
+                                context.push(RouteNames.feedbackRoute);
                               },
                             ),
                             divider(),
@@ -329,6 +319,7 @@ class MoreView extends StatelessWidget {
                           icon: "assets/svgs/log_out.svg",
                           onTap: () {
                             sharedPrefs.isLoggedIn = false;
+                            context.read<LoginCubit>().loadLoginScreen();
                             context.go(RouteNames.loginRoute);
                           },
                         ),

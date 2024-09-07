@@ -99,7 +99,7 @@ class LocationCubit extends Cubit<LocationState> {
       await fetchAddressFromLatLng(position.latitude, position.longitude);
       toHome = false;
       emit(LocationSet(
-          LatLng(position.latitude, position.longitude), markers, address));
+          LatLng(position.latitude, position.longitude), markers, address, position.latitude, position.longitude));
     } else {
       var permissionStatus = await Permission.location.request();
       if (permissionStatus.isGranted) {
@@ -121,7 +121,7 @@ class LocationCubit extends Cubit<LocationState> {
     String address =
     await fetchAddressFromLatLng(center.latitude, center.longitude);
 
-    emit(LocationSet(center, markers, address));
+    emit(LocationSet(center, markers, address, center.latitude, center.longitude));
   }
 
   // void initializeMapForEdit(Address address) {

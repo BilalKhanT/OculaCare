@@ -24,8 +24,11 @@ class LocationSet extends LocationState {
   final LatLng initialPosition;
   final Set<Marker> markers;
   final String address;
+  final double latitude;
+  final double longitude;
 
-  LocationSet(this.initialPosition, this.markers, this.address);
+  LocationSet(this.initialPosition, this.markers, this.address, this.latitude,
+      this.longitude);
 
   @override
   List<Object> get props => [initialPosition, markers, address];

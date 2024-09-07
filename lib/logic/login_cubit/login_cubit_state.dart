@@ -14,10 +14,12 @@ class LoginStateForgotPassword extends LoginState {}
 class LoginStateResetPassword extends LoginState {}
 
 class LoginStateLoaded extends LoginState {
-  final bool passVisible;
 
-  LoginStateLoaded(this.passVisible);
 }
+
+class LoginSuccess extends LoginState {}
+
+class LoginFailure extends LoginState {}
 
 class LoginStateFailure extends LoginState {
   final String errorMsg;

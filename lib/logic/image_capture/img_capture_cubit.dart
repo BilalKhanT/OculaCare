@@ -161,10 +161,20 @@ class ImageCaptureCubit extends Cubit<ImageCaptureState> {
     emit(ImageCaptureStateLoading());
     InputImage eyeImage = InputImage.fromFilePath(image.path);
     final List<Face>? faces = await faceDetector?.processImage(eyeImage);
-    for (Face face in faces!) {
-      final FaceLandmark? leftEye = face.landmarks[FaceLandmarkType.leftEye];
-      final FaceLandmark? rightEye = face.landmarks[FaceLandmarkType.rightEye];
-      await cropImage(leftEye!.position, rightEye!.position, image);
+    if (faces != null) {
+      for (Face face in faces!) {
+        final FaceLandmark? leftEye = face.landmarks[FaceLandmarkType.leftEye];
+        final FaceLandmark? rightEye = face.landmarks[FaceLandmarkType.rightEye];
+        if (leftEye != null && rightEye != null) {
+          await cropImage(leftEye.position, rightEye.position, image);
+        }
+        else {
+          emit(ImageCaptureStateLoaded(false, 0));
+        }
+      }
+    }
+    else {
+      emit(ImageCaptureStateLoaded(false, 0));
     }
   }
 
@@ -230,17 +240,14 @@ class ImageCaptureCubit extends Cubit<ImageCaptureState> {
       'left_eye': leftEyeBase64,
       'right_eye': rightEyeBase64,
     };
-    print('left_eye');
-    print(leftEyeBase64);
-    print('right_eye');
-    print(rightEyeBase64);
     try{
       var response = await http.post(
-        Uri.parse('http://192.168.18.37:8000/predict'),
+        Uri.parse('http://192.168.18.32:8000/predict'),
         headers: {"Content-Type": "application/json"},
         body: json.encode(payload),
       );
       if (response.statusCode == 200) {
+        print('success');
         var data = jsonDecode(response.body);
         DiseaseResultModel result = DiseaseResultModel.fromJson(data);
         globalResults.add(result);

@@ -1,4 +1,5 @@
 import 'package:OculaCare/presentation/disease_detection/disease_detection_view.dart';
+import 'package:OculaCare/presentation/feedback/feedback_view.dart';
 import 'package:OculaCare/presentation/location/location_view.dart';
 import 'package:OculaCare/presentation/more_section/more_view.dart';
 import 'package:OculaCare/presentation/more_section/pdf_view.dart';
@@ -51,12 +52,12 @@ final router = GoRouter(
                 ),
               ]),
           StatefulShellBranch(
-            navigatorKey: _shellTestNavigatorKey,
+              navigatorKey: _shellTestNavigatorKey,
               routes: <RouteBase>[
                 GoRoute(
                   path: RouteNames.testRoute,
                   pageBuilder: (context, state) =>
-                  const MaterialPage(child: TestView()),
+                      const MaterialPage(child: TestView()),
                 ),
               ]),
           StatefulShellBranch(
@@ -69,19 +70,22 @@ final router = GoRouter(
                 ),
               ]),
           StatefulShellBranch(
-            navigatorKey: _shellMoreNavigatorKey,
+              navigatorKey: _shellMoreNavigatorKey,
               routes: <RouteBase>[
                 GoRoute(
                   path: RouteNames.moreRoute,
                   pageBuilder: (context, state) =>
-                  const MaterialPage(child: MoreView()),
+                      const MaterialPage(child: MoreView()),
                 ),
               ]),
         ]),
     GoRoute(
       parentNavigatorKey: navigatorKey,
       path: RouteNames.signUpRoute,
-      builder: (context, state) => const SignUpScreen(),
+      builder: (context, state) {
+        final flow = state.extra as String;
+        return SignUpScreen(flow: flow,);
+      }
     ),
     // GoRoute(
     //   path: RouteNames.resultRoute,
@@ -94,11 +98,16 @@ final router = GoRouter(
     ),
     GoRoute(
       parentNavigatorKey: navigatorKey,
+      path: RouteNames.feedbackRoute,
+      builder: (context, state) => const FeedbackView(),
+    ),
+    GoRoute(
+      parentNavigatorKey: navigatorKey,
       path: RouteNames.pdfViewRoute,
       builder: (context, state) => PDFViewScreen(),
     ),
     GoRoute(
-      // parentNavigatorKey: navigatorKey,
+      parentNavigatorKey: navigatorKey,
       path: RouteNames.loginRoute,
       builder: (context, state) => const LoginScreen(),
     ),
@@ -110,7 +119,12 @@ final router = GoRouter(
     GoRoute(
       parentNavigatorKey: navigatorKey,
       path: RouteNames.otpRoute,
-      builder: (context, state) => const OtpScreen(),
+      builder: (context, state) {
+        final flow = state.extra as String;
+        return OtpScreen(
+          flow: flow,
+        );
+      },
     ),
     GoRoute(
       parentNavigatorKey: navigatorKey,
