@@ -43,8 +43,8 @@ class FeedbackCubit extends Cubit<FeedbackState> {
       } else if (itemName == "All of the above" && !newStatus) {
         newSelectionStatus.updateAll((key, value) => false);
       } else {
-        newSelectionStatus["All of the above"] = newSelectionStatus.values
-            .every((element) => element == true);
+        newSelectionStatus["All of the above"] =
+            newSelectionStatus.values.every((element) => element == true);
       }
 
       emit(FeedbackLiked(newSelectionStatus));
@@ -54,7 +54,8 @@ class FeedbackCubit extends Cubit<FeedbackState> {
   void selectAllLikedItems() {
     if (state is FeedbackLiked) {
       final currentState = state as FeedbackLiked;
-      final newStatus = currentState.selectionStatus.map((key, value) => MapEntry(key, true));
+      final newStatus =
+          currentState.selectionStatus.map((key, value) => MapEntry(key, true));
       emit(FeedbackLiked(newStatus));
     }
   }
@@ -81,8 +82,8 @@ class FeedbackCubit extends Cubit<FeedbackState> {
       } else if (itemName == "All of the above" && !newStatus) {
         newSelectionStatus.updateAll((key, value) => false);
       } else {
-        newSelectionStatus["All of the above"] = newSelectionStatus.values
-            .every((element) => element == true);
+        newSelectionStatus["All of the above"] =
+            newSelectionStatus.values.every((element) => element == true);
       }
 
       emit(FeedbackUnLiked(newSelectionStatus));
@@ -92,7 +93,8 @@ class FeedbackCubit extends Cubit<FeedbackState> {
   void selectAllUnLikedItems() {
     if (state is FeedbackUnLiked) {
       final currentState = state as FeedbackUnLiked;
-      final newStatus = currentState.selectionStatus.map((key, value) => MapEntry(key, true));
+      final newStatus =
+          currentState.selectionStatus.map((key, value) => MapEntry(key, true));
       emit(FeedbackUnLiked(newStatus));
     }
   }
