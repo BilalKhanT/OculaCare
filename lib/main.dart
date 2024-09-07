@@ -4,9 +4,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'configs/app/notification/notification_service.dart';
 import 'configs/routes/router.dart';
 import 'data/repositories/local/preferences/shared_prefs.dart';
 import 'multi_bloc_provider.dart';
+import 'package:timezone/data/latest.dart' as tz;
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,6 +17,8 @@ void main() async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
+  await NotificationService.init();
+  tz.initializeTimeZones();
   await initializeApp();
   runApp(
     const ProvideMultiBloc(child: MyApp()),
