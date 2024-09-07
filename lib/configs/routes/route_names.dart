@@ -14,4 +14,15 @@ class RouteNames {
   static const String testRoute = '/testRoute';
   static const String therapyRoute = '/therapyRoute';
   static const String feedbackRoute = '/feedbackRoute';
+  static const String colorMatchRoute = '/colorMatchRoute';
+  static const String oddOutRoute = '/oddOutRoute';
+  static const String scheduledRoute = '/scheduledRoute';
+  static const String isiharaRoute = '/isiharaRoute';
+  static const String contrastRoute = '/contrastRoute';
+  static const String distanceRoute = '/distanceRoute';
+  static const String trackInitialRoute = '/trackInitialRoute';
+  static const String trackRoute = '/trackRoute';
+  static const String trackGameOverRoute = '/trackGameOverRoute';
+  static const String snellanRoute = '/snellanRoute';
+  static const String snellanInitialRoute = '/snellanInitialRoute';
 }
