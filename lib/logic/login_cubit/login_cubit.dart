@@ -37,7 +37,7 @@ class LoginCubit extends Cubit<LoginState> {
   Future<void> loginUser() async {
     emit(LoginStateLoading());
     try {
-      var url = Uri.parse('http://$ipAddress:3000/api/patients/login');
+      var url = Uri.parse('$ipServer/api/patients/login');
       var response = await http.post(
         url,
         headers: {'Content-Type': 'application/json'},
@@ -71,7 +71,7 @@ class LoginCubit extends Cubit<LoginState> {
 
   Future<bool> changePassword() async {
     try {
-      var url = Uri.parse('http://$ipAddress:3000/api/patients/update-password');
+      var url = Uri.parse('$ipServer/api/patients/update-password');
       var response = await http.post(
         url,
         headers: {'Content-Type': 'application/json'},
