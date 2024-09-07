@@ -5,15 +5,18 @@ import 'package:OculaCare/presentation/more_section/more_view.dart';
 import 'package:OculaCare/presentation/more_section/pdf_view.dart';
 import 'package:OculaCare/presentation/patient_profile/profile_view.dart';
 import 'package:OculaCare/presentation/result/result_view.dart';
-import 'package:OculaCare/presentation/tests/test_view.dart';
+import 'package:OculaCare/presentation/test_dashboard/test_dash_view.dart';
 import 'package:OculaCare/presentation/therapy/therapy_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:OculaCare/configs/routes/route_names.dart';
 import 'package:OculaCare/presentation/home/home_view.dart';
 import 'package:OculaCare/presentation/img_capture/img_capture_view.dart';
 import 'package:OculaCare/presentation/onboarding/onboarding_view.dart';
 import 'package:OculaCare/presentation/sign_up/sign_up_view.dart';
+import '../../logic/tests/test_cubit.dart';
+import '../../logic/tests/test_dash_tab_cubit.dart';
 import '../../presentation/login/login_view.dart';
 import '../../data/repositories/local/preferences/shared_prefs.dart';
 import '../../presentation/otp/otp_view.dart';
@@ -55,10 +58,12 @@ final router = GoRouter(
               navigatorKey: _shellTestNavigatorKey,
               routes: <RouteBase>[
                 GoRoute(
-                  path: RouteNames.testRoute,
-                  pageBuilder: (context, state) =>
-                      const MaterialPage(child: TestView()),
-                ),
+                    path: RouteNames.testRoute,
+                    pageBuilder: (context, state) {
+                      context.read<TestDashTabCubit>().toggleTab(0);
+                      context.read<TestCubit>().loadTests();
+                      return const MaterialPage(child: TestDashView());
+                    }),
               ]),
           StatefulShellBranch(
               navigatorKey: _shellTherapyNavigatorKey,
@@ -80,13 +85,14 @@ final router = GoRouter(
               ]),
         ]),
     GoRoute(
-      parentNavigatorKey: navigatorKey,
-      path: RouteNames.signUpRoute,
-      builder: (context, state) {
-        final flow = state.extra as String;
-        return SignUpScreen(flow: flow,);
-      }
-    ),
+        parentNavigatorKey: navigatorKey,
+        path: RouteNames.signUpRoute,
+        builder: (context, state) {
+          final flow = state.extra as String;
+          return SignUpScreen(
+            flow: flow,
+          );
+        }),
     // GoRoute(
     //   path: RouteNames.resultRoute,
     //   builder: (context, state) => const ResultView(),
