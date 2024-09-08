@@ -8,8 +8,15 @@ class SeverityChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int finalScore = 0;
     Color severityColor = _getSeverityColor(score);
     double screenWidth = MediaQuery.sizeOf(context).width;
+    if (score < 0) {
+
+    }
+    else {
+      finalScore = score;
+    }
     return Column(
         children: [
           SizedBox(
@@ -18,10 +25,10 @@ class SeverityChart extends StatelessWidget {
               PieChartData(
                 sections: [
                   PieChartSectionData(
-                    value: score.toDouble(),
+                    value: finalScore.toDouble(),
                     color: severityColor,
                     radius: 40,
-                    title: '$score',
+                    title: '$finalScore',
                     titleStyle: TextStyle(
                       fontFamily: 'MontserratMedium',
                       fontWeight: FontWeight.w800,
@@ -30,7 +37,7 @@ class SeverityChart extends StatelessWidget {
                     ),
                   ),
                   PieChartSectionData(
-                    value: (10 - score).toDouble(),
+                    value: (10 - finalScore).toDouble(),
                     color: Colors.grey.shade800,
                     radius: 30,
                   ),
@@ -54,7 +61,7 @@ class SeverityChart extends StatelessWidget {
     } else if (score >= 9 && score <= 10) {
       return Colors.green;
     } else {
-      return Colors.grey; // Default color if the score is out of range
+      return Colors.grey;
     }
   }
 }
