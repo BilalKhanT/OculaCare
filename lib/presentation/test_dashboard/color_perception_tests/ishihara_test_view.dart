@@ -1,3 +1,5 @@
+import 'package:OculaCare/presentation/test_dashboard/widgets/severity_chart.dart';
+import 'package:OculaCare/presentation/widgets/cstm_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -49,26 +51,82 @@ class IshiharaScreen extends StatelessWidget {
         ),
         body: BlocBuilder<IshiharaCubit, IshiharaState>(
           builder: (context, state) {
-            if (state.testCompleted) {
-              return Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                      'Test Completed!',
-                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            if (state.loading) {
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const DotLoader(
+                    loaderColor: AppColors.appColor,
+                  ),
+                  SizedBox(
+                    height: screenHeight * 0.1,
+                  ),
+                  Text(
+                    'Analysing, please wait.',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: AppColors.appColor,
+                      fontFamily: 'MontserratMedium',
+                      fontWeight: FontWeight.w800,
+                      fontSize: screenWidth * 0.05,
                     ),
-                    const SizedBox(height: 20),
+                  ),
+                ],
+              );
+            } else if (state.testCompleted) {
+              return SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      'assets/images/result_test.png',
+                      height: screenHeight * 0.3,
+                    ),
+                    SizedBox(
+                      height: screenHeight * 0.02,
+                    ),
+                    Text('Test Completed !',
+                        style: TextStyle(
+                          color: AppColors.appColor,
+                          fontFamily: 'MontserratMedium',
+                          fontWeight: FontWeight.w800,
+                          fontSize: screenWidth * 0.05,
+                        )),
+                    SizedBox(height: screenHeight * 0.02),
+                    SeverityChart(score: state.correctAnswers),
                     Text(
                       'You got ${state.correctAnswers} out of 10 correct.',
-                      style: const TextStyle(fontSize: 18),
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontFamily: 'MontserratMedium',
+                        fontWeight: FontWeight.w800,
+                        fontSize: screenWidth * 0.04,),
                     ),
-                    const SizedBox(height: 40),
-                    ElevatedButton(
-                      onPressed: () =>
-                          context.read<IshiharaCubit>().restartTest(),
-                      child: const Text('Restart Test'),
+                    SizedBox(height: screenHeight * 0.05),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                      child: ButtonFlat(
+                          btnColor: AppColors.appColor,
+                          textColor: Colors.white,
+                          onPress: () =>
+                              context.read<IshiharaCubit>().restartTest(),
+                          text: 'Restart Test'),
                     ),
+                    SizedBox(
+                      height: screenHeight * 0.02,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                      child: ButtonFlat(
+                          btnColor: Colors.black,
+                          textColor: Colors.white,
+                          onPress: () {
+                            context.read<IshiharaCubit>().closeGame();
+                            context.pop();
+                          },
+                          text: 'Exit Test'),
+                    )
                   ],
                 ),
               );
