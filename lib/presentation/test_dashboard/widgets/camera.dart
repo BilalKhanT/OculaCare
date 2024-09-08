@@ -65,7 +65,7 @@ class CameraDistanceView extends StatelessWidget {
               }
               else if (flag == 3) {
                 context.read<SnellanInitialCubit>().startSpeaking('left');
-                context.push(RouteNames.snellanRoute, extra: 'left');
+                context.push(RouteNames.snellanInitialRoute, extra: 'left');
               }
             }
           },
