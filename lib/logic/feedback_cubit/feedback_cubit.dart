@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:OculaCare/data/repositories/local/preferences/shared_prefs.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
