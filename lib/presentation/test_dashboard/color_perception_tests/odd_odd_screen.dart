@@ -7,6 +7,7 @@ import '../../../logic/tests/color_tests/odd_out_cubit.dart';
 import '../../../logic/tests/test_schedule_cubit.dart';
 import '../../widgets/btn_flat.dart';
 import '../../widgets/schedule_bottom_modal.dart';
+import '../widgets/severity_chart.dart';
 
 class OutOddScreen extends StatelessWidget {
   const OutOddScreen({super.key});
@@ -156,19 +157,61 @@ class _GameOverScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    double screenHeight = MediaQuery.sizeOf(context).height;
+    double screenWidth = MediaQuery.sizeOf(context).width;
+    return SingleChildScrollView(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          Image.asset(
+            'assets/images/result_test.png',
+            height: screenHeight * 0.3,
+          ),
+          SizedBox(
+            height: screenHeight * 0.02,
+          ),
+          Text('Test Completed !',
+              style: TextStyle(
+                color: Colors.green,
+                fontFamily: 'MontserratMedium',
+                fontWeight: FontWeight.w800,
+                fontSize: screenWidth * 0.05,
+              )),
+          SizedBox(height: screenHeight * 0.02),
+          SeverityChart(score: score),
           Text(
-            'Game Over! Your Score: $score',
-            style: const TextStyle(fontSize: 24),
+            'You got $score out of 10 correct.',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Colors.black,
+              fontFamily: 'MontserratMedium',
+              fontWeight: FontWeight.w800,
+              fontSize: screenWidth * 0.04,),
           ),
-          const SizedBox(height: 20),
-          ElevatedButton(
-            onPressed: () => context.read<OddOutCubit>().restartGame(),
-            child: const Text('Restart'),
+          SizedBox(height: screenHeight * 0.05),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30.0),
+            child: ButtonFlat(
+                btnColor: AppColors.appColor,
+                textColor: Colors.white,
+                onPress: () =>
+                    context.read<OddOutCubit>().restartGame(),
+                text: 'Restart Test'),
           ),
+          SizedBox(
+            height: screenHeight * 0.02,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30.0),
+            child: ButtonFlat(
+                btnColor: Colors.black,
+                textColor: Colors.white,
+                onPress: () {
+                  context.read<OddOutCubit>().endGame();
+                  context.pop();
+                },
+                text: 'Exit Test'),
+          )
         ],
       ),
     );
