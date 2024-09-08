@@ -20,6 +20,10 @@ import '../../logic/tests/test_dash_tab_cubit.dart';
 import '../../presentation/login/login_view.dart';
 import '../../data/repositories/local/preferences/shared_prefs.dart';
 import '../../presentation/otp/otp_view.dart';
+import '../../presentation/test_dashboard/color_perception_tests/ishihara_test_view.dart';
+import '../../presentation/test_dashboard/color_perception_tests/match_color_game.dart';
+import '../../presentation/test_dashboard/color_perception_tests/odd_odd_screen.dart';
+import '../../presentation/test_dashboard/scheduled_tests.dart';
 import '../../presentation/widgets/scaffold_nav_bar.dart';
 import 'package:nb_utils/nb_utils.dart';
 
@@ -146,6 +150,26 @@ final router = GoRouter(
       parentNavigatorKey: navigatorKey,
       path: RouteNames.resultRoute,
       builder: (context, state) => const ResultView(),
+    ),
+    GoRoute(
+      parentNavigatorKey: navigatorKey,
+      path: RouteNames.scheduledRoute,
+      builder: (context, state) => const ScheduledTests(),
+    ),
+    GoRoute(
+      parentNavigatorKey: navigatorKey,
+      path: RouteNames.isiharaRoute,
+      builder: (context, state) => const IshiharaScreen(),
+    ),
+    GoRoute(
+      parentNavigatorKey: navigatorKey,
+      path: RouteNames.oddOutRoute,
+      builder: (context, state) => const OutOddScreen(),
+    ),
+    GoRoute(
+      parentNavigatorKey: navigatorKey,
+      path: RouteNames.colorMatchRoute,
+      builder: (context, state) => const MatchColorGameScreen(),
     ),
     // GoRoute(
     //   path: RouteNames.imgCaptureRoute,
