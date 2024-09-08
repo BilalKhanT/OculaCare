@@ -5,6 +5,7 @@ import 'package:lottie/lottie.dart';
 import '../../../configs/presentation/constants/colors.dart';
 import '../../../configs/routes/route_names.dart';
 import '../../../logic/camera/camera_cubit.dart';
+import '../../../logic/tests/test_cubit.dart';
 import '../../../logic/tests/test_schedule_cubit.dart';
 import '../../../logic/tests/vision_tests/snellan_test_cubit.dart';
 import '../../../logic/tests/vision_tests/snellan_test_state.dart';
@@ -39,7 +40,8 @@ class SnellanChart extends StatelessWidget {
             onPressed: () async {
               await context.read<SnellanTestCubit>().emitCompleted();
               if (context.mounted) {
-                context.go(RouteNames.homeRoute);
+                context.read<TestCubit>().loadTests();
+                context.go(RouteNames.testRoute);
               }
             },
             icon: const Icon(
