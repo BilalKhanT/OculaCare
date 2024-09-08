@@ -121,7 +121,7 @@ class OddOutCubit extends Cubit<OddOutState> {
       await _successPlayer.setPlaybackRate(2.0);
       await _successPlayer.resume();
       emit(state.copyWith(
-        score: state.score + 10,
+        score: state.score + 1,
         selectedIndex: index,
       ));
       _isHandlingSelection = false;
