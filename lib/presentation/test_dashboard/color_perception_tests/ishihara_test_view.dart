@@ -87,7 +87,7 @@ class IshiharaScreen extends StatelessWidget {
                     ),
                     Text('Test Completed !',
                         style: TextStyle(
-                          color: AppColors.appColor,
+                          color: Colors.green,
                           fontFamily: 'MontserratMedium',
                           fontWeight: FontWeight.w800,
                           fontSize: screenWidth * 0.05,
