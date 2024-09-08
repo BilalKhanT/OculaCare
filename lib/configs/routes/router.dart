@@ -18,7 +18,6 @@ import 'package:OculaCare/presentation/sign_up/sign_up_view.dart';
 import '../../logic/tests/vision_tests/animal_track_cubit.dart';
 import '../../logic/tests/test_cubit.dart';
 import '../../logic/tests/test_dash_tab_cubit.dart';
-import '../../logic/tests/vision_tests/snellan_initial_state.dart';
 import '../../presentation/login/login_view.dart';
 import '../../data/repositories/local/preferences/shared_prefs.dart';
 import '../../presentation/otp/otp_view.dart';
