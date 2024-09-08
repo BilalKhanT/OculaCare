@@ -41,8 +41,6 @@ final _shellTestNavigatorKey = GlobalKey<NavigatorState>();
 final _shellTherapyNavigatorKey = GlobalKey<NavigatorState>();
 final _shellMoreNavigatorKey = GlobalKey<NavigatorState>();
 
-//
-
 final router = GoRouter(
   navigatorKey: navigatorKey,
   routes: [
