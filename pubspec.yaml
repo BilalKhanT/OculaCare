@@ -18,6 +18,7 @@ dependencies:
 
   #networking
   dio: ^5.4.1
+  http: ^1.2.1
 
   #state management
   flutter_bloc: ^8.1.4
@@ -45,11 +46,17 @@ dependencies:
   geocoding: ^3.0.0
   geolocator: ^11.0.0
   permission_handler: ^11.3.1
-  intl_phone_number_input: ^0.7.4
-  carousel_slider: ^4.2.1
+  carousel_slider: ^5.0.0
   google_sign_in: ^6.2.1
   firebase_auth: ^4.19.6
   firebase_core: ^2.31.1
+  flutter_datetime_picker_plus: ^2.2.0
+  flutter_local_notifications: ^17.2.2
+  timezone: ^0.9.4
+  audioplayers: ^6.0.0
+  flame: ^1.18.0
+  speech_to_text: ^6.6.2
+  flutter_tts: ^3.8.0
 
 dev_dependencies:
   flutter_test:
@@ -74,6 +81,7 @@ flutter:
     - assets/svgs/
     - assets/lotties/
     - assets/pdfs/
+    - assets/audio/
   #   - images/a_dot_ham.jpeg
 
   fonts:
@@ -83,4 +91,13 @@ flutter:
     - family: PoppinsBold
       fonts:
         - asset: assets/fonts/Poppins-Bold.ttf
+    - family: Montserrat
+      fonts:
+        - asset: assets/fonts/Montserrat-Regular.ttf
+    - family: MontserratMedium
+      fonts:
+        - asset: assets/fonts/Montserrat-Medium.ttf
+    - family: MontserratBold
+      fonts:
+        - asset: assets/fonts/Montserrat-Bold.ttf
 

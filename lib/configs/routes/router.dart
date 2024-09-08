@@ -5,18 +5,33 @@ import 'package:OculaCare/presentation/more_section/more_view.dart';
 import 'package:OculaCare/presentation/more_section/pdf_view.dart';
 import 'package:OculaCare/presentation/patient_profile/profile_view.dart';
 import 'package:OculaCare/presentation/result/result_view.dart';
-import 'package:OculaCare/presentation/tests/test_view.dart';
+import 'package:OculaCare/presentation/test_dashboard/test_dash_view.dart';
 import 'package:OculaCare/presentation/therapy/therapy_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:OculaCare/configs/routes/route_names.dart';
 import 'package:OculaCare/presentation/home/home_view.dart';
 import 'package:OculaCare/presentation/img_capture/img_capture_view.dart';
 import 'package:OculaCare/presentation/onboarding/onboarding_view.dart';
 import 'package:OculaCare/presentation/sign_up/sign_up_view.dart';
+import '../../logic/tests/vision_tests/animal_track_cubit.dart';
+import '../../logic/tests/test_cubit.dart';
+import '../../logic/tests/test_dash_tab_cubit.dart';
 import '../../presentation/login/login_view.dart';
 import '../../data/repositories/local/preferences/shared_prefs.dart';
 import '../../presentation/otp/otp_view.dart';
+import '../../presentation/test_dashboard/vision_tests/animal_game_initial.dart';
+import '../../presentation/test_dashboard/vision_tests/animal_game_screen.dart';
+import '../../presentation/test_dashboard/color_perception_tests/ishihara_test_view.dart';
+import '../../presentation/test_dashboard/color_perception_tests/match_color_game.dart';
+import '../../presentation/test_dashboard/color_perception_tests/odd_odd_screen.dart';
+import '../../presentation/test_dashboard/scheduled_tests.dart';
+import '../../presentation/test_dashboard/vision_tests/contrast_game_screen.dart';
+import '../../presentation/test_dashboard/vision_tests/game_over_screen.dart';
+import '../../presentation/test_dashboard/vision_tests/snellan_initial.dart';
+import '../../presentation/test_dashboard/vision_tests/snellar_chart.dart';
+import '../../presentation/test_dashboard/widgets/camera.dart';
 import '../../presentation/widgets/scaffold_nav_bar.dart';
 import 'package:nb_utils/nb_utils.dart';
 
@@ -55,10 +70,12 @@ final router = GoRouter(
               navigatorKey: _shellTestNavigatorKey,
               routes: <RouteBase>[
                 GoRoute(
-                  path: RouteNames.testRoute,
-                  pageBuilder: (context, state) =>
-                      const MaterialPage(child: TestView()),
-                ),
+                    path: RouteNames.testRoute,
+                    pageBuilder: (context, state) {
+                      context.read<TestDashTabCubit>().toggleTab(0);
+                      context.read<TestCubit>().loadTests();
+                      return const MaterialPage(child: TestDashView());
+                    }),
               ]),
           StatefulShellBranch(
               navigatorKey: _shellTherapyNavigatorKey,
@@ -80,13 +97,14 @@ final router = GoRouter(
               ]),
         ]),
     GoRoute(
-      parentNavigatorKey: navigatorKey,
-      path: RouteNames.signUpRoute,
-      builder: (context, state) {
-        final flow = state.extra as String;
-        return SignUpScreen(flow: flow,);
-      }
-    ),
+        parentNavigatorKey: navigatorKey,
+        path: RouteNames.signUpRoute,
+        builder: (context, state) {
+          final flow = state.extra as String;
+          return SignUpScreen(
+            flow: flow,
+          );
+        }),
     // GoRoute(
     //   path: RouteNames.resultRoute,
     //   builder: (context, state) => const ResultView(),
@@ -140,6 +158,76 @@ final router = GoRouter(
       parentNavigatorKey: navigatorKey,
       path: RouteNames.resultRoute,
       builder: (context, state) => const ResultView(),
+    ),
+    GoRoute(
+      parentNavigatorKey: navigatorKey,
+      path: RouteNames.scheduledRoute,
+      builder: (context, state) => const ScheduledTests(),
+    ),
+    GoRoute(
+      parentNavigatorKey: navigatorKey,
+      path: RouteNames.isiharaRoute,
+      builder: (context, state) => const IshiharaScreen(),
+    ),
+    GoRoute(
+      parentNavigatorKey: navigatorKey,
+      path: RouteNames.oddOutRoute,
+      builder: (context, state) => const OutOddScreen(),
+    ),
+    GoRoute(
+      parentNavigatorKey: navigatorKey,
+      path: RouteNames.colorMatchRoute,
+      builder: (context, state) => const MatchColorGameScreen(),
+    ),
+    GoRoute(
+        parentNavigatorKey: navigatorKey,
+        path: RouteNames.distanceRoute,
+        builder: (context, state) {
+          int flag = state.extra as int;
+          return CameraDistanceView(
+            flag: flag,
+          );
+        }),
+    GoRoute(
+      parentNavigatorKey: navigatorKey,
+      path: RouteNames.trackInitialRoute,
+      builder: (context, state) => const AnimalGameInitial(),
+    ),
+    GoRoute(
+        parentNavigatorKey: navigatorKey,
+        path: RouteNames.trackRoute,
+        builder: (context, state) {
+          final cubit = AnimalTrackCubit();
+          cubit.startGame();
+          return AnimalGameScreen(cubit: cubit);
+        }),
+    GoRoute(
+        parentNavigatorKey: navigatorKey,
+        path: RouteNames.contrastRoute,
+        builder: (context, state) {
+          bool flag = state.extra as bool;
+          return ContrastGameScreen(
+            isHome: flag,
+          );
+        }),
+    GoRoute(
+        parentNavigatorKey: navigatorKey,
+        path: RouteNames.trackGameOverRoute,
+        builder: (context, state) {
+          int score = state.extra as int;
+          return GameOverScreen(score: score);
+        }),
+    GoRoute(
+        parentNavigatorKey: navigatorKey,
+        path: RouteNames.snellanInitialRoute,
+        builder: (context, state) {
+          String data = state.extra as String;
+          return SnellanInitialView(eye: data);
+        }),
+    GoRoute(
+      parentNavigatorKey: navigatorKey,
+      path: RouteNames.snellanRoute,
+      builder: (context, state) => const SnellanChart(),
     ),
     // GoRoute(
     //   path: RouteNames.imgCaptureRoute,

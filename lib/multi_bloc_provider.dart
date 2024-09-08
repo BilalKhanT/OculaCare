@@ -9,13 +9,28 @@ import 'package:OculaCare/logic/patient_profile/patient_profile_cubit.dart';
 import 'package:OculaCare/logic/patient_profile/upload_profile_photo_cubit.dart';
 import 'package:OculaCare/logic/pdf_cubit/pdf_cubit_state.dart';
 import 'package:OculaCare/logic/sign_up_cubit/sign_up_pass_cubit.dart';
+import 'package:OculaCare/logic/tests/color_tests/radio_btn_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:OculaCare/logic/image_capture/img_capture_cubit.dart';
 import 'package:OculaCare/logic/otp_cubit/otp_cubit.dart';
 import 'package:OculaCare/logic/sign_up_cubit/sign_up_cubit.dart';
 
+import 'logic/camera/camera_cubit.dart';
 import 'logic/login_cubit/login_cubit.dart';
+import 'logic/tests/color_more_cubit.dart';
+import 'logic/tests/vision_tests/animal_track_cubit.dart';
+import 'logic/tests/color_tests/isihara_cubit.dart';
+import 'logic/tests/color_tests/match_color_cubit.dart';
+import 'logic/tests/color_tests/odd_out_cubit.dart';
+import 'logic/tests/test_cubit.dart';
+import 'logic/tests/test_dash_tab_cubit.dart';
+import 'logic/tests/test_more_cubit.dart';
+import 'logic/tests/test_schedule_cubit.dart';
+import 'logic/tests/test_schedule_tab_cubit.dart';
+import 'logic/tests/vision_tests/contrast_cubit.dart';
+import 'logic/tests/vision_tests/snellan_initial_cubit.dart';
+import 'logic/tests/vision_tests/snellan_test_cubit.dart';
 
 class ProvideMultiBloc extends StatelessWidget {
   final Widget child;
@@ -69,6 +84,51 @@ class ProvideMultiBloc extends StatelessWidget {
       ),
       BlocProvider(
         create: (context) => PatientProfileCubit(),
+      ),
+      BlocProvider(
+        create: (context) => TestDashTabCubit(),
+      ),
+      BlocProvider(
+        create: (context) => TestCubit(),
+      ),
+      BlocProvider(
+        create: (context) => TestMoreCubit(),
+      ),
+      BlocProvider(
+        create: (context) => ColorMoreCubit(),
+      ),
+      BlocProvider(
+        create: (context) => ScheduleTabCubit(),
+      ),
+      BlocProvider(
+        create: (context) => ScheduleCubit(),
+      ),
+      BlocProvider(
+        create: (context) => IshiharaCubit(),
+      ),
+      BlocProvider(
+        create: (context) => RadioBtnCubit(),
+      ),
+      BlocProvider(
+        create: (context) => OddOutCubit(),
+      ),
+      BlocProvider(
+        create: (context) => MatchColorCubit(),
+      ),
+      BlocProvider(
+        create: (context) => CameraCubit(),
+      ),
+      BlocProvider(
+        create: (context) => AnimalTrackCubit(),
+      ),
+      BlocProvider(
+        create: (context) => SnellanTestCubit(),
+      ),
+      BlocProvider(
+        create: (context) => SnellanInitialCubit(),
+      ),
+      BlocProvider(
+        create: (context) => ContrastCubit(),
       ),
     ], child: child);
   }

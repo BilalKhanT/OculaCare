@@ -21,7 +21,7 @@ class OtpCubit extends Cubit<OtpState> {
     userName = name;
     userPassword = password;
     try {
-      var url = Uri.parse('http://$ipAddress:3000/api/patients/otp');
+      var url = Uri.parse('$ipServer/api/patients/otp');
       var response = await http.post(
         url,
         headers: {'Content-Type': 'application/json'},
@@ -55,7 +55,7 @@ class OtpCubit extends Cubit<OtpState> {
     emit(OtpStateLoading());
     if (flow == 'recover') {
       try {
-        var url = Uri.parse('http://$ipAddress:3000/api/patients/recovery-otp');
+        var url = Uri.parse('$ipServer/api/patients/recovery-otp');
         var response = await http.post(
           url,
           headers: {'Content-Type': 'application/json'},
@@ -83,7 +83,7 @@ class OtpCubit extends Cubit<OtpState> {
       return;
     }
     try {
-      var url = Uri.parse('http://$ipAddress:3000/api/patients/otp');
+      var url = Uri.parse('$ipServer/api/patients/otp');
       var response = await http.post(
         url,
         headers: {'Content-Type': 'application/json'},
@@ -116,7 +116,7 @@ class OtpCubit extends Cubit<OtpState> {
   Future<void> sendRecoveryOTP (String email) async{
     emit(OtpStateLoading());
     try {
-      var url = Uri.parse('http://$ipAddress:3000/api/patients/recovery-otp');
+      var url = Uri.parse('$ipServer/api/patients/recovery-otp');
       var response = await http.post(
         url,
         headers: {'Content-Type': 'application/json'},
@@ -158,7 +158,7 @@ class OtpCubit extends Cubit<OtpState> {
       return;
     }
     try {
-      var url = Uri.parse('http://$ipAddress:3000/api/patients/register');
+      var url = Uri.parse('$ipServer/api/patients/register');
       var response = await http.post(
         url,
         headers: {'Content-Type': 'application/json'},

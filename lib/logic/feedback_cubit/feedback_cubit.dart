@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:OculaCare/data/repositories/local/preferences/shared_prefs.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +16,6 @@ class FeedbackCubit extends Cubit<FeedbackState> {
     listenToKeyboardFocus();
   }
 
-  // liked feedback track
   Map<String, bool> likedItems = {
     "Easy to capture image": false,
     "Easy to track my past results": false,
@@ -44,8 +42,8 @@ class FeedbackCubit extends Cubit<FeedbackState> {
       } else if (itemName == "All of the above" && !newStatus) {
         newSelectionStatus.updateAll((key, value) => false);
       } else {
-        newSelectionStatus["All of the above"] = newSelectionStatus.values
-            .every((element) => element == true);
+        newSelectionStatus["All of the above"] =
+            newSelectionStatus.values.every((element) => element == true);
       }
 
       emit(FeedbackLiked(newSelectionStatus));
@@ -55,12 +53,12 @@ class FeedbackCubit extends Cubit<FeedbackState> {
   void selectAllLikedItems() {
     if (state is FeedbackLiked) {
       final currentState = state as FeedbackLiked;
-      final newStatus = currentState.selectionStatus.map((key, value) => MapEntry(key, true));
+      final newStatus =
+          currentState.selectionStatus.map((key, value) => MapEntry(key, true));
       emit(FeedbackLiked(newStatus));
     }
   }
 
-  // unliked feedback track
   Map<String, bool> unlikedItems = {
     "Difficult to capture image": false,
     "Difficult to track my past results": false,
@@ -83,8 +81,8 @@ class FeedbackCubit extends Cubit<FeedbackState> {
       } else if (itemName == "All of the above" && !newStatus) {
         newSelectionStatus.updateAll((key, value) => false);
       } else {
-        newSelectionStatus["All of the above"] = newSelectionStatus.values
-            .every((element) => element == true);
+        newSelectionStatus["All of the above"] =
+            newSelectionStatus.values.every((element) => element == true);
       }
 
       emit(FeedbackUnLiked(newSelectionStatus));
@@ -94,7 +92,8 @@ class FeedbackCubit extends Cubit<FeedbackState> {
   void selectAllUnLikedItems() {
     if (state is FeedbackUnLiked) {
       final currentState = state as FeedbackUnLiked;
-      final newStatus = currentState.selectionStatus.map((key, value) => MapEntry(key, true));
+      final newStatus =
+          currentState.selectionStatus.map((key, value) => MapEntry(key, true));
       emit(FeedbackUnLiked(newStatus));
     }
   }
@@ -114,7 +113,7 @@ class FeedbackCubit extends Cubit<FeedbackState> {
       String category, List<String> data, String customFeedback) async {
     emit(FeedbackLoading());
     try {
-      var url = Uri.parse('http://$ipAddress:3000/api/feedback/submit');
+      var url = Uri.parse('$ipServer/api/feedback/submit');
       var response = await http.post(
         url,
         headers: {'Content-Type': 'application/json'},
@@ -135,7 +134,6 @@ class FeedbackCubit extends Cubit<FeedbackState> {
     }
   }
 
-  // text feedback
   final textFeedbackController = TextEditingController();
   final FocusNode textFeedbackNode = FocusNode();
 
@@ -158,7 +156,6 @@ class FeedbackCubit extends Cubit<FeedbackState> {
     }
   }
 
-  // feedback completed
   void toggleFeedbackCompleted() {
     emit(FeedbackCompleted());
   }
