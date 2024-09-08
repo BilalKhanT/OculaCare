@@ -15,93 +15,62 @@ class ScaffoldWithNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PopScope(
-      canPop: false,
-      onPopInvoked: ((didPop) {
-        _onTap(context, 0);
-      }),
-      child: Scaffold(
-        body: navigationShell,
-        bottomNavigationBar: NavigationBarTheme(
-          data: NavigationBarThemeData(
-            labelTextStyle: WidgetStateProperty.resolveWith((states) {
-              if (states.contains(WidgetState.selected)) {
-                return TextStyle(
-                  fontFamily: 'MontserratMedium',
-                  fontSize: MediaQuery.sizeOf(context).width * 0.03,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.appColor,
-                );
-              }
-              return TextStyle(
-                fontFamily: 'MontserratMedium',
-                fontSize: MediaQuery.sizeOf(context).width * 0.03,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              );
-            }),
-            indicatorColor: Colors.grey.shade200,
-            backgroundColor: Colors.white,
-            elevation: 0,
+        canPop: false,
+        onPopInvoked: ((didPop) {
+          _onTap(context, 0);
+        }),
+        child: Scaffold(
+          body: navigationShell,
+          bottomNavigationBar: Padding(
+            padding:
+                const EdgeInsets.only(left: 30.0, bottom: 20.0, right: 30.0),
+            child: Container(
+              decoration: BoxDecoration(
+                color: AppColors.appColor,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black12,
+                    blurRadius: 10,
+                    spreadRadius: 1,
+                  ),
+                ],
+                borderRadius: BorderRadius.all(Radius.circular(17.0)),
+              ),
+              padding: const EdgeInsets.symmetric(vertical: 0),
+              child: BottomNavigationBar(
+                type: BottomNavigationBarType.fixed,
+                currentIndex: navigationShell.currentIndex,
+                onTap: (index) => _onTap(context, index),
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+                selectedItemColor: Colors.black,
+                unselectedItemColor: Colors.white,
+                showSelectedLabels: false,
+                showUnselectedLabels: false,
+                items: [
+                  _buildNavItem('assets/svgs/house.svg', 'Home', 0),
+                  _buildNavItem('assets/svgs/eye_scan.svg', 'Detect', 1),
+                  _buildNavItem('assets/svgs/tests.svg', 'Test', 2),
+                  _buildNavItem('assets/svgs/results.svg', 'Therapy', 3),
+                  _buildNavItem('assets/svgs/dots.svg', 'More', 4),
+                ],
+              ),
+            ),
           ),
-          child: NavigationBar(
-            elevation: 10,
-            onDestinationSelected: (index) => _onTap(context, index),
-            selectedIndex: navigationShell.currentIndex,
-            destinations: [
-              NavigationDestination(
-                icon: SvgPicture.asset(
-                  'assets/svgs/house.svg',
-                  // ignore: deprecated_member_use
-                  color: navigationShell.currentIndex == 0
-                      ? AppColors.appColor
-                      : Colors.black,
-                ),
-                label: 'Home',
-              ),
-              NavigationDestination(
-                icon: SvgPicture.asset(
-                  'assets/svgs/eye_scan.svg',
-                  // ignore: deprecated_member_use
-                  color: navigationShell.currentIndex == 1
-                      ? AppColors.appColor
-                      : Colors.black,
-                ),
-                label: 'Detect',
-              ),
-              NavigationDestination(
-                icon: SvgPicture.asset(
-                  'assets/svgs/tests.svg',
-                  // ignore: deprecated_member_use
-                  color: navigationShell.currentIndex == 2
-                      ? AppColors.appColor
-                      : Colors.black,
-                ),
-                label: 'Test',
-              ),
-              NavigationDestination(
-                icon: SvgPicture.asset(
-                  'assets/svgs/results.svg',
-                  // ignore: deprecated_member_use
-                  color: navigationShell.currentIndex == 3
-                      ? AppColors.appColor
-                      : Colors.black,
-                ),
-                label: 'Therapy',
-              ),
-              NavigationDestination(
-                icon: SvgPicture.asset(
-                  "assets/svgs/dots.svg",
-                  // ignore: deprecated_member_use
-                  color: navigationShell.currentIndex == 4
-                      ? AppColors.appColor
-                      : Colors.black,
-                ),
-                label: 'More',
-              ),
-            ],
-          ),
-        ),
+        ));
+  }
+
+  BottomNavigationBarItem _buildNavItem(
+      String iconPath, String label, int index) {
+    return BottomNavigationBarItem(
+      icon: SvgPicture.asset(
+        iconPath,
+        height: 24,
+        color: navigationShell.currentIndex == index
+            ? Colors.black
+            : AppColors.whiteColor,
       ),
+      label: label,
     );
   }
 
