@@ -54,6 +54,7 @@ dependencies:
   flutter_datetime_picker_plus: ^2.2.0
   flutter_local_notifications: ^17.2.2
   timezone: ^0.9.4
+  audioplayers: ^6.0.0
 
 dev_dependencies:
   flutter_test:
