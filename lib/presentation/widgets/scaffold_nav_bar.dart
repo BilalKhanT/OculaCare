@@ -1,6 +1,5 @@
 import 'package:OculaCare/configs/presentation/constants/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 
@@ -24,19 +23,19 @@ class ScaffoldWithNavBar extends StatelessWidget {
         body: navigationShell,
         bottomNavigationBar: NavigationBarTheme(
           data: NavigationBarThemeData(
-            labelTextStyle: MaterialStateProperty.resolveWith((states) {
-              if (states.contains(MaterialState.selected)) {
+            labelTextStyle: WidgetStateProperty.resolveWith((states) {
+              if (states.contains(WidgetState.selected)) {
                 return TextStyle(
-                  fontFamily: 'Poppins',
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w600,
+                  fontFamily: 'MontserratMedium',
+                  fontSize: MediaQuery.sizeOf(context).width * 0.03,
+                  fontWeight: FontWeight.bold,
                   color: AppColors.appColor,
                 );
               }
               return TextStyle(
-                fontFamily: 'Poppins',
-                fontSize: 14.sp,
-                fontWeight: FontWeight.w600,
+                fontFamily: 'MontserratMedium',
+                fontSize: MediaQuery.sizeOf(context).width * 0.03,
+                fontWeight: FontWeight.bold,
                 color: Colors.black,
               );
             }),
@@ -45,6 +44,7 @@ class ScaffoldWithNavBar extends StatelessWidget {
             elevation: 0,
           ),
           child: NavigationBar(
+            elevation: 10,
             onDestinationSelected: (index) => _onTap(context, index),
             selectedIndex: navigationShell.currentIndex,
             destinations: [
