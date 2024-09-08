@@ -6,6 +6,7 @@ import 'package:lottie/lottie.dart';
 import '../../../configs/presentation/constants/colors.dart';
 import '../../../configs/routes/route_names.dart';
 import '../../../logic/camera/camera_cubit.dart';
+import '../../../logic/tests/test_cubit.dart';
 import '../../../logic/tests/test_schedule_cubit.dart';
 import '../../../logic/tests/vision_tests/contrast_cubit.dart';
 import '../../../logic/tests/vision_tests/contrast_state.dart';
@@ -39,7 +40,8 @@ class ContrastGameScreen extends StatelessWidget {
           leading: IconButton(
             onPressed: () {
               context.read<ContrastCubit>().closeGame();
-              context.go(RouteNames.homeRoute);
+              context.read<TestCubit>().loadTests();
+              context.go(RouteNames.testRoute);
             },
             icon: const Icon(
               Icons.arrow_back,
