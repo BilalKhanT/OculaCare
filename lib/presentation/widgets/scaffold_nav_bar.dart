@@ -29,12 +29,13 @@ class ScaffoldWithNavBar extends StatelessWidget {
                 color: AppColors.appColor,
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black12,
-                    blurRadius: 10,
-                    spreadRadius: 1,
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 2,
+                    blurRadius: 8,
+                    offset: const Offset(0, 3),
                   ),
                 ],
-                borderRadius: BorderRadius.all(Radius.circular(17.0)),
+                borderRadius: const BorderRadius.all(Radius.circular(17.0)),
               ),
               padding: const EdgeInsets.symmetric(vertical: 0),
               child: BottomNavigationBar(
