@@ -9,6 +9,7 @@ import 'package:OculaCare/logic/patient_profile/patient_profile_cubit.dart';
 import 'package:OculaCare/logic/patient_profile/upload_profile_photo_cubit.dart';
 import 'package:OculaCare/logic/pdf_cubit/pdf_cubit_state.dart';
 import 'package:OculaCare/logic/sign_up_cubit/sign_up_pass_cubit.dart';
+import 'package:OculaCare/logic/tests/color_tests/radio_btn_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:OculaCare/logic/image_capture/img_capture_cubit.dart';
@@ -17,6 +18,9 @@ import 'package:OculaCare/logic/sign_up_cubit/sign_up_cubit.dart';
 
 import 'logic/login_cubit/login_cubit.dart';
 import 'logic/tests/color_more_cubit.dart';
+import 'logic/tests/color_tests/isihara_cubit.dart';
+import 'logic/tests/color_tests/match_color_cubit.dart';
+import 'logic/tests/color_tests/odd_out_cubit.dart';
 import 'logic/tests/test_cubit.dart';
 import 'logic/tests/test_dash_tab_cubit.dart';
 import 'logic/tests/test_more_cubit.dart';
@@ -93,6 +97,18 @@ class ProvideMultiBloc extends StatelessWidget {
       ),
       BlocProvider(
         create: (context) => ScheduleCubit(),
+      ),
+      BlocProvider(
+        create: (context) => IshiharaCubit(),
+      ),
+      BlocProvider(
+        create: (context) => RadioBtnCubit(),
+      ),
+      BlocProvider(
+        create: (context) => OddOutCubit(),
+      ),
+      BlocProvider(
+        create: (context) => MatchColorCubit(),
       ),
     ], child: child);
   }
