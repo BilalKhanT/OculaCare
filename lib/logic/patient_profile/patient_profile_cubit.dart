@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:OculaCare/configs/utils/utils.dart';
 import 'package:OculaCare/data/models/address/address_model.dart';
 import 'package:OculaCare/data/repositories/local/preferences/shared_prefs.dart';
-import 'package:OculaCare/logic/patient_profile/gender_cubit.dart';
 import 'package:OculaCare/logic/patient_profile/patient_profile_state.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
@@ -58,7 +57,7 @@ class PatientProfileCubit extends Cubit<PatientProfileState> {
         return;
       } else {
         try {
-          var url = Uri.parse('http://$ipAddress:3000/api/patients/send-info');
+          var url = Uri.parse('$ipServer/api/patients/send-info');
           var response = await http.post(
             url,
             headers: {'Content-Type': 'application/json'},
@@ -94,7 +93,7 @@ class PatientProfileCubit extends Cubit<PatientProfileState> {
 
   Future<void> editProfile(BuildContext context, String pass, String img, String age, String phone, String address) async {
     try {
-      var url = Uri.parse('http://$ipAddress:3000/api/patients/edit-profile');
+      var url = Uri.parse('$ipServer/api/patients/edit-profile');
       var response = await http.post(
         url,
         headers: {'Content-Type': 'application/json'},
@@ -146,7 +145,7 @@ class PatientProfileCubit extends Cubit<PatientProfileState> {
     if (phone.isNotEmpty && phone.length == 11  && address.isNotEmpty && age.isNotEmpty && imageBase64 != ''
     && gender != '' && lat.toString().isNotEmpty && long.toString().isNotEmpty) {
       try {
-        var url = Uri.parse('http://$ipAddress:3000/api/patients/update-profile');
+        var url = Uri.parse('$ipServer/api/patients/update-profile');
         var response = await http.post(
           url,
           headers: {'Content-Type': 'application/json'},
