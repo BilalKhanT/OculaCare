@@ -29,7 +29,8 @@ class TestDashView extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: AppColors.screenBackground,
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () {
+          },
           icon: const Icon(
             Icons.arrow_back,
             color: AppColors.appColor,
