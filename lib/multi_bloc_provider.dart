@@ -16,6 +16,12 @@ import 'package:OculaCare/logic/otp_cubit/otp_cubit.dart';
 import 'package:OculaCare/logic/sign_up_cubit/sign_up_cubit.dart';
 
 import 'logic/login_cubit/login_cubit.dart';
+import 'logic/tests/color_more_cubit.dart';
+import 'logic/tests/test_cubit.dart';
+import 'logic/tests/test_dash_tab_cubit.dart';
+import 'logic/tests/test_more_cubit.dart';
+import 'logic/tests/test_schedule_cubit.dart';
+import 'logic/tests/test_schedule_tab_cubit.dart';
 
 class ProvideMultiBloc extends StatelessWidget {
   final Widget child;
@@ -69,6 +75,24 @@ class ProvideMultiBloc extends StatelessWidget {
       ),
       BlocProvider(
         create: (context) => PatientProfileCubit(),
+      ),
+      BlocProvider(
+        create: (context) => TestDashTabCubit(),
+      ),
+      BlocProvider(
+        create: (context) => TestCubit(),
+      ),
+      BlocProvider(
+        create: (context) => TestMoreCubit(),
+      ),
+      BlocProvider(
+        create: (context) => ColorMoreCubit(),
+      ),
+      BlocProvider(
+        create: (context) => ScheduleTabCubit(),
+      ),
+      BlocProvider(
+        create: (context) => ScheduleCubit(),
       ),
     ], child: child);
   }
