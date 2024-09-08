@@ -61,7 +61,9 @@ class IshiharaCubit extends Cubit<IshiharaState> {
       if (state.currentQuestion >= 10) {
         answerSelected = null;
         closeGame();
-        emit(state.copyWith(testCompleted: true));
+        emit(state.copyWith(loading: true));
+        await Future.delayed(const Duration(seconds: 4));
+        emit(state.copyWith(testCompleted: true, loading: false));
       } else {
         answerSelected = null;
         emit(state.copyWith(
@@ -116,6 +118,7 @@ class IshiharaState {
   final bool testCompleted;
   final List<int> plates;
   final Color numberColor;
+  final bool loading;
 
   IshiharaState({
     required this.currentIndex,
@@ -124,7 +127,8 @@ class IshiharaState {
     required this.correctAnswers,
     required this.testCompleted,
     required this.plates,
-    this.numberColor = Colors.black, // Default color
+    this.numberColor = Colors.black,
+    this.loading = false,
   });
 
   IshiharaState copyWith({
@@ -135,6 +139,7 @@ class IshiharaState {
     bool? testCompleted,
     List<int>? plates,
     Color? numberColor,
+    bool? loading,
   }) {
     return IshiharaState(
       currentIndex: currentIndex ?? this.currentIndex,
@@ -144,6 +149,7 @@ class IshiharaState {
       testCompleted: testCompleted ?? this.testCompleted,
       plates: plates ?? this.plates,
       numberColor: numberColor ?? this.numberColor,
+      loading: loading ?? this.loading,
     );
   }
 }
