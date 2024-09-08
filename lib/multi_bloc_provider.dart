@@ -16,8 +16,10 @@ import 'package:OculaCare/logic/image_capture/img_capture_cubit.dart';
 import 'package:OculaCare/logic/otp_cubit/otp_cubit.dart';
 import 'package:OculaCare/logic/sign_up_cubit/sign_up_cubit.dart';
 
+import 'logic/camera/camera_cubit.dart';
 import 'logic/login_cubit/login_cubit.dart';
 import 'logic/tests/color_more_cubit.dart';
+import 'logic/tests/vision_tests/animal_track_cubit.dart';
 import 'logic/tests/color_tests/isihara_cubit.dart';
 import 'logic/tests/color_tests/match_color_cubit.dart';
 import 'logic/tests/color_tests/odd_out_cubit.dart';
@@ -26,6 +28,9 @@ import 'logic/tests/test_dash_tab_cubit.dart';
 import 'logic/tests/test_more_cubit.dart';
 import 'logic/tests/test_schedule_cubit.dart';
 import 'logic/tests/test_schedule_tab_cubit.dart';
+import 'logic/tests/vision_tests/contrast_cubit.dart';
+import 'logic/tests/vision_tests/snellan_initial_cubit.dart';
+import 'logic/tests/vision_tests/snellan_test_cubit.dart';
 
 class ProvideMultiBloc extends StatelessWidget {
   final Widget child;
@@ -109,6 +114,21 @@ class ProvideMultiBloc extends StatelessWidget {
       ),
       BlocProvider(
         create: (context) => MatchColorCubit(),
+      ),
+      BlocProvider(
+        create: (context) => CameraCubit(),
+      ),
+      BlocProvider(
+        create: (context) => AnimalTrackCubit(),
+      ),
+      BlocProvider(
+        create: (context) => SnellanTestCubit(),
+      ),
+      BlocProvider(
+        create: (context) => SnellanInitialCubit(),
+      ),
+      BlocProvider(
+        create: (context) => ContrastCubit(),
       ),
     ], child: child);
   }

@@ -13,7 +13,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import '../../logic/location_cubit/location_cubit.dart';
 import '../../logic/patient_profile/gender_cubit.dart';
 import '../../logic/patient_profile/upload_profile_photo_cubit.dart';

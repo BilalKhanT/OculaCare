@@ -15,15 +15,24 @@ import 'package:OculaCare/presentation/home/home_view.dart';
 import 'package:OculaCare/presentation/img_capture/img_capture_view.dart';
 import 'package:OculaCare/presentation/onboarding/onboarding_view.dart';
 import 'package:OculaCare/presentation/sign_up/sign_up_view.dart';
+import '../../logic/tests/vision_tests/animal_track_cubit.dart';
 import '../../logic/tests/test_cubit.dart';
 import '../../logic/tests/test_dash_tab_cubit.dart';
+import '../../logic/tests/vision_tests/snellan_initial_state.dart';
 import '../../presentation/login/login_view.dart';
 import '../../data/repositories/local/preferences/shared_prefs.dart';
 import '../../presentation/otp/otp_view.dart';
+import '../../presentation/test_dashboard/vision_tests/animal_game_initial.dart';
+import '../../presentation/test_dashboard/vision_tests/animal_game_screen.dart';
 import '../../presentation/test_dashboard/color_perception_tests/ishihara_test_view.dart';
 import '../../presentation/test_dashboard/color_perception_tests/match_color_game.dart';
 import '../../presentation/test_dashboard/color_perception_tests/odd_odd_screen.dart';
 import '../../presentation/test_dashboard/scheduled_tests.dart';
+import '../../presentation/test_dashboard/vision_tests/contrast_game_screen.dart';
+import '../../presentation/test_dashboard/vision_tests/game_over_screen.dart';
+import '../../presentation/test_dashboard/vision_tests/snellan_initial.dart';
+import '../../presentation/test_dashboard/vision_tests/snellar_chart.dart';
+import '../../presentation/test_dashboard/widgets/camera.dart';
 import '../../presentation/widgets/scaffold_nav_bar.dart';
 import 'package:nb_utils/nb_utils.dart';
 
@@ -170,6 +179,56 @@ final router = GoRouter(
       parentNavigatorKey: navigatorKey,
       path: RouteNames.colorMatchRoute,
       builder: (context, state) => const MatchColorGameScreen(),
+    ),
+    GoRoute(
+        parentNavigatorKey: navigatorKey,
+        path: RouteNames.distanceRoute,
+        builder: (context, state) {
+          int flag = state.extra as int;
+          return CameraDistanceView(
+            flag: flag,
+          );
+        }),
+    GoRoute(
+      parentNavigatorKey: navigatorKey,
+      path: RouteNames.trackInitialRoute,
+      builder: (context, state) => const AnimalGameInitial(),
+    ),
+    GoRoute(
+        parentNavigatorKey: navigatorKey,
+        path: RouteNames.trackRoute,
+        builder: (context, state) {
+          final cubit = AnimalTrackCubit();
+          cubit.startGame();
+          return AnimalGameScreen(cubit: cubit);
+        }),
+    GoRoute(
+        parentNavigatorKey: navigatorKey,
+        path: RouteNames.contrastRoute,
+        builder: (context, state) {
+          bool flag = state.extra as bool;
+          return ContrastGameScreen(
+            isHome: flag,
+          );
+        }),
+    GoRoute(
+        parentNavigatorKey: navigatorKey,
+        path: RouteNames.trackGameOverRoute,
+        builder: (context, state) {
+          int score = state.extra as int;
+          return GameOverScreen(score: score);
+        }),
+    GoRoute(
+        parentNavigatorKey: navigatorKey,
+        path: RouteNames.snellanInitialRoute,
+        builder: (context, state) {
+          String data = state.extra as String;
+          return SnellanInitialView(eye: data);
+        }),
+    GoRoute(
+      parentNavigatorKey: navigatorKey,
+      path: RouteNames.snellanRoute,
+      builder: (context, state) => const SnellanChart(),
     ),
     // GoRoute(
     //   path: RouteNames.imgCaptureRoute,

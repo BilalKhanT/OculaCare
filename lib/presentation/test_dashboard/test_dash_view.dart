@@ -18,6 +18,8 @@ import '../../logic/tests/test_more_state.dart';
 import '../../logic/tests/test_schedule_cubit.dart';
 import '../../logic/tests/test_schedule_tab_cubit.dart';
 import '../../logic/tests/test_state.dart';
+import '../../logic/tests/vision_tests/contrast_cubit.dart';
+import '../../logic/tests/vision_tests/snellan_test_cubit.dart';
 import '../widgets/cstm_loader.dart';
 
 class TestDashView extends StatelessWidget {
@@ -246,8 +248,8 @@ class TestDashView extends StatelessWidget {
                               'Test snellan chart test to\nmeasure your vision acuity.',
                               image: '',
                               onPress: () {
-                                // context.read<SnellanTestCubit>().loadSnellanTest();
-                                // context.go(RouteNames.snellanRoute,);
+                                context.read<SnellanTestCubit>().loadSnellanTest();
+                                context.go(RouteNames.snellanRoute,);
                               }),
                           TestTile(
                               title: 'Animal Tracking',
@@ -255,7 +257,7 @@ class TestDashView extends StatelessWidget {
                               'Track animals and maintain\nfocus to test vision.',
                               image: '',
                               onPress: () {
-                                // context.go(RouteNames.trackInitialRoute,);
+                                context.go(RouteNames.trackInitialRoute,);
                               }),
                           BlocBuilder<TestMoreCubit, TestMoreState>(
                             builder: (context, state) {
@@ -302,8 +304,8 @@ class TestDashView extends StatelessWidget {
                                       'Distinguish high and low\ncontrasts.',
                                       image: '',
                                       onPress: () {
-                                        // context.read<ContrastCubit>().emitInitial();
-                                        // context.go(RouteNames.contrastRoute, extra: true);
+                                        context.read<ContrastCubit>().emitInitial();
+                                        context.go(RouteNames.contrastRoute, extra: true);
                                       }),
                                   SizedBox(
                                     height: screenHeight * 0.015,
