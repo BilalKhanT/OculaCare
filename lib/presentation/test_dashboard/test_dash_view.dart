@@ -7,6 +7,9 @@ import '../../configs/presentation/constants/colors.dart';
 import '../../configs/routes/route_names.dart';
 import '../../logic/tests/color_more_cubit.dart';
 import '../../logic/tests/color_more_state.dart';
+import '../../logic/tests/color_tests/isihara_cubit.dart';
+import '../../logic/tests/color_tests/match_color_cubit.dart';
+import '../../logic/tests/color_tests/odd_out_cubit.dart';
 import '../../logic/tests/test_cubit.dart';
 import '../../logic/tests/test_dash_tab_cubit.dart';
 import '../../logic/tests/test_dash_tab_state.dart';
@@ -352,8 +355,8 @@ class TestDashView extends StatelessWidget {
                               'Identify digits and patterns\nin isihara plates.',
                               image: '',
                               onPress: () {
-                                // context.read<IshiharaCubit>().restartTest();
-                                // context.push(RouteNames.isiharaRoute);
+                                context.read<IshiharaCubit>().restartTest();
+                                context.push(RouteNames.isiharaRoute);
                               }),
                           TestTile(
                               title: 'Odd Out',
@@ -361,8 +364,8 @@ class TestDashView extends StatelessWidget {
                               'Identify and pick the tile\nwith odd color.',
                               image: '',
                               onPress: () {
-                                // context.read<OddOutCubit>().emitInitial();
-                                // context.push(RouteNames.oddOutRoute);
+                                context.read<OddOutCubit>().emitInitial();
+                                context.push(RouteNames.oddOutRoute);
                               }),
                           BlocBuilder<ColorMoreCubit, ColorMoreState>(
                             builder: (context, state) {
@@ -409,8 +412,8 @@ class TestDashView extends StatelessWidget {
                                       'Match the flowing color\nfrom the list.',
                                       image: '',
                                       onPress: () {
-                                        // context.read<MatchColorCubit>().emitInitial();
-                                        // context.push(RouteNames.colorMatchRoute);
+                                        context.read<MatchColorCubit>().emitInitial();
+                                        context.push(RouteNames.colorMatchRoute);
                                       }),
                                   SizedBox(
                                     height: screenHeight * 0.015,
