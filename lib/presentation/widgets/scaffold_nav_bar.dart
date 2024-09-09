@@ -15,63 +15,54 @@ class ScaffoldWithNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PopScope(
-        canPop: false,
-        onPopInvoked: ((didPop) {
-          _onTap(context, 0);
-        }),
-        child: Scaffold(
-          body: navigationShell,
-          bottomNavigationBar: Padding(
-            padding:
-                const EdgeInsets.only(left: 30.0, bottom: 20.0, right: 30.0),
-            child: Container(
-              decoration: BoxDecoration(
-                color: AppColors.appColor,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 2,
-                    blurRadius: 8,
-                    offset: const Offset(0, 3),
-                  ),
-                ],
-                borderRadius: const BorderRadius.all(Radius.circular(17.0)),
-              ),
-              padding: const EdgeInsets.symmetric(vertical: 0),
-              child: BottomNavigationBar(
-                type: BottomNavigationBarType.fixed,
-                currentIndex: navigationShell.currentIndex,
-                onTap: (index) => _onTap(context, index),
-                backgroundColor: Colors.transparent,
-                elevation: 0,
-                selectedItemColor: Colors.black,
-                unselectedItemColor: Colors.white,
-                showSelectedLabels: false,
-                showUnselectedLabels: false,
-                items: [
-                  _buildNavItem('assets/svgs/house.svg', 'Home', 0),
-                  _buildNavItem('assets/svgs/eye_scan.svg', 'Detect', 1),
-                  _buildNavItem('assets/svgs/tests.svg', 'Test', 2),
-                  _buildNavItem('assets/svgs/results.svg', 'Therapy', 3),
-                  _buildNavItem('assets/svgs/dots.svg', 'More', 4),
-                ],
+      canPop: false,
+      onPopInvoked: ((didPop) {
+        _onTap(context, 0);
+      }),
+      child: Scaffold(
+        body: navigationShell,
+        bottomNavigationBar: NavigationBarTheme(
+          data: NavigationBarThemeData(
+            labelTextStyle: WidgetStateProperty.all(
+              TextStyle(
+                fontFamily: 'MontserratMedium',
+                color: Colors.black,
+                fontSize: MediaQuery.sizeOf(context).width * 0.03,
+                fontWeight: FontWeight.bold,
               ),
             ),
+            indicatorColor: AppColors.appColor.withOpacity(0.44),
+            backgroundColor: Colors.white,
+            elevation: 10,
           ),
-        ));
-  }
-
-  BottomNavigationBarItem _buildNavItem(
-      String iconPath, String label, int index) {
-    return BottomNavigationBarItem(
-      icon: SvgPicture.asset(
-        iconPath,
-        height: 24,
-        color: navigationShell.currentIndex == index
-            ? Colors.black
-            : AppColors.whiteColor,
+          child: NavigationBar(
+            onDestinationSelected: (index) => _onTap(context, index),
+            selectedIndex: navigationShell.currentIndex,
+            destinations: [
+              NavigationDestination(
+                icon: SvgPicture.asset('assets/svgs/house.svg'),
+                label: 'Home',
+              ),
+              NavigationDestination(
+                icon: SvgPicture.asset('assets/svgs/eye_scan.svg'),
+                label: 'Detection',
+              ),
+              NavigationDestination(
+                icon: SvgPicture.asset('assets/svgs/tests.svg'),
+                label: 'Test',
+              ),
+              NavigationDestination(
+                icon: SvgPicture.asset('assets/svgs/results.svg'),
+                label: 'Therapy',
+              ),
+              NavigationDestination(
+                icon: SvgPicture.asset('assets/svgs/dots.svg'),
+                label: 'More',
+              ),
+            ],
+          ),
+        ),
       ),
-      label: label,
     );
   }
 
