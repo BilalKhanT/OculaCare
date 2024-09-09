@@ -21,6 +21,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final hour = DateTime.now().hour;
     // double screenHeight = MediaQuery.sizeOf(context).height;
     // double screenWidth = MediaQuery.sizeOf(context).width;
     return PopScope(
@@ -72,15 +73,19 @@ class HomeScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text(
-                          'Welcome!',
-                          style: TextStyle(
-                            fontFamily: 'MontserratMedium',
-                            fontSize: 27.sp,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                            letterSpacing: 1,
-                          ),
+                        Row(
+                          children: [
+                            Text(
+                              hour < 12 ? 'Good Morning!' : 'Good Evening!',
+                              style: TextStyle(
+                                fontFamily: 'MontserratMedium',
+                                fontSize: 27.sp,
+                                fontWeight: FontWeight.w800,
+                                color: Colors.black,
+                                letterSpacing: 0.5,
+                              ),
+                            ),
+                          ],
                         ),
                         Text(
                           sharedPrefs.userName,
