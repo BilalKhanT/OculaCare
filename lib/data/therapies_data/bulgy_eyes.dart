@@ -90,7 +90,7 @@ final List<Map<String, dynamic>> bulgyEyeTherapies = [
     "timeLimit": 3, // Total duration in minutes
     "type": "instruction", // Specifies that this therapy is instructional
     "svgPath": "assets/images/bulgy_eyes/squint/squint.png",
-    "sound": "assets/audio/eye_squint.mp3",
+    "sound": "assets/audio/relaxing_breathing.mp3",
     "benefits": ["Strengthens eye muscles", "Reduces eye strain"],
     "instructions": [
       {
@@ -127,7 +127,7 @@ final List<Map<String, dynamic>> bulgyEyeTherapies = [
     "timeLimit": 3, // Total duration in minutes
     "type": "instruction", // Specifies that this therapy is instructional
     "svgPath": "assets/images/bulgy_eyes/eye_direction/eye_direction.png",
-    "sound": "assets/audio/eye_direction.mp3",
+    "sound": "assets/audio/relaxing_breathing.mp3",
     "benefits": [
       "Improves eye coordination",
       "Relieves eye strain",
@@ -175,7 +175,7 @@ final List<Map<String, dynamic>> bulgyEyeTherapies = [
     "timeLimit": 2, // Total duration in minutes
     "type": "instruction", // Specifies that this therapy is instructional
     "svgPath": "assets/images/bulgy_eyes/rotate/rotate.png",
-    "sound": "assets/audio/rotate.mp3",
+    "sound": "assets/audio/relaxing_breathing.mp3",
     "benefits": ["Enhances eye flexibility", "Improves coordination"],
     "instructions": [
       {
