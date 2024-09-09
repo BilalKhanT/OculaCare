@@ -22,6 +22,13 @@ class DiseaseTherapiesScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text("$disease Therapies"),
         backgroundColor: AppColors.screenBackground,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new, color: Colors.black), // Updated icon
+          onPressed: () {
+            Navigator.pop(context); // Handle back navigation
+          },
+        ),
+        elevation: 0,
       ),
       body:
       Padding(
