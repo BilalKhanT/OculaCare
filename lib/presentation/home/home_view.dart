@@ -1,12 +1,9 @@
-import 'package:OculaCare/configs/app/remote/ml_model.dart';
 import 'package:OculaCare/configs/utils/utils.dart';
-import 'package:OculaCare/data/models/api_response/response_model.dart';
 import 'package:OculaCare/data/repositories/local/preferences/shared_prefs.dart';
 import 'package:OculaCare/presentation/home/widgets/educ_widget.dart';
 import 'package:OculaCare/presentation/home/widgets/grid_btn_widget.dart';
 import 'package:OculaCare/presentation/onboarding/data_onboarding/content_model.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -24,7 +21,6 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    MlModel ml = MlModel();
     // double screenHeight = MediaQuery.sizeOf(context).height;
     // double screenWidth = MediaQuery.sizeOf(context).width;
     return PopScope(
@@ -51,8 +47,7 @@ class HomeScreen extends StatelessWidget {
           ),
           actions: [
             GestureDetector(
-              onTap: () {
-              },
+              onTap: () {},
               child: Padding(
                 padding: const EdgeInsets.only(right: 15.0),
                 child: SvgPicture.asset(
@@ -80,7 +75,7 @@ class HomeScreen extends StatelessWidget {
                         Text(
                           'Welcome!',
                           style: TextStyle(
-                            fontFamily: 'Poppins',
+                            fontFamily: 'MontserratMedium',
                             fontSize: 27.sp,
                             fontWeight: FontWeight.bold,
                             color: Colors.black,
@@ -90,7 +85,7 @@ class HomeScreen extends StatelessWidget {
                         Text(
                           sharedPrefs.userName,
                           style: TextStyle(
-                            fontFamily: 'Poppins',
+                            fontFamily: 'MontserratMedium',
                             fontSize: 22.sp,
                             fontWeight: FontWeight.w600,
                             color: Colors.grey.shade600,
@@ -108,52 +103,121 @@ class HomeScreen extends StatelessWidget {
                     child: CarouselSlider(
                       items: [
                         Container(
-                          margin: const EdgeInsets.symmetric(
-                              vertical: 5, horizontal: 10),
-                          child: SizedBox(
+                          margin: const EdgeInsets.all(5.0),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10.0),
+                            child: Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.transparent,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.5),
+                                      spreadRadius: 2,
+                                      blurRadius: 8,
+                                      offset: const Offset(0, 3),
+                                    ),
+                                  ],
+                                ),
+                                height: 150.h,
+                                child: Image.asset(
+                                  'assets/images/eye_banner1.jpeg',
+                                  fit: BoxFit.cover,
+                                )),
+                          ),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.all(5.0),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10.0),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.transparent,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.5),
+                                    spreadRadius: 2,
+                                    blurRadius: 8,
+                                    offset: const Offset(0, 3),
+                                  ),
+                                ],
+                              ),
                               height: 150.h,
                               child: Image.asset(
-                                'assets/images/eye_banner1.jpeg',
+                                'assets/images/eye_banner2.jpeg',
                                 fit: BoxFit.cover,
-                              )),
-                        ),
-                        Container(
-                          margin: const EdgeInsets.all(5),
-                          child: SizedBox(
-                            height: 150.h,
-                            child: Image.asset(
-                              'assets/images/eye_banner2.jpeg',
-                              fit: BoxFit.cover,
+                              ),
                             ),
                           ),
                         ),
                         Container(
-                          margin: const EdgeInsets.all(5),
-                          child: SizedBox(
-                            height: 150.h,
-                            child: Image.asset(
-                              'assets/images/eye_banner3.jpeg',
-                              fit: BoxFit.cover,
+                          margin: const EdgeInsets.all(5.0),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10.0),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.transparent,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.5),
+                                    spreadRadius: 2,
+                                    blurRadius: 8,
+                                    offset: const Offset(0, 3),
+                                  ),
+                                ],
+                              ),
+                              height: 150.h,
+                              child: Image.asset(
+                                'assets/images/eye_banner3.jpeg',
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
                         ),
                         Container(
-                          margin: const EdgeInsets.all(5),
-                          child: SizedBox(
-                            height: 150.h,
-                            child: Image.asset(
-                              'assets/images/eye_banner4.jpeg',
-                              fit: BoxFit.cover,
+                          margin: const EdgeInsets.all(5.0),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10.0),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.transparent,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.5),
+                                    spreadRadius: 2,
+                                    blurRadius: 8,
+                                    offset: const Offset(0, 3),
+                                  ),
+                                ],
+                              ),
+                              height: 150.h,
+                              child: Image.asset(
+                                'assets/images/eye_banner4.jpeg',
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
                         ),
                         Container(
-                          margin: const EdgeInsets.all(5),
-                          child: SizedBox(
-                            height: 150.h,
-                            child: Image.asset(
-                              'assets/images/eye_banner5.jpeg',
-                              fit: BoxFit.cover,
+                          margin: const EdgeInsets.all(5.0),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10.0),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.transparent,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.5),
+                                    spreadRadius: 2,
+                                    blurRadius: 8,
+                                    offset: const Offset(0, 3),
+                                  ),
+                                ],
+                              ),
+                              height: 150.h,
+                              child: Image.asset(
+                                'assets/images/eye_banner5.jpeg',
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
                         ),
@@ -265,10 +329,11 @@ class HomeScreen extends StatelessWidget {
                     child: Text(
                       'Educational Awareness',
                       style: TextStyle(
-                        fontFamily: 'Poppins',
+                        fontFamily: 'MontserratMedium',
                         fontSize: 18.sp,
                         fontWeight: FontWeight.bold,
                         color: Colors.black,
+                        letterSpacing: 0.5,
                       ),
                     ),
                   ),
@@ -284,8 +349,8 @@ class HomeScreen extends StatelessWidget {
                         EducationModel model = education[index];
                         return Padding(
                           padding: EdgeInsets.only(
-                            right: 10.0,
-                            left: index == 0 ? 10 : 0,
+                            right: 20.0,
+                            left: index == 0 ? 20 : 0,
                           ),
                           child: EducationWidgetHomeView(
                             model: model,
