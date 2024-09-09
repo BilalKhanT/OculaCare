@@ -35,6 +35,7 @@ import '../../presentation/test_dashboard/vision_tests/snellan_initial.dart';
 import '../../presentation/test_dashboard/vision_tests/snellar_chart.dart';
 import '../../presentation/test_dashboard/widgets/camera.dart';
 import '../../presentation/therapy/dashboard_screen.dart';
+import '../../presentation/therapy/disease_therapies_screen.dart';
 import '../../presentation/therapy/therapy_screen.dart';
 import '../../presentation/widgets/scaffold_nav_bar.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -264,6 +265,15 @@ final router = GoRouter(
         );
       },
     ),
+    GoRoute(
+      parentNavigatorKey: navigatorKey,
+      path: RouteNames.diseaseTherapies,
+      builder: (context, state) {
+        final disease = state.extra as String;
+        return DiseaseTherapiesScreen(disease: disease);
+      },
+    ),
+
 
     // GoRoute(
     //   path: RouteNames.imgCaptureRoute,
