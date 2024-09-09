@@ -30,7 +30,7 @@ class IshiharaScreen extends StatelessWidget {
           backgroundColor: AppColors.screenBackground,
           centerTitle: true,
           title: Text(
-            'Match Color',
+            'Isihara Plates',
             style: TextStyle(
               color: Colors.black,
               fontFamily: 'MontserratMedium',
