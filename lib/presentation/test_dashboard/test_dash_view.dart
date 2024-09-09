@@ -246,19 +246,21 @@ class TestDashView extends StatelessWidget {
                               title: 'Snellan Chart',
                               description:
                               'Test snellan chart test to\nmeasure your vision acuity.',
-                              image: '',
+                              image: 'assets/images/snellan_test.png',
                               onPress: () {
                                 context.read<SnellanTestCubit>().loadSnellanTest();
                                 context.go(RouteNames.snellanRoute,);
-                              }),
+                              },
+                              avatarColor: AppColors.appColor.withOpacity(0.4)),
                           TestTile(
                               title: 'Animal Tracking',
                               description:
                               'Track animals and maintain\nfocus to test vision.',
-                              image: '',
+                              image: 'assets/images/drag_test.png',
                               onPress: () {
                                 context.go(RouteNames.trackInitialRoute,);
-                              }),
+                              },
+                              avatarColor: Colors.blueAccent.withOpacity(0.2)),
                           BlocBuilder<TestMoreCubit, TestMoreState>(
                             builder: (context, state) {
                               bool flag = false;
@@ -302,11 +304,12 @@ class TestDashView extends StatelessWidget {
                                       title: 'Contrast Sensitivity',
                                       description:
                                       'Distinguish high and low\ncontrasts.',
-                                      image: '',
+                                      image: 'assets/images/contrast_test.png',
                                       onPress: () {
                                         context.read<ContrastCubit>().emitInitial();
                                         context.go(RouteNames.contrastRoute, extra: true);
-                                      }),
+                                      },
+                                      avatarColor: Colors.grey.withOpacity(0.4)),
                                   SizedBox(
                                     height: screenHeight * 0.015,
                                   ),
@@ -355,20 +358,22 @@ class TestDashView extends StatelessWidget {
                               title: 'Isihara Plates',
                               description:
                               'Identify digits and patterns\nin isihara plates.',
-                              image: '',
+                              image: 'assets/images/isihara_test.png',
                               onPress: () {
                                 context.read<IshiharaCubit>().restartTest();
                                 context.push(RouteNames.isiharaRoute);
-                              }),
+                              },
+                              avatarColor: Colors.black.withOpacity(0.6)),
                           TestTile(
                               title: 'Odd Out',
                               description:
                               'Identify and pick the tile\nwith odd color.',
-                              image: '',
+                              image: 'assets/images/odd_test.png',
                               onPress: () {
                                 context.read<OddOutCubit>().emitInitial();
                                 context.push(RouteNames.oddOutRoute);
-                              }),
+                              },
+                              avatarColor: Colors.green.withOpacity(0.3)),
                           BlocBuilder<ColorMoreCubit, ColorMoreState>(
                             builder: (context, state) {
                               bool flag2 = false;
@@ -412,11 +417,12 @@ class TestDashView extends StatelessWidget {
                                       title: 'Match Color',
                                       description:
                                       'Match the flowing color\nfrom the list.',
-                                      image: '',
+                                      image: 'assets/images/color_match_test.png',
                                       onPress: () {
                                         context.read<MatchColorCubit>().emitInitial();
                                         context.push(RouteNames.colorMatchRoute);
-                                      }),
+                                      },
+                                      avatarColor: Colors.grey.withOpacity(0.4)),
                                   SizedBox(
                                     height: screenHeight * 0.015,
                                   ),
