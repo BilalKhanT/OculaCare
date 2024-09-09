@@ -5,7 +5,7 @@ final List<Map<String, dynamic>> pterygiumTherapies = [
     "timeLimit": 5,
     "type": "instruction",
     "svgPath": "assets/images/pterygium/cold_compress/cold_compress.png",
-    "sound": "assets/audio/cold_compress.mp3",
+    "sound": "assets/audio/relaxing_breathing.mp3",
     "benefits": [
       "Reduces redness and swelling",
       "Soothes irritated eyes",
@@ -35,7 +35,7 @@ final List<Map<String, dynamic>> pterygiumTherapies = [
     "timeLimit": 5,
     "type": "instruction",
     "svgPath": "assets/images/pterygium/eye_message/eye_message.png",
-    "sound": "assets/audio/eye_massage.mp3",
+    "sound": "assets/audio/relaxing_breathing.mp3",
     "benefits": [
       "Relieves eye tension",
       "Improves blood circulation around the eyes",
@@ -150,7 +150,7 @@ final List<Map<String, dynamic>> pterygiumTherapies = [
     "timeLimit": 3, // Total duration in minutes
     "type": "instruction", // Specifies that this therapy is instructional
     "svgPath": "assets/images/bulgy_eyes/eye_direction/eye_direction.png",
-    "sound": "assets/audio/eye_direction.mp3",
+    "sound": "assets/audio/relaxing_breathing.mp3",
     "benefits": [
       "Improves eye coordination",
       "Relieves eye strain",
@@ -245,7 +245,7 @@ final List<Map<String, dynamic>> pterygiumTherapies = [
     "type":
         "animation_peripheral", // Specifies that this therapy is instructional
     "svgPath": "assets/images/crossed_eyes/peripheral_awareness/peripheral.png",
-    "sound": "assets/audio/peripheral_awareness.mp3",
+    "sound": "assets/audio/relaxing_breathing.mp3",
     "benefits": ["Strengthens peripheral vision", "Improves coordination"],
     "instructions": [
       {
