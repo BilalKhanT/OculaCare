@@ -1,4 +1,5 @@
 class RouteNames {
+  // Parent project routes
   static const String onBoardingRoute = '/onBoarding';
   static const String loginRoute = '/login';
   static const String signUpRoute = '/signUp';
@@ -12,7 +13,6 @@ class RouteNames {
   static const String locationRoute = '/locationRoute';
   static const String detectionRoute = '/detectionRoute';
   static const String testRoute = '/testRoute';
-  static const String therapyRoute = '/therapyRoute';
   static const String feedbackRoute = '/feedbackRoute';
   static const String colorMatchRoute = '/colorMatchRoute';
   static const String oddOutRoute = '/oddOutRoute';
@@ -25,4 +25,7 @@ class RouteNames {
   static const String trackGameOverRoute = '/trackGameOverRoute';
   static const String snellanRoute = '/snellanRoute';
   static const String snellanInitialRoute = '/snellanInitialRoute';
+  static const String dashboardRoute = '/dashboard';
+  static const String therapy = '/therapy';
+  static const String diseaseTherapies = '/disease-therapies';
 }

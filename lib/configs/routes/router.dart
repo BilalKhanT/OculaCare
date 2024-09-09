@@ -1,3 +1,6 @@
+import 'package:OculaCare/logic/therapy_cubit/music_cubit.dart';
+import 'package:OculaCare/logic/therapy_cubit/therapy_cubit.dart';
+import 'package:OculaCare/logic/therapy_cubit/timer_cubit.dart';
 import 'package:OculaCare/presentation/disease_detection/disease_detection_view.dart';
 import 'package:OculaCare/presentation/feedback/feedback_view.dart';
 import 'package:OculaCare/presentation/location/location_view.dart';
@@ -6,7 +9,6 @@ import 'package:OculaCare/presentation/more_section/pdf_view.dart';
 import 'package:OculaCare/presentation/patient_profile/profile_view.dart';
 import 'package:OculaCare/presentation/result/result_view.dart';
 import 'package:OculaCare/presentation/test_dashboard/test_dash_view.dart';
-import 'package:OculaCare/presentation/therapy/therapy_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -32,6 +34,9 @@ import '../../presentation/test_dashboard/vision_tests/game_over_screen.dart';
 import '../../presentation/test_dashboard/vision_tests/snellan_initial.dart';
 import '../../presentation/test_dashboard/vision_tests/snellar_chart.dart';
 import '../../presentation/test_dashboard/widgets/camera.dart';
+import '../../presentation/therapy/dashboard_screen.dart';
+import '../../presentation/therapy/disease_therapies_screen.dart';
+import '../../presentation/therapy/therapy_screen.dart';
 import '../../presentation/widgets/scaffold_nav_bar.dart';
 import 'package:nb_utils/nb_utils.dart';
 
@@ -78,14 +83,15 @@ final router = GoRouter(
                     }),
               ]),
           StatefulShellBranch(
-              navigatorKey: _shellTherapyNavigatorKey,
-              routes: <RouteBase>[
-                GoRoute(
-                  path: RouteNames.therapyRoute,
-                  pageBuilder: (context, state) =>
-                      const MaterialPage(child: TherapyView()),
-                ),
-              ]),
+            navigatorKey: _shellTherapyNavigatorKey,
+            routes: <RouteBase>[
+              GoRoute(
+                path: RouteNames.dashboardRoute,
+                pageBuilder: (context, state) =>
+                    MaterialPage(child: DashboardScreen()), // Updated with the DashboardScreen
+              ),
+            ],
+          ),
           StatefulShellBranch(
               navigatorKey: _shellMoreNavigatorKey,
               routes: <RouteBase>[
@@ -229,6 +235,46 @@ final router = GoRouter(
       path: RouteNames.snellanRoute,
       builder: (context, state) => const SnellanChart(),
     ),
+    // Therapy-specific routes
+    GoRoute(
+      parentNavigatorKey: navigatorKey,
+      path: RouteNames.therapy,  // Path for the therapy screen
+      builder: (context, state) {
+        final exercise = state.extra as Map<String, dynamic>;
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider<TimerCubit>(
+              create: (context) => TimerCubit()..startTimer(exercise['timeLimit'] * 60),
+            ),
+            BlocProvider<MusicCubit>(
+              create: (context) => MusicCubit(),
+            ),
+            BlocProvider<TherapyCubit>(
+              create: (context) => TherapyCubit(
+                BlocProvider.of<TimerCubit>(context),
+                BlocProvider.of<MusicCubit>(context),
+              )..startTherapy(
+                exercise['title'],
+                exercise['timeLimit'],
+                exercise['instructions'],
+                exercise['sound'],
+              ),
+            ),
+          ],
+          child: TherapyScreen(exercise: exercise),
+        );
+      },
+    ),
+    GoRoute(
+      parentNavigatorKey: navigatorKey,
+      path: RouteNames.diseaseTherapies,
+      builder: (context, state) {
+        final disease = state.extra as String;
+        return DiseaseTherapiesScreen(disease: disease);
+      },
+    ),
+
+
     // GoRoute(
     //   path: RouteNames.imgCaptureRoute,
     //   builder: (context, state) => const ImageCaptureScreen(),
