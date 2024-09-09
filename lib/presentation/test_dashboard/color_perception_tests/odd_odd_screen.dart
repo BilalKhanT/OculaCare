@@ -6,6 +6,7 @@ import '../../../configs/presentation/constants/colors.dart';
 import '../../../logic/tests/color_tests/odd_out_cubit.dart';
 import '../../../logic/tests/test_schedule_cubit.dart';
 import '../../widgets/btn_flat.dart';
+import '../../widgets/cstm_loader.dart';
 import '../../widgets/schedule_bottom_modal.dart';
 import '../widgets/severity_chart.dart';
 
@@ -26,6 +27,8 @@ class OutOddScreen extends StatelessWidget {
                 return _GameOverScreen(score: state.score);
               case OddOutStatus.initialLoading:
                 return _InstructionsScreen();
+              case OddOutStatus.loading:
+                return const _AnalysingScreen();
               default:
                 return _GameInProgressScreen(state: state);
             }
@@ -149,6 +152,43 @@ class _InstructionsScreen extends StatelessWidget {
     );
   }
 }
+
+class _AnalysingScreen extends StatelessWidget {
+  const _AnalysingScreen();
+
+  @override
+  Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.sizeOf(context).height;
+    double screenWidth = MediaQuery.sizeOf(context).width;
+    return Container(
+      height: screenHeight,
+      width: screenWidth,
+      color: AppColors.screenBackground,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const DotLoader(
+            loaderColor: AppColors.appColor,
+          ),
+          SizedBox(
+            height: screenHeight * 0.1,
+          ),
+          Text(
+            'Analysing, please wait.',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: AppColors.appColor,
+              fontFamily: 'MontserratMedium',
+              fontWeight: FontWeight.w800,
+              fontSize: screenWidth * 0.05,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 
 class _GameOverScreen extends StatelessWidget {
   final int score;
