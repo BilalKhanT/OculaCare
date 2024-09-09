@@ -35,7 +35,7 @@ class TherapyModel extends StatelessWidget {
                     context.pop();
                   },
                   icon: const Icon(
-                    Icons.cancel_outlined,
+                    Icons.cancel_rounded,
                     color: Colors.redAccent,
                     size: 40.0,
                   ),
