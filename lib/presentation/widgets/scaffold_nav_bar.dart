@@ -27,8 +27,8 @@ class ScaffoldWithNavBar extends StatelessWidget {
               TextStyle(
                 fontFamily: 'MontserratMedium',
                 color: Colors.black,
-                fontSize: MediaQuery.sizeOf(context).width * 0.03,
-                fontWeight: FontWeight.bold,
+                fontSize: MediaQuery.sizeOf(context).width * 0.028,
+                fontWeight: FontWeight.w700,
               ),
             ),
             indicatorColor: AppColors.appColor.withOpacity(0.44),
