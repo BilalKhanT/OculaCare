@@ -51,10 +51,7 @@ class HomeScreen extends StatelessWidget {
           ),
           actions: [
             GestureDetector(
-              onTap: () async {
-                ResponseModel resp = await ml.getData('The Ishihara test is a color vision test that detects color blindness by having individuals identify numbers or patterns within a series of colored plates. The test consists of 10 questions, where each correct answer indicates the ability to distinguish specific colors.The user recently took the Ishihara test and scored 7 out of 10.Based on this score, please provide an analysis of the users color vision. Consider if the score indicates normal color vision, mild, moderate, or severe color blindness. Also, provide a recommendation on whether the user should consult an eye specialist, undergo further testing, or any other relevant advice based on the score. Additionally, mention any potential impacts of color blindness in daily activities and any coping strategies or tools that could be beneficial.'
-                );
-                print(resp.text);
+              onTap: () {
               },
               child: Padding(
                 padding: const EdgeInsets.only(right: 15.0),
