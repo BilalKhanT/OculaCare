@@ -23,6 +23,11 @@ class PatientProfileCubit extends Cubit<PatientProfileState> {
   final addressController = TextEditingController();
   final phoneController = TextEditingController();
   final ageController = TextEditingController();
+
+  final passwordFocusNode = FocusNode();
+  final contactFocusNode = FocusNode();
+  final ageFocusNode = FocusNode();
+  final addressFocusNode = FocusNode();
   late double lat;
   late double long;
   String gender = '';

@@ -34,7 +34,7 @@ class _ResultViewState extends State<ResultView> {
         backgroundColor: AppColors.screenBackground,
         leading: IconButton(
           onPressed: () {
-            context.go(RouteNames.homeRoute);
+            context.pop();
           },
           icon: const Icon(
             Icons.arrow_back_ios_new,

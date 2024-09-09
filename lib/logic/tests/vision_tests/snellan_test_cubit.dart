@@ -147,25 +147,14 @@ class SnellanTestCubit extends Cubit<SnellanTestState> {
 
   double calculateFontSize() {
     const double tanTheta = 0.00145;
-
     if (initialIndex >= snellanDistances.length) return 16.0;
-
     double distance = snellanDistances[initialIndex];
-
-    // Adjust the scaling factor to increase font size variation
-    double fontSize =
-        distance * tanTheta * 800; // Increased scale for better differentiation
-
-    print(
-        "Calculated font size for row $initialIndex: ${fontSize.toStringAsFixed(2)}");
-
-    print(fontSize.clamp(16.0, 80.0));
+    double fontSize = distance * tanTheta * 800;
     return fontSize;
-    return fontSize.clamp(16.0, 80.0); // Adjusted clamping range
   }
 
   String calculateVisionAcuity() {
-    if (initialIndex >= snellanDistances.length) return "6/60";
+    if (initialIndex >= snellanDistances.length) return "6/6";
 
     switch (initialIndex) {
       case 0:
@@ -183,11 +172,7 @@ class SnellanTestCubit extends Cubit<SnellanTestState> {
       case 6:
         return "6/6";
       case 7:
-        return "6/5";
-      case 8:
-        return "6/4";
-      case 9:
-        return "6/3";
+        return "6/6";
       default:
         return "6/60";
     }
