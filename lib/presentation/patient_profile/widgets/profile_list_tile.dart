@@ -25,7 +25,7 @@ class ProfileListTile extends StatelessWidget {
               value,
               maxLines: 2,
               style: TextStyle(
-                fontFamily: 'Poppins',
+                fontFamily: 'MontserratMedium',
                 fontSize: 16.sp,
               ),
               overflow: TextOverflow.ellipsis,
