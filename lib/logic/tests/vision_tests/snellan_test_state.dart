@@ -11,6 +11,8 @@ class SnellanTestInitial extends SnellanTestState {}
 
 class SnellanTestLoading extends SnellanTestState {}
 
+class SnellanTestAnalysing extends SnellanTestState {}
+
 class SnellanTestLoaded extends SnellanTestState {}
 
 class SnellanTestNext extends SnellanTestState {

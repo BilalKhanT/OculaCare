@@ -33,15 +33,6 @@ class TestDashView extends StatelessWidget {
       backgroundColor: AppColors.screenBackground,
       appBar: AppBar(
         backgroundColor: AppColors.screenBackground,
-        leading: IconButton(
-          onPressed: () {
-          },
-          icon: const Icon(
-            Icons.arrow_back,
-            color: AppColors.appColor,
-            size: 30.0,
-          ),
-        ),
         title: Text(
           'Test Dashboard',
           style: TextStyle(
@@ -102,110 +93,119 @@ class TestDashView extends StatelessWidget {
                     progressionSelected = state.isProgression;
                   }
 
-                  return Row(
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          context.read<TestDashTabCubit>().toggleTab(0);
-                          context.read<TestCubit>().loadTests();
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            border: Border(
-                              bottom: BorderSide(
+                  return Padding(
+                    padding: const EdgeInsets.only(top: 5.0),
+                    child: Row(
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            context.read<TestDashTabCubit>().toggleTab(0);
+                            context.read<TestCubit>().loadTests();
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: testSelected ? AppColors.appColor.withOpacity(0.85) : Colors.white,
+                              borderRadius: BorderRadius.circular(25),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  spreadRadius: 2,
+                                  blurRadius: 8,
+                                  offset: const Offset(0, 3),
+                                ),
+                              ],
+                            ),
+                            padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
+                            child: Text(
+                              'Tests',
+                              style: TextStyle(
+                                fontFamily: 'Montserrat',
+                                fontWeight: FontWeight.bold,
+                                fontSize: screenWidth * 0.045,
                                 color: testSelected
-                                    ? AppColors.appColor
-                                    : Colors.transparent,
-                                width: 4.0,
+                                    ? AppColors.whiteColor
+                                    : Colors.black,
                               ),
                             ),
                           ),
-                          padding: const EdgeInsets.symmetric(vertical: 1.0),
-                          child: Text(
-                            'Tests',
-                            style: TextStyle(
-                              fontFamily: 'MontserratMedium',
-                              fontWeight: FontWeight.w700,
-                              fontSize: screenWidth * 0.045,
-                              color: testSelected
-                                  ? AppColors.appColor
-                                  : Colors.black,
-                            ),
-                          ),
                         ),
-                      ),
-                      SizedBox(
-                        width: screenHeight * 0.035,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          context.read<TestDashTabCubit>().toggleTab(1);
-                          context.read<TestCubit>().loadTestHistory();
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            border: Border(
-                              bottom: BorderSide(
+                        SizedBox(
+                          width: screenHeight * 0.01,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            context.read<TestDashTabCubit>().toggleTab(1);
+                            context.read<TestCubit>().loadTestHistory();
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: historySelected ? AppColors.appColor.withOpacity(0.85) : Colors.white,
+                              borderRadius: BorderRadius.circular(25),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  spreadRadius: 2,
+                                  blurRadius: 8,
+                                  offset: const Offset(0, 3),
+                                ),
+                              ],
+                            ),
+                            padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
+                            child: Text(
+                              'History',
+                              style: TextStyle(
+                                fontFamily: 'Montserrat',
+                                fontWeight: FontWeight.bold,
+                                fontSize: screenWidth * 0.045,
                                 color: historySelected
-                                    ? AppColors.appColor
-                                    : Colors.transparent,
-                                width: 4.0,
+                                    ? AppColors.whiteColor
+                                    : Colors.black,
                               ),
                             ),
                           ),
-                          padding: const EdgeInsets.symmetric(vertical: 1.0),
-                          child: Text(
-                            'History',
-                            style: TextStyle(
-                              fontFamily: 'MontserratMedium',
-                              fontWeight: FontWeight.w700,
-                              fontSize: screenWidth * 0.045,
-                              color: historySelected
-                                  ? AppColors.appColor
-                                  : Colors.black,
-                            ),
-                          ),
                         ),
-                      ),
-                      SizedBox(
-                        width: screenHeight * 0.035,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          context.read<TestDashTabCubit>().toggleTab(2);
-                          context.read<TestCubit>().loadTestProgression();
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            border: Border(
-                              bottom: BorderSide(
+                        SizedBox(
+                          width: screenHeight * 0.01,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            context.read<TestDashTabCubit>().toggleTab(2);
+                            context.read<TestCubit>().loadTestProgression();
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: progressionSelected ? AppColors.appColor.withOpacity(0.85) : Colors.white,
+                              borderRadius: BorderRadius.circular(25),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  spreadRadius: 2,
+                                  blurRadius: 8,
+                                  offset: const Offset(0, 3),
+                                ),
+                              ],
+                            ),
+                            padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
+                            child: Text(
+                              'Progression',
+                              style: TextStyle(
+                                fontFamily: 'Montserrat',
+                                fontWeight: FontWeight.bold,
+                                fontSize: screenWidth * 0.045,
                                 color: progressionSelected
-                                    ? AppColors.appColor
-                                    : Colors.transparent,
-                                width: 4.0,
+                                    ? AppColors.whiteColor
+                                    : Colors.black,
                               ),
                             ),
                           ),
-                          padding: const EdgeInsets.symmetric(vertical: 1.0),
-                          child: Text(
-                            'Progression',
-                            style: TextStyle(
-                              fontFamily: 'MontserratMedium',
-                              fontWeight: FontWeight.w700,
-                              fontSize: screenWidth * 0.045,
-                              color: progressionSelected
-                                  ? AppColors.appColor
-                                  : Colors.black,
-                            ),
-                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   );
                 },
               ),
               SizedBox(
-                height: screenHeight * 0.03,
+                height: screenHeight * 0.01,
               ),
               BlocBuilder<TestCubit, TestState>(
                 builder: (context, state) {
@@ -246,19 +246,21 @@ class TestDashView extends StatelessWidget {
                               title: 'Snellan Chart',
                               description:
                               'Test snellan chart test to\nmeasure your vision acuity.',
-                              image: '',
+                              image: 'assets/images/snellan_test.png',
                               onPress: () {
                                 context.read<SnellanTestCubit>().loadSnellanTest();
                                 context.go(RouteNames.snellanRoute,);
-                              }),
+                              },
+                              avatarColor: AppColors.appColor.withOpacity(0.4)),
                           TestTile(
                               title: 'Animal Tracking',
                               description:
                               'Track animals and maintain\nfocus to test vision.',
-                              image: '',
+                              image: 'assets/images/drag_test.png',
                               onPress: () {
                                 context.go(RouteNames.trackInitialRoute,);
-                              }),
+                              },
+                              avatarColor: Colors.blueAccent.withOpacity(0.2)),
                           BlocBuilder<TestMoreCubit, TestMoreState>(
                             builder: (context, state) {
                               bool flag = false;
@@ -302,11 +304,12 @@ class TestDashView extends StatelessWidget {
                                       title: 'Contrast Sensitivity',
                                       description:
                                       'Distinguish high and low\ncontrasts.',
-                                      image: '',
+                                      image: 'assets/images/contrast_test.png',
                                       onPress: () {
                                         context.read<ContrastCubit>().emitInitial();
                                         context.go(RouteNames.contrastRoute, extra: true);
-                                      }),
+                                      },
+                                      avatarColor: Colors.grey.withOpacity(0.4)),
                                   SizedBox(
                                     height: screenHeight * 0.015,
                                   ),
@@ -338,7 +341,7 @@ class TestDashView extends StatelessWidget {
                             },
                           ),
                           SizedBox(
-                            height: screenHeight * 0.05,
+                            height: screenHeight * 0.01,
                           ),
                           Text(
                             'Color Perception Tests',
@@ -355,20 +358,22 @@ class TestDashView extends StatelessWidget {
                               title: 'Isihara Plates',
                               description:
                               'Identify digits and patterns\nin isihara plates.',
-                              image: '',
+                              image: 'assets/images/isihara_test.png',
                               onPress: () {
                                 context.read<IshiharaCubit>().restartTest();
                                 context.push(RouteNames.isiharaRoute);
-                              }),
+                              },
+                              avatarColor: Colors.black.withOpacity(0.6)),
                           TestTile(
                               title: 'Odd Out',
                               description:
                               'Identify and pick the tile\nwith odd color.',
-                              image: '',
+                              image: 'assets/images/odd_test.png',
                               onPress: () {
                                 context.read<OddOutCubit>().emitInitial();
                                 context.push(RouteNames.oddOutRoute);
-                              }),
+                              },
+                              avatarColor: Colors.green.withOpacity(0.3)),
                           BlocBuilder<ColorMoreCubit, ColorMoreState>(
                             builder: (context, state) {
                               bool flag2 = false;
@@ -412,11 +417,12 @@ class TestDashView extends StatelessWidget {
                                       title: 'Match Color',
                                       description:
                                       'Match the flowing color\nfrom the list.',
-                                      image: '',
+                                      image: 'assets/images/color_match_test.png',
                                       onPress: () {
                                         context.read<MatchColorCubit>().emitInitial();
                                         context.push(RouteNames.colorMatchRoute);
-                                      }),
+                                      },
+                                      avatarColor: Colors.grey.withOpacity(0.4)),
                                   SizedBox(
                                     height: screenHeight * 0.015,
                                   ),

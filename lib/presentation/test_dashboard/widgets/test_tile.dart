@@ -5,17 +5,20 @@ class TestTile extends StatelessWidget {
   final String title;
   final String description;
   final String image;
+  final Color avatarColor;
   final Function() onPress;
   const TestTile(
       {super.key,
-        required this.title,
-        required this.description,
-        required this.image,
-        required this.onPress});
+      required this.title,
+      required this.description,
+      required this.image,
+      required this.onPress,
+      required this.avatarColor});
 
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.sizeOf(context).width;
+    double screenHeight = MediaQuery.sizeOf(context).height;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: GestureDetector(
@@ -34,28 +37,39 @@ class TestTile extends StatelessWidget {
             ],
           ),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 13.0, vertical: 8.0),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 13.0, vertical: 8.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Row(
                   children: <Widget>[
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50.0),
-                        color: AppColors.appColor.withOpacity(0.65),
-                      ),
-                      child: const Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 10.0, vertical: 10.0),
-                        child: Icon(
-                          Icons.account_box_outlined,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
+                    ClipRRect(
+                            borderRadius: BorderRadius.circular(7.0),
+                            child: Container(
+                              height: screenHeight * 0.07,
+                              width: screenHeight * 0.07,
+                              color: avatarColor,
+                              child: image ==
+                                          'assets/images/isihara_test.png' ||
+                                      image ==
+                                          'assets/images/snellan_test.png' ||
+                                      image == 'assets/images/drag_test.png'
+                                  ? Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Image.asset(
+                                        image,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    )
+                                  : Image.asset(
+                                      image,
+                                      fit: BoxFit.cover,
+                                    ),
+                            ),
+                          ),
                     const SizedBox(
-                      width: 10.0,
+                      width: 15.0,
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -85,9 +99,9 @@ class TestTile extends StatelessWidget {
                     ),
                   ],
                 ),
-                const Icon(
+                Icon(
                   Icons.arrow_forward_ios_outlined,
-                  color: AppColors.appColor,
+                  color: Colors.grey.shade800,
                 )
               ],
             ),

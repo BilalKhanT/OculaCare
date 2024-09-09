@@ -60,15 +60,15 @@ class GridButtonWidget extends StatelessWidget {
               style: const TextStyle(
                 color: Colors.black,
                 fontSize: 10,
-                fontFamily: 'Poppins',
-                fontWeight: FontWeight.w400,
+                fontFamily: 'MontserratMedium',
+                fontWeight: FontWeight.w600,
               ),
               textAlign: TextAlign.start,
             ),
             Text(
               subtitle,
               style: const TextStyle(
-                fontFamily: 'PoppinsBold',
+                fontFamily: 'MontserratBold',
                 color: Colors.black,
                 fontSize: 10,
                 fontWeight: FontWeight.w600,

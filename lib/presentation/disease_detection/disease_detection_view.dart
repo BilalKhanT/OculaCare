@@ -21,9 +21,35 @@ class DiseaseDetectionScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.sizeOf(context).height;
     double screenWidth = MediaQuery.sizeOf(context).width;
-    final hour = DateTime.now().hour;
     return Scaffold(
       backgroundColor: AppColors.screenBackground,
+      appBar: AppBar(
+        backgroundColor: AppColors.screenBackground,
+        title: Text(
+          'Disease Detection',
+          style: TextStyle(
+            color: Colors.black,
+            fontFamily: 'MontserratMedium',
+            fontWeight: FontWeight.w800,
+            fontSize: screenWidth * 0.05,
+          ),
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 10.0),
+            child: GestureDetector(
+                onTap: () => AppUtils.showToast(
+                    context,
+                    'Feature Under Development',
+                    'Hold on as we build this feature',
+                    false),
+                child: SvgPicture.asset(
+                  'assets/svgs/notifcation.svg',
+                  height: 35.h,
+                )),
+          ),
+        ],
+      ),
       body: SizedBox(
         height: screenHeight,
         width: screenWidth,
@@ -34,67 +60,10 @@ class DiseaseDetectionScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          hour < 12 ? 'Good Morning' : 'Good Evening',
-                          style: TextStyle(
-                            fontFamily: 'Poppins',
-                            fontSize: 27.sp,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                            letterSpacing: 1,
-                          ),
-                        ),
-                        Text(
-                          sharedPrefs.userName,
-                          style: TextStyle(
-                            fontFamily: 'Poppins',
-                            fontSize: 22.sp,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.grey.shade600,
-                            letterSpacing: 1,
-                          ),
-                        ),
-                      ],
-                    ),
-                    GestureDetector(
-                        onTap: () => AppUtils.showToast(
-                            context,
-                            'Feature Under Development',
-                            'Hold on as we build this feature',
-                            false),
-                        child: SvgPicture.asset(
-                      'assets/svgs/notifcation.svg',
-                      height: 35.h,
-                    )),
-                  ],
-                ),
+
                 SizedBox(
                   height: 10.h,
                 ),
-                // Container(
-                //   decoration: BoxDecoration(
-                //     borderRadius: BorderRadius.circular(10.0),
-                //     color: Colors.grey.shade200,
-                //   ),
-                //   child: Padding(
-                //     padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
-                //     child: Center(
-                //       child: Text('Utilize our advanced ML technology to analyze images of your eyes. Simply capture a photo, and our system will assess it for signs of eye diseases.',
-                //         style: TextStyle(
-                //           fontFamily: 'Poppins',
-                //           fontSize: 14.sp,
-                //           fontWeight: FontWeight.w400,
-                //         ),
-                //         textAlign: TextAlign.justify,),
-                //     ),
-                //   ),
-                // ),
                 const SizedBox(
                   height: 20,
                 ),
@@ -112,11 +81,12 @@ class DiseaseDetectionScreen extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  'Disease Detection',
+                  'Detect Disease',
                   style: TextStyle(
-                    fontFamily: 'PoppinsBold',
+                    fontFamily: 'MontserratMedium',
                     fontSize: 24.sp,
-                    color: Colors.black,
+                    color: AppColors.appColor,
+                    fontWeight: FontWeight.w800
                   ),
                 ),
                 const SizedBox(
@@ -165,7 +135,7 @@ class DiseaseDetectionScreen extends StatelessWidget {
                   child: Text(
                     'Note: This is is an AI guided diagnosis, seek medical expertise for professional guidance.',
                     style: TextStyle(
-                      fontFamily: 'Poppins',
+                      fontFamily: 'MontserratMedium',
                       fontSize: 11.sp,
                       fontWeight: FontWeight.w400,
                       color: Colors.red,
