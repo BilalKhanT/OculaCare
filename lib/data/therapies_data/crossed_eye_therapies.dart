@@ -37,7 +37,7 @@ final List<Map<String, dynamic>> crossedEyeTherapies = [
     "timeLimit": 5, // Total duration in minutes
     "type": "instruction", // Specifies that this therapy is instructional
     "svgPath": "assets/images/crossed_eyes/mirror_eye/mirror_eye.png",
-    "sound": "assets/audio/stretch.mp3",
+    "sound": "assets/audio/relaxing_breathing.mp3",
     "benefits": ["Strengthens eye muscles", "Improves coordination"],
     "instructions": [
       {
@@ -69,7 +69,7 @@ final List<Map<String, dynamic>> crossedEyeTherapies = [
     "timeLimit": 10, // Total duration in minutes
     "type": "instruction", // Specifies that this therapy is instructional
     "svgPath": "assets/images/crossed_eyes/pencil_pushups/pencil_pushups.png",
-    "sound": "assets/audio/focus.mp3",
+    "sound": "assets/audio/relaxing_breathing.mp3",
     "benefits": ["Improves focus", "Strengthens eye coordination"],
     "instructions": [
       {
@@ -161,7 +161,7 @@ final List<Map<String, dynamic>> crossedEyeTherapies = [
     "timeLimit": 1, // Total duration in minutes
     "type": "instruction", // Specifies that this therapy is instructional
     "svgPath": "assets/images/crossed_eyes/eye_patch/eye_patch.png",
-    "sound": "assets/audio/eye_patch.mp3",
+    "sound": "assets/audio/relaxing_breathing.mp3",
     "benefits": ["Strengthens the weaker eye", "Improves coordination"],
     "instructions": [
       {
@@ -187,7 +187,7 @@ final List<Map<String, dynamic>> crossedEyeTherapies = [
     "type":
         "animation_peripheral", // Specifies that this therapy is instructional
     "svgPath": "assets/images/crossed_eyes/peripheral_awareness/peripheral.png",
-    "sound": "assets/audio/peripheral_awareness.mp3",
+    "sound": "assets/audio/relaxing_breathing.mp3",
     "benefits": ["Strengthens peripheral vision", "Improves coordination"],
     "instructions": [
       {
