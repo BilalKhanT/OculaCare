@@ -6,6 +6,7 @@ import '../../../configs/presentation/constants/colors.dart';
 Widget customWidget({
   required Widget icon,
   required String text,
+  required double screenWidth,
   required VoidCallback onTap,
 }) {
   return GestureDetector(
@@ -35,7 +36,7 @@ Widget customWidget({
               height: 50,
               width: 50,
               decoration: BoxDecoration(
-                color: AppColors.appColor.withOpacity(0.6),
+                color: AppColors.appColor.withOpacity(0.8),
                 borderRadius: BorderRadius.circular(50.0),
               ),
               child: Padding(
@@ -48,9 +49,9 @@ Widget customWidget({
               child: Text(
                 text,
                 style: TextStyle(
-                  fontSize: 16.sp,
-                  fontFamily: 'Montserrat',
-                  fontWeight: FontWeight.bold,
+                  fontSize: screenWidth * 0.035,
+                  fontFamily: 'MontserratMedium',
+                  fontWeight: FontWeight.w800,
                 ),
               ),
             ),
