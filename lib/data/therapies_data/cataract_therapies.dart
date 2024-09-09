@@ -6,7 +6,7 @@ final List<Map<String, dynamic>> therapiesCataract = [
     "type": "instruction", // Specifies that this therapy is instructional
     "svgPath": "assets/images/cataracts/acupressure.png",
     "sound":
-        "assets/audio/acupressure.mp3", // Optional, remove if no sound is needed
+        "assets/audio/relaxing_breathing.mp3", // Optional, remove if no sound is needed
     "benefits": [
       "Promotes circulation around the eyes",
       "Reduces eye tension",
