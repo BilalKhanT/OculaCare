@@ -18,9 +18,10 @@ Widget customWidget({
         borderRadius: BorderRadius.circular(15.0),
         boxShadow: [
           BoxShadow(
-            offset: const Offset(1, 3),
-            blurRadius: 20,
-            color: const Color(0xFFD3D3D3).withOpacity(.99),
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 2,
+            blurRadius: 8,
+            offset: const Offset(0, 3),
           ),
         ],
       ),
@@ -34,7 +35,7 @@ Widget customWidget({
               height: 50,
               width: 50,
               decoration: BoxDecoration(
-                color: AppColors.appColor,
+                color: AppColors.appColor.withOpacity(0.6),
                 borderRadius: BorderRadius.circular(50.0),
               ),
               child: Padding(
@@ -48,8 +49,8 @@ Widget customWidget({
                 text,
                 style: TextStyle(
                   fontSize: 16.sp,
-                  fontFamily: 'Poppins',
-                  fontWeight: FontWeight.w400,
+                  fontFamily: 'Montserrat',
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),
@@ -61,9 +62,9 @@ Widget customWidget({
                 color: Colors.transparent,
                 borderRadius: BorderRadius.circular(50.0),
               ),
-              child: const Icon(
+              child: Icon(
                 Icons.arrow_forward_ios_outlined,
-                color: AppColors.appColor,
+                color: Colors.grey.shade800,
               ),
             ),
           ],
