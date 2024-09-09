@@ -99,6 +99,7 @@ class DiseaseDetectionScreen extends StatelessWidget {
                     color: Colors.white,
                   ),
                   text: "Capture Image for Disease Detection.",
+                  screenWidth: screenWidth,
                   onTap: () {
                     if (sharedPrefs.isProfileSetup) {
                       context.read<ImageCaptureCubit>().initializeCamera();
@@ -124,6 +125,7 @@ class DiseaseDetectionScreen extends StatelessWidget {
                     color: Colors.white,
                   ),
                   text: "View Disease Detection Results.",
+                  screenWidth: screenWidth,
                   onTap: () {
                     context.push(RouteNames.resultRoute);
                   },
