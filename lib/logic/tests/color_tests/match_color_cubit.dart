@@ -1,11 +1,20 @@
 import 'dart:async';
+import 'package:OculaCare/configs/app/remote/ml_model.dart';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:bloc/bloc.dart';
+import 'package:intl/intl.dart';
+
+import '../../../data/models/api_response/response_model.dart';
+import '../../../data/models/tests/test_result_model.dart';
+import '../../../data/repositories/local/preferences/shared_prefs.dart';
+import '../../../data/repositories/tests/test_repo.dart';
 
 abstract class MatchColorState {}
 
 class MatchColorGameInitial extends MatchColorState {}
+
+class MatchColorGameLoading extends MatchColorState {}
 
 class MatchColorGameInProgress extends MatchColorState {
   final Color currentColor;
@@ -52,9 +61,11 @@ class MatchColorGameOver extends MatchColorState {
 class MatchColorCubit extends Cubit<MatchColorState> {
   MatchColorCubit() : super(MatchColorGameInitial());
 
+  final TestRepository testRepo = TestRepository();
   final _audioPlayer = AudioPlayer();
   final _errorPlayer = AudioPlayer();
   final _successPlayer = AudioPlayer();
+  final MlModel ml = MlModel();
   Timer? _timer;
   int _timeLeft = 10;
   int _questionCount = 0;
@@ -118,7 +129,8 @@ class MatchColorCubit extends Cubit<MatchColorState> {
       } else {
         _timeLeft--;
         if (state is MatchColorGameInProgress) {
-          emit((state as MatchColorGameInProgress).copyWith(timeLeft: _timeLeft));
+          emit((state as MatchColorGameInProgress)
+              .copyWith(timeLeft: _timeLeft));
         }
       }
     });
@@ -156,15 +168,49 @@ class MatchColorCubit extends Cubit<MatchColorState> {
     }
   }
 
-  void endGame() {
+  Future<void> endGame() async {
     _audioPlayer.stop();
     _errorPlayer.stop();
     _successPlayer.stop();
+    emit(MatchColorGameLoading());
+    final date = getCurrentDateString();
+    ResponseModel response = await ml.getData(
+        'The "Match Color Game" test assesses the ability to accurately recognize and match colors under time constraints. In this test, paint flows from the top of the screen, and the patient must select one of four buckets that matches the color of the flowing paint. The patient recently took this test and matched the correct colors $_score out of 10 times. Based on this score, please provide a brief analysis in 2 lines of the patient’s color recognition and matching skills without a heading. Generate text as if you are talking directly to the patient. Consider if the score indicates excellent color recognition (score 9-10), good recognition with some errors (score 7-8), moderate difficulty (score 4-6), or significant difficulty (score 0-3).');
+
+    ResponseModel resp = await ml.getData(
+        'Also, provide recommendations in the form of points (without any heading) with only 3 points. Generate text as if you are talking directly to the patient.');
+
+    ResponseModel resp_ = await ml.getData(
+        'Additionally, mention any potential impacts of difficulties in color recognition and matching in daily activities without heading and with only 3 points. Generate text as if you are talking directly to the patient.');
+    TestResultModel data = TestResultModel(
+        patientName: sharedPrefs.userName,
+        date: date,
+        testType: 'Color Perception Test',
+        testName: 'Match Color',
+        testScore: _score,
+        resultDescription: response.text,
+        recommendation: resp.text,
+        precautions: resp_.text);
+    bool flag = await testRepo.addTestRecord(data);
+    print(flag);
     emit(MatchColorGameOver(_score));
   }
 
+  String getCurrentDateString() {
+    DateTime now = DateTime.now();
+    DateFormat formatter = DateFormat('dd-MM-yyyy');
+    String formattedDate = formatter.format(now);
+    return formattedDate;
+  }
+
   Color _getRandomColorWithoutRepeat() {
-    final colors = [Colors.red, Colors.green, Colors.yellow, Colors.pink, Colors.blue];
+    final colors = [
+      Colors.red,
+      Colors.green,
+      Colors.yellow,
+      Colors.pink,
+      Colors.blue
+    ];
     colors.remove(_lastColor);
     final nextColor = (colors..shuffle()).first;
     _lastColor = nextColor;
@@ -172,13 +218,24 @@ class MatchColorCubit extends Cubit<MatchColorState> {
   }
 
   List<Color> _generateOptions(Color correctColor) {
-    final distinctColors = [Colors.orange, Colors.purple, Colors.cyan, Colors.amber, Colors.deepOrangeAccent];
+    final distinctColors = [
+      Colors.orange,
+      Colors.purple,
+      Colors.cyan,
+      Colors.amber,
+      Colors.deepOrangeAccent
+    ];
     distinctColors.removeWhere((color) => color == correctColor);
 
     Color correctShade = correctColor.withOpacity(0.7);
 
     distinctColors.shuffle();
-    List<Color> options = [correctColor, correctShade, distinctColors[0], distinctColors[1]];
+    List<Color> options = [
+      correctColor,
+      correctShade,
+      distinctColors[0],
+      distinctColors[1]
+    ];
     options.shuffle();
 
     return options;

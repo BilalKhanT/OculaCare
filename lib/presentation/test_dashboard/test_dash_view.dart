@@ -451,9 +451,18 @@ class TestDashView extends StatelessWidget {
                       ),
                     );
                   } else if (state is TestHistory) {
-                    return const Column(
+                    return Column(
                       children: [
-                        Text('History'),
+                    SizedBox(
+                      height: 200,
+                      width: 300,
+                      child: ListView.builder(
+                      itemCount: state.data.length,
+                        itemBuilder: (context, index) {
+                          return Text(state.data[index].testName);
+                        },
+                      ),
+                    ),
                       ],
                     );
                   } else if (state is TestProgression) {

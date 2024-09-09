@@ -1,4 +1,6 @@
+import 'package:OculaCare/configs/app/remote/ml_model.dart';
 import 'package:OculaCare/configs/utils/utils.dart';
+import 'package:OculaCare/data/models/api_response/response_model.dart';
 import 'package:OculaCare/data/repositories/local/preferences/shared_prefs.dart';
 import 'package:OculaCare/presentation/home/widgets/educ_widget.dart';
 import 'package:OculaCare/presentation/home/widgets/grid_btn_widget.dart';
@@ -22,6 +24,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    MlModel ml = MlModel();
     // double screenHeight = MediaQuery.sizeOf(context).height;
     // double screenWidth = MediaQuery.sizeOf(context).width;
     return PopScope(
@@ -48,11 +51,8 @@ class HomeScreen extends StatelessWidget {
           ),
           actions: [
             GestureDetector(
-              onTap: () => AppUtils.showToast(
-                  context,
-                  'Feature Under Development',
-                  'Hold on as we build this feature',
-                  false),
+              onTap: () {
+              },
               child: Padding(
                 padding: const EdgeInsets.only(right: 15.0),
                 child: SvgPicture.asset(

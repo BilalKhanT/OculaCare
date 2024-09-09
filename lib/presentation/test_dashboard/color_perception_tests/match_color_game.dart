@@ -7,7 +7,9 @@ import '../../../configs/presentation/constants/colors.dart';
 import '../../../logic/tests/color_tests/match_color_cubit.dart';
 import '../../../logic/tests/test_schedule_cubit.dart';
 import '../../widgets/btn_flat.dart';
+import '../../widgets/cstm_loader.dart';
 import '../../widgets/schedule_bottom_modal.dart';
+import '../widgets/severity_chart.dart';
 import 'flowing_painter.dart';
 
 class MatchColorGameScreen extends StatelessWidget {
@@ -65,6 +67,31 @@ class MatchColorGameScreen extends StatelessWidget {
                 if (state is MatchColorGameInitial) {
                   return _buildInitialInstructions(
                       context, screenHeight, screenWidth);
+                } else if (state is MatchColorGameLoading) {
+                  return Container(
+                    color: AppColors.screenBackground,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const DotLoader(
+                          loaderColor: AppColors.appColor,
+                        ),
+                        SizedBox(
+                          height: screenHeight * 0.1,
+                        ),
+                        Text(
+                          'Analysing, please wait.',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: AppColors.appColor,
+                            fontFamily: 'MontserratMedium',
+                            fontWeight: FontWeight.w800,
+                            fontSize: screenWidth * 0.05,
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
                 } else if (state is MatchColorGameOver) {
                   return _buildGameOverScreen(context, state);
                 } else if (state is MatchColorGameInProgress) {
@@ -166,23 +193,67 @@ class MatchColorGameScreen extends StatelessWidget {
   }
 
   Widget _buildGameOverScreen(BuildContext context, MatchColorGameOver state) {
-    return Center(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text('Score: ${state.score}'),
-          ButtonFlat(
-            btnColor: Colors.black,
-            textColor: Colors.white,
-            onPress: () {
-              context.read<MatchColorCubit>().restartGame();
-            },
-            text: 'Restart',
-          ),
-        ],
-      ),
-    );
+    double screenHeight = MediaQuery.sizeOf(context).height;
+    double screenWidth = MediaQuery.sizeOf(context).width;
+    return Container(
+        color: AppColors.screenBackground,
+        height: screenHeight,
+        width: screenWidth,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Image.asset(
+              'assets/images/result_test.png',
+              height: screenHeight * 0.3,
+            ),
+            SizedBox(
+              height: screenHeight * 0.02,
+            ),
+            Text('Test Completed !',
+                style: TextStyle(
+                  color: Colors.green,
+                  fontFamily: 'MontserratMedium',
+                  fontWeight: FontWeight.w800,
+                  fontSize: screenWidth * 0.05,
+                )),
+            SizedBox(height: screenHeight * 0.02),
+            SeverityChart(score: state.score),
+            Text(
+              'You got ${state.score} out of 10 correct.',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.black,
+                fontFamily: 'MontserratMedium',
+                fontWeight: FontWeight.w800,
+                fontSize: screenWidth * 0.04,),
+            ),
+            SizedBox(height: screenHeight * 0.05),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30.0),
+              child: ButtonFlat(
+                  btnColor: AppColors.appColor,
+                  textColor: Colors.white,
+                  onPress: () =>
+                      context.read<MatchColorCubit>().restartGame(),
+                  text: 'Restart Test'),
+            ),
+            SizedBox(
+              height: screenHeight * 0.02,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30.0),
+              child: ButtonFlat(
+                  btnColor: Colors.black,
+                  textColor: Colors.white,
+                  onPress: () {
+                    context.read<MatchColorCubit>().closeCubit();
+                    context.pop();
+                  },
+                  text: 'Exit Test'),
+            )
+          ],
+        ),
+      );
   }
 
   Widget _buildGameInProgress(

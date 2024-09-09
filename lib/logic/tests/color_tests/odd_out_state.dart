@@ -1,6 +1,6 @@
 part of 'odd_out_cubit.dart';
 
-enum OddOutStatus { initialLoading, playing, gameOver }
+enum OddOutStatus { initialLoading, playing, gameOver, loading }
 
 class OddOutState {
   final OddOutStatus status;
