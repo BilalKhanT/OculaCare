@@ -63,6 +63,14 @@ class TherapyTile extends StatelessWidget {
                       decoration: BoxDecoration(
                         color: AppColors.appColor,
                         borderRadius: BorderRadius.circular(15.0),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            spreadRadius: 2,
+                            blurRadius: 8,
+                            offset: const Offset(0, 3),
+                          ),
+                        ],
                       ),
                       child: Text(
                         "${therapy['timeLimit']} min",
