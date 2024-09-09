@@ -25,8 +25,7 @@ class RouteNames {
   static const String trackGameOverRoute = '/trackGameOverRoute';
   static const String snellanRoute = '/snellanRoute';
   static const String snellanInitialRoute = '/snellanInitialRoute';
-
-  // Therapy project routes
   static const String dashboardRoute = '/dashboard';
   static const String therapy = '/therapy';
+  static const String diseaseTherapies = '/disease-therapies';
 }
