@@ -20,29 +20,36 @@ class DiseaseCardList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: screenHeight * 0.22, // Reduced height slightly
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10.0),
-        child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: diseases.length,
-          itemBuilder: (context, index) {
-            final disease = diseases[index];
+      height: screenHeight * 0.25, // Adjust height of the container
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: diseases.length,
+        itemBuilder: (context, index) {
+          final disease = diseases[index];
 
-            return GestureDetector(
-              onTap: () {
-                // Navigate to the DiseaseTherapiesScreen when a disease is selected
-                context.push(RouteNames.diseaseTherapies, extra: disease['name']);
-              },
+          return GestureDetector(
+            onTap: () {
+              // Navigate to the DiseaseTherapiesScreen when a disease is selected
+              context.push(RouteNames.diseaseTherapies, extra: disease['name']);
+            },
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0), // Space around each card (adjust as necessary)
               child: Container(
-                margin: const EdgeInsets.symmetric(horizontal: 15), // Add more space between containers
-                width: screenWidth * 0.45, // Decrease the width slightly
+                width: screenWidth * 0.45, // Set width of each card
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(15.0),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 2,
+                      blurRadius: 8,
+                      offset: const Offset(0, 3),
+                    ),
+                  ],
                   image: DecorationImage(
                     image: AssetImage(disease['image']!), // Display disease image as background
-                    fit: BoxFit.scaleDown,
+                    fit: BoxFit.scaleDown, // Ensures image covers the whole container
                   ),
                 ),
                 child: Stack(
@@ -70,9 +77,9 @@ class DiseaseCardList extends StatelessWidget {
                   ],
                 ),
               ),
-            );
-          },
-        ),
+            ),
+          );
+        },
       ),
     );
   }
