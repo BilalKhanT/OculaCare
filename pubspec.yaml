@@ -1,10 +1,10 @@
 name: OculaCare
 description: "Final Year Project."
-publish_to: 'none'
+publish_to: "none"
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.2.3 <4.0.0'
+  sdk: ">=3.2.3 <4.0.0"
 
 dependencies:
   flutter:
@@ -31,7 +31,7 @@ dependencies:
   #utils
   flutter_screenutil: ^5.9.0
   flutter_svg: ^2.0.10+1
-  toastification: ^1.2.1
+  toastification: ^1.0.0
   camera: ^0.10.5+9
   lottie: ^3.1.0
   google_mlkit_face_detection: ^0.10.1
@@ -60,6 +60,8 @@ dependencies:
   flutter_slidable: ^3.1.1
   fl_chart: ^0.69.0
   intl: ^0.19.0
+  assets_audio_player: ^3.1.1
+  rive: ^0.13.13
 
 dev_dependencies:
   flutter_test:
@@ -74,9 +76,7 @@ flutter_launcher_icons:
   adaptive_icon_foreground: "assets/images/app_logo.png"
   adaptive_icon_background: "#F9FAFB"
 
-
 flutter:
-
   uses-material-design: true
 
   assets:
@@ -85,6 +85,28 @@ flutter:
     - assets/lotties/
     - assets/pdfs/
     - assets/audio/
+    - assets/images/mind_chest_breathing/
+    - assets/images/jumping_stripes/
+    - assets/images/palming/
+    - assets/images/kaleidoscope_focus/
+    - assets/images/yin_yang_clarity/
+    - assets/images/eye_rolling/
+    - assets/images/figure_eight_focus/
+    - assets/images/distance_gazing/
+    - assets/images/blinking_exercise/
+    - assets/images/focus_shifting/
+    - assets/images/cataracts/
+    - assets/images/crossed_eyes/pencil_pushups/
+    - assets/images/crossed_eyes/barrel_card/
+    - assets/images/crossed_eyes/brock_string/
+    - assets/images/crossed_eyes/eye_patch/
+    - assets/images/crossed_eyes/mirror_eye/
+    - assets/images/crossed_eyes/peripheral_awareness/
+    - assets/images/bulgy_eyes/squint/
+    - assets/images/bulgy_eyes/rotate/
+    - assets/images/bulgy_eyes/eye_direction/
+    - assets/images/pterygium/cold_compress/
+    - assets/images/pterygium/eye_message/
   #   - images/a_dot_ham.jpeg
 
   fonts:
@@ -103,4 +125,3 @@ flutter:
     - family: MontserratBold
       fonts:
         - asset: assets/fonts/Montserrat-Bold.ttf
-
