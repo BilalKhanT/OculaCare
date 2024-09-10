@@ -227,9 +227,11 @@ class SnellanChart extends StatelessWidget {
                           fontSize: screenWidth * 0.05,
                         )),
                     SizedBox(height: screenHeight * 0.02),
-                    SnellenChartWidget(
-                        snellenValue:
-                            int.parse(state.visionAcuity.split('/')[1])),
+                    Image.asset(
+                      'assets/images/snellan_result.png',
+                      height: screenHeight * 0.2,
+                    ),
+                    SizedBox(height: screenHeight * 0.02),
                     Text(
                       'Your vision acuity is ${state.visionAcuity}.',
                       textAlign: TextAlign.center,
