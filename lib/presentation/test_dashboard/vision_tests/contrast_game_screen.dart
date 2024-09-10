@@ -13,6 +13,7 @@ import '../../../logic/tests/vision_tests/contrast_state.dart';
 import '../../widgets/btn_flat.dart';
 import '../../widgets/cstm_loader.dart';
 import '../../widgets/schedule_bottom_modal.dart';
+import '../widgets/severity_chart.dart';
 
 class ContrastGameScreen extends StatelessWidget {
   final bool isHome;
@@ -171,25 +172,77 @@ class ContrastGameScreen extends StatelessWidget {
                 state is ContrastQuestion) {
               return _buildQuestionScreen(context, state);
             } else if (state is ContrastGameOver) {
-              return Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text('Game Over! Your Score: ${state.score}',
-                        style: const TextStyle(fontSize: 24)),
-                    ElevatedButton(
-                      onPressed: () =>
-                          context.read<ContrastCubit>().startGame(),
-                      child: const Text('Restart'),
-                    ),
-                  ],
-                ),
-              );
+              return _buildGameOverScreen(context, state.score);
             } else {
               return const SizedBox.shrink();
             }
           },
         ),
+      ),
+    );
+  }
+
+  Widget _buildGameOverScreen(BuildContext context, int score) {
+    double screenHeight = MediaQuery.sizeOf(context).height;
+    double screenWidth = MediaQuery.sizeOf(context).width;
+    return Container(
+      color: AppColors.screenBackground,
+      height: screenHeight,
+      width: screenWidth,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Image.asset(
+            'assets/images/result_test.png',
+            height: screenHeight * 0.3,
+          ),
+          SizedBox(
+            height: screenHeight * 0.02,
+          ),
+          Text('Test Completed !',
+              style: TextStyle(
+                color: Colors.green,
+                fontFamily: 'MontserratMedium',
+                fontWeight: FontWeight.w800,
+                fontSize: screenWidth * 0.05,
+              )),
+          SizedBox(height: screenHeight * 0.02),
+          SeverityChart(score: score),
+          Text(
+            'You got $score out of 10 correct.',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Colors.black,
+              fontFamily: 'MontserratMedium',
+              fontWeight: FontWeight.w800,
+              fontSize: screenWidth * 0.04,
+            ),
+          ),
+          SizedBox(height: screenHeight * 0.05),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30.0),
+            child: ButtonFlat(
+                btnColor: AppColors.appColor,
+                textColor: Colors.white,
+                onPress: () => context.read<ContrastCubit>().startGame(),
+                text: 'Restart Test'),
+          ),
+          SizedBox(
+            height: screenHeight * 0.02,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30.0),
+            child: ButtonFlat(
+                btnColor: Colors.black,
+                textColor: Colors.white,
+                onPress: () {
+                  context.read<ContrastCubit>().closeGame();
+                  context.read<TestCubit>().loadTests();
+                  context.go(RouteNames.testRoute);
+                },
+                text: 'Exit Test'),
+          )
+        ],
       ),
     );
   }
