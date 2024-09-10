@@ -86,7 +86,7 @@ class AnimalGameScreen extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: List.generate(
-                          (6 - state.mistaps),
+                          (5 - state.mistaps),
                           (index) => const Icon(
                             Icons.favorite,
                             color: Colors.redAccent,
