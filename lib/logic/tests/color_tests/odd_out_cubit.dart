@@ -193,8 +193,7 @@ class OddOutCubit extends Cubit<OddOutState> {
         resultDescription: response.text,
         recommendation: resp.text,
         precautions: resp_.text);
-    bool flag = await testRepo.addTestRecord(data);
-    print(flag);
+    await testRepo.addTestRecord(data);
     emit(OddOutState.initial()
         .copyWith(status: OddOutStatus.gameOver, score: state.score));
     _timer?.cancel();
