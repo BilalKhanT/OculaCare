@@ -7,6 +7,7 @@ import 'package:OculaCare/presentation/therapy/sections/therapy_section.dart';
 import 'package:OculaCare/presentation/therapy/widgets_therapy/therapy_tabs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../data/repositories/local/preferences/shared_prefs.dart';
 
 class DashboardScreen extends StatelessWidget {
   final String selectedTherapyType = "Crossed Eyes";
@@ -59,10 +60,10 @@ class DashboardScreen extends StatelessWidget {
                       screenWidth: screenWidth,
                     );
                   } else if (state is TherapyDashboardHistoryState) {
-                    // Show the History Section
                     return HistorySection(
-                      screenHeight: screenHeight,
-                      screenWidth: screenWidth,
+                      screenHeight: MediaQuery.of(context).size.height,
+                      screenWidth: MediaQuery.of(context).size.width,
+                      patientName: sharedPrefs.userName,
                     );
                   } else if (state is TherapyDashboardProgressionState) {
                     // Show the Progression Section

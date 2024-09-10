@@ -242,7 +242,22 @@ class TherapyScreen extends StatelessWidget {
                 ],
               ),
             );
-          } else {
+          } else if(state is TherapyLoading){
+            return const Scaffold(
+              backgroundColor: AppColors.screenBackground,
+              body: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircularProgressIndicator(),
+                    SizedBox(height: 10,),
+                    Text("Saving")
+                  ],
+                ),
+              ),
+            );
+          }
+          else {
             return Container(); // Fallback for other states
           }
         },

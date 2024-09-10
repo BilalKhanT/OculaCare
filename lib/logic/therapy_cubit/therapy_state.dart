@@ -11,6 +11,28 @@ abstract class TherapyState extends Equatable {
 
 class TherapyInitial extends TherapyState {}
 
+class TherapyLoading extends TherapyState {
+  @override
+  List<Object> get props => [];
+}
+
+class TherapyHistoryLoaded extends TherapyState {
+  final List<Map<String, dynamic>> therapyHistory;
+
+  const TherapyHistoryLoaded(this.therapyHistory);
+
+  @override
+  List<Object> get props => [therapyHistory];
+}
+
+
+class TherapySaved extends TherapyState {}
+
+class TherapySaveError extends TherapyState {
+  final String message;
+  const TherapySaveError(this.message);
+}
+
 class TherapyStepInProgress extends TherapyState {
   final String therapyTitle;
   final String instruction;
