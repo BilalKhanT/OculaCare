@@ -9,6 +9,8 @@ abstract class ContrastState extends Equatable {
 
 class ContrastInitial extends ContrastState {}
 
+class ContrastLoading extends ContrastState {}
+
 class ContrastGameInProgress extends ContrastState {}
 
 class ContrastGameOver extends ContrastState {
