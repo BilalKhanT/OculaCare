@@ -124,15 +124,15 @@ class SnellanTestCubit extends Cubit<SnellanTestState> {
       );
 
       ResponseModel resp = await ml.getData(
-          'Also, provide recommendations in the form of points (without any heading) with only 3 points. Generate text as if you are talking directly to the patient.'
+          'Also, provide recommendations in the form of points (without any heading or subheadings) with only 3 points. Generate text as if you are talking directly to the patient.'
       );
 
       ResponseModel resp_ = await ml.getData(
-          'Additionally, mention any potential impacts of reduced visual acuity in daily activities without heading and with only 3 points. Generate text as if you are talking directly to the patient.'
+          'Additionally, mention any three potential impacts of reduced visual acuity in daily activities in form of points without headings or subheadings. Generate text as if you are talking directly to the patient.'
       );
       String date = getCurrentDateString();
       TestResultModel data = TestResultModel(
-          patientName: sharedPrefs.userName,
+          patientName: 'Bilal Khan',
           date: date,
           testType: 'Vision Acuity Test',
           testName: 'Snellan Chart',
@@ -140,8 +140,7 @@ class SnellanTestCubit extends Cubit<SnellanTestState> {
           resultDescription: response.text,
           recommendation: resp.text,
           precautions: resp_.text);
-      bool flag = await testRepo.addTestRecord(data);
-      print(flag);
+      await testRepo.addTestRecord(data);
       emit(SnellanTestCompleted(score, fraction));
       return;
     } else {
@@ -156,11 +155,11 @@ class SnellanTestCubit extends Cubit<SnellanTestState> {
       );
 
       ResponseModel resp = await ml.getData(
-          'Also, provide recommendations in the form of points (without any heading) with only 3 points. Generate text as if you are talking directly to the patient.'
+          'Also, provide recommendations in the form of points (without any heading or subheadings) with only 3 points. Generate text as if you are talking directly to the patient.'
       );
 
       ResponseModel resp_ = await ml.getData(
-          'Additionally, mention any potential impacts of reduced visual acuity in daily activities without heading and with only 3 points. Generate text as if you are talking directly to the patient.'
+          'Additionally, mention any three potential impacts of reduced visual acuity in daily activities in form of points without headings or subheadings. Generate text as if you are talking directly to the patient.'
       );
       String date = getCurrentDateString();
       TestResultModel data = TestResultModel(
@@ -172,8 +171,7 @@ class SnellanTestCubit extends Cubit<SnellanTestState> {
           resultDescription: response.text,
           recommendation: resp.text,
           precautions: resp_.text);
-      bool flag = await testRepo.addTestRecord(data);
-      print(flag);
+      await testRepo.addTestRecord(data);
       emit(SnellanTestCompleted(score, fraction));
       return;
     }
@@ -198,11 +196,11 @@ class SnellanTestCubit extends Cubit<SnellanTestState> {
         );
 
         ResponseModel resp = await ml.getData(
-            'Also, provide recommendations in the form of points (without any heading) with only 3 points. Generate text as if you are talking directly to the patient.'
+            'Also, provide recommendations in the form of points (without any heading or subheadings) with only 3 points. Generate text as if you are talking directly to the patient.'
         );
 
         ResponseModel resp_ = await ml.getData(
-            'Additionally, mention any potential impacts of reduced visual acuity in daily activities without heading and with only 3 points. Generate text as if you are talking directly to the patient.'
+            'Additionally, mention any three potential impacts of reduced visual acuity in daily activities in form of points without headings or subheadings. Generate text as if you are talking directly to the patient.'
         );
         String date = getCurrentDateString();
         TestResultModel data = TestResultModel(
@@ -214,8 +212,7 @@ class SnellanTestCubit extends Cubit<SnellanTestState> {
             resultDescription: response.text,
             recommendation: resp.text,
             precautions: resp_.text);
-        bool flag = await testRepo.addTestRecord(data);
-        print(flag);
+        await testRepo.addTestRecord(data);
         emit(SnellanTestCompleted(score, fraction));
       }
     }
