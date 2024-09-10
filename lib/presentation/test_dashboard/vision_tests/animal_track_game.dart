@@ -214,7 +214,7 @@ class AnimalTrackGame extends FlameGame
       stripe.randomizeVelocity();
     } else {
       gameCubit.incrementMistaps();
-      if (gameCubit.state.mistaps > 5) {
+      if (gameCubit.state.mistaps >= 5) {
         ScoreModel score = gameCubit.endGame();
         navigateToGameOverScreen(score);
       }
