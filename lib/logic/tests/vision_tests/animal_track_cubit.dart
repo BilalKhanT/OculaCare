@@ -37,7 +37,7 @@ class AnimalTrackCubit extends Cubit<AnimalTrackState> {
     await _bgAudioPlayer.resume();
   }
 
-  void updateLevel () {
+  void updateLevel() {
     level = level + 1;
   }
 
@@ -47,11 +47,17 @@ class AnimalTrackCubit extends Cubit<AnimalTrackState> {
     await _successAudioPlayer.resume();
     score = state.score + 1;
     if (level == 0) {
-      levelOneScore = levelOneScore + 1;
+      if (levelOneScore <= 20) {
+        levelOneScore = levelOneScore + 1;
+      }
     } else if (level == 1) {
-      levelTwoScore = levelTwoScore + 1;
+      if (levelTwoScore <= 20) {
+        levelTwoScore = levelTwoScore + 1;
+      }
     } else if (level == 2) {
-      levelThreeScore = levelThreeScore + 1;
+      if (levelThreeScore <= 20) {
+        levelThreeScore = levelThreeScore + 1;
+      }
     }
     emit(state.copyWith(score: state.score + 1));
   }
@@ -73,7 +79,12 @@ class AnimalTrackCubit extends Cubit<AnimalTrackState> {
     _bgAudioPlayer.stop();
     _errorAudioPlayer.stop();
     _successAudioPlayer.stop();
-    ScoreModel scoreModel = ScoreModel(score1: levelOneScore, score2: levelTwoScore, score3: levelThreeScore);
+    ScoreModel scoreModel = ScoreModel(
+        score1: levelOneScore, score2: levelTwoScore, score3: levelThreeScore);
+    level = 0;
+    levelOneScore = 0;
+    levelTwoScore = 0;
+    levelThreeScore = 0;
     emit(state.copyWith(isGameOver: true));
     return scoreModel;
   }
