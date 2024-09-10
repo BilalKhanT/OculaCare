@@ -4,8 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../configs/routes/route_names.dart';
+import '../../../logic/tests/test_cubit.dart';
 import '../../../logic/tests/vision_tests/animal_track_score_cubit.dart';
 import '../../../logic/tests/vision_tests/animal_track_score_state.dart';
+import '../../widgets/btn_flat.dart';
 import '../../widgets/cstm_loader.dart';
 
 class GameOverScreen extends StatelessWidget {
@@ -64,9 +66,58 @@ class GameOverScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      Image.asset(
+                        'assets/images/result_test.png',
+                        height: screenHeight * 0.3,
+                      ),
+                      SizedBox(
+                        height: screenHeight * 0.02,
+                      ),
+                      Text('Test Completed !',
+                          style: TextStyle(
+                            color: Colors.green,
+                            fontFamily: 'MontserratMedium',
+                            fontWeight: FontWeight.w800,
+                            fontSize: screenWidth * 0.05,
+                          )),
+                      SizedBox(height: screenHeight * 0.02),
                       Text(
-                        '$score',
-                        style: TextStyle(fontSize: 24),
+                        'Your vision acuity score is $score.',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontFamily: 'MontserratMedium',
+                          fontWeight: FontWeight.w800,
+                          fontSize: screenWidth * 0.04,
+                        ),
+                      ),
+                      SizedBox(height: screenHeight * 0.05),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                        child: ButtonFlat(
+                            btnColor: AppColors.appColor,
+                            textColor: Colors.white,
+                            onPress: () async {
+                              context
+                                  .read<AnimalTrackScoreCubit>()
+                                  .emitInitial();
+                              context.go(RouteNames.trackInitialRoute);
+                            },
+                            text: 'Restart Test'),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                        child: ButtonFlat(
+                            btnColor: AppColors.appColor,
+                            textColor: Colors.white,
+                            onPress: () async {
+                              context
+                                  .read<AnimalTrackScoreCubit>()
+                                  .emitInitial();
+                              context.read<TestCubit>().loadTests();
+                              context.go(RouteNames.testRoute);
+                            },
+                            text: 'Exit Test'),
                       ),
                     ],
                   ),
