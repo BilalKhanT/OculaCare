@@ -80,9 +80,9 @@ class IshiharaCubit extends Cubit<IshiharaState> {
         ResponseModel response = await ml.getData(
             'The Ishihara test is a color vision test that detects color blindness by having individuals identify numbers or patterns within a series of colored plates. The test consists of 10 questions, where each correct answer indicates the ability to distinguish specific colors.The patient recently took the Ishihara test and scored ${state.correctAnswers} out of 10.Based on this score, please provide a small analysis in 2 lines of the patient color vision without heading also generate text in such a way that youre talking to the patient directly. Consider if the score indicates normal color vision(score 9-10), mild(score 7-8), moderate(score 4-6).');
         ResponseModel resp = await ml.getData(
-            'Also, provide recommendations in form of points without any heading only 3 points, also generate text in such a way that youre talking to the patient directly.');
+            'Also, provide recommendations in form of points without any heading or subheadings only 3 points, also generate text in such a way that youre talking to the patient directly.');
         ResponseModel resp_ = await ml.getData(
-            'Additionally, mention any potential impacts of color blindness in daily activities without heading and only 3 points, also generate text in such a way that youre talking to the patient directly');
+            'Additionally, mention any potential impacts of color blindness in daily activities without heading or subheadings and only 3 points, also generate text in such a way that youre talking to the patient directly');
         TestResultModel data = TestResultModel(
             patientName: sharedPrefs.userName,
             date: date,
@@ -92,8 +92,7 @@ class IshiharaCubit extends Cubit<IshiharaState> {
             resultDescription: response.text,
             recommendation: resp.text,
             precautions: resp_.text);
-        bool flag = await testRepo.addTestRecord(data);
-        print(flag);
+        await testRepo.addTestRecord(data);
         emit(state.copyWith(testCompleted: true, loading: false));
       } else {
         answerSelected = null;
