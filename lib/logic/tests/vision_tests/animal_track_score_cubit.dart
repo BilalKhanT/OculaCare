@@ -28,17 +28,14 @@ class AnimalTrackScoreCubit extends Cubit<AnimalTrackScoreState> {
 
   Future<void> analyseTrackScore(int score1, int score2, int score3) async {
     int totalScore = score1 + score2 + score3;
-    print(totalScore);
     String analysis = determineVisionAcuity(totalScore);
     ResponseModel recommendation = await ml.getData(
         'The vision tracking test measures the ability to follow a moving object at different speeds and sizes. The test has three levels of difficulty, and each level gets progressively harder. The patient completed this test and result was $analysis, provide three recommendations to help the patient improve their vision tracking ability, write these points as if you are speaking directly to the patient, without any headings or subheadings just point.');
     ResponseModel impact = await ml.getData(
         'Now provide three potential impacts that this level of vision tracking ability might have on the patient’s daily activities. provide three impacts only, write them as if you are directly advising the patient, without adding any headings or subheadings just points.');
     String date = getCurrentDateString();
-    print(impact.text);
-    print(recommendation.text);
     TestResultModel data = TestResultModel(
-        patientName: 'Bilal Khan',
+        patientName: sharedPrefs.userName,
         date: date,
         testType: 'Vision Acuity Test',
         testName: 'Animal Track',
@@ -46,8 +43,7 @@ class AnimalTrackScoreCubit extends Cubit<AnimalTrackScoreState> {
         resultDescription: analysis,
         recommendation: recommendation.text,
         precautions: impact.text);
-    bool flag = await testRepo.addTestRecord(data);
-    print(flag);
+    await testRepo.addTestRecord(data);
     emit(AnimalTrackScoreLoading());
     emit(AnimalTrackScoreLoaded());
   }
