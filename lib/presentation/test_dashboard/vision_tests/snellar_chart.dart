@@ -1,3 +1,4 @@
+import 'package:OculaCare/presentation/test_dashboard/widgets/snellan_chart_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -45,7 +46,7 @@ class SnellanChart extends StatelessWidget {
               }
             },
             icon: const Icon(
-              Icons.arrow_back,
+              Icons.arrow_back_ios_new,
               color: AppColors.appColor,
               size: 30.0,
             ),
@@ -92,8 +93,7 @@ class SnellanChart extends StatelessWidget {
                   ),
                 ],
               );
-            }
-            else if (state is SnellanTestLoaded) {
+            } else if (state is SnellanTestLoaded) {
               return Padding(
                 padding: const EdgeInsets.symmetric(
                     horizontal: 20.0, vertical: 30.0),
@@ -212,13 +212,50 @@ class SnellanChart extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      'Score: ${state.score}',
-                      style: const TextStyle(fontSize: 24),
+                    Image.asset(
+                      'assets/images/result_test.png',
+                      height: screenHeight * 0.3,
                     ),
+                    SizedBox(
+                      height: screenHeight * 0.02,
+                    ),
+                    Text('Test Completed !',
+                        style: TextStyle(
+                          color: Colors.green,
+                          fontFamily: 'MontserratMedium',
+                          fontWeight: FontWeight.w800,
+                          fontSize: screenWidth * 0.05,
+                        )),
+                    SizedBox(height: screenHeight * 0.02),
+                    SnellenChartWidget(
+                        snellenValue:
+                            int.parse(state.visionAcuity.split('/')[1])),
                     Text(
-                      'Vision Acuity: ${state.visionAcuity}',
-                      style: const TextStyle(fontSize: 24),
+                      'Your vision acuity is ${state.visionAcuity}.',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontFamily: 'MontserratMedium',
+                        fontWeight: FontWeight.w800,
+                        fontSize: screenWidth * 0.04,
+                      ),
+                    ),
+                    SizedBox(height: screenHeight * 0.05),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                      child: ButtonFlat(
+                          btnColor: AppColors.appColor,
+                          textColor: Colors.white,
+                          onPress: () async {
+                            await context
+                                .read<SnellanTestCubit>()
+                                .emitCompleted();
+                            if (context.mounted) {
+                              context.read<TestCubit>().loadTests();
+                              context.go(RouteNames.testRoute);
+                            }
+                          },
+                          text: 'Exit Test'),
                     ),
                   ],
                 ),
