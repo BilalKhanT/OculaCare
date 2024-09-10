@@ -9,4 +9,6 @@ abstract class AnimalTrackScoreState extends Equatable {
 
 class AnimalTrackScoreInitial extends AnimalTrackScoreState {}
 
+class AnimalTrackScoreLoading extends AnimalTrackScoreState {}
+
 class AnimalTrackScoreLoaded extends AnimalTrackScoreState {}
