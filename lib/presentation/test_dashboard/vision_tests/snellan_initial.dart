@@ -33,8 +33,11 @@ class SnellanInitialView extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
+                    Image.asset('assets/images/snellan_guide.png', height: screenHeight * 0.3,),
+                    SizedBox(height: screenHeight * 0.05,),
                     Text(
                       'Instructions',
+                      textAlign: TextAlign.left,
                       style: TextStyle(
                         color: AppColors.appColor,
                         fontFamily: 'MontserratMedium',
