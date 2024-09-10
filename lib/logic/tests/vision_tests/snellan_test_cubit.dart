@@ -1,19 +1,28 @@
+import 'package:OculaCare/configs/app/remote/ml_model.dart';
 import 'package:OculaCare/logic/tests/vision_tests/snellan_test_state.dart';
 import 'package:bloc/bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
+
+import '../../../data/models/api_response/response_model.dart';
+import '../../../data/models/tests/test_result_model.dart';
+import '../../../data/repositories/local/preferences/shared_prefs.dart';
+import '../../../data/repositories/tests/test_repo.dart';
 
 class SnellanTestCubit extends Cubit<SnellanTestState> {
   SnellanTestCubit() : super(SnellanTestInitial()) {
     _speech = stt.SpeechToText();
   }
 
+  final TestRepository testRepo = TestRepository();
   int initialIndex = 0;
   int subIndex = 0;
   int score = 0;
   int wrongGuesses = 0;
   String recognizedText = "";
   late stt.SpeechToText _speech;
+  MlModel ml = MlModel();
 
   final List<double> snellanDistances = [
     60.0,
@@ -77,6 +86,13 @@ class SnellanTestCubit extends Cubit<SnellanTestState> {
     }
   }
 
+  String getCurrentDateString() {
+    DateTime now = DateTime.now();
+    DateFormat formatter = DateFormat('dd-MM-yyyy');
+    String formattedDate = formatter.format(now);
+    return formattedDate;
+  }
+
   void startListening() {
     _speech.listen(
       onResult: (result) {
@@ -101,7 +117,32 @@ class SnellanTestCubit extends Cubit<SnellanTestState> {
       wrongGuesses = 0;
     } else if (normalizedRecognizedText.replaceAll(' ', '').toUpperCase() ==
         'NOTVISIBLE') {
-      emit(SnellanTestCompleted(score, calculateVisionAcuity()));
+      emit(SnellanTestAnalysing());
+      String fraction = calculateVisionAcuity();
+      ResponseModel response = await ml.getData(
+          'The Snellen chart test is a standard eye exam that measures how well you can see at a distance. The patient recently took this test and achieved a visual acuity of $fraction. Please provide a brief analysis in 2 lines of the patient’s visual acuity without a heading. Generate text as if you are talking directly to the patient. Consider if the vision is normal (6/6), slightly reduced (6/9), or progressively worse for lower fractions.'
+      );
+
+      ResponseModel resp = await ml.getData(
+          'Also, provide recommendations in the form of points (without any heading) with only 3 points. Generate text as if you are talking directly to the patient.'
+      );
+
+      ResponseModel resp_ = await ml.getData(
+          'Additionally, mention any potential impacts of reduced visual acuity in daily activities without heading and with only 3 points. Generate text as if you are talking directly to the patient.'
+      );
+      String date = getCurrentDateString();
+      TestResultModel data = TestResultModel(
+          patientName: sharedPrefs.userName,
+          date: date,
+          testType: 'Color Perception Test',
+          testName: 'Isihara Plates',
+          testScore: int.parse(fraction.split('/')[1]),
+          resultDescription: response.text,
+          recommendation: resp.text,
+          precautions: resp_.text);
+      bool flag = await testRepo.addTestRecord(data);
+      print(flag);
+      emit(SnellanTestCompleted(score, fraction));
       return;
     } else {
       wrongGuesses++;
@@ -176,5 +217,11 @@ class SnellanTestCubit extends Cubit<SnellanTestState> {
       default:
         return "6/60";
     }
+  }
+
+  double calculateDiopter(String snellenFraction) {
+    int snellenDenominator = int.parse(snellenFraction.split('/')[1]);
+    double diopter = -100 / snellenDenominator;
+    return diopter;
   }
 }
