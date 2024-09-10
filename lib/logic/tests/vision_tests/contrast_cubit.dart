@@ -119,8 +119,7 @@ class ContrastCubit extends Cubit<ContrastState> {
         resultDescription: analysis,
         recommendation: resp.text,
         precautions: resp_.text);
-    bool flag = await testRepo.addTestRecord(data);
-    print(flag);
+    await testRepo.addTestRecord(data);
     emit(ContrastGameOver(_score));
   }
 
