@@ -11,8 +11,14 @@ import '../../widgets/btn_flat.dart';
 import '../../widgets/cstm_loader.dart';
 
 class GameOverScreen extends StatelessWidget {
-  final int score;
-  const GameOverScreen({super.key, required this.score});
+  final int score1;
+  final int score2;
+  final int score3;
+  const GameOverScreen(
+      {super.key,
+      required this.score1,
+      required this.score2,
+      required this.score3});
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +88,7 @@ class GameOverScreen extends StatelessWidget {
                           )),
                       SizedBox(height: screenHeight * 0.02),
                       Text(
-                        'Your vision acuity score is $score.',
+                        'Your vision acuity score is ${score1 + score2 + score3}.',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.black,
