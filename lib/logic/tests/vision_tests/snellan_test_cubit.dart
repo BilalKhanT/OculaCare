@@ -134,8 +134,8 @@ class SnellanTestCubit extends Cubit<SnellanTestState> {
       TestResultModel data = TestResultModel(
           patientName: sharedPrefs.userName,
           date: date,
-          testType: 'Color Perception Test',
-          testName: 'Isihara Plates',
+          testType: 'Vision Acuity Test',
+          testName: 'Snellan Chart',
           testScore: int.parse(fraction.split('/')[1]),
           resultDescription: response.text,
           recommendation: resp.text,
@@ -149,7 +149,32 @@ class SnellanTestCubit extends Cubit<SnellanTestState> {
     }
     int maxWrongGuesses = getMaxWrongGuessesForRow();
     if (wrongGuesses >= maxWrongGuesses) {
-      emit(SnellanTestCompleted(score, calculateVisionAcuity()));
+      emit(SnellanTestAnalysing());
+      String fraction = calculateVisionAcuity();
+      ResponseModel response = await ml.getData(
+          'The Snellen chart test is a standard eye exam that measures how well you can see at a distance. The patient recently took this test and achieved a visual acuity of $fraction. Please provide a brief analysis in 2 lines of the patient’s visual acuity without a heading. Generate text as if you are talking directly to the patient. Consider if the vision is normal (6/6), slightly reduced (6/9), or progressively worse for lower fractions.'
+      );
+
+      ResponseModel resp = await ml.getData(
+          'Also, provide recommendations in the form of points (without any heading) with only 3 points. Generate text as if you are talking directly to the patient.'
+      );
+
+      ResponseModel resp_ = await ml.getData(
+          'Additionally, mention any potential impacts of reduced visual acuity in daily activities without heading and with only 3 points. Generate text as if you are talking directly to the patient.'
+      );
+      String date = getCurrentDateString();
+      TestResultModel data = TestResultModel(
+          patientName: sharedPrefs.userName,
+          date: date,
+          testType: 'Vision Acuity Test',
+          testName: 'Snellan Chart',
+          testScore: int.parse(fraction.split('/')[1]),
+          resultDescription: response.text,
+          recommendation: resp.text,
+          precautions: resp_.text);
+      bool flag = await testRepo.addTestRecord(data);
+      print(flag);
+      emit(SnellanTestCompleted(score, fraction));
       return;
     }
     subIndex++;
@@ -166,7 +191,32 @@ class SnellanTestCubit extends Cubit<SnellanTestState> {
             snellanList[initialIndex], subIndex, calculateFontSize()));
         await initListening();
       } else {
-        emit(SnellanTestCompleted(score, calculateVisionAcuity()));
+        emit(SnellanTestAnalysing());
+        String fraction = calculateVisionAcuity();
+        ResponseModel response = await ml.getData(
+            'The Snellen chart test is a standard eye exam that measures how well you can see at a distance. The patient recently took this test and achieved a visual acuity of $fraction. Please provide a brief analysis in 2 lines of the patient’s visual acuity without a heading. Generate text as if you are talking directly to the patient. Consider if the vision is normal (6/6), slightly reduced (6/9), or progressively worse for lower fractions.'
+        );
+
+        ResponseModel resp = await ml.getData(
+            'Also, provide recommendations in the form of points (without any heading) with only 3 points. Generate text as if you are talking directly to the patient.'
+        );
+
+        ResponseModel resp_ = await ml.getData(
+            'Additionally, mention any potential impacts of reduced visual acuity in daily activities without heading and with only 3 points. Generate text as if you are talking directly to the patient.'
+        );
+        String date = getCurrentDateString();
+        TestResultModel data = TestResultModel(
+            patientName: sharedPrefs.userName,
+            date: date,
+            testType: 'Vision Acuity Test',
+            testName: 'Snellan Chart',
+            testScore: int.parse(fraction.split('/')[1]),
+            resultDescription: response.text,
+            recommendation: resp.text,
+            precautions: resp_.text);
+        bool flag = await testRepo.addTestRecord(data);
+        print(flag);
+        emit(SnellanTestCompleted(score, fraction));
       }
     }
   }
@@ -217,11 +267,5 @@ class SnellanTestCubit extends Cubit<SnellanTestState> {
       default:
         return "6/60";
     }
-  }
-
-  double calculateDiopter(String snellenFraction) {
-    int snellenDenominator = int.parse(snellenFraction.split('/')[1]);
-    double diopter = -100 / snellenDenominator;
-    return diopter;
   }
 }
