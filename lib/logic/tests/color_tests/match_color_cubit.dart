@@ -178,10 +178,10 @@ class MatchColorCubit extends Cubit<MatchColorState> {
         'The "Match Color Game" test assesses the ability to accurately recognize and match colors under time constraints. In this test, paint flows from the top of the screen, and the patient must select one of four buckets that matches the color of the flowing paint. The patient recently took this test and matched the correct colors $_score out of 10 times. Based on this score, please provide a brief analysis in 2 lines of the patient’s color recognition and matching skills without a heading. Generate text as if you are talking directly to the patient. Consider if the score indicates excellent color recognition (score 9-10), good recognition with some errors (score 7-8), moderate difficulty (score 4-6), or significant difficulty (score 0-3).');
 
     ResponseModel resp = await ml.getData(
-        'Also, provide recommendations in the form of points (without any heading) with only 3 points. Generate text as if you are talking directly to the patient.');
+        'Also, provide recommendations in the form of points (without any heading or subheadings) with only 3 points. Generate text as if you are talking directly to the patient.');
 
     ResponseModel resp_ = await ml.getData(
-        'Additionally, mention any potential impacts of difficulties in color recognition and matching in daily activities without heading and with only 3 points. Generate text as if you are talking directly to the patient.');
+        'Additionally, mention only 3 points potential impacts of difficulties in color recognition and matching in daily activities without heading or subheadings. Generate text as if you are talking directly to the patient.');
     TestResultModel data = TestResultModel(
         patientName: sharedPrefs.userName,
         date: date,
@@ -191,8 +191,7 @@ class MatchColorCubit extends Cubit<MatchColorState> {
         resultDescription: response.text,
         recommendation: resp.text,
         precautions: resp_.text);
-    bool flag = await testRepo.addTestRecord(data);
-    print(flag);
+    await testRepo.addTestRecord(data);
     emit(MatchColorGameOver(_score));
   }
 
