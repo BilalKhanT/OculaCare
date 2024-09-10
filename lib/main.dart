@@ -26,9 +26,9 @@ void main() async {
 }
 
 Future<void> initializeApp() async {
+  await sharedPrefs.init();
+  await initialize();
   Firebase.initializeApp();
-  sharedPrefs.init();
-  initialize();
 }
 
 
