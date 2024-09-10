@@ -21,7 +21,7 @@ class TestRepository {
       if (response.statusCode == 201) {
         return true;
       } else {
-        log(response.statusCode);
+        log(response.body);
         return false;
       }
     } catch (e) {
