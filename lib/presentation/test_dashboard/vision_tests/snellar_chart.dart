@@ -65,7 +65,35 @@ class SnellanChart extends StatelessWidget {
                   ),
                 ],
               );
-            } else if (state is SnellanTestLoaded) {
+            } else if (state is SnellanTestAnalysing) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Center(
+                    child: DotLoader(
+                      loaderColor: AppColors.appColor,
+                    ),
+                  ),
+                  SizedBox(
+                    height: screenHeight * 0.1,
+                  ),
+                  Center(
+                    child: Text(
+                      'Analysing, please wait.',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: AppColors.appColor,
+                        fontFamily: 'MontserratMedium',
+                        fontWeight: FontWeight.w800,
+                        fontSize: screenWidth * 0.05,
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            }
+            else if (state is SnellanTestLoaded) {
               return Padding(
                 padding: const EdgeInsets.symmetric(
                     horizontal: 20.0, vertical: 30.0),
