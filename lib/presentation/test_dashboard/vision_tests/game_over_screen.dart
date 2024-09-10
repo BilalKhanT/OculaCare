@@ -1,4 +1,5 @@
 import 'package:OculaCare/configs/presentation/constants/colors.dart';
+import 'package:OculaCare/presentation/test_dashboard/widgets/snellan_chart_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -89,6 +90,7 @@ class GameOverScreen extends StatelessWidget {
                             fontSize: screenWidth * 0.05,
                           )),
                       SizedBox(height: screenHeight * 0.02),
+                      TrackChart(score: score1 + score2 + score3),
                       Text(
                         'Your vision acuity score is ${score1 + score2 + score3}.',
                         textAlign: TextAlign.center,
