@@ -35,13 +35,15 @@ class GameOverScreen extends StatelessWidget {
                 context.read<AnimalTrackScoreCubit>().emitInitial();
                 context.go(RouteNames.trackInitialRoute);
               },
-              icon: const Icon(Icons.arrow_back_ios_new),
+              icon: const Icon(Icons.arrow_back_ios_new, color: AppColors.appColor,),
             ),
           ),
           body: BlocBuilder<AnimalTrackScoreCubit, AnimalTrackScoreState>(
             builder: (context, state) {
               if (state is AnimalTrackScoreInitial) {
-                context.read<AnimalTrackScoreCubit>().analyseTrackScore();
+                context
+                    .read<AnimalTrackScoreCubit>()
+                    .analyseTrackScore(score1, score2, score3);
                 return Center(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -111,10 +113,11 @@ class GameOverScreen extends StatelessWidget {
                             },
                             text: 'Restart Test'),
                       ),
+                      SizedBox(height: screenHeight * 0.01),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 30.0),
                         child: ButtonFlat(
-                            btnColor: AppColors.appColor,
+                            btnColor: Colors.black,
                             textColor: Colors.white,
                             onPress: () async {
                               context
