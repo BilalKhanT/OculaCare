@@ -11,6 +11,7 @@ import '../../../logic/tests/test_schedule_cubit.dart';
 import '../../../logic/tests/vision_tests/contrast_cubit.dart';
 import '../../../logic/tests/vision_tests/contrast_state.dart';
 import '../../widgets/btn_flat.dart';
+import '../../widgets/cstm_loader.dart';
 import '../../widgets/schedule_bottom_modal.dart';
 
 class ContrastGameScreen extends StatelessWidget {
@@ -132,6 +133,35 @@ class ContrastGameScreen extends StatelessWidget {
                           );
                         },
                         text: 'Schedule Test',
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            } else if (state is ContrastLoading) {
+              return Container(
+                height: screenHeight,
+                width: screenWidth,
+                color: AppColors.screenBackground,
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const DotLoader(
+                        loaderColor: AppColors.appColor,
+                      ),
+                      SizedBox(
+                        height: screenHeight * 0.1,
+                      ),
+                      Text(
+                        'Analysing, please wait.',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: AppColors.appColor,
+                          fontFamily: 'MontserratMedium',
+                          fontWeight: FontWeight.w800,
+                          fontSize: screenWidth * 0.05,
+                        ),
                       ),
                     ],
                   ),
