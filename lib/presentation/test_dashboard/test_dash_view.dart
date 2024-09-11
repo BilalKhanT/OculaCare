@@ -109,19 +109,19 @@ class TestDashView extends StatelessWidget {
                               boxShadow: [
                                 BoxShadow(
                                   color: Colors.grey.withOpacity(0.5),
-                                  spreadRadius: 2,
-                                  blurRadius: 8,
+                                  spreadRadius: 1,
+                                  blurRadius: 6,
                                   offset: const Offset(0, 3),
                                 ),
                               ],
                             ),
-                            padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
+                            padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 6.0),
                             child: Text(
                               'Tests',
                               style: TextStyle(
                                 fontFamily: 'Montserrat',
                                 fontWeight: FontWeight.bold,
-                                fontSize: screenWidth * 0.045,
+                                fontSize: screenWidth * 0.04,
                                 color: testSelected
                                     ? AppColors.whiteColor
                                     : Colors.black,
@@ -130,7 +130,7 @@ class TestDashView extends StatelessWidget {
                           ),
                         ),
                         SizedBox(
-                          width: screenHeight * 0.01,
+                          width: screenHeight * 0.02,
                         ),
                         GestureDetector(
                           onTap: () {
@@ -144,19 +144,19 @@ class TestDashView extends StatelessWidget {
                               boxShadow: [
                                 BoxShadow(
                                   color: Colors.grey.withOpacity(0.5),
-                                  spreadRadius: 2,
-                                  blurRadius: 8,
+                                  spreadRadius: 1,
+                                  blurRadius: 6,
                                   offset: const Offset(0, 3),
                                 ),
                               ],
                             ),
-                            padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
+                            padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 10.0),
                             child: Text(
                               'History',
                               style: TextStyle(
                                 fontFamily: 'Montserrat',
                                 fontWeight: FontWeight.bold,
-                                fontSize: screenWidth * 0.045,
+                                fontSize: screenWidth * 0.04,
                                 color: historySelected
                                     ? AppColors.whiteColor
                                     : Colors.black,
@@ -165,7 +165,7 @@ class TestDashView extends StatelessWidget {
                           ),
                         ),
                         SizedBox(
-                          width: screenHeight * 0.01,
+                          width: screenHeight * 0.02,
                         ),
                         GestureDetector(
                           onTap: () {
@@ -175,23 +175,23 @@ class TestDashView extends StatelessWidget {
                           child: Container(
                             decoration: BoxDecoration(
                               color: progressionSelected ? AppColors.appColor.withOpacity(0.85) : Colors.white,
-                              borderRadius: BorderRadius.circular(25),
+                              borderRadius: BorderRadius.circular(50),
                               boxShadow: [
                                 BoxShadow(
                                   color: Colors.grey.withOpacity(0.5),
-                                  spreadRadius: 2,
-                                  blurRadius: 8,
+                                  spreadRadius: 1,
+                                  blurRadius: 6,
                                   offset: const Offset(0, 3),
                                 ),
                               ],
                             ),
-                            padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
+                            padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 10.0),
                             child: Text(
                               'Progression',
                               style: TextStyle(
                                 fontFamily: 'Montserrat',
                                 fontWeight: FontWeight.bold,
-                                fontSize: screenWidth * 0.045,
+                                fontSize: screenWidth * 0.04,
                                 color: progressionSelected
                                     ? AppColors.whiteColor
                                     : Colors.black,
@@ -457,19 +457,56 @@ class TestDashView extends StatelessWidget {
                       ),
                     );
                   } else if (state is TestHistory) {
-                    return Column(
-                      children: [
-                    SizedBox(
-                      height: 200,
-                      width: 300,
-                      child: ListView.builder(
-                      itemCount: state.data.length,
-                        itemBuilder: (context, index) {
-                          return Text(state.data[index].testName);
-                        },
+                    print(state.dataColor.length);
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(height: screenHeight * 0.005,),
+                          Text(
+                            'Vision Acuity Tests',
+                            style: TextStyle(
+                                fontFamily: 'MontserratMedium',
+                                fontWeight: FontWeight.w800,
+                                fontSize: screenWidth * 0.045,
+                                color: AppColors.appColor),
+                          ),
+                          SizedBox(
+                            height: screenHeight * 0.005,
+                          ),
+                          Container(
+                            height: screenHeight * 0.35,
+                            width: double.infinity,
+                            color: Colors.red,
+                          ),
+                          SizedBox(
+                            height: screenHeight * 0.005,
+                          ),
+                          Text(
+                            'Color Perception Tests',
+                            style: TextStyle(
+                                fontFamily: 'MontserratMedium',
+                                fontWeight: FontWeight.w800,
+                                fontSize: screenWidth * 0.045,
+                                color: AppColors.appColor),
+                          ),
+                          SizedBox(
+                            height: screenHeight * 0.005,
+                          ),
+                          Container(
+                            height: screenHeight * 0.35,
+                            width: double.infinity,
+                            color: Colors.white,
+                            child: ListView.builder(
+                              itemCount: state.dataColor.length,
+                              itemBuilder: (context, index) {
+                                return Text(state.dataColor[index].testName);
+                              },
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                      ],
                     );
                   } else if (state is TestProgression) {
                     return const Column(
