@@ -1,5 +1,6 @@
 import 'package:OculaCare/data/models/tests/history_args_model.dart';
 import 'package:OculaCare/logic/tests/test_progression_cubit.dart';
+import 'package:OculaCare/logic/tests/test_progression_state.dart';
 import 'package:OculaCare/presentation/test_dashboard/widgets/test_history_tile.dart';
 import 'package:OculaCare/presentation/test_dashboard/widgets/test_progress_heatmap.dart';
 import 'package:OculaCare/presentation/test_dashboard/widgets/test_tile.dart';
@@ -623,8 +624,13 @@ class TestDashView extends StatelessWidget {
                           SizedBox(
                             height: screenHeight * 0.02,
                           ),
-                          BlocBuilder<TestProgressionCubit, bool>(
+                          BlocBuilder<TestProgressionCubit,
+                              TestProgressionState>(
                             builder: (context, state) {
+                              Map<DateTime, double> score = {};
+                              if (state is TestProgressionToggled) {
+                                score = state.scores;
+                              }
                               return Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -633,9 +639,9 @@ class TestDashView extends StatelessWidget {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        state == false
-                                            ? 'Vision Test'
-                                            : 'Color Test',
+                                        context
+                                            .read<TestProgressionCubit>()
+                                            .selectedTest,
                                         style: TextStyle(
                                             fontFamily: 'MontserratMedium',
                                             fontWeight: FontWeight.w800,
@@ -644,7 +650,7 @@ class TestDashView extends StatelessWidget {
                                       ),
                                       Container(
                                         height: screenHeight * 0.05,
-                                        width: screenWidth * 0.35,
+                                        width: screenWidth * 0.4,
                                         decoration: BoxDecoration(
                                           boxShadow: [
                                             BoxShadow(
@@ -661,13 +667,17 @@ class TestDashView extends StatelessWidget {
                                         child: Padding(
                                           padding: const EdgeInsets.all(5.0),
                                           child: DropdownButton<String>(
-                                            borderRadius: BorderRadius.circular(10.0),
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
                                             dropdownColor: Colors.white,
                                             padding: const EdgeInsets.symmetric(
                                                 horizontal: 5.0),
-                                            value: context.read<TestProgressionCubit>().selectedTest,
+                                            value: context
+                                                .read<TestProgressionCubit>()
+                                                .selectedTest,
                                             icon: const Icon(
-                                              Icons.keyboard_arrow_down_outlined,
+                                              Icons
+                                                  .keyboard_arrow_down_outlined,
                                               color: Colors.black,
                                             ),
                                             iconSize: screenWidth * 0.05,
@@ -679,16 +689,17 @@ class TestDashView extends StatelessWidget {
                                               color: AppColors.appColor,
                                             ),
                                             onChanged: (String? newValue) {
-                                              if (newValue == 'Vision Tests') {
-                                                context.read<TestProgressionCubit>().toggleProgression(false);
-                                              }
-                                              else {
-                                                context.read<TestProgressionCubit>().toggleProgression(true);
-                                              }
+                                              context
+                                                  .read<TestProgressionCubit>()
+                                                  .toggleProgression(newValue!);
                                             },
                                             items: <String>[
-                                              'Vision Tests',
-                                              'Color Tests'
+                                              'Snellan Chart',
+                                              'Animal Track',
+                                              'Contrast Test',
+                                              'Isihara Plates',
+                                              'Match Color',
+                                              'Odd One Out',
                                             ].map<DropdownMenuItem<String>>(
                                                 (String value) {
                                               return DropdownMenuItem<String>(
@@ -704,6 +715,8 @@ class TestDashView extends StatelessWidget {
                                                     letterSpacing: 1,
                                                     color: Colors.black,
                                                   ),
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
                                                 ),
                                               );
                                             }).toList(),
