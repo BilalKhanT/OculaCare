@@ -40,7 +40,7 @@ class ScheduleCubit extends Cubit<ScheduleState> {
   Future<bool> scheduleTest(String body) async {
     emit(ScheduleLoading());
     await Future.delayed(const Duration(seconds: 1));
-    await NotificationService.scheduleNotification(
+    await NotificationService.scheduleTestNotification(
         body, 'You need to take $body.', time);
     clearController();
     emit(ScheduleInitial());
