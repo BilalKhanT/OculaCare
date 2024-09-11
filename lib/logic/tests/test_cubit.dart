@@ -1,3 +1,4 @@
+import 'package:OculaCare/configs/global/app_globals.dart';
 import 'package:OculaCare/data/models/tests/test_result_model.dart';
 import 'package:OculaCare/data/repositories/local/preferences/shared_prefs.dart';
 import 'package:OculaCare/data/repositories/tests/test_repo.dart';
@@ -8,7 +9,6 @@ class TestCubit extends Cubit<TestState> {
   TestCubit() : super(TestInitial());
 
   final TestRepository testRepository = TestRepository();
-  List<TestResultModel> testHistory = [];
 
   Future<void> loadTests() async {
     emit(TestLoading());
@@ -17,16 +17,23 @@ class TestCubit extends Cubit<TestState> {
 
   Future<void> loadTestHistory() async {
     emit(TestLoading());
-    if (testHistory.isEmpty) {
-      final List<TestResultModel> tests = await testRepository.getTestRecords(sharedPrefs.userName);
+    if (testResults.isEmpty) {
+      final List<TestResultModel> tests =
+          await testRepository.getTestRecords(sharedPrefs.userName);
       for (var test in tests) {
-        testHistory.add(test);
+        testResults.add(test);
       }
-      emit(TestHistory(tests));
     }
-    else {
-      emit(TestHistory(testHistory));
+    List<TestResultModel> vision = [];
+    List<TestResultModel> color = [];
+    for (var i in testResults) {
+      if (i.testType == 'Color Perception Test') {
+        color.add(i);
+      } else {
+        vision.add(i);
+      }
     }
+    emit(TestHistory(vision, color));
   }
 
   Future<void> loadTestProgression() async {
