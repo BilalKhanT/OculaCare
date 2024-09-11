@@ -2,6 +2,7 @@ final List<Map<String, dynamic>> therapiesList = [
   // Mind-Chest Breathing
   {
     "title": "Mind-Chest Breathing",
+    "category": "General",
     "timeLimit": 5, // Total duration in minutes
     "type": "image", // Specifies that this therapy only requires images
     "svgPath": "assets/images/mind_chest_breathing/mind-chest_breathing.png",
@@ -69,6 +70,7 @@ final List<Map<String, dynamic>> therapiesList = [
   // Jumping Stripes
   {
     "title": "Jumping Stripes",
+    "category": "General",
     "timeLimit": 3, // Total duration in minutes
     "type": "animation_jumping_stripes", // Requires custom animation logic
     "svgPath":
@@ -99,6 +101,7 @@ final List<Map<String, dynamic>> therapiesList = [
   // Palming
   {
     "title": "Palming",
+    "category": "General",
     "timeLimit": 5, // Total duration in minutes
     "type": "image", // Specifies that this therapy only requires images
     "svgPath": "assets/images/palming/palming.png",
@@ -139,6 +142,7 @@ final List<Map<String, dynamic>> therapiesList = [
   // Kaleidoscope Focus
   {
     "title": "Kaleidoscope Focus",
+    "category": "General",
     "timeLimit": 4, // Total duration in minutes
     "type": "animation_kaleidoscope", // Requires custom animation logic
     "svgPath": "assets/images/kaleidoscope_focus/kaleidoscope.png",
@@ -166,6 +170,7 @@ final List<Map<String, dynamic>> therapiesList = [
 // Yin-Yang Clarity
   {
     "title": "Yin-Yang Clarity",
+    "category": "General",
     "timeLimit": 3, // Total duration in minutes
     "type": "animation_yin_yang", // Requires custom animation logic
     "svgPath": "assets/images/yin_yang_clarity/yin-yang.png",
@@ -194,6 +199,7 @@ final List<Map<String, dynamic>> therapiesList = [
 
   {
     "title": "Eye Rolling",
+    "category": "General",
     "timeLimit": 2, // Total duration in minutes
     "type":
         "animation_eye_rolling", // Specifies that this therapy requires Rive animation
@@ -220,6 +226,7 @@ final List<Map<String, dynamic>> therapiesList = [
   // Figure Eight Focus
   {
     "title": "Figure Eight Focus",
+    "category": "General",
     "timeLimit": 3, // Total duration in minutes
     "type":
         "animation_figure_8", // Specifies that this therapy requires animation
@@ -247,6 +254,7 @@ final List<Map<String, dynamic>> therapiesList = [
   // Distance Gazing
   {
     "title": "Distance Gazing",
+    "category": "General",
     "timeLimit": 2, // Total duration in minutes
     "type": "image", // Specifies that this therapy only requires images
     "svgPath": "assets/images/distance_gazing/distance_gazing.png",
@@ -293,6 +301,7 @@ final List<Map<String, dynamic>> therapiesList = [
   // Blinking Exercise
   {
     "title": "Blinking Exercise",
+    "category": "General",
     "timeLimit": 2, // Total duration in minutes
     "type": "image", // Specifies that this therapy only requires images
     "svgPath": "assets/images/blinking_exercise/blinking_eye.png",
@@ -339,6 +348,7 @@ final List<Map<String, dynamic>> therapiesList = [
   // Focus Shifting
   {
     "title": "Focus Shifting",
+    "category": "General",
     "timeLimit": 3, // Total duration in minutes
     "type": "image", // Specifies that this therapy only requires images
     "svgPath": "assets/images/focus_shifting/focus_shifting.png",
