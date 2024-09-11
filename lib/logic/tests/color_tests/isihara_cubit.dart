@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:OculaCare/configs/app/remote/ml_model.dart';
+import 'package:OculaCare/configs/global/app_globals.dart';
 import 'package:OculaCare/data/models/tests/test_result_model.dart';
 import 'package:OculaCare/data/repositories/local/preferences/shared_prefs.dart';
 import 'package:OculaCare/data/repositories/tests/test_repo.dart';
@@ -19,6 +20,7 @@ class IshiharaCubit extends Cubit<IshiharaState> {
   String analysis = '';
   MlModel ml = MlModel();
   int? answerSelected;
+  bool api = false;
 
   IshiharaCubit()
       : super(IshiharaState(
@@ -76,23 +78,28 @@ class IshiharaCubit extends Cubit<IshiharaState> {
         answerSelected = null;
         closeGame();
         emit(state.copyWith(loading: true));
-        final String date = getCurrentDateString();
-        ResponseModel response = await ml.getData(
-            'The Ishihara test is a color vision test that detects color blindness by having individuals identify numbers or patterns within a series of colored plates. The test consists of 10 questions, where each correct answer indicates the ability to distinguish specific colors.The patient recently took the Ishihara test and scored ${state.correctAnswers} out of 10.Based on this score, please provide a small analysis in 2 lines of the patient color vision without heading also generate text in such a way that youre talking to the patient directly. Consider if the score indicates normal color vision(score 9-10), mild(score 7-8), moderate(score 4-6).');
-        ResponseModel resp = await ml.getData(
-            'Also, provide recommendations in form of points without any heading or subheadings only 3 points, also generate text in such a way that youre talking to the patient directly.');
-        ResponseModel resp_ = await ml.getData(
-            'Additionally, mention any potential impacts of color blindness in daily activities without heading or subheadings and only 3 points, also generate text in such a way that youre talking to the patient directly');
-        TestResultModel data = TestResultModel(
-            patientName: sharedPrefs.userName,
-            date: date,
-            testType: 'Color Perception Test',
-            testName: 'Isihara Plates',
-            testScore: state.correctAnswers,
-            resultDescription: response.text,
-            recommendation: resp.text,
-            precautions: resp_.text);
-        await testRepo.addTestRecord(data);
+        if (api == false) {
+          api = true;
+          final String date = getCurrentDateString();
+          ResponseModel response = await ml.getData(
+              'The Ishihara test is a color vision test that detects color blindness by having individuals identify numbers or patterns within a series of colored plates. The test consists of 10 questions, where each correct answer indicates the ability to distinguish specific colors.The patient recently took the Ishihara test and scored ${state.correctAnswers} out of 10.Based on this score, please provide a small analysis in 2 lines of the patient color vision without heading also generate text in such a way that youre talking to the patient directly. Consider if the score indicates normal color vision(score 9-10), mild(score 7-8), moderate(score 4-6).');
+          ResponseModel resp = await ml.getData(
+              'Also, provide recommendations in form of points without any heading or subheadings only 3 points, also generate text in such a way that youre talking to the patient directly.');
+          ResponseModel resp_ = await ml.getData(
+              'Additionally, mention any potential impacts of color blindness in daily activities without heading or subheadings and only 3 points, also generate text in such a way that youre talking to the patient directly');
+          TestResultModel data = TestResultModel(
+              patientName: sharedPrefs.userName,
+              date: date,
+              testType: 'Color Perception Test',
+              testName: 'Isihara Plates',
+              testScore: state.correctAnswers,
+              resultDescription: response.text,
+              recommendation: resp.text,
+              precautions: resp_.text);
+          await testRepo.addTestRecord(data);
+          testResults.add(data);
+        }
+        api = false;
         emit(state.copyWith(testCompleted: true, loading: false));
       } else {
         answerSelected = null;
