@@ -2,6 +2,7 @@ final List<Map<String, dynamic>> bulgyEyeTherapies = [
   // Palming
   {
     "title": "Palming",
+    "category": "Bulgy Eyes",
     "timeLimit": 5,
     "type": "image",
     "svgPath": "assets/images/palming/palming.png",
@@ -42,6 +43,7 @@ final List<Map<String, dynamic>> bulgyEyeTherapies = [
   // Focus Shifting
   {
     "title": "Focus Shifting",
+    "category": "Bulgy Eyes",
     "timeLimit": 3,
     "type": "image",
     "svgPath": "assets/images/focus_shifting/focus_shifting.png",
@@ -87,6 +89,7 @@ final List<Map<String, dynamic>> bulgyEyeTherapies = [
   // Squint Exercise
   {
     "title": "Squint",
+    "category": "Bulgy Eyes",
     "timeLimit": 3,
     "type": "instruction",
     "svgPath": "assets/images/bulgy_eyes/squint/squint.png",
@@ -124,6 +127,7 @@ final List<Map<String, dynamic>> bulgyEyeTherapies = [
   // Eye Direction
   {
     "title": "Eye Direction and Relaxation",
+    "category": "Bulgy Eyes",
     "timeLimit": 3,
     "type": "instruction",
     "svgPath": "assets/images/bulgy_eyes/eye_direction/eye_direction.png",
@@ -172,6 +176,7 @@ final List<Map<String, dynamic>> bulgyEyeTherapies = [
   // Clockwise Eye Movement
   {
     "title": "Clockwise Eye Movement",
+    "category": "Bulgy Eyes",
     "timeLimit": 2,
     "type": "instruction",
     "svgPath": "assets/images/bulgy_eyes/rotate/rotate.png",
@@ -210,6 +215,7 @@ final List<Map<String, dynamic>> bulgyEyeTherapies = [
   // Blinking Exercise
   {
     "title": "Blinking Exercise",
+    "category": "Bulgy Eyes",
     "timeLimit": 2,
     "type": "image",
     "svgPath": "assets/images/blinking_exercise/blinking_eye.png",
@@ -256,6 +262,7 @@ final List<Map<String, dynamic>> bulgyEyeTherapies = [
   // Figure Eight Focus
   {
     "title": "Figure Eight Focus",
+    "category": "Bulgy Eyes",
     "timeLimit": 3,
     "type":
         "animation_figure_8",
