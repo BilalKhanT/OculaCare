@@ -106,28 +106,34 @@ class ContrastCubit extends Cubit<ContrastState> {
     await _successAudioPlayer.stop();
     await _errorAudioPlayer.stop();
     emit(ContrastLoading());
-    if (api == false) {
-      api = true;
-      String analysis = determineContrastSensitivity(_score);
-      String date = getCurrentDateString();
-      ResponseModel resp = await ml.getData(
-          'Patient took contrast sensitivity test and this is the analysis $analysis, provide recommendations in form of points without any heading only 3 points, also generate text in such a way that youre talking to the patient directly.');
-      ResponseModel resp_ = await ml.getData(
-          'Additionally, mention any potential impacts daily activities without heading and only 3 points, also generate text in such a way that youre talking to the patient directly');
-      TestResultModel data = TestResultModel(
-          patientName: sharedPrefs.userName,
-          date: date,
-          testType: 'Vision Acuity Test',
-          testName: 'Contrast Sensitivity',
-          testScore: _score,
-          resultDescription: analysis,
-          recommendation: resp.text,
-          precautions: resp_.text);
-      await testRepo.addTestRecord(data);
-      testResults.add(data);
+    try {
+      if (api == false) {
+        api = true;
+        String analysis = determineContrastSensitivity(_score);
+        String date = getCurrentDateString();
+        ResponseModel resp = await ml.getData(
+            'Patient took contrast sensitivity test and this is the analysis $analysis, provide recommendations in form of points without any heading only 3 points, also generate text in such a way that youre talking to the patient directly.');
+        ResponseModel resp_ = await ml.getData(
+            'Additionally, mention any potential impacts daily activities without heading and only 3 points, also generate text in such a way that youre talking to the patient directly');
+        TestResultModel data = TestResultModel(
+            patientName: sharedPrefs.userName,
+            date: date,
+            testType: 'Vision Acuity Test',
+            testName: 'Contrast Sensitivity',
+            testScore: _score,
+            resultDescription: analysis,
+            recommendation: resp.text,
+            precautions: resp_.text);
+        await testRepo.addTestRecord(data);
+        testResults.add(data);
+        api = false;
+      }
+      emit(ContrastGameOver(_score));
     }
-    api = false;
-    emit(ContrastGameOver(_score));
+    catch (e) {
+      api = false;
+      emit(ContrastGameOver(_score));
+    }
   }
 
   void closeGame() {
