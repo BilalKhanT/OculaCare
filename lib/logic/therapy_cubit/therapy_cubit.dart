@@ -1,9 +1,10 @@
 import 'dart:async';
 import 'dart:math';
 import 'dart:ui';
+import 'package:OculaCare/data/models/therapy/therapy_results_model.dart';
+import 'package:OculaCare/data/repositories/local/preferences/shared_prefs.dart';
 import 'package:bloc/bloc.dart';
 import 'package:intl/intl.dart';
-import '../../data/repositories/local/preferences/shared_prefs.dart';
 import '../../data/repositories/therapy/therapy_repo.dart';
 import '../../data/therapies_data/stories.dart';
 import 'therapy_state.dart';
@@ -22,56 +23,60 @@ class TherapyCubit extends Cubit<TherapyState> {
   TherapyCubit(this._timerCubit, this._musicCubit) : super(TherapyInitial());
 
   final TherapyRepository therapyRepository = TherapyRepository();
-  List<Map<String, dynamic>> therapyHistory = [];
+  List<TherapyModel> therapyHistory = [];
 
   Future<void> loadTherapyHistory(String patientName) async {
     emit(TherapyLoading());
-    if (therapyRepository.therapyRecords.isEmpty) {
-      final List<Map<String, dynamic>> therapies = await therapyRepository.getTherapyRecords(patientName);
-      therapyRepository.therapyRecords.addAll(therapies);
-      therapyHistory = List<Map<String, dynamic>>.from(therapyRepository.therapyRecords);
-      emit(TherapyHistoryLoaded(therapyRepository.therapyRecords));
-    } else {
-      therapyHistory = List<Map<String, dynamic>>.from(therapyRepository.therapyRecords);
-      emit(TherapyHistoryLoaded(List<Map<String, dynamic>>.from(therapyRepository.therapyRecords)));
+    print("here");
+    try {
+      final therapies = await therapyRepository.getTherapyRecord(patientName);
+      if (therapies.isNotEmpty) {
+        print("now here");
+        therapyHistory = therapies;
+        print(therapies);
+      }
+      emit(TherapyHistoryLoaded(therapyHistory));
+    } catch (e) {
+      return ;
     }
   }
 
 
-  void startTherapy(String title, int timeLimit, List<Map<String, dynamic>> steps, String soundPath) {
+
+  void startTherapy(String title, int timeLimit, List<Map<String, dynamic>> steps, String soundPath, String category) {
     _timerCubit.startTimer(timeLimit * 60);
     _musicCubit.playMusic(soundPath);
 
     switch (title) {
       case "Jumping Stripes" || "Mirror Eye Stretch":
-        _startAnimationTherapy(title, steps);
+        _startAnimationTherapy(title, steps, category);
         break;
       case "Kaleidoscope Focus":
-        _startKaleidoscopeTherapy(title, steps);
+        _startKaleidoscopeTherapy(title, steps, category);
         break;
       case "Yin-Yang Clarity":
-        _startYinYangTherapy(title, steps);
+        _startYinYangTherapy(title, steps, category);
         break;
       case "Eye Rolling":
-        _startEyeRollingTherapy(title, steps);
+        _startEyeRollingTherapy(title, steps, category);
         break;
       case "Figure Eight Focus":
-        _startFigureEightTherapy(title, steps);
+        _startFigureEightTherapy(title, steps, category);
         break;
       case "Brock String Exercise":
-        startBrockStringExercise(title, steps, timeLimit);
+        startBrockStringExercise(title, steps, timeLimit, category);
         break;
       case "Eye Patch Therapy":
-        startEyePatchTherapy(title, steps, timeLimit);
+        startEyePatchTherapy(title, steps, timeLimit, category);
         break;
       default:
-        _startStepTherapy(title, steps);
+        _startStepTherapy(title, steps, category);
         break;
     }
   }
 
 
-  void _startYinYangTherapy(String title, List<Map<String, dynamic>> steps) {
+  void _startYinYangTherapy(String title, List<Map<String, dynamic>> steps, String category) {
     int stepIndex = 0;
     final random = Random();
 
@@ -98,7 +103,7 @@ class TherapyCubit extends Cubit<TherapyState> {
     });
   }
 
-  void _startKaleidoscopeTherapy(String title, List<Map<String, dynamic>> steps) {
+  void _startKaleidoscopeTherapy(String title, List<Map<String, dynamic>> steps, String category) {
     int stepIndex = 0;
     _flutterTts.speak(steps[stepIndex]['instruction']);
 
@@ -113,7 +118,7 @@ class TherapyCubit extends Cubit<TherapyState> {
 
     _timerCubit.stream.listen((remainingTime) {
       if (remainingTime <= 0) {
-        _completeTherapy(title);
+        _completeTherapy(title, category);
       }
       else if (remainingTime <= (_timerCubit.initialTimeLimit - steps[stepIndex]['duration'])) {
         stepIndex++;
@@ -128,7 +133,7 @@ class TherapyCubit extends Cubit<TherapyState> {
   }
 
 
-  void _startEyeRollingTherapy(String title, List<Map<String, dynamic>> steps) {
+  void _startEyeRollingTherapy(String title, List<Map<String, dynamic>> steps, String category) {
     int stepIndex = 0;
 
     _flutterTts.speak(steps[stepIndex]['instruction']);
@@ -151,7 +156,7 @@ class TherapyCubit extends Cubit<TherapyState> {
 
       _timerCubit.stream.listen((remainingTime) {
         if (remainingTime <= 0) {
-          _completeTherapy(title);
+          _completeTherapy(title, category);
         }
       });
     });
@@ -159,7 +164,7 @@ class TherapyCubit extends Cubit<TherapyState> {
   double _dx = 4;
   double _dy = 4;
 
-  void _startAnimationTherapy(String title, List<Map<String, dynamic>> steps) {
+  void _startAnimationTherapy(String title, List<Map<String, dynamic>> steps, String category) {
     int stepIndex = 0;
     _flutterTts.speak(steps[stepIndex]['instruction']);
 
@@ -184,7 +189,7 @@ class TherapyCubit extends Cubit<TherapyState> {
 
     _timerCubit.stream.listen((remainingTime) {
       if (remainingTime <= 0) {
-        _completeTherapy(title);
+        _completeTherapy(title, category);
       }
     });
   }
@@ -211,7 +216,7 @@ class TherapyCubit extends Cubit<TherapyState> {
 
 
 
-  void _startStepTherapy(String title, List<Map<String, dynamic>> steps) {
+  void _startStepTherapy(String title, List<Map<String, dynamic>> steps, String category) {
     int stepIndex = 0;
 
     _flutterTts.speak(steps[stepIndex]['instruction']);
@@ -228,7 +233,7 @@ class TherapyCubit extends Cubit<TherapyState> {
     // Listen to timer updates
     _timerCubit.stream.listen((remainingTime) {
       if (remainingTime <= 0) {
-        _completeTherapy(title);
+        _completeTherapy(title, category);
       } else if (remainingTime % steps[stepIndex]['duration'] == 0) {
         stepIndex++;
         if (stepIndex < steps.length) {
@@ -277,7 +282,7 @@ class TherapyCubit extends Cubit<TherapyState> {
   }
 
 
-  void _startFigureEightTherapy(String title, List<Map<String, dynamic>> steps) {
+  void _startFigureEightTherapy(String title, List<Map<String, dynamic>> steps, String category) {
     int stepIndex = 0;
 
     // Speak the first step's instruction
@@ -306,7 +311,7 @@ class TherapyCubit extends Cubit<TherapyState> {
       // Continue tracking the remaining time for the animation
       _timerCubit.stream.listen((remainingTime) {
         if (remainingTime <= 0) {
-          _completeTherapy(title);  // Complete the therapy when time runs out
+          _completeTherapy(title, category);  // Complete the therapy when time runs out
         }
       });
     });
@@ -370,11 +375,10 @@ class TherapyCubit extends Cubit<TherapyState> {
 //   }
 
 
-  void startBrockStringExercise(String title, List<Map<String, dynamic>> steps, int totalTime) {
-    int beadIndex = 0;  // Start with the first bead
-    int remainingTime = totalTime * 60; // Convert to seconds
-    int instructionTime = steps[0]['duration']; // Get the initial instruction duration
-    Timer? beadTimer;  // Declare the beadTimer for bead transitions
+  void startBrockStringExercise(String title, List<Map<String, dynamic>> steps, int totalTime, String category) {
+    int beadIndex = 0;
+    int remainingTime = totalTime * 60;
+    Timer? beadTimer;
 
     // Emit the first instruction and bead focus
     print('Starting Brock String Therapy');
@@ -438,7 +442,7 @@ class TherapyCubit extends Cubit<TherapyState> {
     _timerCubit.startTimer(remainingTime);
     _timerCubit.stream.listen((remainingTime) {
       if (remainingTime <= 0) {
-        _completeTherapy(title);  // Complete therapy if time is up
+        _completeTherapy(title, category);  // Complete therapy if time is up
       }
     });
 
@@ -447,7 +451,7 @@ class TherapyCubit extends Cubit<TherapyState> {
     print('Stored animation timer');
   }
 
-  void startMirrorEyeStretch(String title, List<Map<String, dynamic>> steps, int totalTime, double screenWidth, double screenHeight) {
+  void startMirrorEyeStretch(String title, List<Map<String, dynamic>> steps, int totalTime, double screenWidth, double screenHeight, String category) {
     int stepIndex = 0;
     int remainingTime = totalTime * 60; // Convert to seconds
     List<Offset> cornerPositions = [
@@ -503,13 +507,13 @@ class TherapyCubit extends Cubit<TherapyState> {
     _timerCubit.startTimer(remainingTime);
     _timerCubit.stream.listen((remainingTime) {
       if (remainingTime <= 0) {
-        _completeTherapy(title);
+        _completeTherapy(title, category);
       }
     });
   }
 
 
-  void startEyePatchTherapy(String title, List<Map<String, dynamic>> steps, int totalTime) {
+  void startEyePatchTherapy(String title, List<Map<String, dynamic>> steps, int totalTime, String category) {
     int stepIndex = 0;
     int remainingTime = totalTime * 60;
 
@@ -553,47 +557,44 @@ class TherapyCubit extends Cubit<TherapyState> {
     _timerCubit.startTimer(remainingTime);
     _timerCubit.stream.listen((remainingTime) {
       if (remainingTime <= 0) {
-        _completeTherapy(title);
+        _completeTherapy(title, category);
       }
     });
   }
 
-  void _completeTherapy(String title) async {
+  void _completeTherapy(String title, String category) async {
     _musicCubit.stopMusic();
     _flutterTts.stop();
     _animationTimer?.cancel();
     _timerCubit.stopTimer();
 
-    // Emit the loading state
     emit(TherapyLoading());
 
     String formattedDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
-    Map<String, dynamic> therapyData = {
-      'patient_name': sharedPrefs.userName,
-      'date': formattedDate,
-      'therapy_type': title,
-      'therapy_name': title,
-      'duration': _timerCubit.initialTimeLimit - _timerCubit.state,
-    };
 
-    bool isSuccess = await therapyRepository.addTherapyRecord(therapyData);
+    TherapyModel newTherapy = TherapyModel(
+      patientName: sharedPrefs.userName,
+      date: formattedDate,
+      therapyType: category,
+      therapyName: title,
+      duration: _timerCubit.initialTimeLimit - _timerCubit.state,
+    );
+    Map<String, dynamic> therapyData = newTherapy.toJson();
 
-    if (isSuccess) {
-      therapyHistory.add(therapyData);
-      therapyRepository.therapyRecords.add(therapyData);
-      print('After adding new therapy, therapyHistory length: ${therapyHistory.length}');
-      print('Updated therapyHistory: $therapyHistory');
-      print('Updated therapyRecords in repository: ${therapyRepository.therapyRecords}');
-      emit(TherapyHistoryLoaded(therapyRepository.therapyRecords));
-      emit(TherapyCompleted(therapyTitle: title));
-    } else {
-      emit(const TherapySaveError('Failed to save therapy data'));
+    try {
+      bool isSaved = await therapyRepository.addTherapyRecord(therapyData);
+
+      if (isSaved) {
+        therapyHistory.add(newTherapy);
+        emit(TherapyHistoryLoaded(therapyHistory));
+        emit(TherapyCompleted(therapyTitle: title));
+      } else {
+        emit(const TherapyError(therapyErr: 'Failed to save therapy'));
+      }
+    } catch (e) {
+      emit(const TherapyError(therapyErr: 'Error saving therapy'));
     }
   }
-
-
-
-
 
   void stopTherapy() {
     _animationTimer?.cancel();
