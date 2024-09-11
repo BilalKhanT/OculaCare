@@ -2,6 +2,7 @@ final List<Map<String, dynamic>> crossedEyeTherapies = [
   // Brock String Exercise
   {
     "title": "Brock String Exercise",
+    "category": "Crossed Eyes",
     "timeLimit": 10, 
     "type": "animation_string",
     "svgPath": "assets/images/crossed_eyes/brock_string/brock_string.png",
@@ -34,6 +35,7 @@ final List<Map<String, dynamic>> crossedEyeTherapies = [
   // Mirror Eye Stretch
   {
     "title": "Mirror Eye Stretch",
+    "category": "Crossed Eyes",
     "timeLimit": 5, 
     "type": "instruction",
     "svgPath": "assets/images/crossed_eyes/mirror_eye/mirror_eye.png",
@@ -66,6 +68,7 @@ final List<Map<String, dynamic>> crossedEyeTherapies = [
   // Pencil Push-Up Therapy
   {
     "title": "Pencil Push-Up",
+    "category": "Crossed Eyes",
     "timeLimit": 10, 
     "type": "instruction",
     "svgPath": "assets/images/crossed_eyes/pencil_pushups/pencil_pushups.png",
@@ -114,6 +117,7 @@ final List<Map<String, dynamic>> crossedEyeTherapies = [
   // Barrel Card Exercise
   {
     "title": "Barrel Card Exercise",
+    "category": "Crossed Eyes",
     "timeLimit": 5, 
     "type": "animation_barrel",
     "svgPath": "assets/images/crossed_eyes/barrel_card/barrel_card.png",
@@ -158,6 +162,7 @@ final List<Map<String, dynamic>> crossedEyeTherapies = [
   // Eye Patch Therapy
   {
     "title": "Eye Patch Therapy",
+    "category": "Crossed Eyes",
     "timeLimit": 1, 
     "type": "instruction",
     "svgPath": "assets/images/crossed_eyes/eye_patch/eye_patch.png",
@@ -182,6 +187,7 @@ final List<Map<String, dynamic>> crossedEyeTherapies = [
   // Peripheral Awareness Exercise
   {
     "title": "Peripheral Awareness Exercise",
+    "category": "Crossed Eyes",
     "timeLimit": 5,
     "type":
         "animation_peripheral",
