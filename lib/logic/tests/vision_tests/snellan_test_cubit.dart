@@ -1,4 +1,5 @@
 import 'package:OculaCare/configs/app/remote/ml_model.dart';
+import 'package:OculaCare/configs/global/app_globals.dart';
 import 'package:OculaCare/logic/tests/vision_tests/snellan_test_state.dart';
 import 'package:bloc/bloc.dart';
 import 'package:intl/intl.dart';
@@ -23,6 +24,7 @@ class SnellanTestCubit extends Cubit<SnellanTestState> {
   String recognizedText = "";
   late stt.SpeechToText _speech;
   MlModel ml = MlModel();
+  bool api = false;
 
   final List<double> snellanDistances = [
     60.0,
@@ -119,28 +121,7 @@ class SnellanTestCubit extends Cubit<SnellanTestState> {
         'NOTVISIBLE') {
       emit(SnellanTestAnalysing());
       String fraction = calculateVisionAcuity();
-      ResponseModel response = await ml.getData(
-          'The Snellen chart test is a standard eye exam that measures how well you can see at a distance. The patient recently took this test and achieved a visual acuity of $fraction. Please provide a brief analysis in 2 lines of the patient’s visual acuity without a heading. Generate text as if you are talking directly to the patient. Consider if the vision is normal (6/6), slightly reduced (6/9), or progressively worse for lower fractions.'
-      );
-
-      ResponseModel resp = await ml.getData(
-          'Also, provide recommendations in the form of points (without any heading or subheadings) with only 3 points. Generate text as if you are talking directly to the patient.'
-      );
-
-      ResponseModel resp_ = await ml.getData(
-          'Additionally, mention any three potential impacts of reduced visual acuity in daily activities in form of points without headings or subheadings. Generate text as if you are talking directly to the patient.'
-      );
-      String date = getCurrentDateString();
-      TestResultModel data = TestResultModel(
-          patientName: 'Bilal Khan',
-          date: date,
-          testType: 'Vision Acuity Test',
-          testName: 'Snellan Chart',
-          testScore: int.parse(fraction.split('/')[1]),
-          resultDescription: response.text,
-          recommendation: resp.text,
-          precautions: resp_.text);
-      await testRepo.addTestRecord(data);
+      await endSnellenTest();
       emit(SnellanTestCompleted(score, fraction));
       return;
     } else {
@@ -149,6 +130,52 @@ class SnellanTestCubit extends Cubit<SnellanTestState> {
     int maxWrongGuesses = getMaxWrongGuessesForRow();
     if (wrongGuesses >= maxWrongGuesses) {
       emit(SnellanTestAnalysing());
+      String fraction = calculateVisionAcuity();
+      await endSnellenTest();
+      emit(SnellanTestCompleted(score, fraction));
+      return;
+    }
+    subIndex++;
+    if (subIndex < check.length) {
+      emit(SnellanTestNext(
+          snellanList[initialIndex], subIndex, calculateFontSize()));
+      await initListening();
+    } else {
+      initialIndex++;
+      subIndex = 0;
+      wrongGuesses = 0;
+      if (initialIndex < snellanList.length) {
+        emit(SnellanTestNext(
+            snellanList[initialIndex], subIndex, calculateFontSize()));
+        await initListening();
+      } else {
+        emit(SnellanTestAnalysing());
+        String fraction = calculateVisionAcuity();
+        await endSnellenTest();
+        emit(SnellanTestCompleted(score, fraction));
+      }
+    }
+  }
+
+  int getMaxWrongGuessesForRow() {
+    if (initialIndex <= 2) {
+      return 1;
+    } else if (initialIndex <= 4) {
+      return 2;
+    } else {
+      return 3;
+    }
+  }
+
+  Future<void> emitCompleted() async {
+    await _speech.stop();
+    emit(const SnellanTestCompleted(0, ''));
+  }
+
+  Future<void> endSnellenTest() async {
+    if (api == true) return;
+    try {
+      api = true;
       String fraction = calculateVisionAcuity();
       ResponseModel response = await ml.getData(
           'The Snellen chart test is a standard eye exam that measures how well you can see at a distance. The patient recently took this test and achieved a visual acuity of $fraction. Please provide a brief analysis in 2 lines of the patient’s visual acuity without a heading. Generate text as if you are talking directly to the patient. Consider if the vision is normal (6/6), slightly reduced (6/9), or progressively worse for lower fractions.'
@@ -172,65 +199,12 @@ class SnellanTestCubit extends Cubit<SnellanTestState> {
           recommendation: resp.text,
           precautions: resp_.text);
       await testRepo.addTestRecord(data);
-      emit(SnellanTestCompleted(score, fraction));
-      return;
+      testResults.add(data);
+      api = false;
     }
-    subIndex++;
-    if (subIndex < check.length) {
-      emit(SnellanTestNext(
-          snellanList[initialIndex], subIndex, calculateFontSize()));
-      await initListening();
-    } else {
-      initialIndex++;
-      subIndex = 0;
-      wrongGuesses = 0;
-      if (initialIndex < snellanList.length) {
-        emit(SnellanTestNext(
-            snellanList[initialIndex], subIndex, calculateFontSize()));
-        await initListening();
-      } else {
-        emit(SnellanTestAnalysing());
-        String fraction = calculateVisionAcuity();
-        ResponseModel response = await ml.getData(
-            'The Snellen chart test is a standard eye exam that measures how well you can see at a distance. The patient recently took this test and achieved a visual acuity of $fraction. Please provide a brief analysis in 2 lines of the patient’s visual acuity without a heading. Generate text as if you are talking directly to the patient. Consider if the vision is normal (6/6), slightly reduced (6/9), or progressively worse for lower fractions.'
-        );
-
-        ResponseModel resp = await ml.getData(
-            'Also, provide recommendations in the form of points (without any heading or subheadings) with only 3 points. Generate text as if you are talking directly to the patient.'
-        );
-
-        ResponseModel resp_ = await ml.getData(
-            'Additionally, mention any three potential impacts of reduced visual acuity in daily activities in form of points without headings or subheadings. Generate text as if you are talking directly to the patient.'
-        );
-        String date = getCurrentDateString();
-        TestResultModel data = TestResultModel(
-            patientName: sharedPrefs.userName,
-            date: date,
-            testType: 'Vision Acuity Test',
-            testName: 'Snellan Chart',
-            testScore: int.parse(fraction.split('/')[1]),
-            resultDescription: response.text,
-            recommendation: resp.text,
-            precautions: resp_.text);
-        await testRepo.addTestRecord(data);
-        emit(SnellanTestCompleted(score, fraction));
-      }
+    catch (e) {
+      api = false;
     }
-  }
-
-  int getMaxWrongGuessesForRow() {
-    if (initialIndex <= 2) {
-      return 1;
-    } else if (initialIndex <= 4) {
-      return 2;
-    } else {
-      return 3;
-    }
-  }
-
-  Future<void> emitCompleted() async {
-    await _speech.stop();
-    emit(const SnellanTestCompleted(0, ''));
   }
 
   double calculateFontSize() {
