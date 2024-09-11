@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:OculaCare/data/models/therapy/therapy_results_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:OculaCare/configs/app/app_globals.dart';
 
@@ -7,7 +8,7 @@ class TherapyRepository {
   final String getTherapyUrl = '$ipServer/api/therapy/find';
 
   Future<bool> addTherapyRecord(Map<String, dynamic> therapyData) async {
-    final url = Uri.parse(getTherapyUrl);
+    final url = Uri.parse(addTherapyUrl);
 
     try {
       final response = await http.post(
@@ -28,28 +29,22 @@ class TherapyRepository {
     }
   }
 
-  List<Map<String, dynamic>> therapyRecords = [];
-
-  Future<List<Map<String, dynamic>>> getTherapyRecords(String patientName) async {
-    final url = Uri.parse('$getTherapyUrl/$patientName');
-    print(url);
+  Future<List<TherapyModel>> getTherapyRecord(String patientName) async {
     try {
-      final response = await http.get(url);
+      final response = await http.get(Uri.parse('$getTherapyUrl/$patientName'));
+
       if (response.statusCode == 200) {
-        List<dynamic> jsonData = jsonDecode(response.body);
-        print("Successfully fetched therapy records for $patientName");
-
-        // Convert and store the fetched data in the class-level list
-        therapyRecords = jsonData.map((json) => json as Map<String, dynamic>).toList();
-
-        return therapyRecords;
+        List<dynamic> jsonResponse = jsonDecode(response.body);
+        List<TherapyModel> therapies = jsonResponse.map((data) {
+          return TherapyModel.fromJson(data);
+        }).toList();
+        print(therapies);
+        return therapies;
       } else {
-        print('Failed to fetch therapies for $patientName: ${response.body}');
-        return [];
+        throw Exception('Failed to load therapy records');
       }
     } catch (e) {
-      print('Error fetching therapies for $patientName: $e');
-      return [];
+      throw Exception('Error fetching therapy records: $e');
     }
   }
 
