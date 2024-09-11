@@ -36,9 +36,9 @@ class MoreView extends StatelessWidget {
                               Text(
                                 "Leaflets",
                                 style: TextStyle(
-                                    fontFamily: "Poppins",
+                                    fontFamily: "MontserratMedium",
                                     color: AppColors.appColor,
-                                    fontWeight: FontWeight.bold,
+                                    fontWeight: FontWeight.w800,
                                     letterSpacing: 1,
                                     fontSize: 17.sp),
                               ),
@@ -97,9 +97,10 @@ class MoreView extends StatelessWidget {
                                       SizedBox(width: 5.w,),
                                       Text('Scan&Detect',
                                       style: TextStyle(
+                                        fontFamily: 'MontserratMedium',
                                         color: AppColors.appColor,
                                         fontWeight: FontWeight.w700,
-                                        fontSize: 20.sp,
+                                        fontSize: 18.sp,
                                       ),),
                                     ],
                                   ),
@@ -111,7 +112,7 @@ class MoreView extends StatelessWidget {
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 11.sp,
-                                      fontFamily: 'Poppins',
+                                      fontFamily: 'Montserrat',
                                     ),
                                   )
                                 ],
@@ -221,21 +222,21 @@ class MoreView extends StatelessWidget {
                             borderRadius: BorderRadius.circular(10)),
                         child: Column(
                           children: [
-                            MoreTab(
-                              text: "FAQs",
-                              icon: "assets/svgs/faq.svg",
-                              onTap: () async {
-                                // const url =
-                                //     "https://almeeraloyalty.com/portal/Index.aspx?MenuId=6&LanguageId=1";
-                                // Uri faqLaunchUrl = Uri.parse(
-                                //   url,
-                                // );
-                                // if (await canLaunchUrl(faqLaunchUrl)) {
-                                //   await launchUrl(faqLaunchUrl);
-                                // }
-                              },
-                            ),
-                            divider(),
+                            // MoreTab(
+                            //   text: "FAQs",
+                            //   icon: "assets/svgs/faq.svg",
+                            //   onTap: () async {
+                            //     // const url =
+                            //     //     "https://almeeraloyalty.com/portal/Index.aspx?MenuId=6&LanguageId=1";
+                            //     // Uri faqLaunchUrl = Uri.parse(
+                            //     //   url,
+                            //     // );
+                            //     // if (await canLaunchUrl(faqLaunchUrl)) {
+                            //     //   await launchUrl(faqLaunchUrl);
+                            //     // }
+                            //   },
+                            // ),
+                            // divider(),
                             MoreTab(
                               text: "Feedback",
                               icon: "assets/svgs/feedback.svg",
@@ -338,14 +339,14 @@ class MoreView extends StatelessWidget {
                               style: TextStyle(
                                 fontSize: 12.sp,
                                 color: Colors.grey.shade400,
-                                fontFamily: 'Poppins',
+                                fontFamily: 'MontserratMedium',
                               ),
                             ),
                             Text(
                               "${DateTime.now().year} OculaCare All Rights Reserved.",
                               style: TextStyle(
                                 fontSize: 12.sp,
-                                fontFamily: 'Poppins',
+                                fontFamily: 'MontserratMedium',
                               ),
                             )
                           ],
@@ -385,10 +386,10 @@ class MoreTab extends StatelessWidget {
             child: Text(
               text,
               style: TextStyle(
-                fontFamily: "Poppins",
+                fontFamily: "Montserrat",
                 fontSize: 15.sp,
                 color: Colors.black,
-                fontWeight: FontWeight.w600,
+                fontWeight: FontWeight.bold,
                 overflow: TextOverflow.fade,
               ),
               maxLines: 1,
