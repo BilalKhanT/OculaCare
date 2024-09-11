@@ -178,29 +178,33 @@ class OddOutCubit extends Cubit<OddOutState> {
     emit(OddOutState.initial()
         .copyWith(status: OddOutStatus.loading, score: state.score));
     if (api == false) {
-      api = true;
-      final date = getCurrentDateString();
-      ResponseModel response = await ml.getData(
-          'The "Odd One Out" test is a color perception test that helps assess color sensitivity and subtle color differentiation skills by identifying a square with a slightly different color in a grid of squares. The patient recently took this test and spotted the different-colored square correctly ${state.score} out of 10 times. Based on this score, please provide a brief analysis in 2 lines of the patient’s color differentiation ability without a heading. Generate text as if you are talking directly to the patient. Consider if the score indicates normal color differentiation (score 9-10), mild difficulty (score 7-8), moderate difficulty (score 4-6), or significant difficulty (score 0-3).');
+      try {
+        api = true;
+        final date = getCurrentDateString();
+        ResponseModel response = await ml.getData(
+            'The "Odd One Out" test is a color perception test that helps assess color sensitivity and subtle color differentiation skills by identifying a square with a slightly different color in a grid of squares. The patient recently took this test and spotted the different-colored square correctly ${state.score} out of 10 times. Based on this score, please provide a brief analysis in 2 lines of the patient’s color differentiation ability without a heading. Generate text as if you are talking directly to the patient. Consider if the score indicates normal color differentiation (score 9-10), mild difficulty (score 7-8), moderate difficulty (score 4-6), or significant difficulty (score 0-3).');
 
-      ResponseModel resp = await ml.getData(
-          'Also, provide recommendations in the form of points (without any heading or subheadings) with only 3 points. Generate text as if you are talking directly to the patient.');
+        ResponseModel resp = await ml.getData(
+            'Also, provide recommendations in the form of points (without any heading or subheadings) with only 3 points. Generate text as if you are talking directly to the patient.');
 
-      ResponseModel resp_ = await ml.getData(
-          'Additionally, mention only 3 potential impacts of color differentiation difficulties in daily activities without heading or subheadings. Generate text as if you are talking directly to the patient.');
-      TestResultModel data = TestResultModel(
-          patientName: sharedPrefs.userName,
-          date: date,
-          testType: 'Color Perception Test',
-          testName: 'Odd One Out',
-          testScore: state.score,
-          resultDescription: response.text,
-          recommendation: resp.text,
-          precautions: resp_.text);
-      await testRepo.addTestRecord(data);
-      testResults.add(data);
+        ResponseModel resp_ = await ml.getData(
+            'Additionally, mention only 3 potential impacts of color differentiation difficulties in daily activities without heading or subheadings. Generate text as if you are talking directly to the patient.');
+        TestResultModel data = TestResultModel(
+            patientName: sharedPrefs.userName,
+            date: date,
+            testType: 'Color Perception Test',
+            testName: 'Odd One Out',
+            testScore: state.score,
+            resultDescription: response.text,
+            recommendation: resp.text,
+            precautions: resp_.text);
+        await testRepo.addTestRecord(data);
+        testResults.add(data);
+        api = false;
+      } catch (e) {
+        api = false;
+      }
     }
-    api = false;
     emit(OddOutState.initial()
         .copyWith(status: OddOutStatus.gameOver, score: state.score));
     _timer?.cancel();
