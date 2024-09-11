@@ -2,6 +2,7 @@ final List<Map<String, dynamic>> pterygiumTherapies = [
   // Cold Compress
   {
     "title": "Cold Compress",
+    "category": "Pterygiuym",
     "timeLimit": 5,
     "type": "instruction",
     "svgPath": "assets/images/pterygium/cold_compress/cold_compress.png",
@@ -32,6 +33,7 @@ final List<Map<String, dynamic>> pterygiumTherapies = [
   // Eye Massage
   {
     "title": "Eye Massage",
+    "category": "Pterygiuym",
     "timeLimit": 5,
     "type": "instruction",
     "svgPath": "assets/images/pterygium/eye_message/eye_message.png",
@@ -62,6 +64,7 @@ final List<Map<String, dynamic>> pterygiumTherapies = [
   // Palming
   {
     "title": "Palming",
+    "category": "Pterygiuym",
     "timeLimit": 5, 
     "type": "image", 
     "svgPath": "assets/images/palming/palming.png",
@@ -102,6 +105,7 @@ final List<Map<String, dynamic>> pterygiumTherapies = [
   // Focus Shifting
   {
     "title": "Focus Shifting",
+    "category": "Pterygiuym",
     "timeLimit": 3, 
     "type": "image", 
     "svgPath": "assets/images/focus_shifting/focus_shifting.png",
@@ -147,6 +151,7 @@ final List<Map<String, dynamic>> pterygiumTherapies = [
   // Eye Direction
   {
     "title": "Eye Direction and Relaxation",
+    "category": "Pterygiuym",
     "timeLimit": 3, 
     "type": "instruction", 
     "svgPath": "assets/images/bulgy_eyes/eye_direction/eye_direction.png",
@@ -195,6 +200,7 @@ final List<Map<String, dynamic>> pterygiumTherapies = [
   // Blinking Exercise
   {
     "title": "Blinking Exercise",
+    "category": "Pterygiuym",
     "timeLimit": 2, 
     "type": "image", 
     "svgPath": "assets/images/blinking_exercise/blinking_eye.png",
@@ -241,6 +247,7 @@ final List<Map<String, dynamic>> pterygiumTherapies = [
   // Peripheral Awareness Exercise
   {
     "title": "Peripheral Awareness Exercise",
+    "category": "Pterygiuym",
     "timeLimit": 5, 
     "type":
         "animation_peripheral", 
