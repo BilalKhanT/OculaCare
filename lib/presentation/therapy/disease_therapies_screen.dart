@@ -10,7 +10,7 @@ import '../../data/therapies_data/pterygium_therapies.dart';
 class DiseaseTherapiesScreen extends StatelessWidget {
   final String disease;
 
-  DiseaseTherapiesScreen({required this.disease});
+  const DiseaseTherapiesScreen({required this.disease});
 
   @override
   Widget build(BuildContext context) {
