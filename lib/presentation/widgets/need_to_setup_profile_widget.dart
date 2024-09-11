@@ -58,6 +58,7 @@ class NeedToSetupProfileWidget extends StatelessWidget {
                 child: Text(
                   "Profile Setup Required",
                   style: TextStyle(
+                    fontFamily: 'MontserratMedium',
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
                     fontSize: 20.sp,
@@ -80,12 +81,13 @@ class NeedToSetupProfileWidget extends StatelessWidget {
                     child: Container(
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
-                        color: AppColors.appColor,
+                        color: Colors.black,
                         borderRadius: BorderRadius.circular(10.0),
                       ),
                       child: Text(
                         "Go to Profile",
                         style: TextStyle(
+                          fontFamily: 'MontserratMedium',
                           fontSize: 18.sp,
                           color: Colors.white,
                           fontWeight: FontWeight.w600,

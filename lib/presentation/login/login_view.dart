@@ -1,5 +1,5 @@
 import 'package:OculaCare/logic/sign_up_cubit/sign_up_cubit.dart';
-import 'package:OculaCare/presentation/sign_up/sign_up_view.dart';
+import 'package:OculaCare/presentation/widgets/cstm_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -52,7 +52,7 @@ class LoginScreen extends StatelessWidget {
               }, builder: (context, state) {
                 if (state is LoginStateLoading) {
                   return const Center(
-                    child: CircularProgressIndicator(color: AppColors.appColor,),
+                    child: DotLoader(loaderColor: AppColors.appColor,),
                   );
                 } else if (state is LoginStateFailure) {
                   return Center(

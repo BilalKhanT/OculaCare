@@ -62,6 +62,7 @@ dependencies:
   intl: ^0.19.0
   assets_audio_player: ^3.1.1
   rive: ^0.13.13
+  flutter_heatmap_calendar: ^1.0.5
 
 dev_dependencies:
   flutter_test:

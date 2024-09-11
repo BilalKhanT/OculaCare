@@ -21,7 +21,7 @@ class TestRepository {
       if (response.statusCode == 201) {
         return true;
       } else {
-        log(response.statusCode);
+        log(response.body);
         return false;
       }
     } catch (e) {
@@ -31,7 +31,7 @@ class TestRepository {
   }
 
   Future<List<TestResultModel>> getTestRecords(String patientName) async {
-    final url = Uri.parse('$getTestUrl/$patientName');
+    final url = Uri.parse('$getTestUrl/Bilal Khan');
 
     try {
       final response = await http.get(url);

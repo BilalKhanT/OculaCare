@@ -10,8 +10,8 @@ abstract class AppUtils {
       type: ToastificationType.success,
       style: ToastificationStyle.flat,
       autoCloseDuration: const Duration(seconds: 6),
-      title: title,  // Pass the title as String
-      description: description,  // Pass the description as String
+      title: title,
+      description: description,
       alignment: Alignment.topRight,
       direction: TextDirection.ltr,
       icon: isError

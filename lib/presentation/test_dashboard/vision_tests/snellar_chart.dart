@@ -1,3 +1,4 @@
+import 'package:OculaCare/presentation/test_dashboard/widgets/snellan_chart_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -45,7 +46,7 @@ class SnellanChart extends StatelessWidget {
               }
             },
             icon: const Icon(
-              Icons.arrow_back,
+              Icons.arrow_back_ios_new,
               color: AppColors.appColor,
               size: 30.0,
             ),
@@ -61,6 +62,33 @@ class SnellanChart extends StatelessWidget {
                   Center(
                     child: DotLoader(
                       loaderColor: AppColors.appColor,
+                    ),
+                  ),
+                ],
+              );
+            } else if (state is SnellanTestAnalysing) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Center(
+                    child: DotLoader(
+                      loaderColor: AppColors.appColor,
+                    ),
+                  ),
+                  SizedBox(
+                    height: screenHeight * 0.1,
+                  ),
+                  Center(
+                    child: Text(
+                      'Analysing, please wait.',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: AppColors.appColor,
+                        fontFamily: 'MontserratMedium',
+                        fontWeight: FontWeight.w800,
+                        fontSize: screenWidth * 0.05,
+                      ),
                     ),
                   ),
                 ],
@@ -184,13 +212,52 @@ class SnellanChart extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      'Score: ${state.score}',
-                      style: const TextStyle(fontSize: 24),
+                    Image.asset(
+                      'assets/images/result_test.png',
+                      height: screenHeight * 0.3,
                     ),
+                    SizedBox(
+                      height: screenHeight * 0.02,
+                    ),
+                    Text('Test Completed !',
+                        style: TextStyle(
+                          color: Colors.green,
+                          fontFamily: 'MontserratMedium',
+                          fontWeight: FontWeight.w800,
+                          fontSize: screenWidth * 0.05,
+                        )),
+                    SizedBox(height: screenHeight * 0.02),
+                    Image.asset(
+                      'assets/images/snellan_result.png',
+                      height: screenHeight * 0.2,
+                    ),
+                    SizedBox(height: screenHeight * 0.02),
                     Text(
-                      'Vision Acuity: ${state.visionAcuity}',
-                      style: const TextStyle(fontSize: 24),
+                      'Your vision acuity is ${state.visionAcuity}.',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontFamily: 'MontserratMedium',
+                        fontWeight: FontWeight.w800,
+                        fontSize: screenWidth * 0.04,
+                      ),
+                    ),
+                    SizedBox(height: screenHeight * 0.05),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                      child: ButtonFlat(
+                          btnColor: AppColors.appColor,
+                          textColor: Colors.white,
+                          onPress: () async {
+                            await context
+                                .read<SnellanTestCubit>()
+                                .emitCompleted();
+                            if (context.mounted) {
+                              context.read<TestCubit>().loadTests();
+                              context.go(RouteNames.testRoute);
+                            }
+                          },
+                          text: 'Exit Test'),
                     ),
                   ],
                 ),

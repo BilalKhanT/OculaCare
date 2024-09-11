@@ -1,3 +1,4 @@
+import 'package:OculaCare/data/models/tests/score_model.dart';
 import 'package:OculaCare/logic/therapy_cubit/music_cubit.dart';
 import 'package:OculaCare/logic/therapy_cubit/therapy_cubit.dart';
 import 'package:OculaCare/logic/therapy_cubit/timer_cubit.dart';
@@ -87,8 +88,9 @@ final router = GoRouter(
             routes: <RouteBase>[
               GoRoute(
                 path: RouteNames.dashboardRoute,
-                pageBuilder: (context, state) =>
-                    MaterialPage(child: DashboardScreen()), // Updated with the DashboardScreen
+                pageBuilder: (context, state) => MaterialPage(
+                    child:
+                        DashboardScreen()), // Updated with the DashboardScreen
               ),
             ],
           ),
@@ -220,8 +222,12 @@ final router = GoRouter(
         parentNavigatorKey: navigatorKey,
         path: RouteNames.trackGameOverRoute,
         builder: (context, state) {
-          int score = state.extra as int;
-          return GameOverScreen(score: score);
+          ScoreModel score = state.extra as ScoreModel;
+          return GameOverScreen(
+            score1: score.score1,
+            score2: score.score2,
+            score3: score.score3,
+          );
         }),
     GoRoute(
         parentNavigatorKey: navigatorKey,
@@ -238,13 +244,14 @@ final router = GoRouter(
     // Therapy-specific routes
     GoRoute(
       parentNavigatorKey: navigatorKey,
-      path: RouteNames.therapy,  // Path for the therapy screen
+      path: RouteNames.therapy, // Path for the therapy screen
       builder: (context, state) {
         final exercise = state.extra as Map<String, dynamic>;
         return MultiBlocProvider(
           providers: [
             BlocProvider<TimerCubit>(
-              create: (context) => TimerCubit()..startTimer(exercise['timeLimit'] * 60),
+              create: (context) =>
+                  TimerCubit()..startTimer(exercise['timeLimit'] * 60),
             ),
             BlocProvider<MusicCubit>(
               create: (context) => MusicCubit(),
@@ -254,11 +261,11 @@ final router = GoRouter(
                 BlocProvider.of<TimerCubit>(context),
                 BlocProvider.of<MusicCubit>(context),
               )..startTherapy(
-                exercise['title'],
-                exercise['timeLimit'],
-                exercise['instructions'],
-                exercise['sound'],
-              ),
+                  exercise['title'],
+                  exercise['timeLimit'],
+                  exercise['instructions'],
+                  exercise['sound'],
+                ),
             ),
           ],
           child: TherapyScreen(exercise: exercise),
@@ -273,7 +280,6 @@ final router = GoRouter(
         return DiseaseTherapiesScreen(disease: disease);
       },
     ),
-
 
     // GoRoute(
     //   path: RouteNames.imgCaptureRoute,

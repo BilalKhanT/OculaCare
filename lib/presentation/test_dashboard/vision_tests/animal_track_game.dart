@@ -1,8 +1,10 @@
+import 'package:OculaCare/data/models/tests/score_model.dart';
 import 'package:OculaCare/presentation/test_dashboard/vision_tests/pause_menu.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flame/particles.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'dart:math';
 import '../../../configs/routes/route_names.dart';
@@ -32,8 +34,8 @@ class AnimalTrackGame extends FlameGame
         return PauseMenu(
           onResume: animalTrackGame.resumeGame,
           onQuit: () {
-            gameCubit.endGame();
-            navigateToGameOverScreen();
+            ScoreModel score = gameCubit.endGame();
+            navigateToGameOverScreen(score);
           },
         );
       },
@@ -144,14 +146,15 @@ class AnimalTrackGame extends FlameGame
         levelTimer = null;
         if (level < 3) {
           level++;
+          context.read<AnimalTrackCubit>().updateLevel();
           stripeSize /= 2;
           speed += 50;
           startLevel();
           addContinuousSnowfall();
           addOverlayButton();
         } else {
-          gameCubit.endGame();
-          navigateToGameOverScreen();
+          ScoreModel score = gameCubit.endGame();
+          navigateToGameOverScreen(score);
         }
       }
     });
@@ -212,14 +215,14 @@ class AnimalTrackGame extends FlameGame
     } else {
       gameCubit.incrementMistaps();
       if (gameCubit.state.mistaps >= 5) {
-        gameCubit.endGame();
-        navigateToGameOverScreen();
+        ScoreModel score = gameCubit.endGame();
+        navigateToGameOverScreen(score);
       }
     }
   }
 
-  void navigateToGameOverScreen() {
-    context.go(RouteNames.trackGameOverRoute, extra: gameCubit.score);
+  void navigateToGameOverScreen(ScoreModel score) {
+    context.go(RouteNames.trackGameOverRoute, extra: score);
 
     overlays.clear();
     removeFromParent();

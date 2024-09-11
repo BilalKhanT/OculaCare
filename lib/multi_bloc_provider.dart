@@ -10,6 +10,8 @@ import 'package:OculaCare/logic/patient_profile/upload_profile_photo_cubit.dart'
 import 'package:OculaCare/logic/pdf_cubit/pdf_cubit_state.dart';
 import 'package:OculaCare/logic/sign_up_cubit/sign_up_pass_cubit.dart';
 import 'package:OculaCare/logic/tests/color_tests/radio_btn_cubit.dart';
+import 'package:OculaCare/logic/tests/test_progression_cubit.dart';
+import 'package:OculaCare/logic/tests/vision_tests/animal_track_score_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:OculaCare/logic/image_capture/img_capture_cubit.dart';
@@ -63,7 +65,8 @@ class ProvideMultiBloc extends StatelessWidget {
         create: (context) => KeyboardListenerCubit(),
       ),
       BlocProvider(
-        create: (context) => FeedbackCubit(context.read<KeyboardListenerCubit>()),
+        create: (context) =>
+            FeedbackCubit(context.read<KeyboardListenerCubit>()),
       ),
       BlocProvider(
         create: (context) => AuthCubit(context.read<KeyboardListenerCubit>()),
@@ -134,11 +137,18 @@ class ProvideMultiBloc extends StatelessWidget {
       BlocProvider(
         create: (context) => ContrastCubit(),
       ),
+      BlocProvider(
+        create: (context) => AnimalTrackScoreCubit(),
+      ),
+      BlocProvider(
+        create: (context) => TestProgressionCubit(),
+      ),
       BlocProvider(create: (context) => TimerCubit()),
       BlocProvider(create: (context) => MusicCubit()),
-      BlocProvider(create: (context) => TherapyCubit(
-          BlocProvider.of<TimerCubit>(context),
-          BlocProvider.of<MusicCubit>(context))),
+      BlocProvider(
+          create: (context) => TherapyCubit(
+              BlocProvider.of<TimerCubit>(context),
+              BlocProvider.of<MusicCubit>(context))),
       BlocProvider(create: (context) => TherapyDashboardCubit()),
     ], child: child);
   }
