@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:OculaCare/data/models/therapy/therapy_results_model.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class TherapyState extends Equatable {
@@ -17,7 +18,7 @@ class TherapyLoading extends TherapyState {
 }
 
 class TherapyHistoryLoaded extends TherapyState {
-  final List<Map<String, dynamic>> therapyHistory;
+  final List<TherapyModel> therapyHistory;
 
   const TherapyHistoryLoaded(this.therapyHistory);
 
@@ -220,6 +221,16 @@ class TherapyStoryDisplayInProgress extends TherapyState {
 
   @override
   List<Object> get props => [therapyTitle, instruction, story, remainingTime];
+}
+
+
+class TherapyError extends TherapyState {
+  final String therapyErr;
+
+  const TherapyError({required this.therapyErr});
+
+  @override
+  List<Object> get props => [therapyErr];
 }
 
 
