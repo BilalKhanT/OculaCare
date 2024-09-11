@@ -1,5 +1,7 @@
 import 'package:OculaCare/data/models/tests/history_args_model.dart';
+import 'package:OculaCare/logic/tests/test_progression_cubit.dart';
 import 'package:OculaCare/presentation/test_dashboard/widgets/test_history_tile.dart';
+import 'package:OculaCare/presentation/test_dashboard/widgets/test_progress_heatmap.dart';
 import 'package:OculaCare/presentation/test_dashboard/widgets/test_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -545,7 +547,8 @@ class TestDashView extends StatelessWidget {
                                 final HistoryArgsModel data =
                                     getPath(state.data[index].testName);
                                 return Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2.0),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 8, vertical: 2.0),
                                   child: TestHistoryTile(
                                       title: state.data[index].testName,
                                       description: state.data[index].date,
@@ -579,7 +582,8 @@ class TestDashView extends StatelessWidget {
                                 final HistoryArgsModel data =
                                     getPath(state.dataColor[index].testName);
                                 return Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2.0),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 8, vertical: 2.0),
                                   child: TestHistoryTile(
                                       title: state.dataColor[index].testName,
                                       description: state.dataColor[index].date,
@@ -594,10 +598,126 @@ class TestDashView extends StatelessWidget {
                       ),
                     );
                   } else if (state is TestProgression) {
-                    return const Column(
-                      children: [
-                        Text('Progression'),
-                      ],
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            height: screenHeight * 0.02,
+                          ),
+                          Text(
+                            'Tests Progress',
+                            style: TextStyle(
+                                fontFamily: 'MontserratMedium',
+                                fontWeight: FontWeight.w800,
+                                fontSize: screenWidth * 0.045,
+                                color: AppColors.appColor),
+                          ),
+                          SizedBox(
+                            height: screenHeight * 0.01,
+                          ),
+                          Center(
+                              child: ProgressCalendarScreen(
+                                  data: state.progressData)),
+                          SizedBox(
+                            height: screenHeight * 0.02,
+                          ),
+                          BlocBuilder<TestProgressionCubit, bool>(
+                            builder: (context, state) {
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        state == false
+                                            ? 'Vision Test'
+                                            : 'Color Test',
+                                        style: TextStyle(
+                                            fontFamily: 'MontserratMedium',
+                                            fontWeight: FontWeight.w800,
+                                            fontSize: screenWidth * 0.045,
+                                            color: AppColors.appColor),
+                                      ),
+                                      Container(
+                                        height: screenHeight * 0.05,
+                                        width: screenWidth * 0.35,
+                                        decoration: BoxDecoration(
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color:
+                                                  Colors.black.withOpacity(0.1),
+                                              blurRadius: 10,
+                                              offset: const Offset(0, 5),
+                                            ),
+                                          ],
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(50.0),
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(5.0),
+                                          child: DropdownButton<String>(
+                                            borderRadius: BorderRadius.circular(10.0),
+                                            dropdownColor: Colors.white,
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 5.0),
+                                            value: context.read<TestProgressionCubit>().selectedTest,
+                                            icon: const Icon(
+                                              Icons.keyboard_arrow_down_outlined,
+                                              color: Colors.black,
+                                            ),
+                                            iconSize: screenWidth * 0.05,
+                                            elevation: 10,
+                                            style: const TextStyle(
+                                                color: Colors.deepPurple),
+                                            underline: Container(
+                                              height: 0,
+                                              color: AppColors.appColor,
+                                            ),
+                                            onChanged: (String? newValue) {
+                                              if (newValue == 'Vision Tests') {
+                                                context.read<TestProgressionCubit>().toggleProgression(false);
+                                              }
+                                              else {
+                                                context.read<TestProgressionCubit>().toggleProgression(true);
+                                              }
+                                            },
+                                            items: <String>[
+                                              'Vision Tests',
+                                              'Color Tests'
+                                            ].map<DropdownMenuItem<String>>(
+                                                (String value) {
+                                              return DropdownMenuItem<String>(
+                                                value: value,
+                                                child: Text(
+                                                  value,
+                                                  style: TextStyle(
+                                                    fontFamily:
+                                                        'MontserratMedium',
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize:
+                                                        screenWidth * 0.032,
+                                                    letterSpacing: 1,
+                                                    color: Colors.black,
+                                                  ),
+                                                ),
+                                              );
+                                            }).toList(),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              );
+                            },
+                          ),
+                        ],
+                      ),
                     );
                   } else {
                     return const SizedBox.shrink();
