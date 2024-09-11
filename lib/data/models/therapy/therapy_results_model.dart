@@ -13,7 +13,6 @@ class TherapyModel {
     required this.duration,
   });
 
-  /// Factory constructor to create a `TherapyModel` from a JSON object.
   factory TherapyModel.fromJson(Map<String, dynamic> json) {
     return TherapyModel(
       patientName: json['patient_name'] ?? '',
@@ -24,7 +23,6 @@ class TherapyModel {
     );
   }
 
-  /// Convert a `TherapyModel` object into a JSON map.
   Map<String, dynamic> toJson() {
     return {
       'patient_name': patientName,
