@@ -2,6 +2,7 @@ final List<Map<String, dynamic>> therapiesCataract = [
   // Acupressure Therapy
   {
     "title": "Acupressure",
+    "category": "Cataracts",
     "timeLimit": 2,
     "type": "instruction",
     "svgPath": "assets/images/cataracts/acupressure.png",
@@ -44,6 +45,7 @@ final List<Map<String, dynamic>> therapiesCataract = [
   // Palming
   {
     "title": "Palming",
+    "category": "Cataracts",
     "timeLimit": 5,
     "type": "image",
     "svgPath": "assets/images/palming/palming.png",
@@ -84,6 +86,7 @@ final List<Map<String, dynamic>> therapiesCataract = [
   // Focus Shifting
   {
     "title": "Focus Shifting",
+    "category": "Cataracts",
     "timeLimit": 3,
     "type": "image",
     "svgPath": "assets/images/focus_shifting/focus_shifting.png",
@@ -129,6 +132,7 @@ final List<Map<String, dynamic>> therapiesCataract = [
   //eye rolling
   {
     "title": "Eye Rolling",
+    "category": "Cataracts",
     "timeLimit": 2,
     "type":
         "animation_eye_rolling",
