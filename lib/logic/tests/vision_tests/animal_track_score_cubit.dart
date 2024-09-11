@@ -1,4 +1,5 @@
 import 'package:OculaCare/configs/app/remote/ml_model.dart';
+import 'package:OculaCare/configs/global/app_globals.dart';
 import 'package:OculaCare/data/repositories/tests/test_repo.dart';
 import 'package:OculaCare/logic/tests/vision_tests/animal_track_score_state.dart';
 import 'package:bloc/bloc.dart';
@@ -13,6 +14,7 @@ class AnimalTrackScoreCubit extends Cubit<AnimalTrackScoreState> {
 
   TestRepository testRepo = TestRepository();
   MlModel ml = MlModel();
+  bool api = false;
 
   void emitInitial() {
     emit(AnimalTrackScoreLoading());
@@ -28,22 +30,27 @@ class AnimalTrackScoreCubit extends Cubit<AnimalTrackScoreState> {
 
   Future<void> analyseTrackScore(int score1, int score2, int score3) async {
     int totalScore = score1 + score2 + score3;
-    String analysis = determineVisionAcuity(totalScore);
-    ResponseModel recommendation = await ml.getData(
-        'The vision tracking test measures the ability to follow a moving object at different speeds and sizes. The test has three levels of difficulty, and each level gets progressively harder. The patient completed this test and result was $analysis, provide three recommendations to help the patient improve their vision tracking ability, write these points as if you are speaking directly to the patient, without any headings or subheadings just point.');
-    ResponseModel impact = await ml.getData(
-        'Now provide three potential impacts that this level of vision tracking ability might have on the patient’s daily activities. provide three impacts only, write them as if you are directly advising the patient, without adding any headings or subheadings just points.');
-    String date = getCurrentDateString();
-    TestResultModel data = TestResultModel(
-        patientName: sharedPrefs.userName,
-        date: date,
-        testType: 'Vision Acuity Test',
-        testName: 'Animal Track',
-        testScore: score1 + score2 + score3,
-        resultDescription: analysis,
-        recommendation: recommendation.text,
-        precautions: impact.text);
-    await testRepo.addTestRecord(data);
+    if (api == false) {
+      api = true;
+      String analysis = determineVisionAcuity(totalScore);
+      ResponseModel recommendation = await ml.getData(
+          'The vision tracking test measures the ability to follow a moving object at different speeds and sizes. The test has three levels of difficulty, and each level gets progressively harder. The patient completed this test and result was $analysis, provide three recommendations to help the patient improve their vision tracking ability, write these points as if you are speaking directly to the patient, without any headings or subheadings just point.');
+      ResponseModel impact = await ml.getData(
+          'Now provide three potential impacts that this level of vision tracking ability might have on the patient’s daily activities. provide three impacts only, write them as if you are directly advising the patient, without adding any headings or subheadings just points.');
+      String date = getCurrentDateString();
+      TestResultModel data = TestResultModel(
+          patientName: sharedPrefs.userName,
+          date: date,
+          testType: 'Vision Acuity Test',
+          testName: 'Animal Track',
+          testScore: score1 + score2 + score3,
+          resultDescription: analysis,
+          recommendation: recommendation.text,
+          precautions: impact.text);
+      await testRepo.addTestRecord(data);
+      testResults.add(data);
+    }
+    api = false;
     emit(AnimalTrackScoreLoading());
     emit(AnimalTrackScoreLoaded());
   }
