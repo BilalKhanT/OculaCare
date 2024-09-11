@@ -258,6 +258,7 @@ final router = GoRouter(
                 exercise['timeLimit'],
                 exercise['instructions'],
                 exercise['sound'],
+                exercise['category'],
               ),
             ),
           ],
