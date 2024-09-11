@@ -1,17 +1,29 @@
+import 'package:OculaCare/logic/tests/test_progression_state.dart';
 import 'package:bloc/bloc.dart';
+import 'package:intl/intl.dart';
 
-class TestProgressionCubit extends Cubit<bool> {
-  TestProgressionCubit() : super(false);
+import '../../configs/global/app_globals.dart';
 
-  String selectedTest = 'Vision Tests';
+class TestProgressionCubit extends Cubit<TestProgressionState> {
+  TestProgressionCubit() : super(TestProgressionInitial());
 
-  void toggleProgression(bool flag) {
-    if (flag) {
-      selectedTest = 'Color Tests';
+  String selectedTest = 'Snellan Chart';
+
+  void toggleProgression(String testName) {
+    String test = '';
+    if (testName == 'Contrast Test') {
+      test = 'Contrast Sensitivity';
+    } else {
+      test = testName;
     }
-    else {
-      selectedTest = 'Vision Tests';
+    selectedTest = testName;
+    Map<DateTime, double> scores = {};
+    final DateFormat dateFormat = DateFormat('dd-MM-yyyy');
+
+    for (var t in testResults.where((t) => t.testName == test)) {
+      DateTime testDate = dateFormat.parse(t.date);
+      scores[testDate] = t.testScore.toDouble();
     }
-    emit(flag);
+    emit(TestProgressionToggled(scores));
   }
 }
