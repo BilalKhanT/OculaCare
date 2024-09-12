@@ -1,3 +1,4 @@
+import 'package:OculaCare/configs/presentation/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
 
@@ -35,7 +36,7 @@ class ProgressCalendarScreen extends StatelessWidget {
           monthFontSize: 14,
           textColor: Colors.black,
           weekFontSize: 12,
-          weekTextColor: Colors.black,
+          weekTextColor: AppColors.appColor,
           borderRadius: 50,
           flexible: false,
           margin: const EdgeInsets.symmetric(horizontal: 7.0, vertical: 2.0),
