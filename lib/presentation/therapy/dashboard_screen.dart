@@ -16,6 +16,8 @@ import '../../logic/therapy_cubit/therapy_schedule_cubit.dart';
 class DashboardScreen extends StatelessWidget {
   final String selectedTherapyType = "Crossed Eyes";
 
+  const DashboardScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
