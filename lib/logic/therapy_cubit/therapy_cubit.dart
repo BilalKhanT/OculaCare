@@ -41,10 +41,6 @@ class TherapyCubit extends Cubit<TherapyState> {
     }
   }
 
-
-
-
-
   void startTherapy(String title, int timeLimit, List<Map<String, dynamic>> steps, String soundPath, String category) {
     _timerCubit.startTimer(timeLimit * 60);
     _musicCubit.playMusic(soundPath);
@@ -256,7 +252,7 @@ class TherapyCubit extends Cubit<TherapyState> {
         stepIndex++;
         if (stepIndex < steps.length) {
           _flutterTts.speak(steps[stepIndex]['instruction']);
-          if (title == "Distance Gazing" && stepIndex == 1) {
+          if (title == "Distance Gazing" && (stepIndex == 1 || stepIndex == 5) ) {
             emit(TherapyDistanceGazingInProgress(
               therapyTitle: title,
               instruction: steps[stepIndex]['instruction'],
