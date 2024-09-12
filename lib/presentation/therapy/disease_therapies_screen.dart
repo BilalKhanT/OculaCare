@@ -10,7 +10,7 @@ import '../../data/therapies_data/pterygium_therapies.dart';
 class DiseaseTherapiesScreen extends StatelessWidget {
   final String disease;
 
-  const DiseaseTherapiesScreen({required this.disease});
+  const DiseaseTherapiesScreen({super.key, required this.disease});
 
   @override
   Widget build(BuildContext context) {
@@ -27,9 +27,9 @@ class DiseaseTherapiesScreen extends StatelessWidget {
         ),),
         backgroundColor: AppColors.screenBackground,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new, color: Colors.black), // Updated icon
+          icon: const Icon(Icons.arrow_back_ios_new, color: Colors.black),
           onPressed: () {
-            Navigator.pop(context); // Handle back navigation
+            Navigator.pop(context);
           },
         ),
         elevation: 0,
@@ -45,7 +45,6 @@ class DiseaseTherapiesScreen extends StatelessWidget {
               therapy: therapy,
               screenHeight: MediaQuery.of(context).size.height,
               onTap: () {
-                // Navigate to play the selected therapy
                 showModalBottomSheet(
                   context: context,
                   isScrollControlled: true,
