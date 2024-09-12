@@ -2,7 +2,9 @@ final List<Map<String, dynamic>> therapiesCataract = [
   // Acupressure Therapy
   {
     "title": "Acupressure",
+    "category": "Cataracts",
     "timeLimit": 2,
+    "description": "Promotes circulation, reduces tension",
     "type": "instruction",
     "svgPath": "assets/images/cataracts/acupressure.png",
     "sound":
@@ -44,7 +46,9 @@ final List<Map<String, dynamic>> therapiesCataract = [
   // Palming
   {
     "title": "Palming",
+    "category": "Cataracts",
     "timeLimit": 5,
+    "description": "Relieves strain, promotes relaxation",
     "type": "image",
     "svgPath": "assets/images/palming/palming.png",
     "sound": "assets/audio/relaxing_breathing.mp3",
@@ -84,7 +88,9 @@ final List<Map<String, dynamic>> therapiesCataract = [
   // Focus Shifting
   {
     "title": "Focus Shifting",
+    "category": "Cataracts",
     "timeLimit": 3,
+    "description": "Improves focus, reduces eye strain",
     "type": "image",
     "svgPath": "assets/images/focus_shifting/focus_shifting.png",
     "sound": "assets/audio/relaxing_breathing.mp3",
@@ -129,11 +135,11 @@ final List<Map<String, dynamic>> therapiesCataract = [
   //eye rolling
   {
     "title": "Eye Rolling",
+    "category": "Cataracts",
     "timeLimit": 2,
-    "type":
-        "animation_eye_rolling",
-    "svgPath":
-        "assets/images/eye_rolling/eye_rolling.png",
+    "description": "Strengthens muscles, improves flexibility",
+    "type": "animation_eye_rolling",
+    "svgPath": "assets/images/eye_rolling/eye_rolling.png",
     "sound": "assets/audio/relaxing_breathing.mp3",
     "benefits": [
       "Strengthens eye muscles",

@@ -6,7 +6,7 @@ class TherapyTile extends StatelessWidget {
   final double screenHeight;
   final VoidCallback onTap;
 
-  const TherapyTile({
+  const TherapyTile({super.key,
     required this.therapy,
     required this.screenHeight,
     required this.onTap,
@@ -14,12 +14,14 @@ class TherapyTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 10),
       child: GestureDetector(
         onTap: onTap,
         child: Container(
-          height: screenHeight * 0.12,
+          height: screenHeight * 0.14,
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(15.0),
@@ -39,7 +41,7 @@ class TherapyTile extends StatelessWidget {
                   therapy['svgPath'],
                   width: screenHeight * 0.1,
                   height: screenHeight * 0.1,
-                  fit: BoxFit.cover,
+                  fit: BoxFit.scaleDown,
                 ),
               ),
               const SizedBox(width: 10),
@@ -54,10 +56,28 @@ class TherapyTile extends StatelessWidget {
                         color: AppColors.textPrimary,
                         fontFamily: 'MontserratMedium',
                         fontWeight: FontWeight.w700,
-                        fontSize: MediaQuery.of(context).size.width * 0.035,
+                        fontSize: screenWidth * 0.038,
                       ),
                     ),
                     const SizedBox(height: 5),
+                    Text(
+                      therapy['description'],
+                      style: TextStyle(
+                        fontFamily: 'Montserrat',
+                        fontWeight: FontWeight.w900,
+                        fontSize: screenWidth * 0.032,
+                        color: AppColors.appColor,
+                      ),
+                    ),
+                    const SizedBox(height: 5),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 9.0),
+                child: Column(
+                  children: [
+                    SizedBox(height: screenHeight * 0.092,),
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                       decoration: BoxDecoration(
@@ -74,9 +94,11 @@ class TherapyTile extends StatelessWidget {
                       ),
                       child: Text(
                         "${therapy['timeLimit']} min",
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 12,
+                        style: TextStyle(
+                            fontFamily: 'Montserrat',
+                            fontWeight: FontWeight.bold,
+                            fontSize: screenWidth * 0.03,
+                            color: AppColors.whiteColor
                         ),
                       ),
                     ),

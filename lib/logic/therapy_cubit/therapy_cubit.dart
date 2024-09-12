@@ -1,57 +1,123 @@
 import 'dart:async';
 import 'dart:math';
 import 'dart:ui';
+import 'package:OculaCare/data/models/therapy/therapy_results_model.dart';
+import 'package:OculaCare/data/repositories/local/preferences/shared_prefs.dart';
 import 'package:bloc/bloc.dart';
+import 'package:intl/intl.dart';
+import '../../configs/app/app_globals.dart';
+import '../../data/repositories/therapy/therapy_repo.dart';
 import '../../data/therapies_data/stories.dart';
 import 'therapy_state.dart';
 import 'timer_cubit.dart';
-import 'music_cubit.dart';  // Import the MusicCubit
+import 'music_cubit.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 
 class TherapyCubit extends Cubit<TherapyState> {
   final FlutterTts _flutterTts = FlutterTts();
   final TimerCubit _timerCubit;
-  final MusicCubit _musicCubit;  // Add MusicCubit
+  final MusicCubit _musicCubit;
   Timer? _animationTimer;
   double _topPosition = 0.0;
   double _leftPosition = 0.0;
 
   TherapyCubit(this._timerCubit, this._musicCubit) : super(TherapyInitial());
 
-  void startTherapy(String title, int timeLimit, List<Map<String, dynamic>> steps, String soundPath) {
-    _timerCubit.startTimer(timeLimit * 60); // Start the timer in TimerCubit
-    _musicCubit.playMusic(soundPath);  // Start playing music using MusicCubit (no state emission)
+  final TherapyRepository therapyRepository = TherapyRepository();
+
+  Future<void> loadTherapyHistory(String patientName) async {
+    emit(TherapyLoading());
+    try {
+      if (globalTherapies.isEmpty) {
+        await therapyRepository.getTherapyRecord(patientName);
+      }
+      if (globalTherapies.isNotEmpty) {
+        emit(TherapyHistoryLoaded(globalTherapies));
+      } else {
+        emit(const TherapyHistoryLoaded([]));
+      }
+    } catch (e) {
+      emit(const TherapyError(therapyErr: 'Failed to load therapy history'));
+    }
+  }
+
+  void startTherapy(String title, int timeLimit, List<Map<String, dynamic>> steps, String soundPath, String category) {
+    _timerCubit.startTimer(timeLimit * 60);
+    _musicCubit.playMusic(soundPath);
 
     switch (title) {
       case "Jumping Stripes" || "Mirror Eye Stretch":
-        _startAnimationTherapy(title, steps);
+        _startAnimationTherapy(title, steps, category);
         break;
       case "Kaleidoscope Focus":
-        _startKaleidoscopeTherapy(title, steps);
+        _startKaleidoscopeTherapy(title, steps, category);
         break;
       case "Yin-Yang Clarity":
-        _startYinYangTherapy(title, steps);
+        _startYinYangTherapy(title, steps, category);
         break;
       case "Eye Rolling":
-        _startEyeRollingTherapy(title, steps);
+        _startEyeRollingTherapy(title, steps, category);
         break;
       case "Figure Eight Focus":
-        _startFigureEightTherapy(title, steps);
+        _startFigureEightTherapy(title, steps, category);
         break;
       case "Brock String Exercise":
-        startBrockStringExercise(title, steps, timeLimit); // Call your new method here
+        startBrockStringExercise(title, steps, timeLimit, category);
         break;
       case "Eye Patch Therapy":
-        startEyePatchTherapy(title, steps, timeLimit); // Call your new method here
+        startEyePatchTherapy(title, steps, timeLimit, category);
+        break;
+      case "Blinking Exercise":
+        _startBlinkingExerciseTherapy(title, steps, category);
         break;
       default:
-        _startStepTherapy(title, steps); // Use default step therapy for others
+        _startStepTherapy(title, steps, category);
         break;
     }
   }
 
 
-  void _startYinYangTherapy(String title, List<Map<String, dynamic>> steps) {
+  void _startBlinkingExerciseTherapy(String title, List<Map<String, dynamic>> steps, String category) {
+    int stepIndex = 0;
+    Future<void> _playStep(int stepIndex) async {
+      if (steps[stepIndex]['svgPath'].endsWith('.json')) {
+        emit(TherapyBlinkingAnimationInProgress(
+          therapyTitle: title,
+          animationPath: steps[stepIndex]['svgPath'],
+          instruction: steps[stepIndex]['instruction'],
+          remainingTime: _timerCubit.state,
+        ));
+      } else {
+        emit(TherapyStepInProgress(
+          therapyTitle: title,
+          instruction: steps[stepIndex]['instruction'],
+          svgPath: steps[stepIndex]['svgPath'],
+          stepIndex: stepIndex,
+          remainingTime: _timerCubit.state,
+        ));
+      }
+      await _flutterTts.speak(steps[stepIndex]['instruction']);
+      await Future.delayed(Duration(seconds: steps[stepIndex]['duration']));
+    }
+    Future<void> _executeSteps() async {
+      if (stepIndex >= steps.length) {
+        _completeTherapy(title, category);
+        return;
+      }
+      await _playStep(stepIndex);
+      stepIndex++;
+      await _executeSteps();
+    }
+    _executeSteps();
+  }
+
+
+
+
+
+
+
+  void _startYinYangTherapy(String title, List<Map<String, dynamic>> steps, String category) {
     int stepIndex = 0;
     final random = Random();
 
@@ -63,14 +129,13 @@ class TherapyCubit extends Cubit<TherapyState> {
       stepIndex: stepIndex,
       remainingTime: _timerCubit.state,
     ));
-
-    // Size and rotation changes
     _animationTimer = Timer.periodic(const Duration(seconds: 1), (_) {
       double scale = random.nextBool() ? 0.8 : 0.4;
       double rotation = random.nextDouble() * 360;
       emit(TherapyYinYangAnimationInProgress(
         therapyTitle: title,
         animationPath: steps[stepIndex]['svgPath'],
+        instructions: steps[stepIndex]['instruction'],
         remainingTime: _timerCubit.state,
         scale: scale,
         rotation: rotation,
@@ -78,11 +143,9 @@ class TherapyCubit extends Cubit<TherapyState> {
     });
   }
 
-  void _startKaleidoscopeTherapy(String title, List<Map<String, dynamic>> steps) {
+  void _startKaleidoscopeTherapy(String title, List<Map<String, dynamic>> steps, String category) {
     int stepIndex = 0;
-    _flutterTts.speak(steps[stepIndex]['instruction']); // Speak first step instruction
-
-    // Emit initial step progress for the first instruction
+    _flutterTts.speak(steps[stepIndex]['instruction']);
     emit(TherapyStepInProgress(
       therapyTitle: title,
       instruction: steps[stepIndex]['instruction'],
@@ -90,36 +153,25 @@ class TherapyCubit extends Cubit<TherapyState> {
       stepIndex: stepIndex,
       remainingTime: _timerCubit.state,
     ));
-
-
-    // Listen for the timer update stream to track remaining time
     _timerCubit.stream.listen((remainingTime) {
       if (remainingTime <= 0) {
-        _completeTherapy(title); // Therapy complete
+        _completeTherapy(title, category);
       }
-      // Check if it's time to move to the Lottie animation based on the duration of the first step
       else if (remainingTime <= (_timerCubit.initialTimeLimit - steps[stepIndex]['duration'])) {
-        // Move to the Lottie animation after the first step completes
-        stepIndex++;  // Move to the next step (which is the Lottie animation)
-
-        // Emit the Lottie animation state when step 1 completes
+        stepIndex++;
         emit(TherapyLottieAnimationInProgress(
           therapyTitle: title,
-          animationPath: steps[stepIndex]['svgPath'], // This is expected to be the Lottie animation path
+          animationPath: steps[stepIndex]['svgPath'],
           remainingTime: remainingTime,
+          instruction: steps[stepIndex]['instruction'],
         ));
       }
     });
   }
 
-
-  void _startEyeRollingTherapy(String title, List<Map<String, dynamic>> steps) {
+  void _startEyeRollingTherapy(String title, List<Map<String, dynamic>> steps, String category) {
     int stepIndex = 0;
-
-    // Speak the first step's instruction
     _flutterTts.speak(steps[stepIndex]['instruction']);
-
-    // Emit the first step's state immediately (so the first step doesn't disappear)
     emit(TherapyStepInProgress(
       therapyTitle: title,
       instruction: steps[stepIndex]['instruction'],
@@ -127,36 +179,26 @@ class TherapyCubit extends Cubit<TherapyState> {
       stepIndex: stepIndex,
       remainingTime: _timerCubit.state,
     ));
-
-    // Wait for the duration of the first step (e.g., 10 seconds) before showing the Rive animation
     Timer(Duration(seconds: steps[stepIndex]['duration']), () {
-      stepIndex++;  // Move to the next step, which is the Rive animation
-
-      // Emit state to trigger the Rive animation for the remaining time
+      stepIndex++;
       emit(TherapyRiveAnimationInProgress(
         therapyTitle: title,
-        animationPath: 'assets/images/eye_rolling/eye_rolling',  // Path to the Rive animation
-        remainingTime: (_timerCubit.state - steps[0]['duration']).toInt(),  // Cast the result to int
+        animationPath: 'assets/images/eye_rolling/eyemovement.riv',
+        remainingTime: (_timerCubit.state - steps[0]['duration']).toInt(),
       ));
-
-      // Continue with the remaining time for the Rive animation
       _timerCubit.stream.listen((remainingTime) {
         if (remainingTime <= 0) {
-          _completeTherapy(title);  // Therapy complete
+          _completeTherapy(title, category);
         }
       });
     });
   }
-  double _dx = 2;  // Horizontal velocity
-  double _dy = 2;  // Vertical velocity
+  double _dx = 4;
+  double _dy = 4;
 
-  void _startAnimationTherapy(String title, List<Map<String, dynamic>> steps) {
+  void _startAnimationTherapy(String title, List<Map<String, dynamic>> steps, String category) {
     int stepIndex = 0;
-
-    // Speak the instruction for the first step (if any)
     _flutterTts.speak(steps[stepIndex]['instruction']);
-
-    // Emit the first step immediately to avoid any delay
     emit(TherapyStepInProgress(
       therapyTitle: title,
       instruction: steps[stepIndex]['instruction'],
@@ -164,12 +206,8 @@ class TherapyCubit extends Cubit<TherapyState> {
       stepIndex: stepIndex,
       remainingTime: _timerCubit.state,
     ));
-
-    // Start object movement animation for "Jumping Stripes"
     _animationTimer = Timer.periodic(const Duration(milliseconds: 16), (timer) {
-      _moveObject();  // Move the object like a bouncing ball
-
-      // Emit animation progress with updated positions
+      _moveObject();
       emit(TherapyAnimationInProgress(
         therapyTitle: title,
         remainingTime: _timerCubit.state,
@@ -177,44 +215,29 @@ class TherapyCubit extends Cubit<TherapyState> {
         leftPosition: _leftPosition,
       ));
     });
-
-    // Listen to the timer to handle therapy completion
     _timerCubit.stream.listen((remainingTime) {
       if (remainingTime <= 0) {
-        _completeTherapy(title);
+        _completeTherapy(title, category);
       }
     });
   }
 
   void _moveObject() {
-    // Assuming screen dimensions (adjust to your screen size or use MediaQuery)
     double screenWidth = 400;
     double screenHeight = 800;
-
-    // Update the object's position based on velocity
     _topPosition += _dy;
     _leftPosition += _dx;
-
-    // Check for collision with the edges of the screen and bounce
-    if (_topPosition <= 0 || _topPosition >= screenHeight - 100) {  // Assuming object height is 100
-      _dy = -_dy;  // Reverse vertical direction
+    if (_topPosition <= 0 || _topPosition >= screenHeight - 100) {
+      _dy = -_dy;
     }
-    if (_leftPosition <= 0 || _leftPosition >= screenWidth - 100) {  // Assuming object width is 100
-      _dx = -_dx;  // Reverse horizontal direction
+    if (_leftPosition <= 0 || _leftPosition >= screenWidth - 100) {
+      _dx = -_dx;
     }
   }
 
-
-
-
-
-
-  void _startStepTherapy(String title, List<Map<String, dynamic>> steps) {
+  void _startStepTherapy(String title, List<Map<String, dynamic>> steps, String category) {
     int stepIndex = 0;
-
     _flutterTts.speak(steps[stepIndex]['instruction']);
-
-    // Emit the first step's state immediately
     emit(TherapyStepInProgress(
       therapyTitle: title,
       instruction: steps[stepIndex]['instruction'],
@@ -222,45 +245,34 @@ class TherapyCubit extends Cubit<TherapyState> {
       stepIndex: stepIndex,
       remainingTime: _timerCubit.state,
     ));
-
-    // Listen to timer updates
     _timerCubit.stream.listen((remainingTime) {
       if (remainingTime <= 0) {
-        _completeTherapy(title);
+        _completeTherapy(title, category);
       } else if (remainingTime % steps[stepIndex]['duration'] == 0) {
         stepIndex++;
         if (stepIndex < steps.length) {
           _flutterTts.speak(steps[stepIndex]['instruction']);
-
-
-          print(title);
-          // Conditional check for "Distance Gazing" to handle the size change logic
-          if (title == "Distance Gazing" && stepIndex == 1) {
-            print("here");
-            // Step 2 of "Distance Gazing" therapy: emit a state with a smaller size
+          if (title == "Distance Gazing" && (stepIndex == 1 || stepIndex == 5) ) {
             emit(TherapyDistanceGazingInProgress(
               therapyTitle: title,
               instruction: steps[stepIndex]['instruction'],
-              svgPathFar: steps[stepIndex]['svgPath'],   // No near object at this step
-              farSize: 24,  // Small size for the far object
-              nearSize: 0,  // No near object
+              svgPathFar: steps[stepIndex]['svgPath'],
+              farSize: 24,
+              nearSize: 0,
               remainingTime: _timerCubit.state,
             ));
           }
           else if (title == "Focus Shifting" && stepIndex == 2) {
-            print("here");
-            // Step 2 of "Distance Gazing" therapy: emit a state with a smaller size
             emit(TherapyDistanceGazingInProgress(
               therapyTitle: title,
               instruction: steps[stepIndex]['instruction'],
-              svgPathFar: steps[stepIndex]['svgPath'],   // No near object at this step
-              farSize: 24,  // Small size for the far object
-              nearSize: 0,  // No near object
+              svgPathFar: steps[stepIndex]['svgPath'],
+              farSize: 24,
+              nearSize: 0,
               remainingTime: _timerCubit.state,
             ));
           }
           else {
-            // Default behavior for other therapies or other steps
             emit(TherapyStepInProgress(
               therapyTitle: title,
               instruction: steps[stepIndex]['instruction'],
@@ -275,13 +287,9 @@ class TherapyCubit extends Cubit<TherapyState> {
   }
 
 
-  void _startFigureEightTherapy(String title, List<Map<String, dynamic>> steps) {
+  void _startFigureEightTherapy(String title, List<Map<String, dynamic>> steps, String category) {
     int stepIndex = 0;
-
-    // Speak the first step's instruction
     _flutterTts.speak(steps[stepIndex]['instruction']);
-
-    // Emit the first step's state (with instructions and image)
     emit(TherapyStepInProgress(
       therapyTitle: title,
       instruction: steps[stepIndex]['instruction'],
@@ -289,135 +297,60 @@ class TherapyCubit extends Cubit<TherapyState> {
       stepIndex: stepIndex,
       remainingTime: _timerCubit.state,
     ));
-
-    // Wait for the duration of the first step (e.g., 20 seconds) before transitioning to animation
     Timer(Duration(seconds: steps[stepIndex]['duration']), () {
-      stepIndex++;  // Move to the next step, which is the Lottie animation
-
-      // Emit state to trigger the Lottie animation
+      stepIndex++;
       emit(TherapyLottieAnimationInProgress(
         therapyTitle: title,
-        animationPath: steps[stepIndex]['svgPath'],  // Path to the Lottie animation
-        remainingTime: (_timerCubit.state - steps[0]['duration']).toInt(),  // Ensure time is adjusted
+        animationPath: steps[stepIndex]['svgPath'],
+        remainingTime: (_timerCubit.state - steps[0]['duration']).toInt(),
+        instruction: steps[stepIndex]['instruction'],
       ));
-
-      // Continue tracking the remaining time for the animation
       _timerCubit.stream.listen((remainingTime) {
         if (remainingTime <= 0) {
-          _completeTherapy(title);  // Complete the therapy when time runs out
+          _completeTherapy(title, category);
         }
       });
     });
   }
 
+  void startBrockStringExercise(String title, List<Map<String, dynamic>> steps, int totalTime, String category) {
+    int beadIndex = 0;
+    int remainingTime = totalTime * 60;
+    Timer? beadTimer;
 
-// Distance Gazing therapy logic (as discussed earlier)
-//   void _startDistanceGazingTherapy(String title, List<Map<String, dynamic>> steps) {
-//     int stepIndex = 0;
-//
-//     // Emit the first step with instruction
-//     _flutterTts.speak(steps[stepIndex]['instruction']);
-//     emit(TherapyStepInProgress(
-//       therapyTitle: title,
-//       instruction: steps[stepIndex]['instruction'],
-//       svgPath: steps[stepIndex]['svgPath'],
-//       stepIndex: stepIndex,
-//       remainingTime: _timerCubit.state,
-//     ));
-//
-//     // Listen to the timer updates for step transitions
-//     _timerCubit.stream.listen((remainingTime) {
-//       if (remainingTime <= 0) {
-//         _completeTherapy(title); // Complete therapy
-//       } else if (remainingTime <= (_timerCubit.initialTimeLimit - steps[stepIndex]['duration'])) {
-//         stepIndex++;
-//
-//         if (stepIndex == 1) {
-//           // Step 2: Show the far object (small size, 24px)
-//           emit(TherapyDistanceGazingInProgress(
-//             therapyTitle: title,
-//             instruction: steps[stepIndex]['instruction'],
-//             svgPathFar: steps[stepIndex]['svgPath'],
-//             farSize: 24,  // Far object small size
-//             nearSize: 0,  // No near object
-//             remainingTime: remainingTime,
-//           ));
-//         } else if (stepIndex == 2) {
-//           // Step 3: Show both near (512px) and far (24px) objects
-//           emit(TherapyDistanceGazingInProgress(
-//             therapyTitle: title,
-//             instruction: steps[stepIndex]['instruction'],
-//             svgPathFar: 'assets/images/distance_gazing/far.png', // Far object
-//             svgPathNear: 'assets/images/distance_gazing/near.png', // Near object
-//             farSize: 24,  // Far object small
-//             nearSize: 512,  // Near object large
-//             remainingTime: remainingTime,
-//           ));
-//         } else if (stepIndex == 3) {
-//           // Step 4: Relax and close eyes, display the final instruction
-//           emit(TherapyStepInProgress(
-//             therapyTitle: title,
-//             instruction: steps[stepIndex]['instruction'],
-//             svgPath: steps[stepIndex]['svgPath'], // Close eyes image
-//             stepIndex: stepIndex,
-//             remainingTime: remainingTime,
-//           ));
-//         }
-//       }
-//     });
-//   }
-
-
-  void startBrockStringExercise(String title, List<Map<String, dynamic>> steps, int totalTime) {
-    int beadIndex = 0;  // Start with the first bead
-    int remainingTime = totalTime * 60; // Convert to seconds
-    int instructionTime = steps[0]['duration']; // Get the initial instruction duration
-    Timer? beadTimer;  // Declare the beadTimer for bead transitions
-
-    // Emit the first instruction and bead focus
-    print('Starting Brock String Therapy');
     _flutterTts.speak(steps[0]['instruction']);
     emit(TherapyBrockStringInProgress(
       therapyTitle: title,
       remainingTime: remainingTime,
       instruction: steps[0]['instruction'],
       svgPath: steps[0]['svgPath'],
-      beadIndex: beadIndex, // Focus on the first bead
-      beadOpacities: [1.0, 0.2, 0.2], // Nearest bead full opacity, others faded
+      beadIndex: beadIndex,
+      beadOpacities: const [1.0, 0.2, 0.2],
     ));
-    print('Emitted initial state: BeadIndex = $beadIndex, Opacities = [1.0, 0.2, 0.2]');
 
-    // Start a periodic timer for bead transitions
     beadTimer = Timer.periodic(const Duration(seconds: 10), (timer) {
-      // Reset beadIndex when all beads have been focused on
       if (beadIndex > 2) {
-        beadIndex = 0; // Restart the cycle for a smooth experience
+        beadIndex = 0;
       }
-
-      // Determine the bead to focus on based on the current bead index
       List<double> beadOpacities;
       String instruction;
       switch (beadIndex) {
         case 0:
           instruction = "Focus on the red bead";
-          beadOpacities = [1.0, 0.2, 0.2];  // Nearest bead full opacity
+          beadOpacities = [1.0, 0.2, 0.2];
           break;
         case 1:
           instruction = "Now focus on the yellow bead";
-          beadOpacities = [0.2, 1.0, 0.2];  // Middle bead full opacity
+          beadOpacities = [0.2, 1.0, 0.2];
           break;
         case 2:
           instruction = "Now focus on the green bead";
-          beadOpacities = [0.2, 0.2, 1.0];  // Farthest bead full opacity
+          beadOpacities = [0.2, 0.2, 1.0];
           break;
         default:
-          print('Invalid beadIndex');
           timer.cancel();
           return;
       }
-
-      // Speak the instruction and emit the state
-      print('Speaking: $instruction');
       _flutterTts.speak(instruction);
       emit(TherapyBrockStringInProgress(
         therapyTitle: title,
@@ -427,167 +360,167 @@ class TherapyCubit extends Cubit<TherapyState> {
         beadIndex: beadIndex,
         beadOpacities: beadOpacities,
       ));
-      print('Emitted state: BeadIndex = $beadIndex, Opacities = $beadOpacities');
-
-      beadIndex++;  // Move to the next bead
+      beadIndex++;
     });
 
-    // Continue displaying the beads and remaining time after the bead phase ends
     _timerCubit.startTimer(remainingTime);
     _timerCubit.stream.listen((remainingTime) {
       if (remainingTime <= 0) {
-        _completeTherapy(title);  // Complete therapy if time is up
+        _completeTherapy(title, category);
       }
     });
-
-    // Store the bead timer so it can be canceled when therapy stops
     _animationTimer = beadTimer;
-    print('Stored animation timer');
   }
 
-  void startMirrorEyeStretch(String title, List<Map<String, dynamic>> steps, int totalTime, double screenWidth, double screenHeight) {
+  void startMirrorEyeStretch(String title, List<Map<String, dynamic>> steps, int totalTime, double screenWidth, double screenHeight, String category) {
     int stepIndex = 0;
-    int remainingTime = totalTime * 60; // Convert to seconds
+    int remainingTime = totalTime * 60;
     List<Offset> cornerPositions = [
-      const Offset(0.0, 0.0),  // Top-left corner
-      const Offset(1.0, 0.0),  // Top-right corner
-      const Offset(1.0, 1.0),  // Bottom-right corner
-      const Offset(0.0, 1.0),  // Bottom-left corner
+      const Offset(0.0, 0.0),
+      const Offset(1.0, 0.0),
+      const Offset(1.0, 1.0),
+      const Offset(0.0, 1.0),
     ];
     int currentCorner = 0;
     double dotOpacity = 1.0;
-    int fadeDuration = 10; // Time to take for fading out
+    int fadeDuration = 10;
 
-    // Emit the first step (instruction to cover the eye)
     _flutterTts.speak(steps[0]['instruction']);
     emit(TherapyStepInProgress(
       therapyTitle: title,
       instruction: steps[0]['instruction'],
-      svgPath: steps[0]['svgPath'], // Show image only for step 1
+      svgPath: steps[0]['svgPath'],
       stepIndex: stepIndex,
       remainingTime: remainingTime,
     ));
 
-    // Start the timer for dot transitions after Step 1
     _animationTimer = Timer.periodic(Duration(seconds: fadeDuration), (timer) {
-      dotOpacity = 1.0;  // Reset the opacity to 1.0 (full opacity)
+      dotOpacity = 1.0;
       stepIndex++;
 
-      // Emit the state after step 1 without an image
       emit(TherapyMirrorEyeStretchInProgress(
         therapyTitle: title,
-        instruction: steps[1]['instruction'],  // Continue instructions
-        svgPath: steps[1]['svgPath'],  // No image after step 1
+        instruction: steps[1]['instruction'],
+        svgPath: steps[1]['svgPath'],
         stepIndex: stepIndex,
-        dotPositions: [cornerPositions[currentCorner]],  // Set the container position
+        dotPositions: [cornerPositions[currentCorner]],
         dotOpacity: dotOpacity,
       ));
 
-      // Gradually reduce opacity over the fade duration
       Timer.periodic(const Duration(milliseconds: 1000), (fadeTimer) {
-        dotOpacity = max(0.0, dotOpacity - 0.1);  // Reduce opacity gradually ensuring it stays between 0 and 1
+        dotOpacity = max(0.0, dotOpacity - 0.1);
         emit(TherapyMirrorEyeStretchInProgress(
           therapyTitle: title,
           instruction: steps[1]['instruction'],
-          svgPath: steps[1]['svgPath'],  // No image after step 1
+          svgPath: steps[1]['svgPath'],
           stepIndex: stepIndex,
-          dotPositions: [cornerPositions[currentCorner]],  // Maintain current corner position
+          dotPositions: [cornerPositions[currentCorner]],
           dotOpacity: dotOpacity,
         ));
 
         if (dotOpacity <= 0.0) {
-          fadeTimer.cancel();  // Stop reducing opacity when fully faded
-          currentCorner = (currentCorner + 1) % cornerPositions.length;  // Move to the next corner, loop around
+          fadeTimer.cancel();
+          currentCorner = (currentCorner + 1) % cornerPositions.length;
         }
       });
     });
 
-    // Start and handle timer completion
     _timerCubit.startTimer(remainingTime);
     _timerCubit.stream.listen((remainingTime) {
       if (remainingTime <= 0) {
-        _completeTherapy(title);  // Complete therapy when time runs out
+        _completeTherapy(title, category);
       }
     });
   }
 
 
-  void startEyePatchTherapy(String title, List<Map<String, dynamic>> steps, int totalTime) {
+  void startEyePatchTherapy(String title, List<Map<String, dynamic>> steps, int totalTime, String category) {
     int stepIndex = 0;
-    int remainingTime = totalTime * 60; // Convert total time to seconds
+    int remainingTime = totalTime * 60;
 
-    // Step 1: Show the first image and instructions
     _flutterTts.speak(steps[stepIndex]['instruction']);
     emit(TherapyStepInProgress(
       therapyTitle: title,
       instruction: steps[stepIndex]['instruction'],
-      svgPath: steps[stepIndex]['svgPath'],  // Show image for step 1
+      svgPath: steps[stepIndex]['svgPath'],
       stepIndex: stepIndex,
       remainingTime: remainingTime,
     ));
 
-    // After the duration of step 1, move to step 2
     Timer(Duration(seconds: steps[stepIndex]['duration']), () {
-      stepIndex++;  // Move to step 2
+      stepIndex++;
 
-      // Select a random story from the list
       String randomStory = stories[Random().nextInt(stories.length)];
-      List<String> characters = randomStory.split('');  // Split story into individual characters
+      List<String> characters = randomStory.split('');
 
-      String displayedText = "";  // This will store the progressively revealed story
-      int charIndex = 0;  // Index to keep track of current character
-      int charDelay = 50;  // Milliseconds delay between each character for smooth animation
-
-      // Timer to reveal each character one by one (typing effect)
+      String displayedText = "";
+      int charIndex = 0;
+      int charDelay = 50;
       Timer.periodic(Duration(milliseconds: charDelay), (timer) {
         if (charIndex < characters.length) {
-          displayedText += characters[charIndex];  // Add the next character to the displayed text
+          displayedText += characters[charIndex];
           charIndex++;
 
-          // Emit the progressively revealed story
           emit(TherapyStoryDisplayInProgress(
             therapyTitle: title,
             instruction: steps[stepIndex]['instruction'],
-            story: displayedText,  // Emit the progressively revealed story
+            story: displayedText,
             remainingTime: _timerCubit.state,
           ));
         } else {
-          timer.cancel();  // Stop the timer when all characters are displayed
+          timer.cancel();
         }
       });
-
-      // Use TTS to read the story after it's fully displayed
       _flutterTts.speak(randomStory);
     });
-
-    // Start the timer for overall therapy completion
     _timerCubit.startTimer(remainingTime);
     _timerCubit.stream.listen((remainingTime) {
       if (remainingTime <= 0) {
-        _completeTherapy(title);  // Complete therapy when time runs out
+        _completeTherapy(title, category);
       }
     });
   }
 
-
-
-
-
-
-  void _completeTherapy(String title) {
-    _musicCubit.stopMusic();  // Stop the music
+  void _completeTherapy(String title, String category) async {
+    _musicCubit.stopMusic();
     _flutterTts.stop();
     _animationTimer?.cancel();
     _timerCubit.stopTimer();
-    emit(TherapyCompleted(therapyTitle: title));
+
+    emit(TherapyLoading());
+
+    String formattedDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
+
+    TherapyModel newTherapy = TherapyModel(
+      patientName: sharedPrefs.userName,
+      date: formattedDate,
+      therapyType: category,
+      therapyName: title,
+      duration: _timerCubit.initialTimeLimit - _timerCubit.state,
+    );
+    Map<String, dynamic> therapyData = newTherapy.toJson();
+
+    try {
+      bool isSaved = await therapyRepository.addTherapyRecord(therapyData);
+
+      if (isSaved) {
+        globalTherapies.add(newTherapy);
+        emit(TherapyHistoryLoaded(globalTherapies));
+        emit(TherapyCompleted(therapyTitle: title));
+      } else {
+        emit(const TherapyError(therapyErr: 'Failed to save therapy'));
+      }
+    } catch (e) {
+      emit(const TherapyError(therapyErr: 'Error saving therapy'));
+    }
   }
 
   void stopTherapy() {
-    _animationTimer?.cancel(); // Cancel the ongoing bead transition timer
-    _flutterTts.stop();        // Stop any ongoing text-to-speech
-    _timerCubit.stopTimer();    // Stop the timer
-    _musicCubit.stopMusic();    // Stop music
-    emit(TherapyInitial());     // Emit initial state
+    _animationTimer?.cancel();
+    _flutterTts.stop();
+    _timerCubit.stopTimer();
+    _musicCubit.stopMusic();
+    emit(TherapyInitial());
   }
 
 

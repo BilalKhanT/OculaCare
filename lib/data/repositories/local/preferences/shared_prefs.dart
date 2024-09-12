@@ -45,6 +45,14 @@ class SharedPrefs {
   Future<bool> setStringList(String key, List<String> value) async {
     return await _sharedPrefs?.setStringList(key, value) ?? false;
   }
+
+  List<String>? getTherapyStringList(String key) {
+    return _sharedPrefs?.getStringList(key);
+  }
+
+  Future<bool> setTherapyStringList(String key, List<String> value) async {
+    return await _sharedPrefs?.setStringList(key, value) ?? false;
+  }
 }
 
 final sharedPrefs = SharedPrefs();

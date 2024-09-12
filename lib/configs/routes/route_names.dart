@@ -17,6 +17,7 @@ class RouteNames {
   static const String colorMatchRoute = '/colorMatchRoute';
   static const String oddOutRoute = '/oddOutRoute';
   static const String scheduledRoute = '/scheduledRoute';
+  static const String therapyScheduledRoute = '/therapyScheduledRoute';
   static const String isiharaRoute = '/isiharaRoute';
   static const String contrastRoute = '/contrastRoute';
   static const String distanceRoute = '/distanceRoute';

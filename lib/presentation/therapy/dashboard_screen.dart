@@ -7,9 +7,16 @@ import 'package:OculaCare/presentation/therapy/sections/therapy_section.dart';
 import 'package:OculaCare/presentation/therapy/widgets_therapy/therapy_tabs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import '../../configs/routes/route_names.dart';
+import '../../data/repositories/local/preferences/shared_prefs.dart';
+import '../../logic/therapy_cubit/therapy_schedule_tab_cubit.dart';
+import '../../logic/therapy_cubit/therapy_schedule_cubit.dart';
 
 class DashboardScreen extends StatelessWidget {
   final String selectedTherapyType = "Crossed Eyes";
+
+  const DashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,15 +27,54 @@ class DashboardScreen extends StatelessWidget {
       backgroundColor: AppColors.screenBackground,
       appBar: AppBar(
         backgroundColor: AppColors.screenBackground,
-        title: const Text("Therapy Dashboard", style: TextStyle(color: AppColors.textPrimary)),
+        title: Text(
+          'Therapy Dashboard',
+          style: TextStyle(
+            color: Colors.black,
+            fontFamily: 'MontserratMedium',
+            fontWeight: FontWeight.w800,
+            fontSize: screenWidth * 0.05,
+          ),
+        ),
+        actions: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(right: 10.0),
+            child: GestureDetector(
+              onTap: () {
+                context.read<TherapyScheduleTabCubit>().toggleTab(0);
+                context.read<TherapyScheduleCubit>().loadGeneralTherapies();
+                context.push(RouteNames.therapyScheduledRoute);
+              },
+              child: Row(
+                children: [
+                  const Icon(
+                    Icons.bookmark_border,
+                    color: AppColors.appColor,
+                  ),
+                  const SizedBox(
+                    width: 3.0,
+                  ),
+                  Text(
+                    'Scheduled',
+                    style: TextStyle(
+                      color: AppColors.appColor,
+                      fontFamily: 'MontserratMedium',
+                      fontWeight: FontWeight.w800,
+                      fontSize: screenWidth * 0.035,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
+          padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 15.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Therapy, History, and Progression Tabs
               BlocBuilder<TherapyDashboardCubit, TherapyDashboardStates>(
                 builder: (context, state) {
                   bool therapySelected = state is TherapyDashboardInitialState;
@@ -45,24 +91,20 @@ class DashboardScreen extends StatelessWidget {
                   );
                 },
               ),
-
               SizedBox(height: screenHeight * 0.02),
-
-              // Conditional UI Rendering based on state
               BlocBuilder<TherapyDashboardCubit, TherapyDashboardStates>(
                 builder: (context, state) {
                   if (state is TherapyDashboardInitialState) {
-                    // Show the Therapy Section (Recommended & General Exercises)
                     return TherapySection(
                       selectedTherapyType: selectedTherapyType,
                       screenHeight: screenHeight,
                       screenWidth: screenWidth,
                     );
                   } else if (state is TherapyDashboardHistoryState) {
-                    // Show the History Section
                     return HistorySection(
-                      screenHeight: screenHeight,
-                      screenWidth: screenWidth,
+                      screenHeight: MediaQuery.of(context).size.height,
+                      screenWidth: MediaQuery.of(context).size.width,
+                      patientName: sharedPrefs.userName,
                     );
                   } else if (state is TherapyDashboardProgressionState) {
                     // Show the Progression Section
@@ -71,7 +113,7 @@ class DashboardScreen extends StatelessWidget {
                       screenWidth: screenWidth,
                     );
                   } else {
-                    return Container(); // Fallback for any undefined state
+                    return const SizedBox.shrink();
                   }
                 },
               ),

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:OculaCare/configs/presentation/constants/colors.dart';
 
-class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+class CustomTherapiesAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final VoidCallback onBackPressed;
 
-  const CustomAppBar({
+  const CustomTherapiesAppBar({
     Key? key,
     required this.title,
     required this.onBackPressed,
@@ -30,7 +30,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           fontFamily: 'MontserratMedium',
           fontWeight: FontWeight.w800,
           fontSize: screenWidth * 0.05,
-          color: AppColors.textPrimary,
+          color: AppColors.textTherapy,
         ),
       ),
       centerTitle: true,

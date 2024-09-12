@@ -5,7 +5,7 @@ class ProgressionSection extends StatelessWidget {
   final double screenHeight;
   final double screenWidth;
 
-  ProgressionSection({
+  const ProgressionSection({
     required this.screenHeight,
     required this.screenWidth,
   });

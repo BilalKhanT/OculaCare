@@ -36,6 +36,8 @@ import 'logic/tests/vision_tests/snellan_test_cubit.dart';
 import 'logic/therapy_cubit/music_cubit.dart';
 import 'logic/therapy_cubit/therapy_cubit.dart';
 import 'logic/therapy_cubit/therapy_dashboard_cubit.dart';
+import 'logic/therapy_cubit/therapy_schedule_cubit.dart';
+import 'logic/therapy_cubit/therapy_schedule_tab_cubit.dart';
 import 'logic/therapy_cubit/timer_cubit.dart';
 
 class ProvideMultiBloc extends StatelessWidget {
@@ -145,10 +147,11 @@ class ProvideMultiBloc extends StatelessWidget {
       ),
       BlocProvider(create: (context) => TimerCubit()),
       BlocProvider(create: (context) => MusicCubit()),
-      BlocProvider(
-          create: (context) => TherapyCubit(
-              BlocProvider.of<TimerCubit>(context),
-              BlocProvider.of<MusicCubit>(context))),
+      BlocProvider(create: (context) => TherapyScheduleCubit()),
+      BlocProvider(create: (context) => TherapyScheduleTabCubit()),
+      BlocProvider(create: (context) => TherapyCubit(
+          BlocProvider.of<TimerCubit>(context),
+          BlocProvider.of<MusicCubit>(context))),
       BlocProvider(create: (context) => TherapyDashboardCubit()),
     ], child: child);
   }

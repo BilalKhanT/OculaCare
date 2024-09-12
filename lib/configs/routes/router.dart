@@ -11,6 +11,7 @@ import 'package:OculaCare/presentation/more_section/pdf_view.dart';
 import 'package:OculaCare/presentation/patient_profile/profile_view.dart';
 import 'package:OculaCare/presentation/result/result_view.dart';
 import 'package:OculaCare/presentation/test_dashboard/test_dash_view.dart';
+import 'package:OculaCare/presentation/therapy/scheduled_therapy.dart';
 import 'package:OculaCare/presentation/test_dashboard/widgets/test_report.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -176,6 +177,11 @@ final router = GoRouter(
     ),
     GoRoute(
       parentNavigatorKey: navigatorKey,
+      path: RouteNames.therapyScheduledRoute,
+      builder: (context, state) => const ScheduledTherapies(),
+    ),
+    GoRoute(
+      parentNavigatorKey: navigatorKey,
       path: RouteNames.isiharaRoute,
       builder: (context, state) => const IshiharaScreen(),
     ),
@@ -263,11 +269,13 @@ final router = GoRouter(
                 BlocProvider.of<TimerCubit>(context),
                 BlocProvider.of<MusicCubit>(context),
               )..startTherapy(
-                  exercise['title'],
-                  exercise['timeLimit'],
-                  exercise['instructions'],
-                  exercise['sound'],
-                ),
+                exercise['title'],
+                exercise['timeLimit'],
+                exercise['instructions'],
+                exercise['sound'],
+                exercise['category'],
+              ),
+                 
             ),
           ],
           child: TherapyScreen(exercise: exercise),

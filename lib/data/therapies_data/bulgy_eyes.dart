@@ -2,7 +2,9 @@ final List<Map<String, dynamic>> bulgyEyeTherapies = [
   // Palming
   {
     "title": "Palming",
+    "category": "Bulgy Eyes",
     "timeLimit": 5,
+    "description": "Relieves strain, promotes relaxation",
     "type": "image",
     "svgPath": "assets/images/palming/palming.png",
     "sound": "assets/audio/relaxing_breathing.mp3",
@@ -42,7 +44,9 @@ final List<Map<String, dynamic>> bulgyEyeTherapies = [
   // Focus Shifting
   {
     "title": "Focus Shifting",
+    "category": "Bulgy Eyes",
     "timeLimit": 3,
+    "description": "Improves focus, reduces strain",
     "type": "image",
     "svgPath": "assets/images/focus_shifting/focus_shifting.png",
     "sound": "assets/audio/relaxing_breathing.mp3",
@@ -87,7 +91,9 @@ final List<Map<String, dynamic>> bulgyEyeTherapies = [
   // Squint Exercise
   {
     "title": "Squint",
+    "category": "Bulgy Eyes",
     "timeLimit": 3,
+    "description": "Strengthens muscles, reduces strain",
     "type": "instruction",
     "svgPath": "assets/images/bulgy_eyes/squint/squint.png",
     "sound": "assets/audio/relaxing_breathing.mp3",
@@ -124,7 +130,9 @@ final List<Map<String, dynamic>> bulgyEyeTherapies = [
   // Eye Direction
   {
     "title": "Eye Direction and Relaxation",
+    "category": "Bulgy Eyes",
     "timeLimit": 3,
+    "description": "Improves coordination, relieves strain",
     "type": "instruction",
     "svgPath": "assets/images/bulgy_eyes/eye_direction/eye_direction.png",
     "sound": "assets/audio/relaxing_breathing.mp3",
@@ -172,7 +180,9 @@ final List<Map<String, dynamic>> bulgyEyeTherapies = [
   // Clockwise Eye Movement
   {
     "title": "Clockwise Eye Movement",
+    "category": "Bulgy Eyes",
     "timeLimit": 2,
+    "description": "Enhances flexibility, improves coordination",
     "type": "instruction",
     "svgPath": "assets/images/bulgy_eyes/rotate/rotate.png",
     "sound": "assets/audio/relaxing_breathing.mp3",
@@ -187,19 +197,27 @@ final List<Map<String, dynamic>> bulgyEyeTherapies = [
       },
       {
         "step": 2,
-        "instruction": "Complete 4 full rotations clockwise.",
-        "svgPath": "assets/images/bulgy_eyes/rotate/clockwise.png",
-        "duration": 20
+        "instruction":
+        "Now slowly move your eyes in a counterclockwise motion.",
+        "svgPath": "assets/images/bulgy_eyes/rotate/counter_clockwise.png",
+        "duration": 10
       },
       {
         "step": 3,
+        "instruction":
+        "Look straight ahead and slowly move your eyes in a circular motion clockwise.",
+        "svgPath": "assets/images/bulgy_eyes/rotate/clockwise.png",
+        "duration": 10
+      },
+      {
+        "step": 4,
         "instruction":
             "Now slowly move your eyes in a counterclockwise motion.",
         "svgPath": "assets/images/bulgy_eyes/rotate/counter_clockwise.png",
         "duration": 10
       },
       {
-        "step": 4,
+        "step": 5,
         "instruction": "Complete 4 full rotations counterclockwise.",
         "svgPath": "assets/images/bulgy_eyes/rotate/counter_clockwise.png",
         "duration": 20
@@ -210,8 +228,10 @@ final List<Map<String, dynamic>> bulgyEyeTherapies = [
   // Blinking Exercise
   {
     "title": "Blinking Exercise",
+    "category": "Bulgy Eyes",
     "timeLimit": 2,
     "type": "image",
+    "description": "Lubricate eyes, reduce dryness",
     "svgPath": "assets/images/blinking_exercise/blinking_eye.png",
     "sound": "assets/audio/relaxing_breathing.mp3",
     "benefits": [
@@ -229,7 +249,37 @@ final List<Map<String, dynamic>> bulgyEyeTherapies = [
       {
         "step": 2,
         "instruction": "Open your eyes and blink rapidly.",
-        "svgPath": "assets/images/blinking_exercise/blinking.png",
+        "svgPath": "assets/images/blinking_exercise/blinking.json",
+        "duration": 15
+      },
+      {
+        "step": 3,
+        "instruction": "Slowly close your eyes again.",
+        "svgPath": "assets/images/blinking_exercise/close_eyes.png",
+        "duration": 10
+      },
+      {
+        "step": 4,
+        "instruction": "Repeat the blinking exercise.",
+        "svgPath": "assets/images/blinking_exercise/blinking.json",
+        "duration": 15
+      },
+      {
+        "step": 5,
+        "instruction": "Relax and breathe deeply.",
+        "svgPath": "assets/images/blinking_exercise/exhaling.png",
+        "duration": 10
+      },
+      {
+        "step": 1,
+        "instruction": "Close your eyes gently.",
+        "svgPath": "assets/images/blinking_exercise/close_eyes.png",
+        "duration": 10
+      },
+      {
+        "step": 2,
+        "instruction": "Open your eyes and blink rapidly.",
+        "svgPath": "assets/images/blinking_exercise/blinking.json",
         "duration": 15
       },
       {
@@ -246,9 +296,9 @@ final List<Map<String, dynamic>> bulgyEyeTherapies = [
       },
       {
         "step": 5,
-        "instruction": "Relax and breathe deeply.",
+        "instruction": "Relax and do this exercise 3 times a day.",
         "svgPath": "assets/images/blinking_exercise/exhaling.png",
-        "duration": 20
+        "duration": 10
       },
     ]
   },
@@ -256,7 +306,9 @@ final List<Map<String, dynamic>> bulgyEyeTherapies = [
   // Figure Eight Focus
   {
     "title": "Figure Eight Focus",
+    "category": "Bulgy Eyes",
     "timeLimit": 3,
+    "description": "Improves tracking, enhances focus",
     "type":
         "animation_figure_8",
     "svgPath":

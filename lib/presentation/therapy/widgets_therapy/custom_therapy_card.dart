@@ -7,7 +7,7 @@ class TherapyCard extends StatelessWidget {
   final double screenHeight;
   final double screenWidth;
 
-  TherapyCard({
+  const TherapyCard({super.key,
     required this.therapy,
     required this.screenHeight,
     required this.screenWidth,
