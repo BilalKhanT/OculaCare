@@ -4,42 +4,38 @@ import 'package:bloc/bloc.dart';
 class TimerCubit extends Cubit<int> {
   Timer? _timer;
   int _remainingTime = 0;
-  int _initialTimeLimit = 0; // New field to store the initial time limit
+  int _initialTimeLimit = 0;
 
   TimerCubit() : super(0);
 
-  // Getter to retrieve the initial time limit
   int get initialTimeLimit => _initialTimeLimit;
 
-  // Start the timer with a given duration
   void startTimer(int duration) {
-    _initialTimeLimit = duration;  // Store the initial time limit
+    _initialTimeLimit = duration;
     _remainingTime = duration;
     _timer?.cancel(); // Cancel any existing timer
-    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (_remainingTime > 0) {
         _remainingTime--;
-        emit(_remainingTime); // Emit remaining time
+        emit(_remainingTime);
       } else {
-        timer.cancel(); // Stop timer when time runs out
+        timer.cancel();
         _completeTimer();
       }
     });
   }
 
-  // Cancel the timer
   void stopTimer() {
     _timer?.cancel();
   }
 
-  // Timer complete logic
   void _completeTimer() {
-    emit(0); // Emit final state when timer is complete
+    emit(0);
   }
 
   @override
   Future<void> close() {
-    _timer?.cancel(); // Ensure timer is cancelled when the cubit is closed
+    _timer?.cancel();
     return super.close();
   }
 }
