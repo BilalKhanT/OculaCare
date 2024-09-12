@@ -1,4 +1,5 @@
 import 'package:OculaCare/data/models/tests/score_model.dart';
+import 'package:OculaCare/data/models/tests/test_result_model.dart';
 import 'package:OculaCare/logic/therapy_cubit/music_cubit.dart';
 import 'package:OculaCare/logic/therapy_cubit/therapy_cubit.dart';
 import 'package:OculaCare/logic/therapy_cubit/timer_cubit.dart';
@@ -10,6 +11,7 @@ import 'package:OculaCare/presentation/more_section/pdf_view.dart';
 import 'package:OculaCare/presentation/patient_profile/profile_view.dart';
 import 'package:OculaCare/presentation/result/result_view.dart';
 import 'package:OculaCare/presentation/test_dashboard/test_dash_view.dart';
+import 'package:OculaCare/presentation/test_dashboard/widgets/test_report.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -280,7 +282,13 @@ final router = GoRouter(
         return DiseaseTherapiesScreen(disease: disease);
       },
     ),
-
+    GoRoute(
+        parentNavigatorKey: navigatorKey,
+        path: RouteNames.testReportRoute,
+        builder: (context, state) {
+          TestResultModel test = state.extra as TestResultModel;
+          return TestReport(test: test);
+        }),
     // GoRoute(
     //   path: RouteNames.imgCaptureRoute,
     //   builder: (context, state) => const ImageCaptureScreen(),

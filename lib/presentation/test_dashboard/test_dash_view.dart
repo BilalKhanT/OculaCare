@@ -1,12 +1,13 @@
 import 'package:OculaCare/data/models/tests/history_args_model.dart';
 import 'package:OculaCare/logic/tests/test_progression_cubit.dart';
-import 'package:OculaCare/logic/tests/test_progression_state.dart';
+import 'package:OculaCare/presentation/test_dashboard/widgets/test_graph_progress.dart';
 import 'package:OculaCare/presentation/test_dashboard/widgets/test_history_tile.dart';
 import 'package:OculaCare/presentation/test_dashboard/widgets/test_progress_heatmap.dart';
 import 'package:OculaCare/presentation/test_dashboard/widgets/test_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../configs/presentation/constants/colors.dart';
 import '../../configs/routes/route_names.dart';
@@ -25,8 +26,6 @@ import '../../logic/tests/test_schedule_tab_cubit.dart';
 import '../../logic/tests/test_state.dart';
 import '../../logic/tests/vision_tests/contrast_cubit.dart';
 import '../../logic/tests/vision_tests/snellan_test_cubit.dart';
-import '../widgets/cstm_loader.dart';
-import '../widgets/test_progress_chart.dart';
 
 class TestDashView extends StatelessWidget {
   const TestDashView({super.key});
@@ -215,7 +214,9 @@ class TestDashView extends StatelessWidget {
                           onTap: () {
                             context.read<TestDashTabCubit>().toggleTab(2);
                             context.read<TestCubit>().loadTestProgression();
-                            context.read<TestProgressionCubit>().toggleProgression('Snellan Chart');
+                            context
+                                .read<TestProgressionCubit>()
+                                .toggleProgression('Snellan Chart');
                           },
                           child: Container(
                             decoration: BoxDecoration(
@@ -258,16 +259,60 @@ class TestDashView extends StatelessWidget {
               BlocBuilder<TestCubit, TestState>(
                 builder: (context, state) {
                   if (state is TestLoading) {
-                    return Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          SizedBox(height: screenHeight * 0.35),
-                          const DotLoader(
-                            loaderColor: AppColors.appColor,
-                          ),
-                        ],
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 5.0, vertical: 20.0),
+                      child: SizedBox(
+                        height: screenHeight * 0.7,
+                        child: ListView.builder(
+                          itemCount: 10,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 8.0, horizontal: 3.0),
+                              child: Shimmer.fromColors(
+                                baseColor: Colors.grey[300]!,
+                                highlightColor: Colors.grey[100]!,
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      width: 60.0,
+                                      height: 60.0,
+                                      color: Colors.white,
+                                    ),
+                                    const SizedBox(width: 10.0),
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Container(
+                                            width: double.infinity,
+                                            height: 12.0,
+                                            color: Colors.white,
+                                          ),
+                                          const SizedBox(height: 5.0),
+                                          Container(
+                                            width: double.infinity,
+                                            height: 12.0,
+                                            color: Colors.white,
+                                          ),
+                                          const SizedBox(height: 5.0),
+                                          Container(
+                                            width: 100.0,
+                                            height: 12.0,
+                                            color: Colors.white,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        ),
                       ),
                     );
                   } else if (state is TestLoaded) {
@@ -556,7 +601,10 @@ class TestDashView extends StatelessWidget {
                                       title: state.data[index].testName,
                                       description: state.data[index].date,
                                       image: data.imagePath,
-                                      onPress: () {},
+                                      onPress: () {
+                                        context.push(RouteNames.testReportRoute,
+                                            extra: state.data[index]);
+                                      },
                                       avatarColor: data.color),
                                 );
                               },
@@ -591,7 +639,10 @@ class TestDashView extends StatelessWidget {
                                       title: state.dataColor[index].testName,
                                       description: state.dataColor[index].date,
                                       image: data.imagePath,
-                                      onPress: () {},
+                                      onPress: () {
+                                        context.push(RouteNames.testReportRoute,
+                                            extra: state.dataColor[index]);
+                                      },
                                       avatarColor: data.color),
                                 );
                               },
@@ -626,115 +677,7 @@ class TestDashView extends StatelessWidget {
                           SizedBox(
                             height: screenHeight * 0.035,
                           ),
-                          BlocBuilder<TestProgressionCubit,
-                              TestProgressionState>(
-                            builder: (context, state) {
-                              Map<DateTime, double> score = {};
-                              if (state is TestProgressionToggled) {
-                                score = state.scores;
-                              }
-                              return Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        context
-                                            .read<TestProgressionCubit>()
-                                            .selectedTest,
-                                        style: TextStyle(
-                                            fontFamily: 'MontserratMedium',
-                                            fontWeight: FontWeight.w800,
-                                            fontSize: screenWidth * 0.045,
-                                            color: AppColors.appColor),
-                                      ),
-                                      Container(
-                                        height: screenHeight * 0.05,
-                                        width: screenWidth * 0.4,
-                                        decoration: BoxDecoration(
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color:
-                                                  Colors.black.withOpacity(0.1),
-                                              blurRadius: 10,
-                                              offset: const Offset(0, 5),
-                                            ),
-                                          ],
-                                          color: Colors.white,
-                                          borderRadius:
-                                              BorderRadius.circular(50.0),
-                                        ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(5.0),
-                                          child: DropdownButton<String>(
-                                            borderRadius:
-                                                BorderRadius.circular(10.0),
-                                            dropdownColor: Colors.white,
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 5.0),
-                                            value: context
-                                                .read<TestProgressionCubit>()
-                                                .selectedTest,
-                                            icon: const Icon(
-                                              Icons
-                                                  .keyboard_arrow_down_outlined,
-                                              color: Colors.black,
-                                            ),
-                                            iconSize: screenWidth * 0.05,
-                                            elevation: 10,
-                                            style: const TextStyle(
-                                                color: Colors.deepPurple),
-                                            underline: Container(
-                                              height: 0,
-                                              color: AppColors.appColor,
-                                            ),
-                                            onChanged: (String? newValue) {
-                                              context
-                                                  .read<TestProgressionCubit>()
-                                                  .toggleProgression(newValue!);
-                                            },
-                                            items: <String>[
-                                              'Snellan Chart',
-                                              'Animal Track',
-                                              'Contrast Test',
-                                              'Isihara Plates',
-                                              'Match Color',
-                                              'Odd One Out',
-                                            ].map<DropdownMenuItem<String>>(
-                                                (String value) {
-                                              return DropdownMenuItem<String>(
-                                                value: value,
-                                                child: Text(
-                                                  value,
-                                                  style: TextStyle(
-                                                    fontFamily:
-                                                        'MontserratMedium',
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize:
-                                                        screenWidth * 0.032,
-                                                    letterSpacing: 1,
-                                                    color: Colors.black,
-                                                  ),
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                ),
-                                              );
-                                            }).toList(),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: screenHeight * 0.03,
-                                  ),
-                                  ProgressChartScreen(testScores: score,)
-                                ],
-                              );
-                            },
-                          ),
+                          const TestGraphProgress(),
                         ],
                       ),
                     );

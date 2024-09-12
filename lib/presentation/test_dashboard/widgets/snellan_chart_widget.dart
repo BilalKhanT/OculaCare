@@ -36,7 +36,7 @@ class TrackChart extends StatelessWidget {
                 ),
                 PieChartSectionData(
                   value: (60 - finalScore).toDouble(),
-                  color: Colors.grey.shade800,
+                  color: Colors.grey.shade600,
                   radius: 30,
                 ),
               ],
