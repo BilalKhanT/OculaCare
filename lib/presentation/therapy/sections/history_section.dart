@@ -4,7 +4,6 @@ import '../../../configs/presentation/constants/colors.dart';
 import 'package:OculaCare/logic/therapy_cubit/therapy_cubit.dart';
 import 'package:OculaCare/logic/therapy_cubit/therapy_state.dart';
 import 'package:OculaCare/data/models/therapy/therapy_results_model.dart';
-
 import '../../widgets/cstm_loader.dart';
 
 class HistorySection extends StatelessWidget {
@@ -101,12 +100,15 @@ class HistorySection extends StatelessWidget {
             );
           }
         } else {
-          return Center(
-            child: Text(
-              'Failed to load history',
-              style: TextStyle(
-                color: Colors.red,
-                fontSize: screenWidth * 0.045,
+          return Scaffold(
+            backgroundColor: AppColors.screenBackground,
+            body: Center(
+              child: Text(
+                'No therapies taken yet',
+                style: TextStyle(
+                  color: Colors.red,
+                  fontSize: screenWidth * 0.045,
+                ),
               ),
             ),
           );
