@@ -3,7 +3,8 @@ final List<Map<String, dynamic>> crossedEyeTherapies = [
   {
     "title": "Brock String Exercise",
     "category": "Crossed Eyes",
-    "timeLimit": 10, 
+    "timeLimit": 10,
+    "description": "Improves alignment, strengthens coordination",
     "type": "animation_string",
     "svgPath": "assets/images/crossed_eyes/brock_string/brock_string.png",
     "sound": "assets/audio/relaxing_breathing.mp3",
@@ -36,7 +37,8 @@ final List<Map<String, dynamic>> crossedEyeTherapies = [
   {
     "title": "Mirror Eye Stretch",
     "category": "Crossed Eyes",
-    "timeLimit": 5, 
+    "timeLimit": 5,
+    "description": "Strengthens muscles, improves coordination",
     "type": "instruction",
     "svgPath": "assets/images/crossed_eyes/mirror_eye/mirror_eye.png",
     "sound": "assets/audio/relaxing_breathing.mp3",
@@ -69,7 +71,8 @@ final List<Map<String, dynamic>> crossedEyeTherapies = [
   {
     "title": "Pencil Push-Up",
     "category": "Crossed Eyes",
-    "timeLimit": 10, 
+    "timeLimit": 10,
+    "description": "Improves focus, strengthens coordination",
     "type": "instruction",
     "svgPath": "assets/images/crossed_eyes/pencil_pushups/pencil_pushups.png",
     "sound": "assets/audio/relaxing_breathing.mp3",
@@ -118,7 +121,8 @@ final List<Map<String, dynamic>> crossedEyeTherapies = [
   {
     "title": "Barrel Card Exercise",
     "category": "Crossed Eyes",
-    "timeLimit": 5, 
+    "timeLimit": 5,
+    "description": "Improves convergence, strengthens coordination",
     "type": "animation_barrel",
     "svgPath": "assets/images/crossed_eyes/barrel_card/barrel_card.png",
     "sound": "assets/audio/relaxing_breathing.mp3",
@@ -163,7 +167,8 @@ final List<Map<String, dynamic>> crossedEyeTherapies = [
   {
     "title": "Eye Patch Therapy",
     "category": "Crossed Eyes",
-    "timeLimit": 1, 
+    "timeLimit": 1,
+    "description": "Strengthens weaker eye, coordination",
     "type": "instruction",
     "svgPath": "assets/images/crossed_eyes/eye_patch/eye_patch.png",
     "sound": "assets/audio/relaxing_breathing.mp3",
@@ -189,8 +194,8 @@ final List<Map<String, dynamic>> crossedEyeTherapies = [
     "title": "Peripheral Awareness Exercise",
     "category": "Crossed Eyes",
     "timeLimit": 5,
-    "type":
-        "animation_peripheral",
+    "description": "Strengthens peripheral vision, coordination",
+    "type": "animation_peripheral",
     "svgPath": "assets/images/crossed_eyes/peripheral_awareness/peripheral.png",
     "sound": "assets/audio/relaxing_breathing.mp3",
     "benefits": ["Strengthens peripheral vision", "Improves coordination"],
