@@ -562,7 +562,7 @@ final List<Map<String, dynamic>> therapiesList = [
       {
         "step": 2,
         "instruction": "Open your eyes and blink rapidly.",
-        "svgPath": "assets/images/blinking_exercise/blinking.png",
+        "svgPath": "assets/images/blinking_exercise/blinking.json",
         "duration": 15
       },
       {
@@ -574,7 +574,7 @@ final List<Map<String, dynamic>> therapiesList = [
       {
         "step": 4,
         "instruction": "Repeat the blinking exercise.",
-        "svgPath": "assets/images/blinking_exercise/blinking.png",
+        "svgPath": "assets/images/blinking_exercise/blinking.json",
         "duration": 15
       },
       {
@@ -592,7 +592,7 @@ final List<Map<String, dynamic>> therapiesList = [
       {
         "step": 2,
         "instruction": "Open your eyes and blink rapidly.",
-        "svgPath": "assets/images/blinking_exercise/blinking.png",
+        "svgPath": "assets/images/blinking_exercise/blinking.json",
         "duration": 15
       },
       {
@@ -604,7 +604,7 @@ final List<Map<String, dynamic>> therapiesList = [
       {
         "step": 4,
         "instruction": "Repeat the blinking exercise.",
-        "svgPath": "assets/images/blinking_exercise/blinking.png",
+        "svgPath": "assets/images/blinking_exercise/blinking.json",
         "duration": 15
       },
       {
@@ -644,7 +644,7 @@ final List<Map<String, dynamic>> therapiesList = [
       },
       {
         "step": 3,
-        "instruction": "Shift your focus to something farther away.",
+        "instruction": "Shift your focus to ghost seen on the screen.",
         "svgPath": "assets/images/distance_gazing/far.png",
         "duration": 10
       },
@@ -674,7 +674,7 @@ final List<Map<String, dynamic>> therapiesList = [
       },
       {
         "step": 8,
-        "instruction": "Shift your focus to something farther away.",
+        "instruction": "Shift your focus to ghost seen on the screen.",
         "svgPath": "assets/images/distance_gazing/far.png",
         "duration": 10
       },
@@ -704,7 +704,7 @@ final List<Map<String, dynamic>> therapiesList = [
       },
       {
         "step": 13,
-        "instruction": "Shift your focus to something farther away.",
+        "instruction": "Shift your focus to ghost seen on the screen.",
         "svgPath": "assets/images/distance_gazing/far.png",
         "duration": 10
       },
