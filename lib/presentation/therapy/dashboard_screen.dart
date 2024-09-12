@@ -69,11 +69,10 @@ class DashboardScreen extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
+          padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 15.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Therapy, History, and Progression Tabs
               BlocBuilder<TherapyDashboardCubit, TherapyDashboardStates>(
                 builder: (context, state) {
                   bool therapySelected = state is TherapyDashboardInitialState;
@@ -90,14 +89,10 @@ class DashboardScreen extends StatelessWidget {
                   );
                 },
               ),
-
               SizedBox(height: screenHeight * 0.02),
-
-              // Conditional UI Rendering based on state
               BlocBuilder<TherapyDashboardCubit, TherapyDashboardStates>(
                 builder: (context, state) {
                   if (state is TherapyDashboardInitialState) {
-                    // Show the Therapy Section (Recommended & General Exercises)
                     return TherapySection(
                       selectedTherapyType: selectedTherapyType,
                       screenHeight: screenHeight,
