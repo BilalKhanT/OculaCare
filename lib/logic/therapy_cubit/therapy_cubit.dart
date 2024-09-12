@@ -5,6 +5,7 @@ import 'package:OculaCare/data/models/therapy/therapy_results_model.dart';
 import 'package:OculaCare/data/repositories/local/preferences/shared_prefs.dart';
 import 'package:bloc/bloc.dart';
 import 'package:intl/intl.dart';
+import '../../configs/app/app_globals.dart';
 import '../../data/repositories/therapy/therapy_repo.dart';
 import '../../data/therapies_data/stories.dart';
 import 'therapy_state.dart';
@@ -23,23 +24,22 @@ class TherapyCubit extends Cubit<TherapyState> {
   TherapyCubit(this._timerCubit, this._musicCubit) : super(TherapyInitial());
 
   final TherapyRepository therapyRepository = TherapyRepository();
-  List<TherapyModel> therapyHistory = [];
 
   Future<void> loadTherapyHistory(String patientName) async {
     emit(TherapyLoading());
-    print("here");
     try {
-      final therapies = await therapyRepository.getTherapyRecord(patientName);
-      if (therapies.isNotEmpty) {
+      await therapyRepository.getTherapyRecord(patientName);
+      if (globalTherapies.isNotEmpty) {
         print("now here");
-        therapyHistory = therapies;
-        print(therapies);
+        emit(TherapyHistoryLoaded(globalTherapies));
+      } else {
+        emit(const TherapyHistoryLoaded([]));
       }
-      emit(TherapyHistoryLoaded(therapyHistory));
     } catch (e) {
-      return ;
+      emit(const TherapyError(therapyErr: 'Failed to load therapy history'));
     }
   }
+
 
 
 
@@ -585,8 +585,8 @@ class TherapyCubit extends Cubit<TherapyState> {
       bool isSaved = await therapyRepository.addTherapyRecord(therapyData);
 
       if (isSaved) {
-        therapyHistory.add(newTherapy);
-        emit(TherapyHistoryLoaded(therapyHistory));
+        globalTherapies.add(newTherapy);
+        emit(TherapyHistoryLoaded(globalTherapies));
         emit(TherapyCompleted(therapyTitle: title));
       } else {
         emit(const TherapyError(therapyErr: 'Failed to save therapy'));
