@@ -20,7 +20,7 @@ class DiseaseCardList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: screenHeight * 0.25, // Adjust height of the container
+      height: screenHeight * 0.25,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: diseases.length,
@@ -29,13 +29,12 @@ class DiseaseCardList extends StatelessWidget {
 
           return GestureDetector(
             onTap: () {
-              // Navigate to the DiseaseTherapiesScreen when a disease is selected
               context.push(RouteNames.diseaseTherapies, extra: disease['name']);
             },
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0), // Space around each card (adjust as necessary)
+              padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 20.0),
               child: Container(
-                width: screenWidth * 0.45, // Set width of each card
+                width: screenWidth * 0.45,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(15.0),
@@ -48,28 +47,28 @@ class DiseaseCardList extends StatelessWidget {
                     ),
                   ],
                   image: DecorationImage(
-                    image: AssetImage(disease['image']!), // Display disease image as background
-                    fit: BoxFit.scaleDown, // Ensures image covers the whole container
+                    image: AssetImage(disease['image']!),
+                    fit: BoxFit.scaleDown,
                   ),
                 ),
                 child: Stack(
                   children: [
-                    // Disease name positioned at the bottom-right corner
                     Positioned(
                       bottom: 10,
                       right: 10,
                       child: Container(
                         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                         decoration: BoxDecoration(
-                          color: AppColors.appColor, // Solid color background
+                          color: AppColors.appColor,
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Text(
                           disease['name']!,
                           style: TextStyle(
-                            fontSize: screenWidth * 0.03,
+                            fontFamily: 'Montserrat',
                             fontWeight: FontWeight.bold,
-                            color: Colors.white, // White text on solid background
+                            fontSize: MediaQuery.of(context).size.width * 0.03,
+                            color: Colors.white,
                           ),
                         ),
                       ),
