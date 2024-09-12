@@ -13,20 +13,18 @@ class TherapyScheduleCubit extends Cubit<TherapyScheduleState> {
     controller.clear();
   }
 
-  // Scheduling a new therapy with category
   Future<bool> scheduleTherapy(Map<String, dynamic> therapy, DateTime scheduledTime) async {
     emit(TherapyScheduleLoading());
 
-    // Extracting category
-    String category = therapy['category'] ?? 'Disease Specific'; // Default to Disease Specific
+    String category = therapy['category'] ?? 'Disease Specific';
     String therapyName = therapy['title'] ?? 'Unknown Therapy';
 
-    await Future.delayed(const Duration(seconds: 1)); // Simulate delay
+    await Future.delayed(const Duration(seconds: 1));
     await NotificationService.scheduleTherapyNotification(
         therapyName,
         'You need to attend $therapyName therapy.',
         scheduledTime,
-        category // Pass the category here
+        category
     );
 
     clearController();
@@ -34,7 +32,6 @@ class TherapyScheduleCubit extends Cubit<TherapyScheduleState> {
     return true;
   }
 
-  // Loading General Therapy notifications
   Future<void> loadGeneralTherapies() async {
     List<Map<String, String>> generalTherapies = [];
     emit(TherapyScheduleLoading());
@@ -58,18 +55,14 @@ class TherapyScheduleCubit extends Cubit<TherapyScheduleState> {
     }
   }
 
-
-  // Loading Disease Specific Therapy notifications
   Future<void> loadDiseaseSpecificTherapies() async {
     List<Map<String, String>> diseaseTherapies = [];
     emit(TherapyScheduleLoading());
 
-    // Fetch scheduled therapy notifications
     final List<Map<String, String>> therapyNotifications = await NotificationService.getScheduledTherapyNotifications();
 
     if (therapyNotifications.isNotEmpty) {
       for (var scheduled in therapyNotifications) {
-        // Automatically check if the therapy is Disease Specific (not General)
         if (scheduled['category'] != 'General') {
           DateTime scheduledTime = DateTime.parse(scheduled['time']!);
           if (DateTime.now().isBefore(scheduledTime)) {
@@ -85,14 +78,13 @@ class TherapyScheduleCubit extends Cubit<TherapyScheduleState> {
     }
   }
 
-  // Remove a scheduled therapy
   Future<void> removeScheduledTherapy(String id) async {
     emit(TherapyScheduleLoading());
     await NotificationService.cancelTherapyNotification(int.parse(id));
     await loadScheduledTherapies();
   }
 
-  // Load all scheduled therapies regardless of category
+
   Future<void> loadScheduledTherapies() async {
     List<Map<String, String>> result = [];
     emit(TherapyScheduleLoading());
