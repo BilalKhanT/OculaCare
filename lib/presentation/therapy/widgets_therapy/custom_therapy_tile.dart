@@ -16,7 +16,7 @@ class TherapyTile extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 5.0),
+      padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 10),
       child: GestureDetector(
         onTap: onTap,
         child: Container(
@@ -56,6 +56,16 @@ class TherapyTile extends StatelessWidget {
                         fontFamily: 'MontserratMedium',
                         fontWeight: FontWeight.w700,
                         fontSize: MediaQuery.of(context).size.width * 0.035,
+                      ),
+                    ),
+                    const SizedBox(height: 5),
+                    Text(
+                      therapy['description'],
+                      style: TextStyle(
+                        color: AppColors.textPrimary,
+                        fontFamily: 'MontserratMedium',
+                        fontWeight: FontWeight.w500,
+                        fontSize: MediaQuery.of(context).size.width * 0.025,
                       ),
                     ),
                     const SizedBox(height: 5),

@@ -32,7 +32,7 @@ class DiseaseTherapiesScreen extends StatelessWidget {
       ),
       body:
       Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.symmetric(horizontal: 5),
         child: ListView.builder(
           itemCount: therapies.length,
           itemBuilder: (context, index) {

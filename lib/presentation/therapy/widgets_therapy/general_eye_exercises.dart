@@ -23,7 +23,7 @@ class GeneralEyeExercises extends StatelessWidget {
       itemBuilder: (context, index) {
         final therapy = exercisesList[index];
         return Padding(
-          padding: const EdgeInsets.symmetric(vertical: 12.0),
+          padding: const EdgeInsets.symmetric(vertical: 2.0),
           child: TherapyTile(
             therapy: therapy,
             screenHeight: screenHeight,
