@@ -11,7 +11,7 @@ class MusicCubit extends Cubit<void> {
       Audio(soundPath),
       autoStart: true,
       loopMode:
-          LoopMode.single, // Loop the sound throughout the therapy session
+          LoopMode.single,
     );
   }
 
