@@ -79,7 +79,6 @@ class TherapyAnimationInProgress extends TherapyState {
   List<Object> get props => [therapyTitle, remainingTime, topPosition, leftPosition];
 }
 
-// State specific to Distance Gazing for different image sizes and positions
 class TherapyDistanceGazingInProgress extends TherapyState {
   final String therapyTitle;
   final String instruction;
@@ -137,7 +136,7 @@ class TherapyYinYangAnimationInProgress extends TherapyState {
 
 class TherapyRiveAnimationInProgress extends TherapyState {
   final String therapyTitle;
-  final String animationPath;  // Path to the Rive animation
+  final String animationPath;
   final int remainingTime;
 
   const TherapyRiveAnimationInProgress({
@@ -156,7 +155,7 @@ class TherapyBrockStringInProgress extends TherapyState {
   final String instruction;
   final String svgPath;
   final int beadIndex;
-  final List<double> beadOpacities;  // Opacity for each bead
+  final List<double> beadOpacities;
 
   const TherapyBrockStringInProgress({
     required this.therapyTitle,
@@ -164,7 +163,7 @@ class TherapyBrockStringInProgress extends TherapyState {
     required this.instruction,
     required this.svgPath,
     required this.beadIndex,
-    required this.beadOpacities,  // Add bead opacities to the constructor
+    required this.beadOpacities,
   });
 
   @override
