@@ -25,8 +25,7 @@ class TherapyScreen extends StatelessWidget {
 
     return WillPopScope(
       onWillPop: () async {
-        BlocProvider.of<TherapyCubit>(context)
-            .stopTherapy();
+        BlocProvider.of<TherapyCubit>(context).stopTherapy();
         return true;
       },
       child: BlocConsumer<TherapyCubit, TherapyState>(
@@ -145,22 +144,17 @@ class TherapyScreen extends StatelessWidget {
               body: Column(
                 children: [
                   Expanded(
-                    child: Stack(
-                      children: [
-                        rive.RiveAnimation.asset(
+                    child: Stack(children: [
+                      rive.RiveAnimation.asset(
                         state.animationPath,
                         fit: BoxFit.contain,
                       ),
-                      ]
-
-                    ),
+                    ]),
                   ),
                   _buildInstructionsAndTimer(context, "Roll Your Eyes", width),
                 ],
               ),
-
             );
-
           } else if (state is TherapyBrockStringInProgress) {
             return Scaffold(
               backgroundColor: AppColors.backgroundTherapy,
@@ -187,14 +181,20 @@ class TherapyScreen extends StatelessWidget {
               appBar: AppBar(
                 elevation: 0,
                 backgroundColor: AppColors.screenBackground,
-                title: Text(state.therapyTitle, style: TextStyle(
-                  fontFamily: 'MontserratMedium',
-                  fontWeight: FontWeight.w800,
-                  fontSize: screenWidth * 0.05,
-                  color: AppColors.textPrimary,
-                ),),
+                title: Text(
+                  state.therapyTitle,
+                  style: TextStyle(
+                    fontFamily: 'MontserratMedium',
+                    fontWeight: FontWeight.w800,
+                    fontSize: screenWidth * 0.05,
+                    color: AppColors.textPrimary,
+                  ),
+                ),
                 centerTitle: true,
-                leading: const Icon(Icons.arrow_back_ios_new, color: AppColors.screenBackground,),
+                leading: const Icon(
+                  Icons.arrow_back_ios_new,
+                  color: AppColors.screenBackground,
+                ),
               ),
               body: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -213,7 +213,7 @@ class TherapyScreen extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 20),
-                       Center(
+                      Center(
                         child: Text(
                           "Congratulations! You have successfully completed the therapy.",
                           textAlign: TextAlign.center,
@@ -228,17 +228,26 @@ class TherapyScreen extends StatelessWidget {
                       const SizedBox(height: 30),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                        child: ButtonFlat(btnColor: AppColors.appColor, textColor: AppColors.whiteColor, onPress: () {
-                          print("Feedback logic");
-                        }, text: "Submit Feedback"),
+                        child: ButtonFlat(
+                            btnColor: AppColors.appColor,
+                            textColor: AppColors.whiteColor,
+                            onPress: () {
+                              print("Feedback logic");
+                            },
+                            text: "Submit Feedback"),
                       ),
                       const SizedBox(height: 20),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                        child: ButtonFlat(btnColor: AppColors.textPrimary, textColor: AppColors.whiteColor, onPress: () {
-                          BlocProvider.of<TherapyCubit>(context).resetTherapy();
-                          Navigator.pop(context);
-                        }, text: "View Dashboard"),
+                        child: ButtonFlat(
+                            btnColor: AppColors.textPrimary,
+                            textColor: AppColors.whiteColor,
+                            onPress: () {
+                              BlocProvider.of<TherapyCubit>(context)
+                                  .resetTherapy();
+                              Navigator.pop(context);
+                            },
+                            text: "View Dashboard"),
                       ),
                     ],
                   ),
@@ -256,7 +265,7 @@ class TherapyScreen extends StatelessWidget {
                       CornerDot(
                         dotPositions: state.dotPositions,
                         dotOpacity: state.dotOpacity,
-                      ), // Add the dot animation
+                      ),
                     ],
                   ),
                 ),
@@ -280,7 +289,7 @@ class TherapyScreen extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: Text(
-                        state.story, // Display the random story
+                        state.story,
                         style: TextStyle(
                           fontFamily: 'MontserratMedium',
                           fontSize: width * 0.045,
@@ -307,7 +316,6 @@ class TherapyScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  // Lottie Animation
                   Center(
                     child: Lottie.asset(state.animationPath),
                   ),
@@ -345,7 +353,7 @@ class TherapyScreen extends StatelessWidget {
                 ],
               ),
             );
-          } else if(state is TherapyLoading){
+          } else if (state is TherapyLoading) {
             return const Scaffold(
               backgroundColor: AppColors.screenBackground,
               body: Center(
@@ -354,9 +362,8 @@ class TherapyScreen extends StatelessWidget {
                 ),
               ),
             );
-          }
-          else {
-            return const SizedBox.shrink(); // Fallback for other states
+          } else {
+            return const SizedBox.shrink();
           }
         },
       ),
@@ -403,12 +410,10 @@ class TherapyScreen extends StatelessWidget {
       imageSize = (stepIndex == 1)
           ? 24
           : (stepIndex == 2)
-          ? 512
-          : width * 0.7;
+              ? 512
+              : width * 0.7;
     } else if (therapyTitle == "Eye Patch Therapy") {
-      imageSize = (stepIndex == 1)
-          ? width
-          : width;
+      imageSize = (stepIndex == 1) ? width : width;
     } else {
       imageSize = width * 0.7;
     }
@@ -491,7 +496,8 @@ class TherapyScreen extends StatelessWidget {
           Positioned(
             bottom: 20,
             left: MediaQuery.of(context).size.width / 2 - 100,
-            child: _buildRemainingTime(context, MediaQuery.of(context).size.width),
+            child:
+                _buildRemainingTime(context, MediaQuery.of(context).size.width),
           ),
         ],
       ),
