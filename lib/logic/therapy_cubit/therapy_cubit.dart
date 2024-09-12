@@ -28,9 +28,12 @@ class TherapyCubit extends Cubit<TherapyState> {
   Future<void> loadTherapyHistory(String patientName) async {
     emit(TherapyLoading());
     try {
-      await therapyRepository.getTherapyRecord(patientName);
+      if (globalTherapies.isEmpty) {
+        print("empty list");
+        await therapyRepository.getTherapyRecord(patientName);
+      }
       if (globalTherapies.isNotEmpty) {
-        print("now here");
+        print("here");
         emit(TherapyHistoryLoaded(globalTherapies));
       } else {
         emit(const TherapyHistoryLoaded([]));
@@ -39,6 +42,7 @@ class TherapyCubit extends Cubit<TherapyState> {
       emit(const TherapyError(therapyErr: 'Failed to load therapy history'));
     }
   }
+
 
 
 
