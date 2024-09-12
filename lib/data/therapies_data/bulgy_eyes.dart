@@ -230,8 +230,8 @@ final List<Map<String, dynamic>> bulgyEyeTherapies = [
     "title": "Blinking Exercise",
     "category": "Bulgy Eyes",
     "timeLimit": 2,
-    "description": "Lubricates eyes, reduces dryness",
     "type": "image",
+    "description": "Lubricate eyes, reduce dryness",
     "svgPath": "assets/images/blinking_exercise/blinking_eye.png",
     "sound": "assets/audio/relaxing_breathing.mp3",
     "benefits": [
@@ -249,7 +249,37 @@ final List<Map<String, dynamic>> bulgyEyeTherapies = [
       {
         "step": 2,
         "instruction": "Open your eyes and blink rapidly.",
-        "svgPath": "assets/images/blinking_exercise/blinking.png",
+        "svgPath": "assets/images/blinking_exercise/blinking.json",
+        "duration": 15
+      },
+      {
+        "step": 3,
+        "instruction": "Slowly close your eyes again.",
+        "svgPath": "assets/images/blinking_exercise/close_eyes.png",
+        "duration": 10
+      },
+      {
+        "step": 4,
+        "instruction": "Repeat the blinking exercise.",
+        "svgPath": "assets/images/blinking_exercise/blinking.json",
+        "duration": 15
+      },
+      {
+        "step": 5,
+        "instruction": "Relax and breathe deeply.",
+        "svgPath": "assets/images/blinking_exercise/exhaling.png",
+        "duration": 10
+      },
+      {
+        "step": 1,
+        "instruction": "Close your eyes gently.",
+        "svgPath": "assets/images/blinking_exercise/close_eyes.png",
+        "duration": 10
+      },
+      {
+        "step": 2,
+        "instruction": "Open your eyes and blink rapidly.",
+        "svgPath": "assets/images/blinking_exercise/blinking.json",
         "duration": 15
       },
       {
@@ -266,9 +296,9 @@ final List<Map<String, dynamic>> bulgyEyeTherapies = [
       },
       {
         "step": 5,
-        "instruction": "Relax and breathe deeply.",
+        "instruction": "Relax and do this exercise 3 times a day.",
         "svgPath": "assets/images/blinking_exercise/exhaling.png",
-        "duration": 20
+        "duration": 10
       },
     ]
   },
