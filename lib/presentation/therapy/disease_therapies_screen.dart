@@ -14,13 +14,17 @@ class DiseaseTherapiesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Get therapies based on disease
     List<Map<String, dynamic>> therapies = _getTherapiesForDisease(disease);
-
+    double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: AppColors.screenBackground,
       appBar: AppBar(
-        title: Text("$disease Therapies"),
+        title: Text("$disease Therapies", style: TextStyle(
+          fontFamily: 'MontserratMedium',
+          fontWeight: FontWeight.w800,
+          fontSize: screenWidth * 0.05,
+          color: AppColors.textPrimary,
+        ),),
         backgroundColor: AppColors.screenBackground,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_new, color: Colors.black), // Updated icon
