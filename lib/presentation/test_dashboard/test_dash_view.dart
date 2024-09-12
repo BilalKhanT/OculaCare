@@ -7,6 +7,7 @@ import 'package:OculaCare/presentation/test_dashboard/widgets/test_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../configs/presentation/constants/colors.dart';
 import '../../configs/routes/route_names.dart';
@@ -25,7 +26,6 @@ import '../../logic/tests/test_schedule_tab_cubit.dart';
 import '../../logic/tests/test_state.dart';
 import '../../logic/tests/vision_tests/contrast_cubit.dart';
 import '../../logic/tests/vision_tests/snellan_test_cubit.dart';
-import '../widgets/cstm_loader.dart';
 
 class TestDashView extends StatelessWidget {
   const TestDashView({super.key});
@@ -214,7 +214,9 @@ class TestDashView extends StatelessWidget {
                           onTap: () {
                             context.read<TestDashTabCubit>().toggleTab(2);
                             context.read<TestCubit>().loadTestProgression();
-                            context.read<TestProgressionCubit>().toggleProgression('Snellan Chart');
+                            context
+                                .read<TestProgressionCubit>()
+                                .toggleProgression('Snellan Chart');
                           },
                           child: Container(
                             decoration: BoxDecoration(
@@ -257,16 +259,60 @@ class TestDashView extends StatelessWidget {
               BlocBuilder<TestCubit, TestState>(
                 builder: (context, state) {
                   if (state is TestLoading) {
-                    return Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          SizedBox(height: screenHeight * 0.35),
-                          const DotLoader(
-                            loaderColor: AppColors.appColor,
-                          ),
-                        ],
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 5.0, vertical: 20.0),
+                      child: SizedBox(
+                        height: screenHeight * 0.7,
+                        child: ListView.builder(
+                          itemCount: 10,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 8.0, horizontal: 3.0),
+                              child: Shimmer.fromColors(
+                                baseColor: Colors.grey[300]!,
+                                highlightColor: Colors.grey[100]!,
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      width: 60.0,
+                                      height: 60.0,
+                                      color: Colors.white,
+                                    ),
+                                    const SizedBox(width: 10.0),
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Container(
+                                            width: double.infinity,
+                                            height: 12.0,
+                                            color: Colors.white,
+                                          ),
+                                          const SizedBox(height: 5.0),
+                                          Container(
+                                            width: double.infinity,
+                                            height: 12.0,
+                                            color: Colors.white,
+                                          ),
+                                          const SizedBox(height: 5.0),
+                                          Container(
+                                            width: 100.0,
+                                            height: 12.0,
+                                            color: Colors.white,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        ),
                       ),
                     );
                   } else if (state is TestLoaded) {
@@ -556,7 +602,8 @@ class TestDashView extends StatelessWidget {
                                       description: state.data[index].date,
                                       image: data.imagePath,
                                       onPress: () {
-                                        context.push(RouteNames.testReportRoute, extra: state.data[index]);
+                                        context.push(RouteNames.testReportRoute,
+                                            extra: state.data[index]);
                                       },
                                       avatarColor: data.color),
                                 );
@@ -593,7 +640,8 @@ class TestDashView extends StatelessWidget {
                                       description: state.dataColor[index].date,
                                       image: data.imagePath,
                                       onPress: () {
-                                        context.push(RouteNames.testReportRoute, extra: state.dataColor[index]);
+                                        context.push(RouteNames.testReportRoute,
+                                            extra: state.dataColor[index]);
                                       },
                                       avatarColor: data.color),
                                 );
