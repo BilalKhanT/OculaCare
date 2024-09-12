@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shimmer/shimmer.dart';
 import '../../../configs/presentation/constants/colors.dart';
 import 'package:OculaCare/logic/therapy_cubit/therapy_cubit.dart';
 import 'package:OculaCare/logic/therapy_cubit/therapy_state.dart';
@@ -26,16 +27,60 @@ class HistorySection extends StatelessWidget {
     return BlocBuilder<TherapyCubit, TherapyState>(
       builder: (context, state) {
         if (state is TherapyLoading) {
-          return Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                SizedBox(height: screenHeight * 0.35),
-                const DotLoader(
-                  loaderColor: AppColors.appColor,
-                ),
-              ],
+          return Padding(
+            padding: const EdgeInsets.symmetric(
+                horizontal: 5.0, vertical: 20.0),
+            child: SizedBox(
+              height: screenHeight * 0.7,
+              child: ListView.builder(
+                itemCount: 10,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 8.0, horizontal: 3.0),
+                    child: Shimmer.fromColors(
+                      baseColor: Colors.grey[300]!,
+                      highlightColor: Colors.grey[100]!,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            width: 60.0,
+                            height: 60.0,
+                            color: Colors.white,
+                          ),
+                          const SizedBox(width: 10.0),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment:
+                              CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  width: double.infinity,
+                                  height: 12.0,
+                                  color: Colors.white,
+                                ),
+                                const SizedBox(height: 5.0),
+                                Container(
+                                  width: double.infinity,
+                                  height: 12.0,
+                                  color: Colors.white,
+                                ),
+                                const SizedBox(height: 5.0),
+                                Container(
+                                  width: 100.0,
+                                  height: 12.0,
+                                  color: Colors.white,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              ),
             ),
           );
         } else if (state is TherapyHistoryLoaded) {
