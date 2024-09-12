@@ -1,12 +1,10 @@
-import 'dart:ffi';
 import 'dart:math';
 import 'package:OculaCare/configs/presentation/constants/colors.dart';
-import 'package:OculaCare/configs/routes/route_names.dart';
 import 'package:OculaCare/logic/therapy_cubit/therapy_cubit.dart';
 import 'package:OculaCare/logic/therapy_cubit/therapy_state.dart';
 import 'package:OculaCare/logic/therapy_cubit/timer_cubit.dart';
 import 'package:OculaCare/presentation/therapy/widgets_therapy/corner_dot.dart';
-import 'package:OculaCare/presentation/therapy/widgets_therapy/cstm_therapy_app_bar.dart';
+import 'package:OculaCare/presentation/therapy/widgets_therapy/cstm_therapies_progress_appbar.dart';
 import 'package:OculaCare/presentation/widgets/btn_flat.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,7 +26,7 @@ class TherapyScreen extends StatelessWidget {
     return WillPopScope(
       onWillPop: () async {
         BlocProvider.of<TherapyCubit>(context)
-            .stopTherapy(); // Ensure therapy stops when navigating back
+            .stopTherapy();
         return true;
       },
       child: BlocConsumer<TherapyCubit, TherapyState>(
@@ -43,8 +41,8 @@ class TherapyScreen extends StatelessWidget {
           if (state is TherapyStepInProgress) {
             return Scaffold(
               backgroundColor: AppColors.backgroundTherapy,
-              appBar: CustomAppBar(
-                title: state.therapyTitle,  // Use the custom app bar with the therapy title
+              appBar: CustomTherapiesAppBar(
+                title: state.therapyTitle,
                 onBackPressed: () {
                   BlocProvider.of<TherapyCubit>(context).stopTherapy();
                   Navigator.pop(context);
@@ -61,7 +59,7 @@ class TherapyScreen extends StatelessWidget {
           } else if (state is TherapyLottieAnimationInProgress) {
             return Scaffold(
               backgroundColor: AppColors.backgroundTherapy,
-              appBar: CustomAppBar(
+              appBar: CustomTherapiesAppBar(
                 title: exercise['title'],
                 onBackPressed: () {
                   BlocProvider.of<TherapyCubit>(context).stopTherapy();
@@ -75,7 +73,7 @@ class TherapyScreen extends StatelessWidget {
           } else if (state is TherapyAnimationInProgress) {
             return Scaffold(
               backgroundColor: AppColors.backgroundTherapy,
-              appBar: CustomAppBar(
+              appBar: CustomTherapiesAppBar(
                 title: exercise['title'],
                 onBackPressed: () {
                   BlocProvider.of<TherapyCubit>(context).stopTherapy();
@@ -117,7 +115,7 @@ class TherapyScreen extends StatelessWidget {
           } else if (state is TherapyYinYangAnimationInProgress) {
             return Scaffold(
               backgroundColor: AppColors.backgroundTherapy,
-              appBar: CustomAppBar(
+              appBar: CustomTherapiesAppBar(
                 title: exercise['title'],
                 onBackPressed: () {
                   BlocProvider.of<TherapyCubit>(context).stopTherapy();
@@ -137,7 +135,7 @@ class TherapyScreen extends StatelessWidget {
           } else if (state is TherapyRiveAnimationInProgress) {
             return Scaffold(
               backgroundColor: AppColors.backgroundTherapy,
-              appBar: CustomAppBar(
+              appBar: CustomTherapiesAppBar(
                 title: exercise['title'],
                 onBackPressed: () {
                   BlocProvider.of<TherapyCubit>(context).stopTherapy();
@@ -166,7 +164,7 @@ class TherapyScreen extends StatelessWidget {
           } else if (state is TherapyBrockStringInProgress) {
             return Scaffold(
               backgroundColor: AppColors.backgroundTherapy,
-              appBar: CustomAppBar(
+              appBar: CustomTherapiesAppBar(
                 title: state.therapyTitle,
                 onBackPressed: () {
                   BlocProvider.of<TherapyCubit>(context).stopTherapy();
@@ -268,7 +266,7 @@ class TherapyScreen extends StatelessWidget {
           } else if (state is TherapyStoryDisplayInProgress) {
             return Scaffold(
               backgroundColor: AppColors.backgroundTherapy,
-              appBar: CustomAppBar(
+              appBar: CustomTherapiesAppBar(
                 title: state.therapyTitle,
                 onBackPressed: () {
                   BlocProvider.of<TherapyCubit>(context).stopTherapy();
