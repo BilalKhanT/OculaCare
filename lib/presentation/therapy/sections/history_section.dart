@@ -5,6 +5,7 @@ import 'package:OculaCare/logic/therapy_cubit/therapy_cubit.dart';
 import 'package:OculaCare/logic/therapy_cubit/therapy_state.dart';
 import 'package:OculaCare/data/models/therapy/therapy_results_model.dart';
 import '../../widgets/cstm_loader.dart';
+import '../widgets_therapy/therapy_history_tiles.dart';
 
 class HistorySection extends StatelessWidget {
   final double screenHeight;
@@ -119,95 +120,26 @@ class HistorySection extends StatelessWidget {
 
   // Helper method to build therapy list
   Widget _buildTherapyList(List<TherapyModel> therapies, double screenHeight, double screenWidth) {
-    return ListView.builder(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      itemCount: therapies.length,
-      itemBuilder: (context, index) {
-        final TherapyModel therapy = therapies[index];
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 5.0),
+      child: ListView.builder(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        itemCount: therapies.length,
+        itemBuilder: (context, index) {
+          final TherapyModel therapy = therapies[index];
 
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 5.0),
-          child: Card(
-            color: AppColors.whiteColor,
-            margin: const EdgeInsets.symmetric(vertical: 8.0),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
-            elevation: 3, // Subtle shadow for card
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Title and Date Row
-                  Text(
-                    therapy.therapyName,
-                    style: TextStyle(
-                      fontFamily: 'MontserratMedium',
-                      fontWeight: FontWeight.bold,
-                      fontSize: screenWidth * 0.05, // Larger font for title
-                      color: AppColors.textPrimary,
-                    ),
-                  ),
-                  SizedBox(height: screenHeight * 0.01),
-                  // Date with Calendar Icon
-                  Row(
-                    children: [
-                      Text(
-                        therapy.date,
-                        style: TextStyle(
-                          fontFamily: 'MontserratMedium',
-                          fontWeight: FontWeight.w500,
-                          fontSize: screenWidth * 0.035,
-                          color: AppColors.textSecondary,
-                        ),
-                      ),
-                      SizedBox(width: screenWidth * 0.01),
-                      Icon(
-                        Icons.calendar_today,
-                        size: screenWidth * 0.05,
-                        color: AppColors.textSecondary,
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: screenHeight * 0.005),
-
-                  // Therapy Type
-                  Text(
-                    'Type: ${therapy.therapyType}',
-                    style: TextStyle(
-                      fontFamily: 'MontserratMedium',
-                      fontWeight: FontWeight.w500,
-                      fontSize: screenWidth * 0.04,
-                      color: AppColors.textSecondary,
-                    ),
-                  ),
-                  SizedBox(height: screenHeight * 0.01),
-
-                  // Duration in pill-shaped container
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
-                    decoration: BoxDecoration(
-                      color: AppColors.appColor,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Text(
-                      'Duration: ${therapy.duration} min',
-                      style: TextStyle(
-                        fontFamily: 'MontserratMedium',
-                        fontWeight: FontWeight.w500,
-                        fontSize: screenWidth * 0.035,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        );
-      },
+          return TherapyHistoryTile(
+            title: therapy.therapyName,
+            date: therapy.date,
+            type: therapy.therapyType,
+            duration: therapy.duration,
+            image: 'assets/images/logo_ocula.png',
+            avatarColor: AppColors.screenBackground,
+          );
+        },
+      ),
     );
   }
+
 }
