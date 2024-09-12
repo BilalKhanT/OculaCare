@@ -65,8 +65,14 @@ class TherapyScreen extends StatelessWidget {
                   Navigator.pop(context);
                 },
               ),
-              body: Center(
-                child: Lottie.asset(state.animationPath),
+              body: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Center(
+                    child: Lottie.asset(state.animationPath),
+                  ),
+                  _buildInstructionsAndTimer(context, state.instruction, width),
+                ],
               ),
             );
           } else if (state is TherapyAnimationInProgress) {
@@ -110,7 +116,7 @@ class TherapyScreen extends StatelessWidget {
             );
           } else if (state is TherapyDistanceGazingInProgress) {
             return _buildDistanceGazingUI(
-                context, state); // Handle Distance Gazing state
+                context, state);
           } else if (state is TherapyYinYangAnimationInProgress) {
             return Scaffold(
               backgroundColor: AppColors.backgroundTherapy,
@@ -121,14 +127,20 @@ class TherapyScreen extends StatelessWidget {
                   Navigator.pop(context);
                 },
               ),
-              body: Center(
-                child: Transform.rotate(
-                  angle: state.rotation * pi / 180,
-                  child: Transform.scale(
-                    scale: state.scale,
-                    child: Image.asset(state.animationPath),
+              body: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Center(
+                    child: Transform.rotate(
+                      angle: state.rotation * pi / 180,
+                      child: Transform.scale(
+                        scale: state.scale,
+                        child: Image.asset(state.animationPath),
+                      ),
+                    ),
                   ),
-                ),
+                  _buildInstructionsAndTimer(context, state.instructions, width),
+                ],
               ),
             );
           } else if (state is TherapyRiveAnimationInProgress) {
