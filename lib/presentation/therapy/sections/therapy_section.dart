@@ -21,42 +21,45 @@ class TherapySection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Recommended Therapies',
-          style: TextStyle(
-              fontFamily: 'MontserratMedium',
-              fontWeight: FontWeight.w800,
-              fontSize: screenWidth * 0.045,
-              color: AppColors.appColor),
-        ),
-        SizedBox(height: screenHeight * 0.008),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 5.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Recommended Therapies',
+            style: TextStyle(
+                fontFamily: 'MontserratMedium',
+                fontWeight: FontWeight.w800,
+                fontSize: screenWidth * 0.045,
+                color: AppColors.appColor),
+          ),
+          SizedBox(height: screenHeight * 0.008),
 
-        // Replace RecommendedTherapies with DiseaseCardList
-        DiseaseCardList(
-          screenHeight: screenHeight,
-          screenWidth: screenWidth,
-        ),
+          // Replace RecommendedTherapies with DiseaseCardList
+          DiseaseCardList(
+            screenHeight: screenHeight,
+            screenWidth: screenWidth,
+          ),
 
-        SizedBox(height: screenHeight * 0.02),
+          SizedBox(height: screenHeight * 0.02),
 
-        Text(
-          'General Eye Exercises',
-          style: TextStyle(
-              fontFamily: 'MontserratMedium',
-              fontWeight: FontWeight.w800,
-              fontSize: screenWidth * 0.045,
-              color: AppColors.appColor),
-        ),
-        SizedBox(height: screenHeight * 0.008),
-        GeneralEyeExercises(
-          exercisesList: therapiesList,
-          screenWidth: screenWidth,
-          screenHeight: screenHeight,
-        ),
-      ],
+          Text(
+            'General Eye Exercises',
+            style: TextStyle(
+                fontFamily: 'MontserratMedium',
+                fontWeight: FontWeight.w800,
+                fontSize: screenWidth * 0.045,
+                color: AppColors.appColor),
+          ),
+          SizedBox(height: screenHeight * 0.008),
+          GeneralEyeExercises(
+            exercisesList: therapiesList,
+            screenWidth: screenWidth,
+            screenHeight: screenHeight,
+          ),
+        ],
+      ),
     );
   }
 
