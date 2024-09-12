@@ -25,12 +25,10 @@ class TestHistory extends TestState {
 }
 
 class TestProgression extends TestState {
-  final List<TestResultModel> dataVision;
-  final List<TestResultModel> dataColor;
   final Map<DateTime, int> progressData;
 
-  const TestProgression(this.dataVision, this.dataColor, this.progressData);
+  const TestProgression(this.progressData);
 
   @override
-  List<Object?> get props => [dataVision, dataColor, progressData];
+  List<Object?> get props => [progressData];
 }
