@@ -23,7 +23,7 @@ class TherapyTabs extends StatelessWidget {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10.0),
+        padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 5.0),
         child: Row(
           children: [
             _buildTab(context, 'Therapies', therapySelected, onSelectTherapy),
