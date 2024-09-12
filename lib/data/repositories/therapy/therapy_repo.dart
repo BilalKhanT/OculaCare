@@ -1,7 +1,8 @@
 import 'dart:convert';
 import 'package:OculaCare/data/models/therapy/therapy_results_model.dart';
 import 'package:http/http.dart' as http;
-import 'package:OculaCare/configs/app/app_globals.dart';
+
+import '../../../configs/app/app_globals.dart';
 
 class TherapyRepository {
   final String addTherapyUrl = '$ipServer/api/therapy/save';
@@ -29,7 +30,7 @@ class TherapyRepository {
     }
   }
 
-  Future<List<TherapyModel>> getTherapyRecord(String patientName) async {
+  Future<void> getTherapyRecord(String patientName) async {
     try {
       final response = await http.get(Uri.parse('$getTherapyUrl/$patientName'));
       print(response);
@@ -38,8 +39,9 @@ class TherapyRepository {
         List<TherapyModel> therapies = jsonResponse.map((data) {
           return TherapyModel.fromJson(data);
         }).toList();
-        print(therapies);
-        return therapies;
+
+        globalTherapies = therapies;
+        print(globalTherapies);
       } else {
         throw Exception('Failed to load therapy records');
       }
@@ -47,5 +49,6 @@ class TherapyRepository {
       throw Exception('Error fetching therapy records: $e');
     }
   }
+
 
 }
