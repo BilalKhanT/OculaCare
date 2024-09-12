@@ -57,7 +57,6 @@ class ScheduledTherapies extends StatelessWidget {
                     generalSelected = state.isGeneral;
                     diseaseSpecificSelected = state.isDiseaseSpecific;
                   }
-
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20.0),
                     child: Row(
@@ -101,9 +100,7 @@ class ScheduledTherapies extends StatelessWidget {
                             ),
                           ),
                         ),
-                        const SizedBox(
-                            width:
-                                10), // Add spacing between the two containers
+                        const SizedBox(width: 10),
                         Expanded(
                           child: GestureDetector(
                             onTap: () {
