@@ -12,7 +12,6 @@ import 'therapy_state.dart';
 import 'timer_cubit.dart';
 import 'music_cubit.dart';
 import 'package:flutter_tts/flutter_tts.dart';
-import 'package:nb_utils/nb_utils.dart' as nb;
 
 class TherapyCubit extends Cubit<TherapyState> {
   final FlutterTts _flutterTts = FlutterTts();
@@ -30,11 +29,9 @@ class TherapyCubit extends Cubit<TherapyState> {
     emit(TherapyLoading());
     try {
       if (globalTherapies.isEmpty) {
-        print("empty list");
         await therapyRepository.getTherapyRecord(patientName);
       }
       if (globalTherapies.isNotEmpty) {
-        print("here");
         emit(TherapyHistoryLoaded(globalTherapies));
       } else {
         emit(const TherapyHistoryLoaded([]));
@@ -142,6 +139,7 @@ class TherapyCubit extends Cubit<TherapyState> {
       emit(TherapyYinYangAnimationInProgress(
         therapyTitle: title,
         animationPath: steps[stepIndex]['svgPath'],
+        instructions: steps[stepIndex]['instruction'],
         remainingTime: _timerCubit.state,
         scale: scale,
         rotation: rotation,
@@ -169,6 +167,7 @@ class TherapyCubit extends Cubit<TherapyState> {
           therapyTitle: title,
           animationPath: steps[stepIndex]['svgPath'],
           remainingTime: remainingTime,
+          instruction: steps[stepIndex]['instruction'],
         ));
       }
     });
@@ -308,6 +307,7 @@ class TherapyCubit extends Cubit<TherapyState> {
         therapyTitle: title,
         animationPath: steps[stepIndex]['svgPath'],
         remainingTime: (_timerCubit.state - steps[0]['duration']).toInt(),
+        instruction: steps[stepIndex]['instruction'],
       ));
       _timerCubit.stream.listen((remainingTime) {
         if (remainingTime <= 0) {
