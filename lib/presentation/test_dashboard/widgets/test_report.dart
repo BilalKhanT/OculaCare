@@ -37,7 +37,64 @@ class TestReport extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-
+              Row(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(color: AppColors.appColor, width: 3.0),
+                    ),
+                    child: ClipOval(
+                      child: Container(
+                        height: screenHeight * 0.15,
+                        width: screenHeight * 0.15,
+                        color: Colors.white,
+                        child: Image.asset(
+                          'assets/images/profile_place.png',
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 30.0,),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(test.patientName,
+                        style: TextStyle(
+                          color: AppColors.appColor,
+                          fontFamily: 'MontserratMedium',
+                          fontWeight: FontWeight.w800,
+                          fontSize: screenWidth * 0.05,
+                        ),),
+                      SizedBox(height: screenHeight * 0.006,),
+                      Text(test.date,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontFamily: 'MontserratMedium',
+                          fontWeight: FontWeight.w800,
+                          fontSize: screenWidth * 0.035,
+                        ),),
+                      SizedBox(height: screenHeight * 0.003,),
+                      Text(test.testType,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontFamily: 'MontserratMedium',
+                          fontWeight: FontWeight.w800,
+                          fontSize: screenWidth * 0.035,
+                        ),),
+                    ],
+                  ),
+                ],
+              ),
+              SizedBox(height: screenHeight * 0.03,),
+              Text(test.testName,
+                style: TextStyle(
+                  color: AppColors.appColor,
+                  fontFamily: 'MontserratMedium',
+                  fontWeight: FontWeight.w800,
+                  fontSize: screenWidth * 0.05,
+                ),),
             ],
           ),
         ),
