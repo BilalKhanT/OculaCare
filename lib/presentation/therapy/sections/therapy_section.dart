@@ -26,13 +26,16 @@ class TherapySection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Recommended Therapies',
-            style: TextStyle(
-                fontFamily: 'MontserratMedium',
-                fontWeight: FontWeight.w800,
-                fontSize: screenWidth * 0.045,
-                color: AppColors.appColor),
+          Padding(
+            padding: const EdgeInsets.only(left: 5.0),
+            child: Text(
+              'Recommended Therapies',
+              style: TextStyle(
+                  fontFamily: 'MontserratMedium',
+                  fontWeight: FontWeight.w800,
+                  fontSize: screenWidth * 0.045,
+                  color: AppColors.appColor),
+            ),
           ),
           SizedBox(height: screenHeight * 0.008),
 
@@ -44,13 +47,16 @@ class TherapySection extends StatelessWidget {
 
           SizedBox(height: screenHeight * 0.02),
 
-          Text(
-            'General Eye Exercises',
-            style: TextStyle(
-                fontFamily: 'MontserratMedium',
-                fontWeight: FontWeight.w800,
-                fontSize: screenWidth * 0.045,
-                color: AppColors.appColor),
+          Padding(
+            padding: const EdgeInsets.only(left: 5.0),
+            child: Text(
+              'General Eye Exercises',
+              style: TextStyle(
+                  fontFamily: 'MontserratMedium',
+                  fontWeight: FontWeight.w800,
+                  fontSize: screenWidth * 0.045,
+                  color: AppColors.appColor),
+            ),
           ),
           SizedBox(height: screenHeight * 0.008),
           GeneralEyeExercises(
