@@ -58,11 +58,116 @@ final List<Map<String, dynamic>> therapiesList = [
       },
       {
         "step": 8,
+        "instruction": "Relax for 20 seconds.",
+        "svgPath":
+            "assets/images/mind_chest_breathing/mind-chest_breathing.png",
+        "duration": 20
+      },
+      {
+        "step": 9,
+        "instruction": "Sit comfortably.",
+        "svgPath": "assets/images/mind_chest_breathing/sit_comfortably.png",
+        "duration": 10
+      },
+      {
+        "step": 10,
+        "instruction": "Close your eyes.",
+        "svgPath": "assets/images/mind_chest_breathing/close_eyes.png",
+        "duration": 10
+      },
+      {
+        "step": 11,
+        "instruction": "Focus on your breathing.",
+        "svgPath": "assets/images/mind_chest_breathing/breathing_focus.png",
+        "duration": 10
+      },
+      {
+        "step": 12,
+        "instruction": "Inhale deeply.",
+        "svgPath": "assets/images/mind_chest_breathing/inhaling.png",
+        "duration": 10
+      },
+      {
+        "step": 13,
+        "instruction": "Fill your chest with air.",
+        "svgPath": "assets/images/mind_chest_breathing/fill_chest.png",
+        "duration": 10
+      },
+      {
+        "step": 14,
+        "instruction": "Hold for a moment.",
+        "svgPath": "assets/images/mind_chest_breathing/hold_breath.png",
+        "duration": 10
+      },
+      {
+        "step": 15,
+        "instruction": "Exhale slowly.",
+        "svgPath": "assets/images/mind_chest_breathing/exhaling.png",
+        "duration": 10
+      },
+      {
+        "step": 16,
+        "instruction": "Relax for 20 seconds.",
+        "svgPath":
+        "assets/images/mind_chest_breathing/mind-chest_breathing.png",
+        "duration": 20
+      },
+      {
+        "step": 17,
+        "instruction": "Sit comfortably.",
+        "svgPath": "assets/images/mind_chest_breathing/sit_comfortably.png",
+        "duration": 10
+      },
+      {
+        "step": 18,
+        "instruction": "Close your eyes.",
+        "svgPath": "assets/images/mind_chest_breathing/close_eyes.png",
+        "duration": 10
+      },
+      {
+        "step": 19,
+        "instruction": "Focus on your breathing.",
+        "svgPath": "assets/images/mind_chest_breathing/breathing_focus.png",
+        "duration": 10
+      },
+      {
+        "step": 20,
+        "instruction": "Inhale deeply.",
+        "svgPath": "assets/images/mind_chest_breathing/inhaling.png",
+        "duration": 10
+      },
+      {
+        "step": 21,
+        "instruction": "Fill your chest with air.",
+        "svgPath": "assets/images/mind_chest_breathing/fill_chest.png",
+        "duration": 10
+      },
+      {
+        "step": 22,
+        "instruction": "Hold for a moment.",
+        "svgPath": "assets/images/mind_chest_breathing/hold_breath.png",
+        "duration": 10
+      },
+      {
+        "step": 23,
+        "instruction": "Exhale slowly.",
+        "svgPath": "assets/images/mind_chest_breathing/exhaling.png",
+        "duration": 10
+      },
+      {
+        "step": 24,
+        "instruction": "Relax for 20 seconds.",
+        "svgPath":
+        "assets/images/mind_chest_breathing/mind-chest_breathing.png",
+        "duration": 20
+      },
+      {
+        "step": 25,
         "instruction":
             "Continue to breathe deeply and focus on your breathing.",
         "svgPath":
             "assets/images/mind_chest_breathing/mind-chest_breathing.png",
-        "duration": 230
+        "duration": 30
       },
     ]
   },
@@ -89,9 +194,10 @@ final List<Map<String, dynamic>> therapiesList = [
       },
       {
         "step": 2,
-        "instruction": "The object will start moving now. Keep your eyes on it.",
+        "instruction":
+            "The object will start moving now. Keep your eyes on it.",
         "svgPath": "assets/images/mind_chest_breathing.png",
-        "duration": 10
+        "duration": 170
       },
     ]
   },
@@ -131,9 +237,129 @@ final List<Map<String, dynamic>> therapiesList = [
       },
       {
         "step": 4,
-        "instruction": "Continue this therapy.",
+        "instruction": "Now relax for 20 seconds.",
         "svgPath": "assets/images/palming/palming.png",
-        "duration": 250
+        "duration": 20
+      },
+      {
+        "step": 1,
+        "instruction": "Rub your palms together until warm.",
+        "svgPath": "assets/images/palming/rub_palms.png",
+        "duration": 10
+      },
+      {
+        "step": 2,
+        "instruction": "Place your warm palms over your eyes.",
+        "svgPath": "assets/images/palming/coverEyes.png",
+        "duration": 10
+      },
+      {
+        "step": 3,
+        "instruction": "Relax your eyes under the warmth.",
+        "svgPath": "assets/images/palming/close_eyes.png",
+        "duration": 10
+      },
+      {
+        "step": 4,
+        "instruction": "Now relax for 20 seconds.",
+        "svgPath": "assets/images/palming/palming.png",
+        "duration": 20
+      },
+      {
+        "step": 1,
+        "instruction": "Rub your palms together until warm.",
+        "svgPath": "assets/images/palming/rub_palms.png",
+        "duration": 10
+      },
+      {
+        "step": 2,
+        "instruction": "Place your warm palms over your eyes.",
+        "svgPath": "assets/images/palming/coverEyes.png",
+        "duration": 10
+      },
+      {
+        "step": 3,
+        "instruction": "Relax your eyes under the warmth.",
+        "svgPath": "assets/images/palming/close_eyes.png",
+        "duration": 10
+      },
+      {
+        "step": 4,
+        "instruction": "Now relax for 20 seconds.",
+        "svgPath": "assets/images/palming/palming.png",
+        "duration": 20
+      },
+      {
+        "step": 1,
+        "instruction": "Rub your palms together until warm.",
+        "svgPath": "assets/images/palming/rub_palms.png",
+        "duration": 10
+      },
+      {
+        "step": 2,
+        "instruction": "Place your warm palms over your eyes.",
+        "svgPath": "assets/images/palming/coverEyes.png",
+        "duration": 10
+      },
+      {
+        "step": 3,
+        "instruction": "Relax your eyes under the warmth.",
+        "svgPath": "assets/images/palming/close_eyes.png",
+        "duration": 10
+      },
+      {
+        "step": 4,
+        "instruction": "Now relax for 20 seconds.",
+        "svgPath": "assets/images/palming/palming.png",
+        "duration": 20
+      },
+      {
+        "step": 1,
+        "instruction": "Rub your palms together until warm.",
+        "svgPath": "assets/images/palming/rub_palms.png",
+        "duration": 10
+      },
+      {
+        "step": 2,
+        "instruction": "Place your warm palms over your eyes.",
+        "svgPath": "assets/images/palming/coverEyes.png",
+        "duration": 10
+      },
+      {
+        "step": 3,
+        "instruction": "Relax your eyes under the warmth.",
+        "svgPath": "assets/images/palming/close_eyes.png",
+        "duration": 10
+      },
+      {
+        "step": 4,
+        "instruction": "Now relax for 20 seconds.",
+        "svgPath": "assets/images/palming/palming.png",
+        "duration": 20
+      },
+      {
+        "step": 1,
+        "instruction": "Rub your palms together until warm.",
+        "svgPath": "assets/images/palming/rub_palms.png",
+        "duration": 10
+      },
+      {
+        "step": 2,
+        "instruction": "Place your warm palms over your eyes.",
+        "svgPath": "assets/images/palming/coverEyes.png",
+        "duration": 10
+      },
+      {
+        "step": 3,
+        "instruction": "Relax your eyes under the warmth.",
+        "svgPath": "assets/images/palming/close_eyes.png",
+        "duration": 10
+      },
+      {
+        "step": 4,
+        "instruction": "Now relax for 20 second and try this therapy 3 times a day.",
+        "svgPath": "assets/images/palming/palming.png",
+        "duration": 20
       },
     ]
   },
@@ -162,7 +388,7 @@ final List<Map<String, dynamic>> therapiesList = [
         "step": 2,
         "instruction": "",
         "svgPath": "assets/lotties/kaleidoscope.json",
-        "duration": 240
+        "duration": 230
       },
     ]
   },
@@ -214,10 +440,8 @@ final List<Map<String, dynamic>> therapiesList = [
       {
         "step": 1,
         "instruction": "Roll your eyes in a circular motion.",
-        "svgPath":
-            "assets/images/eye_rolling/roll_eyes.png",
-        "duration":
-            10
+        "svgPath": "assets/images/eye_rolling/roll_eyes.png",
+        "duration": 10
       }
     ]
   },
@@ -242,8 +466,7 @@ final List<Map<String, dynamic>> therapiesList = [
       {
         "step": 2,
         "instruction": "Now focus on the animated figure eight pattern.",
-        "svgPath":
-            "assets/images/figure_eight_focus/figure_8.json",
+        "svgPath": "assets/images/figure_eight_focus/figure_8.json",
         "duration": 170
       }
     ]
@@ -272,7 +495,7 @@ final List<Map<String, dynamic>> therapiesList = [
       },
       {
         "step": 2,
-        "instruction": "Focus on a ghost far away.",
+        "instruction": "Focus on a ghost shown on the screen.",
         "svgPath": "assets/images/distance_gazing/far.png",
         "duration": 10
       },
@@ -289,8 +512,26 @@ final List<Map<String, dynamic>> therapiesList = [
         "duration": 30
       },
       {
-        "step": 4,
-        "instruction": "Continue this exercise for a minute",
+        "step": 5,
+        "instruction": "Look at the screen.",
+        "svgPath": "assets/images/distance_gazing/distance_gazing.png",
+        "duration": 10
+      },
+      {
+        "step": 6,
+        "instruction": "Focus on a ghost shown on the screen.",
+        "svgPath": "assets/images/distance_gazing/far.png",
+        "duration": 10
+      },
+      {
+        "step": 7,
+        "instruction": "focus on the ghost.",
+        "svgPath": "assets/images/distance_gazing/near.png",
+        "duration": 10
+      },
+      {
+        "step": 8,
+        "instruction": "Relax and do this exercise three times a day",
         "svgPath": "assets/images/distance_gazing/distance_gazing.png",
         "duration": 30
       },
@@ -340,7 +581,37 @@ final List<Map<String, dynamic>> therapiesList = [
         "step": 5,
         "instruction": "Relax and breathe deeply.",
         "svgPath": "assets/images/blinking_exercise/exhaling.png",
-        "duration": 20
+        "duration": 10
+      },
+      {
+        "step": 1,
+        "instruction": "Close your eyes gently.",
+        "svgPath": "assets/images/blinking_exercise/close_eyes.png",
+        "duration": 10
+      },
+      {
+        "step": 2,
+        "instruction": "Open your eyes and blink rapidly.",
+        "svgPath": "assets/images/blinking_exercise/blinking.png",
+        "duration": 15
+      },
+      {
+        "step": 3,
+        "instruction": "Slowly close your eyes again.",
+        "svgPath": "assets/images/blinking_exercise/close_eyes.png",
+        "duration": 10
+      },
+      {
+        "step": 4,
+        "instruction": "Repeat the blinking exercise.",
+        "svgPath": "assets/images/blinking_exercise/blinking.png",
+        "duration": 15
+      },
+      {
+        "step": 5,
+        "instruction": "Relax and do this exercise 3 times a day.",
+        "svgPath": "assets/images/blinking_exercise/exhaling.png",
+        "duration": 10
       },
     ]
   },
@@ -363,31 +634,91 @@ final List<Map<String, dynamic>> therapiesList = [
         "step": 1,
         "instruction": "Hold your thumb about 10 inches away from your face.",
         "svgPath": "assets/images/focus_shifting/thumb.png",
-        "duration": 20
+        "duration": 10
       },
       {
         "step": 2,
         "instruction": "Focus on your thumb for a few seconds.",
         "svgPath": "assets/images/focus_shifting/focus_thumb.png",
-        "duration": 30
+        "duration": 10
       },
       {
         "step": 3,
         "instruction": "Shift your focus to something farther away.",
         "svgPath": "assets/images/distance_gazing/far.png",
-        "duration": 30
+        "duration": 10
       },
       {
         "step": 4,
         "instruction": "Shift your focus back to your thumb.",
         "svgPath": "assets/images/focus_shifting/focus_thumb.png",
-        "duration": 30
+        "duration": 20
       },
       {
         "step": 5,
-        "instruction": "Repeat the focus shifting.",
+        "instruction": "Relax for 10 seconds.",
         "svgPath": "assets/images/focus_shifting/thumb.png",
-        "duration": 30
+        "duration": 10
+      },
+      {
+        "step": 6,
+        "instruction": "Hold your thumb about 10 inches away from your face.",
+        "svgPath": "assets/images/focus_shifting/thumb.png",
+        "duration": 10
+      },
+      {
+        "step": 7,
+        "instruction": "Focus on your thumb for a few seconds.",
+        "svgPath": "assets/images/focus_shifting/focus_thumb.png",
+        "duration": 10
+      },
+      {
+        "step": 8,
+        "instruction": "Shift your focus to something farther away.",
+        "svgPath": "assets/images/distance_gazing/far.png",
+        "duration": 10
+      },
+      {
+        "step": 9,
+        "instruction": "Shift your focus back to your thumb.",
+        "svgPath": "assets/images/focus_shifting/focus_thumb.png",
+        "duration": 20
+      },
+      {
+        "step": 10,
+        "instruction": "Relax for 10 seconds.",
+        "svgPath": "assets/images/focus_shifting/thumb.png",
+        "duration": 10
+      },
+      {
+        "step": 11,
+        "instruction": "Hold your thumb about 10 inches away from your face.",
+        "svgPath": "assets/images/focus_shifting/thumb.png",
+        "duration": 10
+      },
+      {
+        "step": 12,
+        "instruction": "Focus on your thumb for a few seconds.",
+        "svgPath": "assets/images/focus_shifting/focus_thumb.png",
+        "duration": 10
+      },
+      {
+        "step": 13,
+        "instruction": "Shift your focus to something farther away.",
+        "svgPath": "assets/images/distance_gazing/far.png",
+        "duration": 10
+      },
+      {
+        "step": 14,
+        "instruction": "Shift your focus back to your thumb.",
+        "svgPath": "assets/images/focus_shifting/focus_thumb.png",
+        "duration": 20
+      },
+      {
+        "step": 15,
+        "instruction": "Relax for 10 seconds.",
+        "svgPath": "assets/images/focus_shifting/thumb.png",
+        "duration": 10
       },
     ]
   },
