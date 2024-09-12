@@ -96,8 +96,7 @@ class TherapyModel extends StatelessWidget {
                             ),
                             textAlign: TextAlign.left,
                           ),
-                        )
-                            .toList(),
+                        ).toList(),
                       ),
                     )
                         : const SizedBox.shrink(),
@@ -128,9 +127,8 @@ class TherapyModel extends StatelessWidget {
                             onPress: () async {
                               DateTime? selectedDateTime = await _selectDateTime(context);
                               if (selectedDateTime != null) {
-                                // Pass the entire therapy object, including the category
                                 context.read<TherapyScheduleCubit>().scheduleTherapy(
-                                  therapy, // therapy object includes title and category
+                                  therapy,
                                   selectedDateTime,
                                 );
                               }
@@ -186,13 +184,13 @@ class TherapyModel extends StatelessWidget {
         return Theme(
           data: Theme.of(context).copyWith(
             colorScheme: const ColorScheme.light(
-              primary: AppColors.appColor, // Header background color
-              onPrimary: AppColors.whiteColor, // Header text color
-              onSurface: AppColors.textPrimary, // Body text color
+              primary: AppColors.appColor,
+              onPrimary: AppColors.whiteColor,
+              onSurface: AppColors.textPrimary,
             ),
             textButtonTheme: TextButtonThemeData(
               style: TextButton.styleFrom(
-                foregroundColor: AppColors.appColor, // Button text color
+                foregroundColor: AppColors.appColor,
               ),
             ),
           ),
