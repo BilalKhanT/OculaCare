@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class SeverityChart extends StatelessWidget {
   final int score;
 
-  const SeverityChart({required this.score});
+  const SeverityChart({super.key, required this.score});
 
   @override
   Widget build(BuildContext context) {

@@ -42,7 +42,7 @@ class AnimalGameInitial extends StatelessWidget {
               context.go(RouteNames.testRoute);
             },
             icon: const Icon(
-              Icons.arrow_back,
+              Icons.arrow_back_ios_new,
               color: AppColors.appColor,
               size: 30.0,
             ),

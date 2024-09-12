@@ -65,9 +65,7 @@ class LoginCubit extends Cubit<LoginState> {
     emit(LoginStateForgotPassword());
   }
 
-  Future<void> checkRecoveryEmail() async{
-
-  }
+  Future<void> checkRecoveryEmail() async {}
 
   Future<bool> changePassword() async {
     try {
@@ -82,14 +80,12 @@ class LoginCubit extends Cubit<LoginState> {
       );
       if (response.statusCode == 200) {
         return true;
-      }
-      else {
-        print(response.statusCode);
+      } else {
+        log('${response.statusCode}');
         return false;
       }
-    }
-    catch (e) {
-      print('$e');
+    } catch (e) {
+      log('$e');
       return false;
     }
   }
