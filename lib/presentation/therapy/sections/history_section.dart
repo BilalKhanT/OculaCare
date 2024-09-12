@@ -78,7 +78,6 @@ class HistorySection extends StatelessWidget {
                     SizedBox(height: screenHeight * 0.02),
                     _buildTherapyList(generalTherapies, screenHeight, screenWidth),
                   ],
-                  // Disease-Specific Section
                   if (diseaseTherapies.isNotEmpty) ...[
                     SizedBox(height: screenHeight * 0.04),
                     Padding(
@@ -118,7 +117,6 @@ class HistorySection extends StatelessWidget {
     );
   }
 
-  // Helper method to build therapy list
   Widget _buildTherapyList(List<TherapyModel> therapies, double screenHeight, double screenWidth) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 5.0),
