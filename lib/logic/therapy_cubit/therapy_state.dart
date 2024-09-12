@@ -174,7 +174,7 @@ class TherapyBrockStringInProgress extends TherapyState {
     instruction,
     svgPath,
     beadIndex,
-    beadOpacities,  // Ensure beadOpacities is included in props for equality checks
+    beadOpacities,
   ];
 }
 
@@ -183,8 +183,8 @@ class TherapyMirrorEyeStretchInProgress extends TherapyState {
   final String instruction;
   final String svgPath;
   final int stepIndex;
-  final List<Offset> dotPositions;  // List of dot positions (corners)
-  final double dotOpacity;  // Dot opacity for fading effect
+  final List<Offset> dotPositions;
+  final double dotOpacity;
 
   const TherapyMirrorEyeStretchInProgress({
     required this.therapyTitle,
@@ -209,7 +209,7 @@ class TherapyMirrorEyeStretchInProgress extends TherapyState {
 class TherapyStoryDisplayInProgress extends TherapyState {
   final String therapyTitle;
   final String instruction;
-  final String story;  // The randomly selected story
+  final String story;
   final int remainingTime;
 
   const TherapyStoryDisplayInProgress({
@@ -222,6 +222,22 @@ class TherapyStoryDisplayInProgress extends TherapyState {
   @override
   List<Object> get props => [therapyTitle, instruction, story, remainingTime];
 }
+
+
+class TherapyBlinkingAnimationInProgress extends TherapyState {
+  final String therapyTitle;
+  final String animationPath;
+  final String instruction;
+  final int remainingTime;
+
+  const TherapyBlinkingAnimationInProgress({
+    required this.therapyTitle,
+    required this.animationPath,
+    required this.instruction,
+    required this.remainingTime,
+  });
+}
+
 
 
 class TherapyError extends TherapyState {
