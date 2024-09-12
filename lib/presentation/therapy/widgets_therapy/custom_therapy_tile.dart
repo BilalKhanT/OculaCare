@@ -6,7 +6,7 @@ class TherapyTile extends StatelessWidget {
   final double screenHeight;
   final VoidCallback onTap;
 
-  const TherapyTile({
+  const TherapyTile({super.key,
     required this.therapy,
     required this.screenHeight,
     required this.onTap,
@@ -14,8 +14,9 @@ class TherapyTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 5.0),
       child: GestureDetector(
         onTap: onTap,
         child: Container(
@@ -74,9 +75,11 @@ class TherapyTile extends StatelessWidget {
                       ),
                       child: Text(
                         "${therapy['timeLimit']} min",
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 12,
+                        style: TextStyle(
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.bold,
+                          fontSize: screenWidth * 0.03,
+                          color: AppColors.whiteColor
                         ),
                       ),
                     ),
