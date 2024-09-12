@@ -26,6 +26,7 @@ import '../../logic/tests/test_state.dart';
 import '../../logic/tests/vision_tests/contrast_cubit.dart';
 import '../../logic/tests/vision_tests/snellan_test_cubit.dart';
 import '../widgets/cstm_loader.dart';
+import '../widgets/test_progress_chart.dart';
 
 class TestDashView extends StatelessWidget {
   const TestDashView({super.key});
@@ -214,6 +215,7 @@ class TestDashView extends StatelessWidget {
                           onTap: () {
                             context.read<TestDashTabCubit>().toggleTab(2);
                             context.read<TestCubit>().loadTestProgression();
+                            context.read<TestProgressionCubit>().toggleProgression('Snellan Chart');
                           },
                           child: Container(
                             decoration: BoxDecoration(
@@ -616,13 +618,13 @@ class TestDashView extends StatelessWidget {
                                 color: AppColors.appColor),
                           ),
                           SizedBox(
-                            height: screenHeight * 0.01,
+                            height: screenHeight * 0.03,
                           ),
                           Center(
                               child: ProgressCalendarScreen(
                                   data: state.progressData)),
                           SizedBox(
-                            height: screenHeight * 0.02,
+                            height: screenHeight * 0.035,
                           ),
                           BlocBuilder<TestProgressionCubit,
                               TestProgressionState>(
@@ -725,6 +727,10 @@ class TestDashView extends StatelessWidget {
                                       ),
                                     ],
                                   ),
+                                  SizedBox(
+                                    height: screenHeight * 0.03,
+                                  ),
+                                  ProgressChartScreen(testScores: score,)
                                 ],
                               );
                             },
