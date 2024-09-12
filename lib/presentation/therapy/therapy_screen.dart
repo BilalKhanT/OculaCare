@@ -293,6 +293,58 @@ class TherapyScreen extends StatelessWidget {
                 ],
               ),
             );
+          } else if (state is TherapyBlinkingAnimationInProgress) {
+            return Scaffold(
+              backgroundColor: AppColors.backgroundTherapy,
+              appBar: CustomTherapiesAppBar(
+                title: exercise['title'],
+                onBackPressed: () {
+                  BlocProvider.of<TherapyCubit>(context).stopTherapy();
+                  Navigator.pop(context);
+                },
+              ),
+              body: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  // Lottie Animation
+                  Center(
+                    child: Lottie.asset(state.animationPath),
+                  ),
+                  const SizedBox(height: 20),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: Text(
+                      state.instruction,
+                      style: TextStyle(
+                        fontFamily: 'MontserratMedium',
+                        fontWeight: FontWeight.w600,
+                        fontSize: MediaQuery.of(context).size.width * 0.045,
+                        color: AppColors.textTherapy,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+
+                  const SizedBox(height: 20),
+
+                  // Timer
+                  BlocBuilder<TimerCubit, int>(
+                    builder: (context, remainingTime) {
+                      return Text(
+                        "Time Left: ${_formattedTime(remainingTime)}",
+                        style: TextStyle(
+                          fontFamily: 'MontserratMedium',
+                          fontWeight: FontWeight.w700,
+                          fontSize: MediaQuery.of(context).size.width * 0.05,
+                          color: AppColors.textTherapy,
+                        ),
+                      );
+                    },
+                  ),
+                ],
+              ),
+            );
           } else if(state is TherapyLoading){
             return const Scaffold(
               backgroundColor: AppColors.screenBackground,
