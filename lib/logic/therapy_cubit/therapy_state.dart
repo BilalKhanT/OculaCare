@@ -104,20 +104,23 @@ class TherapyLottieAnimationInProgress extends TherapyState {
   final String therapyTitle;
   final int remainingTime;
   final String animationPath;
+  final String instruction;
 
   const TherapyLottieAnimationInProgress({
     required this.therapyTitle,
     required this.remainingTime,
     required this.animationPath,
+    required this.instruction,
   });
 
   @override
-  List<Object> get props => [therapyTitle, remainingTime, animationPath];
+  List<Object> get props => [therapyTitle, remainingTime, animationPath, instruction];
 }
 
 class TherapyYinYangAnimationInProgress extends TherapyState {
   final String therapyTitle;
   final int remainingTime;
+  final String instructions;
   final String animationPath;
   final double scale;
   final double rotation;
@@ -125,13 +128,14 @@ class TherapyYinYangAnimationInProgress extends TherapyState {
   const TherapyYinYangAnimationInProgress({
     required this.therapyTitle,
     required this.remainingTime,
+    required this.instructions,
     required this.animationPath,
     required this.scale,
     required this.rotation,
   });
 
   @override
-  List<Object> get props => [therapyTitle, remainingTime, animationPath, scale, rotation];
+  List<Object> get props => [therapyTitle, remainingTime, instructions, animationPath, scale, rotation];
 }
 
 class TherapyRiveAnimationInProgress extends TherapyState {
