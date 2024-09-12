@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:OculaCare/presentation/therapy/widgets_therapy/general_eye_exercises.dart';
 import '../../../configs/presentation/constants/colors.dart';
-import '../../../data/therapies_data/bulgy_eyes.dart';
-import '../../../data/therapies_data/cataract_therapies.dart';
-import '../../../data/therapies_data/crossed_eye_therapies.dart';
-import '../../../data/therapies_data/pterygium_therapies.dart';
 import '../../../data/therapies_data/therapies_list.dart';
 import '../widgets_therapy/recommended_therapy_list.dart';
 
@@ -13,7 +9,7 @@ class TherapySection extends StatelessWidget {
   final double screenHeight;
   final double screenWidth;
 
-  TherapySection({
+  const TherapySection({
     required this.selectedTherapyType,
     required this.screenHeight,
     required this.screenWidth,
@@ -38,8 +34,6 @@ class TherapySection extends StatelessWidget {
             ),
           ),
           SizedBox(height: screenHeight * 0.008),
-
-          // Replace RecommendedTherapies with DiseaseCardList
           DiseaseCardList(
             screenHeight: screenHeight,
             screenWidth: screenWidth,
@@ -67,13 +61,5 @@ class TherapySection extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  // Method to get the recommended therapies based on selected therapy type
-  List<Map<String, dynamic>> _getRecommendedList() {
-    if (selectedTherapyType == "Cataracts") return therapiesCataract;
-    if (selectedTherapyType == "Crossed Eyes") return crossedEyeTherapies;
-    if (selectedTherapyType == "Pterygium") return pterygiumTherapies;
-    return bulgyEyeTherapies;
   }
 }
