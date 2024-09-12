@@ -40,7 +40,7 @@ class TherapyTile extends StatelessWidget {
                   therapy['svgPath'],
                   width: screenHeight * 0.1,
                   height: screenHeight * 0.1,
-                  fit: BoxFit.cover,
+                  fit: BoxFit.scaleDown,
                 ),
               ),
               const SizedBox(width: 10),
