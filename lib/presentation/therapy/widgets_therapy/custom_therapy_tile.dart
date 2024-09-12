@@ -15,12 +15,13 @@ class TherapyTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 10),
       child: GestureDetector(
         onTap: onTap,
         child: Container(
-          height: screenHeight * 0.12,
+          height: screenHeight * 0.14,
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(15.0),
@@ -55,20 +56,28 @@ class TherapyTile extends StatelessWidget {
                         color: AppColors.textPrimary,
                         fontFamily: 'MontserratMedium',
                         fontWeight: FontWeight.w700,
-                        fontSize: MediaQuery.of(context).size.width * 0.035,
+                        fontSize: screenWidth * 0.038,
                       ),
                     ),
                     const SizedBox(height: 5),
                     Text(
                       therapy['description'],
                       style: TextStyle(
-                        color: AppColors.textPrimary,
-                        fontFamily: 'MontserratMedium',
-                        fontWeight: FontWeight.w500,
-                        fontSize: MediaQuery.of(context).size.width * 0.025,
+                        fontFamily: 'Montserrat',
+                        fontWeight: FontWeight.w900,
+                        fontSize: screenWidth * 0.032,
+                        color: AppColors.appColor,
                       ),
                     ),
                     const SizedBox(height: 5),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 9.0),
+                child: Column(
+                  children: [
+                    SizedBox(height: screenHeight * 0.092,),
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                       decoration: BoxDecoration(
@@ -86,10 +95,10 @@ class TherapyTile extends StatelessWidget {
                       child: Text(
                         "${therapy['timeLimit']} min",
                         style: TextStyle(
-                          fontFamily: 'Montserrat',
-                          fontWeight: FontWeight.bold,
-                          fontSize: screenWidth * 0.03,
-                          color: AppColors.whiteColor
+                            fontFamily: 'Montserrat',
+                            fontWeight: FontWeight.bold,
+                            fontSize: screenWidth * 0.03,
+                            color: AppColors.whiteColor
                         ),
                       ),
                     ),
