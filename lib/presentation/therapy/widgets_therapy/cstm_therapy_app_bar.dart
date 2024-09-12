@@ -16,6 +16,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
     return AppBar(
       backgroundColor: AppColors.backgroundTherapy,
       elevation: 0,
@@ -28,8 +29,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         style: TextStyle(
           fontFamily: 'MontserratMedium',
           fontWeight: FontWeight.w800,
-          fontSize: MediaQuery.of(context).size.width * 0.05,
-          color: AppColors.textTherapy,
+          fontSize: screenWidth * 0.05,
+          color: AppColors.textPrimary,
         ),
       ),
       centerTitle: true,
