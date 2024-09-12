@@ -9,6 +9,7 @@ import 'package:OculaCare/presentation/more_section/pdf_view.dart';
 import 'package:OculaCare/presentation/patient_profile/profile_view.dart';
 import 'package:OculaCare/presentation/result/result_view.dart';
 import 'package:OculaCare/presentation/test_dashboard/test_dash_view.dart';
+import 'package:OculaCare/presentation/therapy/scheduled_therapy.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -169,6 +170,11 @@ final router = GoRouter(
       parentNavigatorKey: navigatorKey,
       path: RouteNames.scheduledRoute,
       builder: (context, state) => const ScheduledTests(),
+    ),
+    GoRoute(
+      parentNavigatorKey: navigatorKey,
+      path: RouteNames.therapyScheduledRoute,
+      builder: (context, state) => const ScheduledTherapies(),
     ),
     GoRoute(
       parentNavigatorKey: navigatorKey,

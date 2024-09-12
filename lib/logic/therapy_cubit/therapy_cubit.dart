@@ -150,7 +150,7 @@ class TherapyCubit extends Cubit<TherapyState> {
 
       emit(TherapyRiveAnimationInProgress(
         therapyTitle: title,
-        animationPath: 'assets/images/eye_rolling/eye_rolling',
+        animationPath: 'assets/images/eye_rolling/eyemovement.riv',
         remainingTime: (_timerCubit.state - steps[0]['duration']).toInt(),
       ));
 

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import '../../../configs/presentation/constants/colors.dart';
 import '../../../configs/routes/route_names.dart';
+import '../../../configs/utils/utils.dart';
 import '../../../logic/therapy_cubit/therapy_schedule_cubit.dart';
 import '../../../logic/therapy_cubit/therapy_schedule_state.dart';
 import '../../widgets/btn_flat.dart';
@@ -22,11 +23,7 @@ class TherapyModel extends StatelessWidget {
         return BlocConsumer<TherapyScheduleCubit, TherapyScheduleState>(
           listener: (context, state) {
             if (state is TherapyScheduledSuccessfully) {
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                content: Text(
-                    'Therapy "${state.therapyName}" scheduled successfully for ${state.scheduledTime}.'),
-                backgroundColor: Colors.green,
-              ));
+              AppUtils.showToast(context, "Therapy Scheduled", "Therapy has been scheduled successfully", false);
             }
           },
           builder: (context, state) {
@@ -129,13 +126,11 @@ class TherapyModel extends StatelessWidget {
                             btnColor: Colors.black,
                             textColor: AppColors.whiteColor,
                             onPress: () async {
-                              DateTime? selectedDateTime =
-                              await _selectDateTime(context);
+                              DateTime? selectedDateTime = await _selectDateTime(context);
                               if (selectedDateTime != null) {
-                                context
-                                    .read<TherapyScheduleCubit>()
-                                    .scheduleTherapy(
-                                  therapy['title'],
+                                // Pass the entire therapy object, including the category
+                                context.read<TherapyScheduleCubit>().scheduleTherapy(
+                                  therapy, // therapy object includes title and category
                                   selectedDateTime,
                                 );
                               }
@@ -143,19 +138,6 @@ class TherapyModel extends StatelessWidget {
                             text: "Schedule Therapy",
                           ),
                         ),
-                        if (state is TherapyScheduledSuccessfully)
-                          Padding(
-                            padding: const EdgeInsets.only(top: 10.0),
-                            child: Text(
-                              'Therapy "${state.therapyName}" scheduled for ${state.scheduledTime}',
-                              style: TextStyle(
-                                color: Colors.green,
-                                fontFamily: 'MontserratMedium',
-                                fontSize: screenWidth * 0.04,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
                       ],
                     )
                   ],
@@ -175,6 +157,24 @@ class TherapyModel extends StatelessWidget {
       initialDate: now,
       firstDate: now,
       lastDate: DateTime(now.year + 1),
+      builder: (BuildContext context, Widget? child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: const ColorScheme.light(
+              primary: AppColors.appColor,
+              onPrimary: AppColors.whiteColor,
+              onSurface: AppColors.textPrimary,
+            ),
+            textButtonTheme: TextButtonThemeData(
+              style: TextButton.styleFrom(
+                foregroundColor: AppColors.appColor,
+              ),
+            ),
+            dialogBackgroundColor: AppColors.whiteColor,
+          ),
+          child: child!,
+        );
+      },
     );
 
     if (date == null) return null;
@@ -182,6 +182,23 @@ class TherapyModel extends StatelessWidget {
     final TimeOfDay? time = await showTimePicker(
       context: context,
       initialTime: TimeOfDay.fromDateTime(now),
+      builder: (BuildContext context, Widget? child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: const ColorScheme.light(
+              primary: AppColors.appColor, // Header background color
+              onPrimary: AppColors.whiteColor, // Header text color
+              onSurface: AppColors.textPrimary, // Body text color
+            ),
+            textButtonTheme: TextButtonThemeData(
+              style: TextButton.styleFrom(
+                foregroundColor: AppColors.appColor, // Button text color
+              ),
+            ),
+          ),
+          child: child!,
+        );
+      },
     );
 
     if (time == null) return null;

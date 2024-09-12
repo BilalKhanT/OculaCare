@@ -192,19 +192,27 @@ final List<Map<String, dynamic>> bulgyEyeTherapies = [
       },
       {
         "step": 2,
-        "instruction": "Complete 4 full rotations clockwise.",
-        "svgPath": "assets/images/bulgy_eyes/rotate/clockwise.png",
-        "duration": 20
+        "instruction":
+        "Now slowly move your eyes in a counterclockwise motion.",
+        "svgPath": "assets/images/bulgy_eyes/rotate/counter_clockwise.png",
+        "duration": 10
       },
       {
         "step": 3,
+        "instruction":
+        "Look straight ahead and slowly move your eyes in a circular motion clockwise.",
+        "svgPath": "assets/images/bulgy_eyes/rotate/clockwise.png",
+        "duration": 10
+      },
+      {
+        "step": 4,
         "instruction":
             "Now slowly move your eyes in a counterclockwise motion.",
         "svgPath": "assets/images/bulgy_eyes/rotate/counter_clockwise.png",
         "duration": 10
       },
       {
-        "step": 4,
+        "step": 5,
         "instruction": "Complete 4 full rotations counterclockwise.",
         "svgPath": "assets/images/bulgy_eyes/rotate/counter_clockwise.png",
         "duration": 20

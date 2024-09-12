@@ -32,7 +32,7 @@ class TherapyRepository {
   Future<List<TherapyModel>> getTherapyRecord(String patientName) async {
     try {
       final response = await http.get(Uri.parse('$getTherapyUrl/$patientName'));
-
+      print(response);
       if (response.statusCode == 200) {
         List<dynamic> jsonResponse = jsonDecode(response.body);
         List<TherapyModel> therapies = jsonResponse.map((data) {

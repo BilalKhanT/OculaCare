@@ -200,11 +200,11 @@ final List<Map<String, dynamic>> therapiesList = [
   {
     "title": "Eye Rolling",
     "category": "General",
-    "timeLimit": 2, // Total duration in minutes
+    "timeLimit": 2,
     "type":
-        "animation_eye_rolling", // Specifies that this therapy requires Rive animation
+        "animation_eye_rolling",
     "svgPath":
-        "assets/images/eye_rolling/eye_rolling.png", // Used for the first step image
+        "assets/images/eye_rolling/eye_rolling.png",
     "sound": "assets/audio/relaxing_breathing.mp3",
     "benefits": [
       "Strengthens eye muscles",
@@ -216,9 +216,9 @@ final List<Map<String, dynamic>> therapiesList = [
         "step": 1,
         "instruction": "Roll your eyes in a circular motion.",
         "svgPath":
-            "assets/images/eye_rolling/roll_eyes.png", // Image for first step
+            "assets/images/eye_rolling/roll_eyes.png",
         "duration":
-            10 // Duration in seconds for step 1 before transitioning to the animation
+            10
       }
     ]
   },

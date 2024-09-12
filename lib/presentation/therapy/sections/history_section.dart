@@ -5,6 +5,8 @@ import 'package:OculaCare/logic/therapy_cubit/therapy_cubit.dart';
 import 'package:OculaCare/logic/therapy_cubit/therapy_state.dart';
 import 'package:OculaCare/data/models/therapy/therapy_results_model.dart';
 
+import '../../widgets/cstm_loader.dart';
+
 class HistorySection extends StatelessWidget {
   final double screenHeight;
   final double screenWidth;
@@ -24,7 +26,18 @@ class HistorySection extends StatelessWidget {
     return BlocBuilder<TherapyCubit, TherapyState>(
       builder: (context, state) {
         if (state is TherapyLoading) {
-          return const Center(child: CircularProgressIndicator());
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                SizedBox(height: screenHeight * 0.35),
+                const DotLoader(
+                  loaderColor: AppColors.appColor,
+                ),
+              ],
+            ),
+          );
         } else if (state is TherapyHistoryLoaded) {
           if (state.therapyHistory.isEmpty) {
             return Center(
