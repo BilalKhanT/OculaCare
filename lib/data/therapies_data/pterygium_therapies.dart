@@ -5,6 +5,7 @@ final List<Map<String, dynamic>> pterygiumTherapies = [
     "category": "Pterygiuym",
     "timeLimit": 5,
     "type": "instruction",
+    "description": "Soothes, reduces swelling",
     "svgPath": "assets/images/pterygium/cold_compress/cold_compress.png",
     "sound": "assets/audio/relaxing_breathing.mp3",
     "benefits": [
@@ -36,6 +37,7 @@ final List<Map<String, dynamic>> pterygiumTherapies = [
     "category": "Pterygiuym",
     "timeLimit": 5,
     "type": "instruction",
+    "description" : "Relieves tension, reduces puffiness",
     "svgPath": "assets/images/pterygium/eye_message/eye_message.png",
     "sound": "assets/audio/relaxing_breathing.mp3",
     "benefits": [
@@ -66,7 +68,8 @@ final List<Map<String, dynamic>> pterygiumTherapies = [
     "title": "Palming",
     "category": "Pterygiuym",
     "timeLimit": 5, 
-    "type": "image", 
+    "type": "image",
+    "description" : "Relieves strain, promotes relaxation",
     "svgPath": "assets/images/palming/palming.png",
     "sound": "assets/audio/relaxing_breathing.mp3",
     "benefits": [
@@ -107,7 +110,8 @@ final List<Map<String, dynamic>> pterygiumTherapies = [
     "title": "Focus Shifting",
     "category": "Pterygiuym",
     "timeLimit": 3, 
-    "type": "image", 
+    "type": "image",
+    "description" : "Improves focus, reduces strain",
     "svgPath": "assets/images/focus_shifting/focus_shifting.png",
     "sound": "assets/audio/relaxing_breathing.mp3",
     "benefits": [
@@ -153,7 +157,8 @@ final List<Map<String, dynamic>> pterygiumTherapies = [
     "title": "Eye Direction and Relaxation",
     "category": "Pterygiuym",
     "timeLimit": 3, 
-    "type": "instruction", 
+    "type": "instruction",
+    "description" : "Enhances focus, reduces strain",
     "svgPath": "assets/images/bulgy_eyes/eye_direction/eye_direction.png",
     "sound": "assets/audio/relaxing_breathing.mp3",
     "benefits": [
@@ -202,7 +207,8 @@ final List<Map<String, dynamic>> pterygiumTherapies = [
     "title": "Blinking Exercise",
     "category": "Pterygiuym",
     "timeLimit": 2, 
-    "type": "image", 
+    "type": "image",
+    "description" : "Lubricates eyes, prevents dryness",
     "svgPath": "assets/images/blinking_exercise/blinking_eye.png",
     "sound": "assets/audio/relaxing_breathing.mp3",
     "benefits": [
@@ -248,9 +254,9 @@ final List<Map<String, dynamic>> pterygiumTherapies = [
   {
     "title": "Peripheral Awareness Exercise",
     "category": "Pterygiuym",
-    "timeLimit": 5, 
-    "type":
-        "animation_peripheral", 
+    "timeLimit": 5,
+    "description" : "Strengthens peripheral vision, coordination",
+    "type": "animation_peripheral",
     "svgPath": "assets/images/crossed_eyes/peripheral_awareness/peripheral.png",
     "sound": "assets/audio/relaxing_breathing.mp3",
     "benefits": ["Strengthens peripheral vision", "Improves coordination"],
