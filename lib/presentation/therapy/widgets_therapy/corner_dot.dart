@@ -16,17 +16,17 @@ class CornerDot extends StatelessWidget {
       children: dotPositions.map((position) {
         return Positioned(
           left: position.dx *
-              MediaQuery.of(context).size.width, // Horizontal position
+              MediaQuery.of(context).size.width,
           top: position.dy *
-              MediaQuery.of(context).size.height, // Vertical position
+              MediaQuery.of(context).size.height,
           child: AnimatedOpacity(
             opacity: dotOpacity,
-            duration: const Duration(milliseconds: 500), // Smooth transition
+            duration: const Duration(milliseconds: 500),
             child: Container(
-              width: 50, // Size of the dot
+              width: 50,
               height: 50,
               decoration: const BoxDecoration(
-                color: Colors.blue, // Dot color
+                color: Colors.blue,
                 shape: BoxShape.circle,
               ),
             ),
