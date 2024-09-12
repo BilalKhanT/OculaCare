@@ -47,20 +47,11 @@ class TestCubit extends Cubit<TestState> {
         testResults.add(test);
       }
     }
-    List<TestResultModel> vision = [];
-    List<TestResultModel> color = [];
-    for (var i in testResults) {
-      if (i.testType == 'Color Perception Test') {
-        color.add(i);
-      } else {
-        vision.add(i);
-      }
-    }
     Map<DateTime, int> dateTestCount = {};
     for (var result in testResults) {
       DateTime testDate = dateFormat.parse(result.date);
       dateTestCount.update(testDate, (value) => value + 1, ifAbsent: () => 1);
     }
-    emit(TestProgression(vision, color, dateTestCount));
+    emit(TestProgression(dateTestCount));
   }
 }
