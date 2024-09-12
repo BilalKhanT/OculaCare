@@ -28,4 +28,5 @@ class RouteNames {
   static const String dashboardRoute = '/dashboard';
   static const String therapy = '/therapy';
   static const String diseaseTherapies = '/disease-therapies';
+  static const String testReportRoute = '/testReportRoute';
 }
