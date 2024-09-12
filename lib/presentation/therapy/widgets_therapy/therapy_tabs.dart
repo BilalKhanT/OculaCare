@@ -38,29 +38,32 @@ class TherapyTabs extends StatelessWidget {
   }
 
   Widget _buildTab(BuildContext context, String title, bool isSelected, Function onTap) {
-    return GestureDetector(
-      onTap: () => onTap(),
-      child: Container(
-        decoration: BoxDecoration(
-          color: isSelected ? AppColors.appColor.withOpacity(0.85) : Colors.white,
-          borderRadius: BorderRadius.circular(25),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 1,
-              blurRadius: 6,
-              offset: const Offset(0, 3), // changes position of shadow
+    return Padding(
+      padding: const EdgeInsets.only(left: 5.0),
+      child: GestureDetector(
+        onTap: () => onTap(),
+        child: Container(
+          decoration: BoxDecoration(
+            color: isSelected ? AppColors.appColor.withOpacity(0.85) : Colors.white,
+            borderRadius: BorderRadius.circular(25),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                spreadRadius: 1,
+                blurRadius: 6,
+                offset: const Offset(0, 3), // changes position of shadow
+              ),
+            ],
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 6.0),
+          child: Text(
+            title,
+            style: TextStyle(
+              fontFamily: 'Montserrat',
+              fontWeight: FontWeight.bold,
+              fontSize: MediaQuery.of(context).size.width * 0.04,
+              color: isSelected ? AppColors.whiteColor : Colors.black,
             ),
-          ],
-        ),
-        padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 6.0),
-        child: Text(
-          title,
-          style: TextStyle(
-            fontFamily: 'Montserrat',
-            fontWeight: FontWeight.bold,
-            fontSize: MediaQuery.of(context).size.width * 0.04,
-            color: isSelected ? AppColors.whiteColor : Colors.black,
           ),
         ),
       ),
