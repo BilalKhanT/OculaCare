@@ -6,6 +6,7 @@ import 'package:OculaCare/logic/therapy_cubit/therapy_cubit.dart';
 import 'package:OculaCare/logic/therapy_cubit/therapy_state.dart';
 import 'package:OculaCare/data/models/therapy/therapy_results_model.dart';
 import '../../widgets/cstm_loader.dart';
+import '../widgets_therapy/history_args_model.dart';
 import '../widgets_therapy/therapy_history_tiles.dart';
 
 class HistorySection extends StatelessWidget {
@@ -171,14 +172,14 @@ class HistorySection extends StatelessWidget {
         itemCount: therapies.length,
         itemBuilder: (context, index) {
           final TherapyModel therapy = therapies[index];
-
+          final HistoryArgsModel assetData = getTherapyAsset(therapy.therapyName);
           return TherapyHistoryTile(
             title: therapy.therapyName,
             date: therapy.date,
             type: therapy.therapyType,
             duration: therapy.duration,
-            image: 'assets/images/logo_ocula.png',
-            avatarColor: AppColors.screenBackground,
+            image: assetData.imagePath,
+            avatarColor: assetData.avatarColor,
           );
         },
       ),
