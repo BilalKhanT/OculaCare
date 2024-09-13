@@ -29,62 +29,142 @@ class HistorySection extends StatelessWidget {
       builder: (context, state) {
         if (state is TherapyLoading) {
           return Padding(
-            padding: const EdgeInsets.symmetric(
-                horizontal: 5.0, vertical: 20.0),
-            child: SizedBox(
-              height: screenHeight * 0.7,
-              child: ListView.builder(
-                itemCount: 10,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 8.0, horizontal: 3.0),
-                    child: Shimmer.fromColors(
-                      baseColor: Colors.grey[300]!,
-                      highlightColor: Colors.grey[100]!,
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            width: 60.0,
-                            height: 60.0,
-                            color: Colors.white,
-                          ),
-                          const SizedBox(width: 10.0),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment:
-                              CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  width: double.infinity,
-                                  height: 12.0,
-                                  color: Colors.white,
-                                ),
-                                const SizedBox(height: 5.0),
-                                Container(
-                                  width: double.infinity,
-                                  height: 12.0,
-                                  color: Colors.white,
-                                ),
-                                const SizedBox(height: 5.0),
-                                Container(
-                                  width: 100.0,
-                                  height: 12.0,
-                                  color: Colors.white,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
+            padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 20.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                  child: Shimmer.fromColors(
+                    baseColor: Colors.grey[300]!,
+                    highlightColor: Colors.grey[100]!,
+                    child: Container(
+                      width: double.infinity,
+                      height: 20.0,
+                      color: Colors.white,
                     ),
-                  );
-                },
-              ),
+                  ),
+                ),
+                SizedBox(height: screenHeight * 0.02),
+                SizedBox(
+                  height: screenHeight * 0.35,
+                  child: ListView.builder(
+                    itemCount: 5,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 3.0),
+                        child: Shimmer.fromColors(
+                          baseColor: Colors.grey[300]!,
+                          highlightColor: Colors.grey[100]!,
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                width: 60.0,
+                                height: 60.0,
+                                color: Colors.white,
+                              ),
+                              const SizedBox(width: 10.0),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      width: double.infinity,
+                                      height: 12.0,
+                                      color: Colors.white,
+                                    ),
+                                    const SizedBox(height: 5.0),
+                                    Container(
+                                      width: double.infinity,
+                                      height: 12.0,
+                                      color: Colors.white,
+                                    ),
+                                    const SizedBox(height: 5.0),
+                                    Container(
+                                      width: 100.0,
+                                      height: 12.0,
+                                      color: Colors.white,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                SizedBox(height: screenHeight * 0.04),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                  child: Shimmer.fromColors(
+                    baseColor: Colors.grey[300]!,
+                    highlightColor: Colors.grey[100]!,
+                    child: Container(
+                      width: double.infinity,
+                      height: 20.0,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                SizedBox(height: screenHeight * 0.02),
+                SizedBox(
+                  height: screenHeight * 0.35,
+                  child: ListView.builder(
+                    itemCount: 5,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 3.0),
+                        child: Shimmer.fromColors(
+                          baseColor: Colors.grey[300]!,
+                          highlightColor: Colors.grey[100]!,
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                width: 60.0,
+                                height: 60.0,
+                                color: Colors.white,
+                              ),
+                              const SizedBox(width: 10.0),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      width: double.infinity,
+                                      height: 12.0,
+                                      color: Colors.white,
+                                    ),
+                                    const SizedBox(height: 5.0),
+                                    Container(
+                                      width: double.infinity,
+                                      height: 12.0,
+                                      color: Colors.white,
+                                    ),
+                                    const SizedBox(height: 5.0),
+                                    Container(
+                                      width: 100.0,
+                                      height: 12.0,
+                                      color: Colors.white,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
             ),
           );
-        } else if (state is TherapyHistoryLoaded) {
+        }
+        else if (state is TherapyHistoryLoaded) {
           if (state.therapyHistory.isEmpty) {
             return Center(
               child: Text(
