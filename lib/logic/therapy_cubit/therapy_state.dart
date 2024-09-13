@@ -241,6 +241,27 @@ class TherapyBlinkingAnimationInProgress extends TherapyState {
   });
 }
 
+class TherapyProgressionInitial extends TherapyState {}
+
+class TherapyProgressionLoaded extends TherapyState {
+  final Map<DateTime, int> therapyProgressData;
+
+  const TherapyProgressionLoaded(this.therapyProgressData);
+
+  @override
+  List<Object> get props => [therapyProgressData];
+}
+
+
+class TherapyProgressError extends TherapyState {
+  final String therapyProgressErr;
+
+  const TherapyProgressError({required this.therapyProgressErr});
+
+  @override
+  List<Object> get props => [therapyProgressErr];
+}
+
 
 
 class TherapyError extends TherapyState {
