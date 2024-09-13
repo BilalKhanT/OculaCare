@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shimmer/shimmer.dart';
 import '../../../configs/app/app_globals.dart';
 import '../../../configs/presentation/constants/colors.dart';
 import '../../../logic/therapy_cubit/therapy_cubit.dart';
@@ -26,8 +27,38 @@ class ProgressionSection extends StatelessWidget {
     return BlocBuilder<TherapyCubit, TherapyState>(
       builder: (context, state) {
         Widget content;
+
         if (state is TherapyLoading) {
-          content = const Center(child: CircularProgressIndicator());
+          content = Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 60.0, vertical: 10.0),
+                child: Shimmer.fromColors(
+                  baseColor: Colors.grey[300]!,
+                  highlightColor: Colors.grey[100]!,
+                  child: Container(
+                    width: screenWidth * 0.8,
+                    height: screenHeight * 0.35,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              SizedBox(height: screenHeight * 0.02),
+              // Shimmer effect for the Bar Chart
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 60.0, vertical: 10.0),
+                child: Shimmer.fromColors(
+                  baseColor: Colors.grey[300]!,
+                  highlightColor: Colors.grey[100]!,
+                  child: Container(
+                    height: screenHeight * 0.25,
+                    width: screenWidth * 0.8,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ],
+          );
         } else if (state is TherapyProgressionLoaded) {
           content = Column(
             children: [
@@ -38,18 +69,19 @@ class ProgressionSection extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 60.0, vertical: 10.0),
                 child: Container(
-                    decoration: BoxDecoration(
-                      color: AppColors.whiteColor,
-                      borderRadius: BorderRadius.circular(15.0),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.1),
-                          spreadRadius: 2,
-                          blurRadius: 5,
-                        ),
-                      ],
-                    ),
-                    child: const TherapyBarChart()),
+                  decoration: BoxDecoration(
+                    color: AppColors.whiteColor,
+                    borderRadius: BorderRadius.circular(15.0),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.1),
+                        spreadRadius: 2,
+                        blurRadius: 5,
+                      ),
+                    ],
+                  ),
+                  child: const TherapyBarChart(),
+                ),
               ),
             ],
           );
