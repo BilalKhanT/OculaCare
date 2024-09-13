@@ -107,10 +107,10 @@ class DashboardScreen extends StatelessWidget {
                       patientName: sharedPrefs.userName,
                     );
                   } else if (state is TherapyDashboardProgressionState) {
-                    // Show the Progression Section
                     return ProgressionSection(
                       screenHeight: screenHeight,
                       screenWidth: screenWidth,
+                      patientName: sharedPrefs.userName,
                     );
                   } else {
                     return const SizedBox.shrink();
