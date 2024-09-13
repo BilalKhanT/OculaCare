@@ -64,7 +64,11 @@ class TestReport extends StatelessWidget {
           child: Card(
             color: Colors.white,
             shadowColor: Colors.grey.withOpacity(0.5),
-            elevation: 5.0,
+            margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 3),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            elevation: 4,
             child: Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 15, vertical: 20.0),
@@ -81,8 +85,8 @@ class TestReport extends StatelessWidget {
                         ),
                         child: ClipOval(
                           child: Container(
-                            height: screenHeight * 0.15,
-                            width: screenHeight * 0.15,
+                            height: screenHeight * 0.1,
+                            width: screenHeight * 0.1,
                             color: Colors.white,
                             child: Image.asset(
                               'assets/images/profile_place.png',
@@ -103,7 +107,7 @@ class TestReport extends StatelessWidget {
                               color: AppColors.appColor,
                               fontFamily: 'MontserratMedium',
                               fontWeight: FontWeight.w800,
-                              fontSize: screenWidth * 0.05,
+                              fontSize: screenWidth * 0.04,
                             ),
                           ),
                           SizedBox(
@@ -115,7 +119,7 @@ class TestReport extends StatelessWidget {
                               color: Colors.black,
                               fontFamily: 'MontserratMedium',
                               fontWeight: FontWeight.w800,
-                              fontSize: screenWidth * 0.035,
+                              fontSize: screenWidth * 0.03,
                             ),
                           ),
                           SizedBox(
@@ -127,7 +131,7 @@ class TestReport extends StatelessWidget {
                               color: Colors.black,
                               fontFamily: 'MontserratMedium',
                               fontWeight: FontWeight.w800,
-                              fontSize: screenWidth * 0.035,
+                              fontSize: screenWidth * 0.03,
                             ),
                           ),
                         ],
@@ -142,10 +146,10 @@ class TestReport extends StatelessWidget {
                       Text(
                         'Test Name:',
                         style: TextStyle(
-                          color: Colors.black,
+                          color: AppColors.appColor,
                           fontFamily: 'MontserratMedium',
                           fontWeight: FontWeight.w800,
-                          fontSize: screenWidth * 0.05,
+                          fontSize: screenWidth * 0.04,
                         ),
                       ),
                       const SizedBox(
@@ -154,10 +158,10 @@ class TestReport extends StatelessWidget {
                       Text(
                         test.testName,
                         style: TextStyle(
-                          color: Colors.grey.shade700,
+                          color: Colors.black,
                           fontFamily: 'Montserrat',
                           fontWeight: FontWeight.bold,
-                          fontSize: screenWidth * 0.05,
+                          fontSize: screenWidth * 0.04,
                         ),
                       ),
                     ],
@@ -170,10 +174,11 @@ class TestReport extends StatelessWidget {
                   Text(
                     'Analysis:',
                     style: TextStyle(
-                      color: Colors.black,
+                      color: AppColors.appColor,
                       fontFamily: 'MontserratMedium',
                       fontWeight: FontWeight.w800,
-                      fontSize: screenWidth * 0.05,
+                      fontSize: screenWidth * 0.04,
+                      letterSpacing: 0.5,
                     ),
                   ),
                   SizedBox(
@@ -183,22 +188,24 @@ class TestReport extends StatelessWidget {
                     test.resultDescription,
                     textAlign: TextAlign.left,
                     style: TextStyle(
-                      color: Colors.grey.shade700,
+                      color: Colors.black,
                       fontFamily: 'Montserrat',
                       fontWeight: FontWeight.bold,
-                      fontSize: screenWidth * 0.035,
+                      fontSize: screenWidth * 0.032,
+                      letterSpacing: 0.5,
                     ),
                   ),
                   SizedBox(
-                    height: screenHeight * 0.05,
+                    height: screenHeight * 0.025,
                   ),
                   Text(
                     'Recommendations:',
                     style: TextStyle(
-                      color: Colors.black,
+                      color: AppColors.appColor,
                       fontFamily: 'MontserratMedium',
                       fontWeight: FontWeight.w800,
-                      fontSize: screenWidth * 0.05,
+                      fontSize: screenWidth * 0.04,
+                      letterSpacing: 0.5,
                     ),
                   ),
                   SizedBox(
@@ -208,22 +215,24 @@ class TestReport extends StatelessWidget {
                     test.recommendation,
                     textAlign: TextAlign.left,
                     style: TextStyle(
-                      color: Colors.grey.shade700,
+                      color: Colors.black,
                       fontFamily: 'Montserrat',
                       fontWeight: FontWeight.bold,
-                      fontSize: screenWidth * 0.035,
+                      fontSize: screenWidth * 0.032,
+                      letterSpacing: 0.5,
                     ),
                   ),
                   SizedBox(
-                    height: screenHeight * 0.05,
+                    height: screenHeight * 0.025,
                   ),
                   Text(
                     'Impacts:',
                     style: TextStyle(
-                      color: Colors.black,
+                      color: AppColors.appColor,
                       fontFamily: 'MontserratMedium',
                       fontWeight: FontWeight.w800,
-                      fontSize: screenWidth * 0.05,
+                      fontSize: screenWidth * 0.04,
+                      letterSpacing: 0.5,
                     ),
                   ),
                   SizedBox(
@@ -233,10 +242,11 @@ class TestReport extends StatelessWidget {
                     test.precautions,
                     textAlign: TextAlign.left,
                     style: TextStyle(
-                      color: Colors.grey.shade700,
+                      color: Colors.black,
                       fontFamily: 'Montserrat',
                       fontWeight: FontWeight.bold,
-                      fontSize: screenWidth * 0.035,
+                      fontSize: screenWidth * 0.032,
+                      letterSpacing: 0.5,
                     ),
                   ),
                 ],
