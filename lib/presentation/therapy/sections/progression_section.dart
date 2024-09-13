@@ -27,7 +27,6 @@ class ProgressionSection extends StatelessWidget {
     return BlocBuilder<TherapyCubit, TherapyState>(
       builder: (context, state) {
         Widget content;
-
         if (state is TherapyLoading) {
           content = Column(
             children: [
@@ -44,7 +43,6 @@ class ProgressionSection extends StatelessWidget {
                 ),
               ),
               SizedBox(height: screenHeight * 0.02),
-              // Shimmer effect for the Bar Chart
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 60.0, vertical: 10.0),
                 child: Shimmer.fromColors(
@@ -59,7 +57,8 @@ class ProgressionSection extends StatelessWidget {
               ),
             ],
           );
-        } else if (state is TherapyProgressionLoaded) {
+        }
+        else if (state is TherapyProgressionLoaded) {
           content = Column(
             children: [
               ProgressCalendarScreen(
@@ -85,7 +84,8 @@ class ProgressionSection extends StatelessWidget {
               ),
             ],
           );
-        } else if (state is TherapyProgressError) {
+        }
+        else if (state is TherapyProgressError) {
           content = Center(
             child: Text(
               state.therapyProgressErr,
@@ -95,18 +95,24 @@ class ProgressionSection extends StatelessWidget {
               ),
             ),
           );
-        } else {
-          content = const Center(child: Text('No Data Available'));
         }
-
+        else {
+          content = const Center(
+            child: Text(
+              'No Data Available',
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.black54,
+              ),
+            ),
+          );
+        }
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 5.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(
-                height: screenHeight * 0.01,
-              ),
+              SizedBox(height: screenHeight * 0.01),
               Text(
                 'Therapy Progress',
                 style: TextStyle(
@@ -116,12 +122,8 @@ class ProgressionSection extends StatelessWidget {
                   color: AppColors.appColor,
                 ),
               ),
-              SizedBox(
-                height: screenHeight * 0.02,
-              ),
-              Center(
-                child: content,
-              ),
+              SizedBox(height: screenHeight * 0.02),
+              Center(child: content),
             ],
           ),
         );
