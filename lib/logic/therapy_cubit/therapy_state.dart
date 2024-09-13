@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:OculaCare/data/models/therapy/therapy_results_model.dart';
 import 'package:equatable/equatable.dart';
 
@@ -262,7 +261,14 @@ class TherapyProgressError extends TherapyState {
   List<Object> get props => [therapyProgressErr];
 }
 
+class TherapyHistoryError extends TherapyState {
+  final String errorMessage;
 
+  const TherapyHistoryError(this.errorMessage);
+
+  @override
+  List<Object> get props => [errorMessage];
+}
 
 class TherapyError extends TherapyState {
   final String therapyErr;
