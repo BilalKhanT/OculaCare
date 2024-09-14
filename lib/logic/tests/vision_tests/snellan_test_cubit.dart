@@ -102,6 +102,10 @@ class SnellanTestCubit extends Cubit<SnellanTestState> {
       },
       listenFor: const Duration(seconds: 5),
       pauseFor: const Duration(seconds: 5),
+      listenOptions: stt.SpeechListenOptions(
+        partialResults: false,
+        cancelOnError: false,
+      )
     );
 
     Future.delayed(const Duration(seconds: 5), () async {
