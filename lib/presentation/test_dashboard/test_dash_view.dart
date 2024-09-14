@@ -630,7 +630,7 @@ class TestDashView extends StatelessWidget {
                                             description: state.data[index].date,
                                             image: data.imagePath,
                                             onPress: () {
-                                              context.push(
+                                              context.go(
                                                   RouteNames.testReportRoute,
                                                   extra: state.data[index]);
                                             },
@@ -682,7 +682,7 @@ class TestDashView extends StatelessWidget {
                                                 state.dataColor[index].date,
                                             image: data.imagePath,
                                             onPress: () {
-                                              context.push(
+                                              context.go(
                                                   RouteNames.testReportRoute,
                                                   extra:
                                                       state.dataColor[index]);
