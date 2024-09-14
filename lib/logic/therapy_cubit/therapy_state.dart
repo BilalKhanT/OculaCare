@@ -270,6 +270,14 @@ class TherapyHistoryError extends TherapyState {
   List<Object> get props => [errorMessage];
 }
 
+class TherapyHistoryEmpty extends TherapyState {
+
+}
+
+class TherapyProgressionEmpty extends TherapyState {
+
+}
+
 class TherapyError extends TherapyState {
   final String therapyErr;
 
