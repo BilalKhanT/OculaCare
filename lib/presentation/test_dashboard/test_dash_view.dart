@@ -630,7 +630,7 @@ class TestDashView extends StatelessWidget {
                                             description: state.data[index].date,
                                             image: data.imagePath,
                                             onPress: () {
-                                              context.go(
+                                              context.push(
                                                   RouteNames.testReportRoute,
                                                   extra: state.data[index]);
                                             },
@@ -682,7 +682,7 @@ class TestDashView extends StatelessWidget {
                                                 state.dataColor[index].date,
                                             image: data.imagePath,
                                             onPress: () {
-                                              context.go(
+                                              context.push(
                                                   RouteNames.testReportRoute,
                                                   extra:
                                                       state.dataColor[index]);
@@ -742,7 +742,7 @@ class TestDashView extends StatelessWidget {
       baseColor: Colors.grey[300]!,
       highlightColor: Colors.grey[100]!,
       child: Container(
-        height: 250, // Approximate height of the calendar widget
+        height: 250,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(12.0),
