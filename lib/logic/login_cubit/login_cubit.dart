@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:OculaCare/data/models/patient/patient_model.dart';
 import 'package:OculaCare/data/repositories/local/preferences/shared_prefs.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
@@ -50,6 +51,15 @@ class LoginCubit extends Cubit<LoginState> {
       sharedPrefs.password = passwordController.text.trim();
       dispose();
       if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+        Patient patient = Patient.fromJson(data);
+        print(sharedPrefs.isProfileSetup);
+        if (patient.gender != null && patient.address != null && patient.profileImage != null) {
+          sharedPrefs.isProfileSetup = true;
+        }
+        else {
+          sharedPrefs.isProfileSetup = false;
+        }
         sharedPrefs.isLoggedIn = true;
         emit(LoginSuccess());
       } else {
