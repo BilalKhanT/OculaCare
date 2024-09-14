@@ -60,7 +60,7 @@ class ProgressChartScreen extends StatelessWidget {
               if (index >= 0 && index < sortedEntries.length) {
                 DateTime date = sortedEntries[index].key;
                 return Text(
-                  DateFormat('MMM dd').format(date),
+                  DateFormat('MMM d').format(date),
                   style: TextStyle(
                     color: Colors.black.withOpacity(0.6),
                     fontSize: 10,

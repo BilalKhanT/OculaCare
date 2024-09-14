@@ -66,6 +66,9 @@ class TestDashView extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.sizeOf(context).height;
     double screenWidth = MediaQuery.sizeOf(context).width;
+    bool testSelected = false;
+    bool historySelected = false;
+    bool progressionSelected = false;
     return Scaffold(
       backgroundColor: AppColors.screenBackground,
       appBar: AppBar(
@@ -120,10 +123,6 @@ class TestDashView extends StatelessWidget {
             children: <Widget>[
               BlocBuilder<TestDashTabCubit, TestDashTabState>(
                 builder: (context, state) {
-                  bool testSelected = false;
-                  bool historySelected = false;
-                  bool progressionSelected = false;
-
                   if (state is TestDashTabToggled) {
                     testSelected = state.isTest;
                     historySelected = state.isHistory;
@@ -259,7 +258,7 @@ class TestDashView extends StatelessWidget {
               BlocBuilder<TestCubit, TestState>(
                 builder: (context, state) {
                   if (state is TestLoading) {
-                    return Padding(
+                    return progressionSelected == false ?  Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 5.0, vertical: 20.0),
                       child: SizedBox(
@@ -313,6 +312,18 @@ class TestDashView extends StatelessWidget {
                             );
                           },
                         ),
+                      ),
+                    ) : Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 28.0, horizontal: 8),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          buildCalendarShimmer(),
+                          const SizedBox(height: 20),
+                          buildDropdownShimmer(),
+                          const SizedBox(height: 20),
+                          buildCalendarShimmer(),
+                        ],
                       ),
                     );
                   } else if (state is TestLoaded) {
@@ -692,4 +703,34 @@ class TestDashView extends StatelessWidget {
       ),
     );
   }
+
+  Widget buildCalendarShimmer() {
+    return Shimmer.fromColors(
+      baseColor: Colors.grey[300]!,
+      highlightColor: Colors.grey[100]!,
+      child: Container(
+        height: 250, // Approximate height of the calendar widget
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12.0),
+        ),
+      ),
+    );
+  }
+
+  Widget buildDropdownShimmer() {
+    return Shimmer.fromColors(
+      baseColor: Colors.grey[300]!,
+      highlightColor: Colors.grey[100]!,
+      child: Container(
+        height: 40,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12.0),
+        ),
+      ),
+    );
+  }
+
 }

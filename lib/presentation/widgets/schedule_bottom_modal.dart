@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../configs/presentation/constants/colors.dart';
 import '../../configs/utils/utils.dart';
 import '../../logic/tests/test_schedule_cubit.dart';
 import 'btn_flat.dart';
-
 
 class ScheduleBottomModal extends StatelessWidget {
   final TextEditingController controller;
@@ -44,7 +42,7 @@ class ScheduleBottomModal extends StatelessWidget {
                     },
                     icon: const Icon(
                       Icons.cancel_outlined,
-                      color: Colors.black,
+                      color: Colors.redAccent,
                       size: 40.0,
                     ),
                   ),
@@ -107,18 +105,12 @@ class ScheduleBottomModal extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
                   GestureDetector(
-                      onTap: () {
-                        DatePicker.showDateTimePicker(
-                          context,
-                          showTitleActions: true,
-                          onChanged: (date) {},
-                          onConfirm: (date) {
-                            context.read<ScheduleCubit>().time = date;
-                            controller.text = date.toString();
-                          },
-                          currentTime: DateTime.now(),
-                          locale: LocaleType.en,
-                        );
+                      onTap: () async {
+                        DateTime? time = await _selectDateTime(context);
+                        if (context.mounted && time != null) {
+                          context.read<ScheduleCubit>().time = time;
+                          controller.text = time.toString();
+                        }
                       },
                       child: Text(
                         'Select',
@@ -186,5 +178,61 @@ class ScheduleBottomModal extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<DateTime?> _selectDateTime(BuildContext context) async {
+    final now = DateTime.now();
+    final DateTime? date = await showDatePicker(
+      context: context,
+      initialDate: now,
+      firstDate: now,
+      lastDate: DateTime(now.year + 1),
+      builder: (BuildContext context, Widget? child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: const ColorScheme.light(
+              primary: AppColors.appColor,
+              onPrimary: AppColors.whiteColor,
+              onSurface: AppColors.textPrimary,
+            ),
+            textButtonTheme: TextButtonThemeData(
+              style: TextButton.styleFrom(
+                foregroundColor: AppColors.appColor,
+              ),
+            ),
+            dialogBackgroundColor: AppColors.whiteColor,
+          ),
+          child: child!,
+        );
+      },
+    );
+
+    if (date == null) return null;
+
+    final TimeOfDay? time = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.fromDateTime(now),
+      builder: (BuildContext context, Widget? child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: const ColorScheme.light(
+              primary: AppColors.appColor,
+              onPrimary: AppColors.whiteColor,
+              onSurface: AppColors.textPrimary,
+            ),
+            textButtonTheme: TextButtonThemeData(
+              style: TextButton.styleFrom(
+                foregroundColor: AppColors.appColor,
+              ),
+            ),
+          ),
+          child: child!,
+        );
+      },
+    );
+
+    if (time == null) return null;
+
+    return DateTime(date.year, date.month, date.day, time.hour, time.minute);
   }
 }
