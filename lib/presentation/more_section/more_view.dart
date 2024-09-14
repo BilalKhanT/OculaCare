@@ -320,6 +320,7 @@ class MoreView extends StatelessWidget {
                           icon: "assets/svgs/log_out.svg",
                           onTap: () {
                             sharedPrefs.isLoggedIn = false;
+                            sharedPrefs.isProfileSetup = false;
                             context.read<LoginCubit>().loadLoginScreen();
                             context.go(RouteNames.loginRoute);
                           },
