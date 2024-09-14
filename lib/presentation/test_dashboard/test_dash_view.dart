@@ -6,6 +6,7 @@ import 'package:OculaCare/presentation/test_dashboard/widgets/test_progress_heat
 import 'package:OculaCare/presentation/test_dashboard/widgets/test_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -93,12 +94,13 @@ class TestDashView extends StatelessWidget {
               },
               child: Row(
                 children: [
-                  const Icon(
-                    Icons.bookmark_border,
-                    color: AppColors.appColor,
+                  SvgPicture.asset(
+                    'assets/svgs/schedule.svg',
+                    // ignore: deprecated_member_use
+                    color: AppColors.appColor
                   ),
                   const SizedBox(
-                    width: 3.0,
+                    width: 6.0,
                   ),
                   Text(
                     'Scheduled',
