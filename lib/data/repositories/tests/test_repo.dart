@@ -31,7 +31,7 @@ class TestRepository {
   }
 
   Future<List<TestResultModel>> getTestRecords(String patientName) async {
-    final url = Uri.parse('$getTestUrl/Bilal Khan');
+    final url = Uri.parse('$getTestUrl/$patientName');
 
     try {
       final response = await http.get(url);
