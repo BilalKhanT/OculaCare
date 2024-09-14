@@ -1,5 +1,4 @@
 import 'package:OculaCare/configs/presentation/constants/colors.dart';
-import 'package:OculaCare/configs/routes/route_names.dart';
 import 'package:OculaCare/data/models/tests/test_result_model.dart';
 import 'package:OculaCare/presentation/test_dashboard/widgets/severity_chart.dart';
 import 'package:OculaCare/presentation/test_dashboard/widgets/snellan_chart_widget.dart';
@@ -33,7 +32,7 @@ class TestReport extends StatelessWidget {
         leading: IconButton(
             onPressed: () {
               context.read<TestDashTabCubit>().toggleTab(1);
-              context.push(RouteNames.testRoute);
+              context.pop();
             },
             icon: const Icon(
               Icons.arrow_back_ios_new,
