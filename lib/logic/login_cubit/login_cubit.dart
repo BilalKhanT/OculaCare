@@ -53,11 +53,14 @@ class LoginCubit extends Cubit<LoginState> {
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
         Patient patient = Patient.fromJson(data);
-        print(sharedPrefs.isProfileSetup);
-        if (patient.gender != null && patient.address != null && patient.profileImage != null) {
+        if (patient.gender != null &&
+            patient.address != null &&
+            patient.profileImage != null) {
           sharedPrefs.isProfileSetup = true;
-        }
-        else {
+          String encodedPatient = jsonEncode(patient.toJson());
+          sharedPrefs.patientData = encodedPatient;
+        } else {
+          sharedPrefs.patientData = '';
           sharedPrefs.isProfileSetup = false;
         }
         sharedPrefs.isLoggedIn = true;
