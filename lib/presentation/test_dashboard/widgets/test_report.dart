@@ -1,9 +1,13 @@
 import 'package:OculaCare/configs/presentation/constants/colors.dart';
+import 'package:OculaCare/configs/routes/route_names.dart';
 import 'package:OculaCare/data/models/tests/test_result_model.dart';
 import 'package:OculaCare/presentation/test_dashboard/widgets/severity_chart.dart';
 import 'package:OculaCare/presentation/test_dashboard/widgets/snellan_chart_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:nb_utils/nb_utils.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../../logic/tests/test_dash_tab_cubit.dart';
 
 class TestReport extends StatelessWidget {
   final TestResultModel test;
@@ -26,8 +30,11 @@ class TestReport extends StatelessWidget {
             fontSize: screenWidth * 0.05,
           ),
         ),
-        leading: IconButton
-            onPressed: () => context.pop(),
+        leading: IconButton(
+            onPressed: () {
+              context.read<TestDashTabCubit>().toggleTab(1);
+              context.push(RouteNames.testRoute);
+            },
             icon: const Icon(
               Icons.arrow_back_ios_new,
               color: AppColors.appColor,
@@ -62,8 +69,7 @@ class TestReport extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5.0),
           child: Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 15, vertical: 20.0),
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
