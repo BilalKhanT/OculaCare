@@ -38,6 +38,11 @@ class SharedPrefs {
     _sharedPrefs?.setString('email', value);
   }
 
+  String get patientData => _sharedPrefs?.getString('patientData') ?? '';
+  set patientData(String value) {
+    _sharedPrefs?.setString('patientData', value);
+  }
+
   List<String>? getStringList(String key) {
     return _sharedPrefs?.getStringList(key);
   }
