@@ -96,6 +96,17 @@ class ProgressionSection extends StatelessWidget {
             ),
           );
         }
+        else if (state is TherapyProgressionEmpty) {
+          content = const Center(
+            child: Text(
+              'No Data Available',
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.black54,
+              ),
+            ),
+          );
+        }
         else {
           content = const Center(
             child: Text(
