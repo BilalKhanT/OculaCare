@@ -165,12 +165,12 @@ class HistorySection extends StatelessWidget {
                     SizedBox(height: screenHeight * 0.02),
                     Center(
                       child: Text(
-                        'No General Exercises',
+                        'No General Therapies',
                         style: TextStyle(
                           fontFamily: 'MontserratMedium',
                           fontWeight: FontWeight.w800,
                           fontSize: screenWidth * 0.045,
-                          color: AppColors.appColor,
+                          color: Colors.black,
                         ),
                       ),
                     ),
@@ -209,12 +209,12 @@ class HistorySection extends StatelessWidget {
                     SizedBox(height: screenHeight * 0.02),
                     Center(
                       child: Text(
-                        'No General Exercises',
+                        'No Diseases-Specific Therapies',
                         style: TextStyle(
                           fontFamily: 'MontserratMedium',
                           fontWeight: FontWeight.w800,
                           fontSize: screenWidth * 0.045,
-                          color: AppColors.appColor,
+                          color: Colors.black,
                         ),
                       ),
                     ),
