@@ -24,7 +24,7 @@ class SnellanTestCubit extends Cubit<SnellanTestState> {
   String recognizedText = "";
   late stt.SpeechToText _speech;
   MlModel ml = MlModel();
-  bool api = false;
+  bool api = true;
 
   final List<double> snellanDistances = [
     60.0,
@@ -42,11 +42,11 @@ class SnellanTestCubit extends Cubit<SnellanTestState> {
   List<List<String>> snellanList = [
     ['AP'],
     ['BK', 'LW'],
-    ['EA', 'OP', 'NL'],
+    ['GF', 'OP', 'NL'],
     ['FP', 'CN', 'LO', 'GR'],
     ['DE', 'GC', 'AS', 'OP', 'ZY'],
     ['NX', 'ZS', 'PJ', 'VN', 'KP', 'AY'],
-    ['UK', 'MJ', 'EB', 'NJ', 'RS', 'LP', 'OC'],
+    ['UK', 'MJ', 'EB', 'NJ', 'BS', 'LP', 'OC'],
     ['IF', 'SV', 'MA', 'KX', 'ZM', 'BG', 'IK', 'OM'],
   ];
 
@@ -100,15 +100,15 @@ class SnellanTestCubit extends Cubit<SnellanTestState> {
       onResult: (result) {
         recognizedText = result.recognizedWords;
       },
-      listenFor: const Duration(seconds: 5),
-      pauseFor: const Duration(seconds: 5),
+      listenFor: const Duration(seconds: 6),
+      pauseFor: const Duration(seconds: 6),
       listenOptions: stt.SpeechListenOptions(
         partialResults: false,
         cancelOnError: false,
       )
     );
 
-    Future.delayed(const Duration(seconds: 5), () async {
+    Future.delayed(const Duration(seconds: 6), () async {
       await _speech.stop();
       await nextRow(snellanList[initialIndex]);
     });
@@ -117,7 +117,6 @@ class SnellanTestCubit extends Cubit<SnellanTestState> {
   Future<void> nextRow(List<String> check) async {
     String normalizedRecognizedText =
         recognizedText.replaceAll(' ', '').toUpperCase();
-
     if (check.contains(normalizedRecognizedText)) {
       score += 1;
       wrongGuesses = 0;
