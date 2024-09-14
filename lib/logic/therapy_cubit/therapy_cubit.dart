@@ -35,12 +35,13 @@ class TherapyCubit extends Cubit<TherapyState> {
       if (globalTherapies.isNotEmpty) {
         emit(TherapyHistoryLoaded(globalTherapies));
       } else {
-        emit(const TherapyHistoryLoaded([]));
+        emit(TherapyHistoryEmpty());
       }
     } catch (e) {
-      emit(const TherapyError(therapyErr: 'Failed to load therapy history'));
+      emit(TherapyError(therapyErr: 'Failed to load therapy history: $e'));
     }
   }
+
 
 
   Future<void> mapTherapies(String patientName) async {
@@ -81,7 +82,7 @@ class TherapyCubit extends Cubit<TherapyState> {
 
         emit(TherapyProgressionLoaded(globalTherapyProgressData));
       } else {
-        emit(const TherapyProgressionLoaded({}));
+        emit(TherapyProgressionEmpty());
       }
     } catch (e) {
       emit(TherapyProgressError(therapyProgressErr: 'Failed to load therapy history: $e'));
