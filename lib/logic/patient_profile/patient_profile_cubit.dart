@@ -62,21 +62,11 @@ class PatientProfileCubit extends Cubit<PatientProfileState> {
         return;
       } else {
         try {
-          var url = Uri.parse('$ipServer/api/patients/send-info');
-          var response = await http.post(
-            url,
-            headers: {'Content-Type': 'application/json'},
-            body: jsonEncode({
-              'email': email,
-            }),
-          );
-          if (response.statusCode == 200) {
-            final Map<String, dynamic> jsonResponse = jsonDecode(response.body);
-            final PatientModel patientModel = PatientModel.fromJson(jsonResponse);
-            emit(PatientProfileStateLoaded(patientModel.patient));
-          }
-          else {
-            log('Server error with status code: ${response.statusCode}');
+          String? patientData = sharedPrefs.patientData;
+          if (patientData != '') {
+            Map<String, dynamic> decodedData = jsonDecode(patientData);
+            Patient patient = Patient.fromJson(decodedData);
+            emit(PatientProfileStateLoaded(patient));
           }
         } catch (e) {
           log('Network error: $e');
@@ -88,7 +78,8 @@ class PatientProfileCubit extends Cubit<PatientProfileState> {
     }
   }
 
-  void emitEditProfile(BuildContext context, String age, gender, String address, String contact, String img) {
+  void emitEditProfile(BuildContext context, String age, gender, String address,
+      String contact, String img) {
     updatePasswordController.text = sharedPrefs.password;
     updateContactController.text = contact;
     updateAddressController.text = address;
@@ -96,7 +87,8 @@ class PatientProfileCubit extends Cubit<PatientProfileState> {
     emit(PatientProfileStateEdit(img));
   }
 
-  Future<void> editProfile(BuildContext context, String pass, String img, String age, String phone, String address) async {
+  Future<void> editProfile(BuildContext context, String pass, String img,
+      String age, String phone, String address) async {
     try {
       var url = Uri.parse('$ipServer/api/patients/edit-profile');
       var response = await http.post(
@@ -130,7 +122,12 @@ class PatientProfileCubit extends Cubit<PatientProfileState> {
           contactNumber: phone,
           address: patientAddress,
         );
-        AppUtils.showToast(context, 'Profile Updated Successfully', 'Your profile data has been updated.', false);
+        String encodedPatient = jsonEncode(patient.toJson());
+        sharedPrefs.patientData = encodedPatient;
+        if (context.mounted) {
+          AppUtils.showToast(context, 'Profile Updated Successfully',
+              'Your profile data has been updated.', false);
+        }
         emit(PatientProfileStateLoaded(patient));
       } else {
         emit(PatientProfileStateFailure(
@@ -147,8 +144,14 @@ class PatientProfileCubit extends Cubit<PatientProfileState> {
     String phone = phoneController.text;
     String address = addressController.text;
     String age = ageController.text;
-    if (phone.isNotEmpty && phone.length == 11  && address.isNotEmpty && age.isNotEmpty && imageBase64 != ''
-    && gender != '' && lat.toString().isNotEmpty && long.toString().isNotEmpty) {
+    if (phone.isNotEmpty &&
+        phone.length == 11 &&
+        address.isNotEmpty &&
+        age.isNotEmpty &&
+        imageBase64 != '' &&
+        gender != '' &&
+        lat.toString().isNotEmpty &&
+        long.toString().isNotEmpty) {
       try {
         var url = Uri.parse('$ipServer/api/patients/update-profile');
         var response = await http.post(
@@ -190,9 +193,9 @@ class PatientProfileCubit extends Cubit<PatientProfileState> {
         log('$e');
         emit(PatientProfileStateFailure('Ops, something went wrong'));
       }
-    }
-    else {
-      AppUtils.showToast(context, 'Incomplete Form', 'Please provide complete details to proceed.', true);
+    } else {
+      AppUtils.showToast(context, 'Incomplete Form',
+          'Please provide complete details to proceed.', true);
       emit(PatientProfileStateSetUp());
     }
   }
