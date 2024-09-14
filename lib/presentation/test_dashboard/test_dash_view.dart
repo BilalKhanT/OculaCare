@@ -258,74 +258,78 @@ class TestDashView extends StatelessWidget {
               BlocBuilder<TestCubit, TestState>(
                 builder: (context, state) {
                   if (state is TestLoading) {
-                    return progressionSelected == false ?  Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 5.0, vertical: 20.0),
-                      child: SizedBox(
-                        height: screenHeight * 0.7,
-                        child: ListView.builder(
-                          itemCount: 10,
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 8.0, horizontal: 3.0),
-                              child: Shimmer.fromColors(
-                                baseColor: Colors.grey[300]!,
-                                highlightColor: Colors.grey[100]!,
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                      width: 60.0,
-                                      height: 60.0,
-                                      color: Colors.white,
-                                    ),
-                                    const SizedBox(width: 10.0),
-                                    Expanded(
-                                      child: Column(
+                    return progressionSelected == false
+                        ? Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 5.0, vertical: 20.0),
+                            child: SizedBox(
+                              height: screenHeight * 0.7,
+                              child: ListView.builder(
+                                itemCount: 10,
+                                itemBuilder: (context, index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 8.0, horizontal: 3.0),
+                                    child: Shimmer.fromColors(
+                                      baseColor: Colors.grey[300]!,
+                                      highlightColor: Colors.grey[100]!,
+                                      child: Row(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
                                           Container(
-                                            width: double.infinity,
-                                            height: 12.0,
+                                            width: 60.0,
+                                            height: 60.0,
                                             color: Colors.white,
                                           ),
-                                          const SizedBox(height: 5.0),
-                                          Container(
-                                            width: double.infinity,
-                                            height: 12.0,
-                                            color: Colors.white,
-                                          ),
-                                          const SizedBox(height: 5.0),
-                                          Container(
-                                            width: 100.0,
-                                            height: 12.0,
-                                            color: Colors.white,
+                                          const SizedBox(width: 10.0),
+                                          Expanded(
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Container(
+                                                  width: double.infinity,
+                                                  height: 12.0,
+                                                  color: Colors.white,
+                                                ),
+                                                const SizedBox(height: 5.0),
+                                                Container(
+                                                  width: double.infinity,
+                                                  height: 12.0,
+                                                  color: Colors.white,
+                                                ),
+                                                const SizedBox(height: 5.0),
+                                                Container(
+                                                  width: 100.0,
+                                                  height: 12.0,
+                                                  color: Colors.white,
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         ],
                                       ),
                                     ),
-                                  ],
-                                ),
+                                  );
+                                },
                               ),
-                            );
-                          },
-                        ),
-                      ),
-                    ) : Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 28.0, horizontal: 8),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          buildCalendarShimmer(),
-                          const SizedBox(height: 20),
-                          buildDropdownShimmer(),
-                          const SizedBox(height: 20),
-                          buildCalendarShimmer(),
-                        ],
-                      ),
-                    );
+                            ),
+                          )
+                        : Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 28.0, horizontal: 8),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                buildCalendarShimmer(),
+                                const SizedBox(height: 20),
+                                buildDropdownShimmer(),
+                                const SizedBox(height: 20),
+                                buildCalendarShimmer(),
+                              ],
+                            ),
+                          );
                   } else if (state is TestLoaded) {
                     return Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 5.0),
@@ -600,26 +604,38 @@ class TestDashView extends StatelessWidget {
                           SizedBox(
                             height: screenHeight * 0.35,
                             width: double.infinity,
-                            child: ListView.builder(
-                              itemCount: state.data.length,
-                              itemBuilder: (context, index) {
-                                final HistoryArgsModel data =
-                                    getPath(state.data[index].testName);
-                                return Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 8, vertical: 2.0),
-                                  child: TestHistoryTile(
-                                      title: state.data[index].testName,
-                                      description: state.data[index].date,
-                                      image: data.imagePath,
-                                      onPress: () {
-                                        context.push(RouteNames.testReportRoute,
-                                            extra: state.data[index]);
-                                      },
-                                      avatarColor: data.color),
-                                );
-                              },
-                            ),
+                            child: state.data.isEmpty
+                                ? Center(
+                                    child: Text(
+                                      'No History found.',
+                                      style: TextStyle(
+                                          fontFamily: 'MontserratMedium',
+                                          fontWeight: FontWeight.w800,
+                                          fontSize: screenWidth * 0.04,
+                                          color: Colors.black),
+                                    ),
+                                  )
+                                : ListView.builder(
+                                    itemCount: state.data.length,
+                                    itemBuilder: (context, index) {
+                                      final HistoryArgsModel data =
+                                          getPath(state.data[index].testName);
+                                      return Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 8, vertical: 2.0),
+                                        child: TestHistoryTile(
+                                            title: state.data[index].testName,
+                                            description: state.data[index].date,
+                                            image: data.imagePath,
+                                            onPress: () {
+                                              context.push(
+                                                  RouteNames.testReportRoute,
+                                                  extra: state.data[index]);
+                                            },
+                                            avatarColor: data.color),
+                                      );
+                                    },
+                                  ),
                           ),
                           SizedBox(
                             height: screenHeight * 0.03,
@@ -638,26 +654,41 @@ class TestDashView extends StatelessWidget {
                           SizedBox(
                             height: screenHeight * 0.35,
                             width: double.infinity,
-                            child: ListView.builder(
-                              itemCount: state.dataColor.length,
-                              itemBuilder: (context, index) {
-                                final HistoryArgsModel data =
-                                    getPath(state.dataColor[index].testName);
-                                return Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 8, vertical: 2.0),
-                                  child: TestHistoryTile(
-                                      title: state.dataColor[index].testName,
-                                      description: state.dataColor[index].date,
-                                      image: data.imagePath,
-                                      onPress: () {
-                                        context.push(RouteNames.testReportRoute,
-                                            extra: state.dataColor[index]);
-                                      },
-                                      avatarColor: data.color),
-                                );
-                              },
-                            ),
+                            child: state.dataColor.isEmpty
+                                ? Center(
+                                    child: Text(
+                                      'No History found.',
+                                      style: TextStyle(
+                                          fontFamily: 'MontserratMedium',
+                                          fontWeight: FontWeight.w800,
+                                          fontSize: screenWidth * 0.04,
+                                          color: Colors.black),
+                                    ),
+                                  )
+                                : ListView.builder(
+                                    itemCount: state.dataColor.length,
+                                    itemBuilder: (context, index) {
+                                      final HistoryArgsModel data = getPath(
+                                          state.dataColor[index].testName);
+                                      return Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 8, vertical: 2.0),
+                                        child: TestHistoryTile(
+                                            title:
+                                                state.dataColor[index].testName,
+                                            description:
+                                                state.dataColor[index].date,
+                                            image: data.imagePath,
+                                            onPress: () {
+                                              context.push(
+                                                  RouteNames.testReportRoute,
+                                                  extra:
+                                                      state.dataColor[index]);
+                                            },
+                                            avatarColor: data.color),
+                                      );
+                                    },
+                                  ),
                           ),
                         ],
                       ),
@@ -732,5 +763,4 @@ class TestDashView extends StatelessWidget {
       ),
     );
   }
-
 }
