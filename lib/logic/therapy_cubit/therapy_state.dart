@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:OculaCare/data/models/therapy/therapy_results_model.dart';
 import 'package:equatable/equatable.dart';
 
@@ -241,7 +240,35 @@ class TherapyBlinkingAnimationInProgress extends TherapyState {
   });
 }
 
+class TherapyProgressionInitial extends TherapyState {}
 
+class TherapyProgressionLoaded extends TherapyState {
+  final Map<DateTime, int> therapyProgressData;
+
+  const TherapyProgressionLoaded(this.therapyProgressData);
+
+  @override
+  List<Object> get props => [therapyProgressData];
+}
+
+
+class TherapyProgressError extends TherapyState {
+  final String therapyProgressErr;
+
+  const TherapyProgressError({required this.therapyProgressErr});
+
+  @override
+  List<Object> get props => [therapyProgressErr];
+}
+
+class TherapyHistoryError extends TherapyState {
+  final String errorMessage;
+
+  const TherapyHistoryError(this.errorMessage);
+
+  @override
+  List<Object> get props => [errorMessage];
+}
 
 class TherapyError extends TherapyState {
   final String therapyErr;

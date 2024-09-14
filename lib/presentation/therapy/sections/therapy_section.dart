@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:OculaCare/presentation/therapy/widgets_therapy/general_eye_exercises.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../configs/presentation/constants/colors.dart';
 import '../../../data/therapies_data/therapies_list.dart';
+import '../../../logic/therapy_cubit/therapy_cubit.dart';
 import '../widgets_therapy/recommended_therapy_list.dart';
 
 class TherapySection extends StatelessWidget {
@@ -9,7 +11,7 @@ class TherapySection extends StatelessWidget {
   final double screenHeight;
   final double screenWidth;
 
-  const TherapySection({
+  const TherapySection({super.key,
     required this.selectedTherapyType,
     required this.screenHeight,
     required this.screenWidth,

@@ -40,7 +40,7 @@ class TherapyHistoryTile extends StatelessWidget {
           ],
         ),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 13.0, vertical: 8.0),
+          padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 8.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
@@ -59,6 +59,7 @@ class TherapyHistoryTile extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 15.0),
+
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
@@ -106,8 +107,9 @@ class TherapyHistoryTile extends StatelessWidget {
                 ],
               ),
               Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(height: screenHeight * 0.05),
+                  SizedBox(height: screenHeight * 0.05), // Spacing
                   Text(
                     date,
                     style: TextStyle(
