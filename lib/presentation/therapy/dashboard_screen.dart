@@ -7,6 +7,7 @@ import 'package:OculaCare/presentation/therapy/sections/therapy_section.dart';
 import 'package:OculaCare/presentation/therapy/widgets_therapy/therapy_tabs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import '../../configs/routes/route_names.dart';
 import '../../data/repositories/local/preferences/shared_prefs.dart';
@@ -47,12 +48,13 @@ class DashboardScreen extends StatelessWidget {
               },
               child: Row(
                 children: [
-                  const Icon(
-                    Icons.bookmark_border,
-                    color: AppColors.appColor,
+                  SvgPicture.asset(
+                      'assets/svgs/schedule.svg',
+                      // ignore: deprecated_member_use
+                      color: AppColors.appColor
                   ),
                   const SizedBox(
-                    width: 3.0,
+                    width: 6.0,
                   ),
                   Text(
                     'Scheduled',
