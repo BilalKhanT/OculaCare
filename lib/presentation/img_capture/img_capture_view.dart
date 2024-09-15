@@ -29,15 +29,15 @@ class ImageCaptureScreen extends StatelessWidget {
         backgroundColor: AppColors.screenBackground,
         appBar: AppBar(
           backgroundColor: AppColors.screenBackground,
-          title: Text(
-            'Image Capture',
-            style: TextStyle(
-              fontWeight: FontWeight.w700,
-              fontFamily: 'Poppins',
-              fontSize: 16.sp,
-              color: Colors.black,
-            ),
-          ),
+          // title: Text(
+          //   'Image Capture',
+          //   style: TextStyle(
+          //     color: Colors.black,
+          //     fontFamily: 'MontserratMedium',
+          //     fontWeight: FontWeight.w800,
+          //     fontSize: width * 0.05,
+          //   ),
+          // ),
           leading: IconButton(
             onPressed: () async {
               await context.read<ImageCaptureCubit>().dispose();
@@ -51,27 +51,44 @@ class ImageCaptureScreen extends StatelessWidget {
             ),
           ),
           actions: [
-            GestureDetector(
-              onTap: () async {
-                final pickedFile =
-                await ImagePicker().pickImage(
-                  source: ImageSource.gallery,
-                  maxWidth: 1800,
-                  maxHeight: 1800,
-                  imageQuality: 85,
-                );
-                if (context.mounted) {
-                  context
-                      .read<ImageCaptureCubit>()
-                      .uploadEyeImage(pickedFile!);
-                }
-              },
-              child: SvgPicture.asset(
-                'assets/svgs/gallery.svg',
-                height: 50.h,
-                width: 50.h,
-                // ignore: deprecated_member_use
-                color: Colors.grey.shade300,
+            Padding(
+              padding: const EdgeInsets.only(right: 10.0),
+              child: GestureDetector(
+                onTap: () async {
+                  final pickedFile =
+                  await ImagePicker().pickImage(
+                    source: ImageSource.gallery,
+                    maxWidth: 1800,
+                    maxHeight: 1800,
+                    imageQuality: 85,
+                  );
+                  if (context.mounted) {
+                    context
+                        .read<ImageCaptureCubit>()
+                        .uploadEyeImage(pickedFile!);
+                  }
+                },
+                child: Row(
+                  children: [
+                    SvgPicture.asset(
+                      'assets/svgs/gallery.svg',
+                      // ignore: deprecated_member_use
+                      color: AppColors.appColor,
+                    ),
+                    const SizedBox(
+                      width: 6.0,
+                    ),
+                    Text(
+                      'Upload from Gallery',
+                      style: TextStyle(
+                        color: AppColors.appColor,
+                        fontFamily: 'MontserratMedium',
+                        fontWeight: FontWeight.w800,
+                        fontSize: width * 0.035,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             )
           ],
@@ -118,10 +135,9 @@ class ImageCaptureScreen extends StatelessWidget {
                                         foregroundPainter: BorderPainter(),
                                         child: SizedBox(
                                           width:
-                                              MediaQuery.sizeOf(context).width *
+                                              width *
                                                   0.75,
-                                          height: MediaQuery.sizeOf(context)
-                                                  .height *
+                                          height: height *
                                               0.175,
                                         ),
                                       ),
@@ -129,17 +145,26 @@ class ImageCaptureScreen extends StatelessWidget {
                                   ),
                                 ),
                                 disable == true
-                                    ? Text(
-                                        state.status == 1
-                                            ? ' No Face Detected'
-                                            : 'Please place eyes with in camera frame',
-                                        style: TextStyle(
-                                          fontSize: 16.sp,
-                                          fontFamily: 'Poppins',
-                                          color: Colors.red,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      )
+                                    ? Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: Colors.grey.withOpacity(0.1),
+                                  ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+                                        child: Text(
+                                            state.status == 1
+                                                ? ' No Face Detected'
+                                                : 'Please place eyes with in camera frame',
+                                            style: TextStyle(
+                                              fontSize: width * 0.035,
+                                              fontFamily: 'MontserratMedium',
+                                              fontWeight: FontWeight.w800,
+                                              color: Colors.red,
+                                            ),
+                                          ),
+                                      ),
+                                    )
                                     : const SizedBox.shrink(),
                                 Padding(
                                     padding: const EdgeInsets.symmetric(
