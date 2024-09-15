@@ -140,7 +140,7 @@ class ImageCaptureCubit extends Cubit<ImageCaptureState> {
     );
     cameraController = CameraController(
       frontCamera,
-      ResolutionPreset.ultraHigh,
+      ResolutionPreset.max,
       imageFormatGroup: ImageFormatGroup.jpeg,
       enableAudio: false,
     );
