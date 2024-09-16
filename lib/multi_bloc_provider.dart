@@ -1,4 +1,5 @@
 import 'package:OculaCare/logic/auth_cubit/auth_cubit.dart';
+import 'package:OculaCare/logic/detection/detection_cubit.dart';
 import 'package:OculaCare/logic/feedback_cubit/feedback_cubit.dart';
 import 'package:OculaCare/logic/image_capture/toggle_capture_btn_cubit.dart';
 import 'package:OculaCare/logic/keyboard_listener_cubit/keyboard_list_cubit.dart';
@@ -153,6 +154,9 @@ class ProvideMultiBloc extends StatelessWidget {
           BlocProvider.of<TimerCubit>(context),
           BlocProvider.of<MusicCubit>(context))),
       BlocProvider(create: (context) => TherapyDashboardCubit()),
+      BlocProvider(
+        create: (context) => DetectionCubit(),
+      ),
     ], child: child);
   }
 }
