@@ -30,14 +30,6 @@ class GridButtonWidget extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(12),
-          boxShadow: const [
-            BoxShadow(
-              color: Color(0x4C000000),
-              blurRadius: 2,
-              offset: Offset(0, 1.33),
-              spreadRadius: 0,
-            ),
-          ],
         ),
         alignment: Alignment.center,
         child: Column(
