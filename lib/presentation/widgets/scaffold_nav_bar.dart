@@ -41,7 +41,7 @@ class ScaffoldWithNavBar extends StatelessWidget {
             }),
             indicatorColor: Colors.grey.shade200,
             backgroundColor: Colors.white,
-            elevation: 10,
+            elevation: 5,
           ),
           child: NavigationBar(
             onDestinationSelected: (index) => _onTap(context, index),
