@@ -30,14 +30,6 @@ class TherapyHistoryTile extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(10),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 1,
-              blurRadius: 6,
-              offset: const Offset(0, 3),
-            ),
-          ],
         ),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 8.0),
