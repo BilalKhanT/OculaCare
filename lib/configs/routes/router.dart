@@ -1,3 +1,4 @@
+import 'package:OculaCare/data/models/disease_result/disease_result_model.dart';
 import 'package:OculaCare/data/models/tests/score_model.dart';
 import 'package:OculaCare/data/models/tests/test_result_model.dart';
 import 'package:OculaCare/logic/therapy_cubit/music_cubit.dart';
@@ -9,6 +10,7 @@ import 'package:OculaCare/presentation/location/location_view.dart';
 import 'package:OculaCare/presentation/more_section/more_view.dart';
 import 'package:OculaCare/presentation/more_section/pdf_view.dart';
 import 'package:OculaCare/presentation/patient_profile/profile_view.dart';
+import 'package:OculaCare/presentation/result/disease_analysis_view.dart';
 import 'package:OculaCare/presentation/result/result_view.dart';
 import 'package:OculaCare/presentation/test_dashboard/test_dash_view.dart';
 import 'package:OculaCare/presentation/therapy/scheduled_therapy.dart';
@@ -197,6 +199,15 @@ final router = GoRouter(
           int flag = state.extra as int;
           return CameraDistanceView(
             flag: flag,
+          );
+        }),
+    GoRoute(
+        parentNavigatorKey: navigatorKey,
+        path: RouteNames.diseaseAnalysisRoute,
+        builder: (context, state) {
+          DiseaseResultModel data = state.extra as DiseaseResultModel;
+          return DiseaseAnalysisView(
+            result: data,
           );
         }),
     GoRoute(
