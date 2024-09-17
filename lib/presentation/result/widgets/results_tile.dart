@@ -1,7 +1,9 @@
 import 'package:OculaCare/configs/presentation/constants/colors.dart';
+import 'package:OculaCare/configs/routes/route_names.dart';
 import 'package:OculaCare/data/models/disease_result/disease_result_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:go_router/go_router.dart';
 
 class DiseaseResultTile extends StatelessWidget {
   final DiseaseResultModel result;
@@ -23,7 +25,7 @@ class DiseaseResultTile extends StatelessWidget {
         children: [
           SlidableAction(
             onPressed: (context) {
-              // Logic for the info button in the slidable pane
+              context.push(RouteNames.diseaseAnalysisRoute, extra: result);
             },
             icon: Icons.info_outline,
             backgroundColor: AppColors.appColor,
