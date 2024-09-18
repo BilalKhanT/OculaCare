@@ -23,7 +23,7 @@ class ForgotPasswordBtn extends StatelessWidget {
           text,
           textAlign: TextAlign.left,
           style: TextStyle(
-            fontFamily: 'Poppins',
+            fontFamily: 'MontserratMedium',
             fontSize: 18.sp,
             fontWeight: FontWeight.w500,
             color: AppColors.appColor,
