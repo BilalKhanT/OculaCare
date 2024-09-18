@@ -68,7 +68,7 @@ class SignUpScreen extends StatelessWidget {
                           Text(
                             'Register',
                             style: TextStyle(
-                              fontFamily: 'Poppins',
+                              fontFamily: 'MontserratMedium',
                               fontSize: 32.sp,
                               color: AppColors.appColor,
                               fontWeight: FontWeight.bold,
@@ -78,7 +78,7 @@ class SignUpScreen extends StatelessWidget {
                           Text(
                             'Create Your New Account',
                             style: TextStyle(
-                              fontFamily: 'Poppins',
+                              fontFamily: 'MontserratMedium',
                               fontSize: 16.sp,
                               color: AppColors.textGrey,
                             ),
@@ -93,7 +93,7 @@ class SignUpScreen extends StatelessWidget {
                             child: Text(
                               'or',
                               style: TextStyle(
-                                fontFamily: 'Poppins',
+                                fontFamily: 'MontserratMedium',
                                 fontSize: 16.sp,
                                 fontWeight: FontWeight.w100,
                                 color: AppColors.textGrey,
@@ -105,7 +105,7 @@ class SignUpScreen extends StatelessWidget {
                             child: Text(
                               'signup with',
                               style: TextStyle(
-                                fontFamily: 'Poppins',
+                                fontFamily: 'MontserratMedium',
                                 fontSize: 16.sp,
                                 fontWeight: FontWeight.w100,
                                 color: AppColors.textGrey,
@@ -150,7 +150,7 @@ class SignUpScreen extends StatelessWidget {
                               Text(
                                 'Already have an account.',
                                 style: TextStyle(
-                                  fontFamily: 'Poppins',
+                                  fontFamily: 'MontserratMedium',
                                   fontSize: 16.sp,
                                   fontWeight: FontWeight.w100,
                                   color: AppColors.textGrey,
@@ -167,9 +167,9 @@ class SignUpScreen extends StatelessWidget {
                                 child: Text(
                                   'Login',
                                   style: TextStyle(
-                                    fontFamily: 'Poppins',
+                                    fontFamily: 'Montserrat',
                                     fontSize: 16.sp,
-                                    fontWeight: FontWeight.w600,
+                                    fontWeight: FontWeight.bold,
                                     color: AppColors.appColor,
                                   ),
                                 ),
