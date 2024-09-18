@@ -30,7 +30,7 @@ Widget customWidget({
                   width: screenHeight * 0.06,
                   decoration: BoxDecoration(
                     color: AppColors.appColor.withOpacity(0.6),
-                    borderRadius: BorderRadius.circular(7.0),
+                    borderRadius: BorderRadius.circular(50.0),
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
