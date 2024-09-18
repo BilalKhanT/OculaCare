@@ -38,6 +38,12 @@ class TrackChart extends StatelessWidget {
                   value: (60 - finalScore).toDouble(),
                   color: Colors.grey.shade600,
                   radius: 30,
+                  titleStyle: TextStyle(
+                    fontFamily: 'MontserratMedium',
+                    fontWeight: FontWeight.w800,
+                    fontSize: screenWidth * 0.035,
+                    color: Colors.white,
+                  ),
                 ),
               ],
               sectionsSpace: 5,
