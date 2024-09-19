@@ -501,20 +501,22 @@ class PatientProfileScreen extends StatelessWidget {
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                      child: ButtonFlat(btnColor: Colors.black, textColor: Colors.white, onPress: () {
-                        context
-                            .read<GenderCubit>()
-                            .setGender(patient.gender!);
-                        context
-                            .read<PatientProfileCubit>()
-                            .emitEditProfile(
-                            context,
-                            patient.age.toString(),
-                            patient.gender,
-                            patient.address!.locationName.toString(),
-                            patient.contactNumber!,
-                            patient.profileImage!);
-                      }, text: 'Edit Profile'),
+                      child: ButtonFlat(
+                          btnColor: Colors.black,
+                          textColor: Colors.white,
+                          onPress: () {
+                            context
+                                .read<GenderCubit>()
+                                .setGender(patient.gender!);
+                            context.read<PatientProfileCubit>().emitEditProfile(
+                                context,
+                                patient.age.toString(),
+                                patient.gender,
+                                patient.address!.locationName.toString(),
+                                patient.contactNumber!,
+                                patient.profileImage!);
+                          },
+                          text: 'Edit Profile'),
                     )
                   ],
                 ),
@@ -585,12 +587,42 @@ class PatientProfileScreen extends StatelessWidget {
                             fontSize: 18.sp,
                           ),
                         ),
-                        const SizedBox(height: 5,),
-                        CustomTextField(hintText: '', focusNode: context
-                            .read<PatientProfileCubit>()
-                            .passwordFocusNode, obscureText: false, controller: context
-                            .read<PatientProfileCubit>()
-                            .updatePasswordController, editable: true),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        CustomTextField(
+                          hintText: '',
+                          focusNode: context
+                              .read<PatientProfileCubit>()
+                              .passwordFocusNode,
+                          obscureText: false,
+                          controller: context
+                              .read<PatientProfileCubit>()
+                              .updatePasswordController,
+                          editable: true,
+                          validatorFunction: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter a password';
+                            }
+                            if (value.length < 6) {
+                              return 'Password must be at least 6 characters long';
+                            }
+                            if (value == sharedPrefs.password) {
+                              return 'Please enter a new password';
+                            }
+                            String pattern =
+                                r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s])[A-Za-z\d\W]{6,}$';
+                            RegExp regExp = RegExp(pattern);
+                            if (!regExp.hasMatch(value)) {
+                              return 'Password must include upper and lower case letters, digits, and . or _';
+                            }
+                            context
+                                .read<PatientProfileCubit>()
+                                .updatePasswordController
+                                .text = value;
+                            return null;
+                          },
+                        ),
                         // TextFormField(
                         //   maxLines: 1,
                         //   controller: context
@@ -650,12 +682,29 @@ class PatientProfileScreen extends StatelessWidget {
                             fontSize: 18.sp,
                           ),
                         ),
-                        const SizedBox(height: 5.0,),
-                        CustomTextField(hintText: '', focusNode: context
-                            .read<PatientProfileCubit>()
-                            .ageFocusNode, obscureText: false, controller: context
-                            .read<PatientProfileCubit>()
-                            .updateAgeController, editable: true),
+                        const SizedBox(
+                          height: 5.0,
+                        ),
+                        CustomTextField(
+                          hintText: '',
+                          focusNode:
+                              context.read<PatientProfileCubit>().ageFocusNode,
+                          obscureText: false,
+                          controller: context
+                              .read<PatientProfileCubit>()
+                              .updateAgeController,
+                          editable: true,
+                          validatorFunction: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please select age';
+                            }
+                            context
+                                .read<PatientProfileCubit>()
+                                .updateAgeController
+                                .text = value;
+                            return null;
+                          },
+                        ),
                         // TextFormField(
                         //   controller: context
                         //       .read<PatientProfileCubit>()
@@ -741,12 +790,30 @@ class PatientProfileScreen extends StatelessWidget {
                             fontSize: 18.sp,
                           ),
                         ),
-                        const SizedBox(height: 5.0,),
-                        CustomTextField(hintText: '', focusNode: context
-                            .read<PatientProfileCubit>()
-                            .addressFocusNode, obscureText: false, controller: context
-                            .read<PatientProfileCubit>()
-                            .updateAddressController, editable: true),
+                        const SizedBox(
+                          height: 5.0,
+                        ),
+                        CustomTextField(
+                          hintText: '',
+                          focusNode: context
+                              .read<PatientProfileCubit>()
+                              .addressFocusNode,
+                          obscureText: false,
+                          controller: context
+                              .read<PatientProfileCubit>()
+                              .updateAddressController,
+                          editable: true,
+                          validatorFunction: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter address';
+                            }
+                            context
+                                .read<PatientProfileCubit>()
+                                .updateAddressController
+                                .text = value;
+                            return null;
+                          },
+                        ),
                         // TextFormField(
                         //   maxLines: 1,
                         //   controller: context
@@ -806,12 +873,35 @@ class PatientProfileScreen extends StatelessWidget {
                             fontSize: 18.sp,
                           ),
                         ),
-                        const SizedBox(height: 5.0,),
-                        CustomTextField(hintText: '', focusNode: context
-                            .read<PatientProfileCubit>()
-                            .contactFocusNode, obscureText: false, controller: context
-                            .read<PatientProfileCubit>()
-                            .updateContactController, editable: true),
+                        const SizedBox(
+                          height: 5.0,
+                        ),
+                        CustomTextField(
+                          hintText: '',
+                          focusNode: context
+                              .read<PatientProfileCubit>()
+                              .contactFocusNode,
+                          obscureText: false,
+                          controller: context
+                              .read<PatientProfileCubit>()
+                              .updateContactController,
+                          editable: true,
+                          validatorFunction: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter contact number';
+                            }
+                            final RegExp phoneRegExp =
+                                RegExp(r'^(03|92)\d{9}$');
+                            if (!phoneRegExp.hasMatch(value)) {
+                              return 'Please enter a valid number';
+                            }
+                            context
+                                .read<PatientProfileCubit>()
+                                .updateContactController
+                                .text = value;
+                            return null;
+                          },
+                        ),
                         // TextFormField(
                         //   maxLines: 1,
                         //   controller: context
@@ -859,29 +949,35 @@ class PatientProfileScreen extends StatelessWidget {
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                          child: ButtonFlat(btnColor: Colors.black, textColor: Colors.white, onPress: () async {
-                            if (formKeyB.currentState!.validate()) {
-                              context.read<PatientProfileCubit>().editProfile(
-                                  context,
+                          child: ButtonFlat(
+                              btnColor: Colors.black,
+                              textColor: Colors.white,
+                              onPress: () async {
+                                if (formKeyB.currentState!.validate()) {
                                   context
                                       .read<PatientProfileCubit>()
-                                      .updatePasswordController
-                                      .text,
-                                  image64,
-                                  context
-                                      .read<PatientProfileCubit>()
-                                      .updateAgeController
-                                      .text,
-                                  context
-                                      .read<PatientProfileCubit>()
-                                      .updateContactController
-                                      .text,
-                                  context
-                                      .read<PatientProfileCubit>()
-                                      .updateAddressController
-                                      .text);
-                            }
-                          }, text: 'Save Profile'),
+                                      .editProfile(
+                                          context,
+                                          context
+                                              .read<PatientProfileCubit>()
+                                              .updatePasswordController
+                                              .text,
+                                          image64,
+                                          context
+                                              .read<PatientProfileCubit>()
+                                              .updateAgeController
+                                              .text,
+                                          context
+                                              .read<PatientProfileCubit>()
+                                              .updateContactController
+                                              .text,
+                                          context
+                                              .read<PatientProfileCubit>()
+                                              .updateAddressController
+                                              .text);
+                                }
+                              },
+                              text: 'Save Profile'),
                         )
                       ],
                     ),
