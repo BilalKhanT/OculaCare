@@ -2,10 +2,12 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:OculaCare/configs/presentation/constants/colors.dart';
 import 'package:OculaCare/configs/routes/route_names.dart';
+import 'package:OculaCare/configs/utils/utils.dart';
 import 'package:OculaCare/data/repositories/local/preferences/shared_prefs.dart';
 import 'package:OculaCare/logic/patient_profile/patient_profile_cubit.dart';
 import 'package:OculaCare/logic/patient_profile/patient_profile_state.dart';
 import 'package:OculaCare/logic/patient_profile/upload_profile_photo_state.dart';
+import 'package:OculaCare/presentation/patient_profile/change_pass_view.dart';
 import 'package:OculaCare/presentation/patient_profile/widgets/gender_row.dart';
 import 'package:OculaCare/presentation/patient_profile/widgets/profile_list_tile.dart';
 import 'package:OculaCare/presentation/widgets/btn_flat.dart';
@@ -380,7 +382,7 @@ class PatientProfileScreen extends StatelessWidget {
             final patient = state.patientData;
             return Padding(
               padding:
-                  const EdgeInsets.symmetric(horizontal: 15.0, vertical: 20.0),
+                  const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
               child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -517,6 +519,27 @@ class PatientProfileScreen extends StatelessWidget {
                                 patient.profileImage!);
                           },
                           text: 'Edit Profile'),
+                    ),
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                      child: ButtonFlat(
+                          btnColor: Colors.redAccent,
+                          textColor: Colors.white,
+                          onPress: () {
+                            showModalBottomSheet(
+                              context: context,
+                              isScrollControlled: true,
+                              enableDrag: false,
+                              isDismissible: false,
+                              builder: (BuildContext bc) {
+                                return const ChangePassView();
+                              },
+                            );
+                          },
+                          text: 'Change Password'),
                     )
                   ],
                 ),
@@ -526,6 +549,11 @@ class PatientProfileScreen extends StatelessWidget {
             return Center(
               child: Text(
                 state.errorMsg,
+                style: TextStyle(
+                  fontFamily: 'Montserrat',
+                  fontWeight: FontWeight.w800,
+                  fontSize: 18.sp,
+                ),
               ),
             );
           } else if (state is PatientProfileStateEdit) {
@@ -579,50 +607,50 @@ class PatientProfileScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          'Password',
-                          style: TextStyle(
-                            fontFamily: 'Montserrat',
-                            fontWeight: FontWeight.w800,
-                            fontSize: 18.sp,
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        CustomTextField(
-                          hintText: '',
-                          focusNode: context
-                              .read<PatientProfileCubit>()
-                              .passwordFocusNode,
-                          obscureText: false,
-                          controller: context
-                              .read<PatientProfileCubit>()
-                              .updatePasswordController,
-                          editable: true,
-                          validatorFunction: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter a password';
-                            }
-                            if (value.length < 6) {
-                              return 'Password must be at least 6 characters long';
-                            }
-                            if (value == sharedPrefs.password) {
-                              return 'Please enter a new password';
-                            }
-                            String pattern =
-                                r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s])[A-Za-z\d\W]{6,}$';
-                            RegExp regExp = RegExp(pattern);
-                            if (!regExp.hasMatch(value)) {
-                              return 'Password must include upper and lower case letters, digits, and . or _';
-                            }
-                            context
-                                .read<PatientProfileCubit>()
-                                .updatePasswordController
-                                .text = value;
-                            return null;
-                          },
-                        ),
+                        // Text(
+                        //   'Password',
+                        //   style: TextStyle(
+                        //     fontFamily: 'Montserrat',
+                        //     fontWeight: FontWeight.w800,
+                        //     fontSize: 18.sp,
+                        //   ),
+                        // ),
+                        // const SizedBox(
+                        //   height: 5,
+                        // ),
+                        // CustomTextField(
+                        //   hintText: '',
+                        //   focusNode: context
+                        //       .read<PatientProfileCubit>()
+                        //       .passwordFocusNode,
+                        //   obscureText: false,
+                        //   controller: context
+                        //       .read<PatientProfileCubit>()
+                        //       .updatePasswordController,
+                        //   editable: true,
+                        //   validatorFunction: (value) {
+                        //     if (value == null || value.isEmpty) {
+                        //       return 'Please enter a password';
+                        //     }
+                        //     if (value.length < 6) {
+                        //       return 'Password must be at least 6 characters long';
+                        //     }
+                        //     if (value == sharedPrefs.password) {
+                        //       return 'Please enter a new password';
+                        //     }
+                        //     String pattern =
+                        //         r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s])[A-Za-z\d\W]{6,}$';
+                        //     RegExp regExp = RegExp(pattern);
+                        //     if (!regExp.hasMatch(value)) {
+                        //       return 'Password must include upper and lower case letters, digits, and . or _';
+                        //     }
+                        //     context
+                        //         .read<PatientProfileCubit>()
+                        //         .updatePasswordController
+                        //         .text = value;
+                        //     return null;
+                        //   },
+                        // ),
                         // TextFormField(
                         //   maxLines: 1,
                         //   controller: context
@@ -945,7 +973,7 @@ class PatientProfileScreen extends StatelessWidget {
                         //   ),
                         // ),
                         SizedBox(
-                          height: 20.h,
+                          height: 40.h,
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 25.0),
