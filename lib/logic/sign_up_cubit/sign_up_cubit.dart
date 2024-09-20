@@ -69,7 +69,7 @@ class SignUpCubit extends Cubit<SignUpState> {
     }
     catch(e) {
       emit(SignUpStateLoaded());
-      print(e.toString());
+      log(e.toString());
       return false;
     }
   }
