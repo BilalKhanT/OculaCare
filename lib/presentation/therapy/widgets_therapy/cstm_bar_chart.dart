@@ -6,14 +6,13 @@ import '../../../configs/presentation/constants/colors.dart';
 class TherapyBarChart extends StatelessWidget {
   const TherapyBarChart({super.key});
 
-  // Map to store category names and their abbreviations
   Map<String, String> get categoryAbbreviations => {
-    'Crossed Eyes': 'Cr',
-    'General': 'Ge',
-    'Pterygiuym': 'Pt',
-    'Cataracts': 'Ca',
-    'Bulgy Eyes': 'Bu',
-  };
+        'Crossed Eyes': 'Cr',
+        'General': 'Ge',
+        'Pterygiuym': 'Pt',
+        'Cataracts': 'Ca',
+        'Bulgy Eyes': 'Bu',
+      };
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +29,7 @@ class TherapyBarChart extends StatelessWidget {
                   'Therapy Categories',
                   style: TextStyle(
                     color: AppColors.appColor,
-                    fontSize: 24,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -61,11 +60,17 @@ class TherapyBarChart extends StatelessWidget {
     return BarChartData(
       barTouchData: BarTouchData(
           touchTooltipData: BarTouchTooltipData(
-              tooltipPadding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+              tooltipPadding:
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
               tooltipMargin: 0,
               getTooltipItem: (group, groupIndex, rod, rodIndex) {
-                final category = categoryDateTherapyCount.keys.toList()[group.x];
-                int totalTherapies = categoryDateTherapyCount[category]?.values.fold<int?>(0, (int? sum, int count) => (sum ?? 0) + count) ?? 0;
+                final category =
+                    categoryDateTherapyCount.keys.toList()[group.x];
+                int totalTherapies = categoryDateTherapyCount[category]
+                        ?.values
+                        .fold<int?>(
+                            0, (int? sum, int count) => (sum ?? 0) + count) ??
+                    0;
 
                 return BarTooltipItem(
                   '$category\n',
@@ -85,9 +90,7 @@ class TherapyBarChart extends StatelessWidget {
                     ),
                   ],
                 );
-              }
-          )
-      ),
+              })),
       titlesData: FlTitlesData(
         show: true,
         bottomTitles: AxisTitles(
@@ -101,7 +104,8 @@ class TherapyBarChart extends StatelessWidget {
               );
 
               // Get the category name based on the index
-              String category = categoryDateTherapyCount.keys.toList()[value.toInt()];
+              String category =
+                  categoryDateTherapyCount.keys.toList()[value.toInt()];
 
               // Map the full category name to its abbreviation
               String abbreviation = categoryAbbreviations[category] ?? category;
@@ -138,18 +142,21 @@ class TherapyBarChart extends StatelessWidget {
   List<BarChartGroupData> showingGroups() {
     return List.generate(categoryDateTherapyCount.length, (index) {
       String category = categoryDateTherapyCount.keys.toList()[index];
-      int therapyCount = categoryDateTherapyCount[category]?.values.fold<int?>(0, (int? sum, int count) => (sum ?? 0) + count) ?? 0;
+      int therapyCount = categoryDateTherapyCount[category]
+              ?.values
+              .fold<int?>(0, (int? sum, int count) => (sum ?? 0) + count) ??
+          0;
       return makeGroupData(index, therapyCount.toDouble());
     });
   }
 
   BarChartGroupData makeGroupData(
-      int x,
-      double y, {
-        bool isTouched = false,
-        double width = 22,
-        Color barColor = AppColors.appColor,
-      }) {
+    int x,
+    double y, {
+    bool isTouched = false,
+    double width = 22,
+    Color barColor = AppColors.appColor,
+  }) {
     return BarChartGroupData(
       x: x,
       barRods: [
@@ -166,5 +173,4 @@ class TherapyBarChart extends StatelessWidget {
       ],
     );
   }
-
 }
