@@ -22,7 +22,7 @@ class TestCubit extends Cubit<TestState> {
     if (testResults.isEmpty || sharedPrefs.historyFetched == false) {
       sharedPrefs.historyFetched = true;
       final List<TestResultModel> tests =
-          await testRepository.getTestRecords(sharedPrefs.userName);
+          await testRepository.getTestRecords(sharedPrefs.email);
       for (var test in tests) {
         bool exists = testResults.any((existingTest) =>
             existingTest.patientName == test.patientName &&
@@ -54,7 +54,7 @@ class TestCubit extends Cubit<TestState> {
     if (testResults.isEmpty || sharedPrefs.historyFetched == false) {
       sharedPrefs.historyFetched = true;
       final List<TestResultModel> tests =
-          await testRepository.getTestRecords(sharedPrefs.userName);
+          await testRepository.getTestRecords(sharedPrefs.email);
       for (var test in tests) {
         bool exists = testResults.any((existingTest) =>
             existingTest.patientName == test.patientName &&
