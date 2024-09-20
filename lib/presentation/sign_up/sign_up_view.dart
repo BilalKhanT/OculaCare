@@ -1,4 +1,5 @@
 import 'package:OculaCare/configs/utils/utils.dart';
+import 'package:OculaCare/presentation/widgets/cstm_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -51,7 +52,7 @@ class SignUpScreen extends StatelessWidget {
                   builder: (context, state) {
                 if (state is SignUpStateLoading) {
                   return const Center(
-                    child: CircularProgressIndicator(color: AppColors.appColor,),
+                    child: DotLoader(loaderColor: AppColors.appColor,),
                   );
                 } else if (state is SignUpStateFailure) {
                   return Center(
