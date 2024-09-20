@@ -496,7 +496,7 @@ class ImageCaptureScreen extends StatelessWidget {
                                         .initializeCamera();
                                   },
                                   text: 'Recapture',
-                                  btnColor: AppColors.appColor,
+                                  btnColor: Colors.black,
                                 ),
                               ),
                               const SizedBox(width: 10.0),
