@@ -2,8 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:OculaCare/configs/presentation/constants/colors.dart';
 import 'package:OculaCare/configs/routes/route_names.dart';
-import 'package:OculaCare/configs/utils/utils.dart';
-import 'package:OculaCare/data/repositories/local/preferences/shared_prefs.dart';
 import 'package:OculaCare/logic/patient_profile/patient_profile_cubit.dart';
 import 'package:OculaCare/logic/patient_profile/patient_profile_state.dart';
 import 'package:OculaCare/logic/patient_profile/upload_profile_photo_state.dart';
@@ -516,7 +514,9 @@ class PatientProfileScreen extends StatelessWidget {
                                 patient.gender,
                                 patient.address!.locationName.toString(),
                                 patient.contactNumber!,
-                                patient.profileImage!);
+                                patient.profileImage!,
+                                patient.address!.lat!,
+                                patient.address!.long!);
                           },
                           text: 'Edit Profile'),
                     ),
@@ -607,98 +607,6 @@ class PatientProfileScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Text(
-                        //   'Password',
-                        //   style: TextStyle(
-                        //     fontFamily: 'Montserrat',
-                        //     fontWeight: FontWeight.w800,
-                        //     fontSize: 18.sp,
-                        //   ),
-                        // ),
-                        // const SizedBox(
-                        //   height: 5,
-                        // ),
-                        // CustomTextField(
-                        //   hintText: '',
-                        //   focusNode: context
-                        //       .read<PatientProfileCubit>()
-                        //       .passwordFocusNode,
-                        //   obscureText: false,
-                        //   controller: context
-                        //       .read<PatientProfileCubit>()
-                        //       .updatePasswordController,
-                        //   editable: true,
-                        //   validatorFunction: (value) {
-                        //     if (value == null || value.isEmpty) {
-                        //       return 'Please enter a password';
-                        //     }
-                        //     if (value.length < 6) {
-                        //       return 'Password must be at least 6 characters long';
-                        //     }
-                        //     if (value == sharedPrefs.password) {
-                        //       return 'Please enter a new password';
-                        //     }
-                        //     String pattern =
-                        //         r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s])[A-Za-z\d\W]{6,}$';
-                        //     RegExp regExp = RegExp(pattern);
-                        //     if (!regExp.hasMatch(value)) {
-                        //       return 'Password must include upper and lower case letters, digits, and . or _';
-                        //     }
-                        //     context
-                        //         .read<PatientProfileCubit>()
-                        //         .updatePasswordController
-                        //         .text = value;
-                        //     return null;
-                        //   },
-                        // ),
-                        // TextFormField(
-                        //   maxLines: 1,
-                        //   controller: context
-                        //       .read<PatientProfileCubit>()
-                        //       .updatePasswordController,
-                        //   validator: (value) {
-                        //     if (value == null || value.isEmpty) {
-                        //       return 'Please enter a password';
-                        //     }
-                        //     if (value.length < 6) {
-                        //       return 'Password must be at least 6 characters long';
-                        //     }
-                        //     if (value == sharedPrefs.password) {
-                        //       return 'Please enter a new password';
-                        //     }
-                        //     String pattern =
-                        //         r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s])[A-Za-z\d\W]{6,}$';
-                        //     RegExp regExp = RegExp(pattern);
-                        //     if (!regExp.hasMatch(value)) {
-                        //       return 'Password must include upper and lower case letters, digits, and . or _';
-                        //     }
-                        //     context
-                        //         .read<PatientProfileCubit>()
-                        //         .updatePasswordController
-                        //         .text = value;
-                        //     return null;
-                        //   },
-                        //   decoration: InputDecoration(
-                        //     prefixIcon: const Icon(Icons.lock_outline_rounded),
-                        //     hintStyle: TextStyle(
-                        //       fontFamily: 'MontserratMedium',
-                        //       fontSize: 16.sp,
-                        //       fontWeight: FontWeight.w100,
-                        //       color: AppColors.textGrey,
-                        //       letterSpacing: 1.0,
-                        //     ),
-                        //     focusedBorder: const UnderlineInputBorder(
-                        //       borderSide: BorderSide(color: AppColors.appColor),
-                        //     ),
-                        //   ),
-                        //   style: TextStyle(
-                        //     fontFamily: 'MontserratMedium',
-                        //     fontSize: 16.sp,
-                        //     color: Colors.black,
-                        //     letterSpacing: 1.0,
-                        //     overflow: TextOverflow.ellipsis,
-                        //   ),
-                        // ),
                         SizedBox(
                           height: 15.h,
                         ),
@@ -733,82 +641,8 @@ class PatientProfileScreen extends StatelessWidget {
                             return null;
                           },
                         ),
-                        // TextFormField(
-                        //   controller: context
-                        //       .read<PatientProfileCubit>()
-                        //       .updateAgeController,
-                        //   readOnly: true,
-                        //   validator: (value) {
-                        //     if (value == null || value.isEmpty) {
-                        //       return 'Please select age';
-                        //     }
-                        //     context
-                        //         .read<PatientProfileCubit>()
-                        //         .updateAgeController
-                        //         .text = value;
-                        //     return null;
-                        //   },
-                        //   decoration: InputDecoration(
-                        //     prefixIcon: const Icon(
-                        //       Icons.lock_clock,
-                        //     ),
-                        //     suffixIcon: ConstrainedBox(
-                        //       constraints:
-                        //           BoxConstraints(maxHeight: screenHeight * 0.2),
-                        //       child: PopupMenuButton<int>(
-                        //         surfaceTintColor: Colors.white,
-                        //         elevation: 3.0,
-                        //         color: Colors.white,
-                        //         offset: const Offset(1, 3),
-                        //         icon: const Icon(
-                        //           Icons.keyboard_arrow_down_rounded,
-                        //           color: AppColors.appColor,
-                        //           size: 40,
-                        //         ),
-                        //         onSelected: (int value) {
-                        //           context
-                        //               .read<PatientProfileCubit>()
-                        //               .updateAgeController
-                        //               .text = value.toString();
-                        //         },
-                        //         itemBuilder: (BuildContext context) {
-                        //           return List<PopupMenuEntry<int>>.generate(
-                        //             100,
-                        //             (int index) => PopupMenuItem(
-                        //               value: index + 18,
-                        //               child: Text(
-                        //                 (index + 18).toString(),
-                        //                 style: TextStyle(
-                        //                   fontFamily: 'MontserratMedium',
-                        //                   fontSize: 18.sp,
-                        //                   color: Colors.black,
-                        //                 ),
-                        //               ),
-                        //             ),
-                        //           );
-                        //         },
-                        //       ),
-                        //     ),
-                        //     hintStyle: TextStyle(
-                        //       fontFamily: 'MontserratMedium',
-                        //       fontSize: 18.sp,
-                        //       fontWeight: FontWeight.w100,
-                        //       color: AppColors.textGrey,
-                        //       letterSpacing: 1.0,
-                        //     ),
-                        //     focusedBorder: const UnderlineInputBorder(
-                        //       borderSide: BorderSide(color: AppColors.appColor),
-                        //     ),
-                        //   ),
-                        //   style: TextStyle(
-                        //     fontFamily: 'MontserratMedium',
-                        //     fontSize: 18.sp,
-                        //     color: Colors.black,
-                        //     letterSpacing: 1.0,
-                        //   ),
-                        // ),
                         SizedBox(
-                          height: 15.h,
+                          height: 25.h,
                         ),
                         Text(
                           'Address',
@@ -842,56 +676,8 @@ class PatientProfileScreen extends StatelessWidget {
                             return null;
                           },
                         ),
-                        // TextFormField(
-                        //   maxLines: 1,
-                        //   controller: context
-                        //       .read<PatientProfileCubit>()
-                        //       .updateAddressController,
-                        //   readOnly: true,
-                        //   validator: (value) {
-                        //     if (value == null || value.isEmpty) {
-                        //       return 'Please enter address';
-                        //     }
-                        //     context
-                        //         .read<PatientProfileCubit>()
-                        //         .updateAddressController
-                        //         .text = value;
-                        //     return null;
-                        //   },
-                        //   decoration: InputDecoration(
-                        //     prefixIcon: const Icon(Icons.location_on_outlined),
-                        //     suffixIcon: IconButton(
-                        //       onPressed: () {
-                        //         context.read<LocationCubit>().setLocation();
-                        //         context.push(RouteNames.locationRoute);
-                        //       },
-                        //       icon: const Icon(
-                        //         Icons.add,
-                        //         color: AppColors.appColor,
-                        //         size: 30,
-                        //       ),
-                        //     ),
-                        //     hintStyle: TextStyle(
-                        //       fontFamily: 'MontserratMedium',
-                        //       fontSize: 16.sp,
-                        //       fontWeight: FontWeight.w100,
-                        //       color: AppColors.textGrey,
-                        //       letterSpacing: 1.0,
-                        //     ),
-                        //     focusedBorder: const UnderlineInputBorder(
-                        //       borderSide: BorderSide(color: AppColors.appColor),
-                        //     ),
-                        //   ),
-                        //   style: TextStyle(
-                        //     fontFamily: 'MontserratMedium',
-                        //     fontSize: 16.sp,
-                        //     color: Colors.black,
-                        //     letterSpacing: 1.0,
-                        //     overflow: TextOverflow.ellipsis,
-                        //   ),
-                        // ),
                         SizedBox(
-                          height: 15.h,
+                          height: 25.h,
                         ),
                         Text(
                           'Contact',
@@ -930,48 +716,6 @@ class PatientProfileScreen extends StatelessWidget {
                             return null;
                           },
                         ),
-                        // TextFormField(
-                        //   maxLines: 1,
-                        //   controller: context
-                        //       .read<PatientProfileCubit>()
-                        //       .updateContactController,
-                        //   keyboardType: TextInputType.number,
-                        //   validator: (value) {
-                        //     if (value == null || value.isEmpty) {
-                        //       return 'Please enter contact number';
-                        //     }
-                        //     final RegExp phoneRegExp =
-                        //         RegExp(r'^(03|92)\d{9}$');
-                        //     if (!phoneRegExp.hasMatch(value)) {
-                        //       return 'Please enter a valid number';
-                        //     }
-                        //     context
-                        //         .read<PatientProfileCubit>()
-                        //         .updateContactController
-                        //         .text = value;
-                        //     return null;
-                        //   },
-                        //   decoration: InputDecoration(
-                        //     prefixIcon: const Icon(Icons.phone_outlined),
-                        //     hintStyle: TextStyle(
-                        //       fontFamily: 'MontserratMedium',
-                        //       fontSize: 16.sp,
-                        //       fontWeight: FontWeight.w100,
-                        //       color: AppColors.textGrey,
-                        //       letterSpacing: 1.0,
-                        //     ),
-                        //     focusedBorder: const UnderlineInputBorder(
-                        //       borderSide: BorderSide(color: AppColors.appColor),
-                        //     ),
-                        //   ),
-                        //   style: TextStyle(
-                        //     fontFamily: 'MontserratMedium',
-                        //     fontSize: 16.sp,
-                        //     color: Colors.black,
-                        //     letterSpacing: 1.0,
-                        //     overflow: TextOverflow.ellipsis,
-                        //   ),
-                        // ),
                         SizedBox(
                           height: 40.h,
                         ),
