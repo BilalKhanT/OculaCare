@@ -26,6 +26,7 @@ class LoginScreen extends StatelessWidget {
       child: Scaffold(
         backgroundColor: AppColors.screenBackground,
         appBar: AppBar(
+          backgroundColor: AppColors.screenBackground,
           leading: IconButton(
             onPressed: () {
               context.read<LoginCubit>().dispose();
@@ -72,7 +73,7 @@ class LoginScreen extends StatelessWidget {
                           Text(
                             'Reset Password',
                             style: TextStyle(
-                              fontFamily: 'Poppins',
+                              fontFamily: 'MontserratMedium',
                               fontSize: 32.sp,
                               color: AppColors.appColor,
                               fontWeight: FontWeight.bold,
@@ -82,7 +83,7 @@ class LoginScreen extends StatelessWidget {
                           Text(
                             'Enter Registered Email',
                             style: TextStyle(
-                              fontFamily: 'Poppins',
+                              fontFamily: 'MontserratMedium',
                               fontSize: 16.sp,
                               color: AppColors.textGrey,
                             ),
@@ -109,7 +110,7 @@ class LoginScreen extends StatelessWidget {
                           Text(
                             'New Password',
                             style: TextStyle(
-                              fontFamily: 'Poppins',
+                              fontFamily: 'MontserratMedium',
                               fontSize: 32.sp,
                               color: AppColors.appColor,
                               fontWeight: FontWeight.bold,
@@ -119,7 +120,7 @@ class LoginScreen extends StatelessWidget {
                           Text(
                             'Enter New Password',
                             style: TextStyle(
-                              fontFamily: 'Poppins',
+                              fontFamily: 'MontserratMedium',
                               fontSize: 16.sp,
                               color: AppColors.textGrey,
                             ),
@@ -149,7 +150,7 @@ class LoginScreen extends StatelessWidget {
                             child: Text(
                               'OculaCare',
                               style: TextStyle(
-                                fontFamily: 'PoppinsBold',
+                                fontFamily: 'MontserratMedium',
                                 fontSize: 32.sp,
                                 color: AppColors.appColor,
                                 fontWeight: FontWeight.bold,
@@ -163,17 +164,17 @@ class LoginScreen extends StatelessWidget {
                           Text(
                             'Login',
                             style: TextStyle(
-                              fontFamily: 'Poppins',
+                              fontFamily: 'MontserratMedium',
                               fontSize: 32.sp,
                               color: AppColors.appColor,
-                              fontWeight: FontWeight.bold,
+                              fontWeight: FontWeight.w800,
                               letterSpacing: 1.0,
                             ),
                           ),
                           Text(
                             'Welcome Back!',
                             style: TextStyle(
-                              fontFamily: 'Poppins',
+                              fontFamily: 'MontserratMedium',
                               fontSize: 16.sp,
                               color: AppColors.textGrey,
                             ),
@@ -191,7 +192,7 @@ class LoginScreen extends StatelessWidget {
                               Text(
                                 'Didn\'t have an account.',
                                 style: TextStyle(
-                                  fontFamily: 'Poppins',
+                                  fontFamily: 'MontserratMedium',
                                   fontSize: 16.sp,
                                   fontWeight: FontWeight.w100,
                                   color: AppColors.textGrey,
@@ -207,9 +208,9 @@ class LoginScreen extends StatelessWidget {
                                 child: Text(
                                   'Signup',
                                   style: TextStyle(
-                                    fontFamily: 'Poppins',
+                                    fontFamily: 'Montserrat',
                                     fontSize: 16.sp,
-                                    fontWeight: FontWeight.w600,
+                                    fontWeight: FontWeight.bold,
                                     color: AppColors.appColor,
                                   ),
                                 ),

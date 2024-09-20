@@ -12,6 +12,16 @@ class SharedPrefs {
     _sharedPrefs?.setBool('isLoggedIn', value);
   }
 
+  bool get historyFetched => _sharedPrefs?.getBool('historyFetched') ?? false;
+  set historyFetched(bool value) {
+    _sharedPrefs?.setBool('historyFetched', value);
+  }
+
+  bool get therapyFetched => _sharedPrefs?.getBool('therapyFetched') ?? false;
+  set therapyFetched(bool value) {
+    _sharedPrefs?.setBool('therapyFetched', value);
+  }
+
   bool get isProfileSetup => _sharedPrefs?.getBool('isProfileSetup') ?? false;
   set isProfileSetup(bool value) {
     _sharedPrefs?.setBool('isProfileSetup', value);

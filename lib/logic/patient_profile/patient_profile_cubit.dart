@@ -79,16 +79,19 @@ class PatientProfileCubit extends Cubit<PatientProfileState> {
   }
 
   void emitEditProfile(BuildContext context, String age, gender, String address,
-      String contact, String img) {
+      String contact, String img, double _lat, double _long) {
     updatePasswordController.text = sharedPrefs.password;
     updateContactController.text = contact;
     updateAddressController.text = address;
     updateAgeController.text = age;
+    lat = _lat;
+    long = _long;
     emit(PatientProfileStateEdit(img));
   }
 
   Future<void> editProfile(BuildContext context, String pass, String img,
       String age, String phone, String address) async {
+    emit(PatientProfileStateLoading());
     try {
       var url = Uri.parse('$ipServer/api/patients/edit-profile');
       var response = await http.post(

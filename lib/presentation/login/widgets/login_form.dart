@@ -31,7 +31,7 @@ class LoginForm extends StatelessWidget {
                 ),
                 hintText: 'Email',
                 hintStyle: TextStyle(
-                  fontFamily: 'Poppins',
+                  fontFamily: 'Montserrat',
                   fontSize: 16.sp,
                   fontWeight: FontWeight.w100,
                   color: AppColors.textGrey,
@@ -42,7 +42,7 @@ class LoginForm extends StatelessWidget {
                 ),
               ),
               style: TextStyle(
-                fontFamily: 'Poppins',
+                fontFamily: 'MontserratMedium',
                 fontSize: 16.sp,
                 color: Colors.black,
                 letterSpacing: 1.0,
@@ -78,7 +78,7 @@ class LoginForm extends StatelessWidget {
                       ),
                       hintText: 'Password',
                       hintStyle: TextStyle(
-                        fontFamily: 'Poppins',
+                        fontFamily: 'Montserrat',
                         fontSize: 16.sp,
                         fontWeight: FontWeight.w100,
                         color: AppColors.textGrey,
@@ -89,7 +89,7 @@ class LoginForm extends StatelessWidget {
                       ),
                     ),
                     style: TextStyle(
-                      fontFamily: 'Poppins',
+                      fontFamily: 'MontserratMedium',
                       fontSize: 16.sp,
                       color: Colors.black,
                       letterSpacing: 1.0,

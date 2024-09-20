@@ -19,15 +19,26 @@ class TestCubit extends Cubit<TestState> {
 
   Future<void> loadTestHistory() async {
     emit(TestLoading());
-    if (testResults.isEmpty) {
+    if (testResults.isEmpty || sharedPrefs.historyFetched == false) {
+      sharedPrefs.historyFetched = true;
       final List<TestResultModel> tests =
           await testRepository.getTestRecords(sharedPrefs.userName);
       for (var test in tests) {
-        testResults.add(test);
+        bool exists = testResults.any((existingTest) =>
+            existingTest.patientName == test.patientName &&
+            existingTest.date == test.date &&
+            existingTest.testName == test.testName &&
+            existingTest.testScore == test.testScore &&
+            existingTest.precautions == test.precautions);
+        if (!exists) {
+          testResults.add(test);
+        }
       }
     }
+
     List<TestResultModel> vision = [];
     List<TestResultModel> color = [];
+
     for (var i in testResults) {
       if (i.testType == 'Color Perception Test') {
         color.add(i);
@@ -40,14 +51,25 @@ class TestCubit extends Cubit<TestState> {
 
   Future<void> loadTestProgression() async {
     emit(TestLoading());
-    if (testResults.isEmpty) {
+    if (testResults.isEmpty || sharedPrefs.historyFetched == false) {
+      sharedPrefs.historyFetched = true;
       final List<TestResultModel> tests =
           await testRepository.getTestRecords(sharedPrefs.userName);
       for (var test in tests) {
-        testResults.add(test);
+        bool exists = testResults.any((existingTest) =>
+            existingTest.patientName == test.patientName &&
+            existingTest.date == test.date &&
+            existingTest.testName == test.testName &&
+            existingTest.testScore == test.testScore &&
+            existingTest.precautions == test.precautions);
+        if (!exists) {
+          testResults.add(test);
+        }
       }
     }
+
     Map<DateTime, int> dateTestCount = {};
+
     for (var result in testResults) {
       DateTime testDate = dateFormat.parse(result.date);
       dateTestCount.update(testDate, (value) => value + 1, ifAbsent: () => 1);

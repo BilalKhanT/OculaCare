@@ -6,8 +6,8 @@ class AppGlobals {
 
 }
 String ipAddress = 'http://192.168.0.105:8080';
-Set<DiseaseResultModel> globalResults = {};
 String ipServer= 'https://oculacare-backend.onrender.com';
+List<DiseaseResultModel> globalResults = [];
 List <TherapyModel> globalTherapies = [];
 Map<DateTime, int> globalTherapyProgressData = {};
 Map<String, int> barChartData = {};

@@ -1,5 +1,5 @@
 import 'package:OculaCare/data/repositories/local/preferences/shared_prefs.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:OculaCare/logic/detection/detection_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -123,13 +123,14 @@ class DiseaseDetectionScreen extends StatelessWidget {
                 customWidget(
                   title: 'Detection Results',
                   icon: SvgPicture.asset(
-                    'assets/svgs/detection_result.svg',
+                    'assets/svgs/results.svg',
                     // ignore: deprecated_member_use
                     color: Colors.white,
                   ),
                   text: "View Disease Detection\nResults.",
                   screenWidth: screenWidth,
                   onTap: () {
+                    context.read<DetectionCubit>().loadDiseaseResults();
                     context.push(RouteNames.resultRoute);
                   },
                   screenHeight: screenHeight,

@@ -12,6 +12,7 @@ class CustomTextField extends StatelessWidget {
   final String? Function(String?)? validator;
   final FocusNode focusNode;
   final TextInputType? textInputType;
+  final FormFieldValidator<String> validatorFunction;
   final bool editable;
   const CustomTextField(
       {super.key,
@@ -23,7 +24,7 @@ class CustomTextField extends StatelessWidget {
         required this.focusNode,
         required this.obscureText,
         required this.controller,
-        required this.editable});
+        required this.editable, required this.validatorFunction});
 
   @override
   Widget build(BuildContext context) {
@@ -33,12 +34,7 @@ class CustomTextField extends StatelessWidget {
         child: TextFormField(
           readOnly: !editable,
           controller: controller,
-          validator: (value) {
-            if (value?.isEmpty ?? true) {
-              return "Please enter a message";
-            }
-            return null;
-          },
+          validator: validatorFunction,
           focusNode: focusNode,
           cursorColor: AppColors.appColor,
           style: context.appTheme.textTheme.labelMedium?.copyWith(

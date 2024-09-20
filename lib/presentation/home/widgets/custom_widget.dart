@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../../configs/presentation/constants/colors.dart';
 
 Widget customWidget({
@@ -18,14 +16,6 @@ Widget customWidget({
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10.0),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.5),
-            spreadRadius: 2,
-            blurRadius: 8,
-            offset: const Offset(0, 3),
-          ),
-        ],
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 13.0, vertical: 8.0),
@@ -40,7 +30,7 @@ Widget customWidget({
                   width: screenHeight * 0.06,
                   decoration: BoxDecoration(
                     color: AppColors.appColor.withOpacity(0.6),
-                    borderRadius: BorderRadius.circular(7.0),
+                    borderRadius: BorderRadius.circular(50.0),
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),

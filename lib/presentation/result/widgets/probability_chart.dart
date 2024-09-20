@@ -1,14 +1,14 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
-class TrackChart extends StatelessWidget {
-  final int score;
+class ProbabilityChart extends StatelessWidget {
+  final double score;
 
-  const TrackChart({super.key, required this.score});
+  const ProbabilityChart({super.key, required this.score});
 
   @override
   Widget build(BuildContext context) {
-    int finalScore = 0;
+    double finalScore = 0.0;
     Color severityColor = _getSeverityColor(score);
     double screenWidth = MediaQuery.sizeOf(context).width;
     if (score < 0) {
@@ -35,8 +35,8 @@ class TrackChart extends StatelessWidget {
                   ),
                 ),
                 PieChartSectionData(
-                  value: (60 - finalScore).toDouble(),
-                  color: Colors.grey.shade600,
+                  value: (100.0 - finalScore),
+                  color: Colors.grey.shade700,
                   radius: 30,
                   titleStyle: TextStyle(
                     fontFamily: 'MontserratMedium',
@@ -55,17 +55,17 @@ class TrackChart extends StatelessWidget {
     );
   }
 
-  Color _getSeverityColor(int score) {
-    if (score >= 0 && score <= 10) {
+  Color _getSeverityColor(double score) {
+    if (score >= 0.0 && score <= 30.0) {
       return Colors.red;
-    } else if (score >= 11 && score <= 25) {
+    } else if (score >= 40.0 && score <= 60.0) {
       return Colors.orange;
-    } else if (score >= 26 && score <= 40) {
+    } else if (score >= 70.0 && score <= 80.0) {
       return Colors.yellow;
-    } else if (score >= 41 && score <= 60) {
+    } else if (score >= 90.0 && score <= 100.0) {
       return Colors.green;
     } else {
-      return Colors.grey;
+      return Colors.grey.shade700;
     }
   }
 }

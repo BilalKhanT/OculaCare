@@ -1,3 +1,4 @@
+import 'package:OculaCare/data/models/disease_result/disease_result_model.dart';
 import 'package:OculaCare/data/models/tests/score_model.dart';
 import 'package:OculaCare/data/models/tests/test_result_model.dart';
 import 'package:OculaCare/logic/therapy_cubit/music_cubit.dart';
@@ -9,6 +10,7 @@ import 'package:OculaCare/presentation/location/location_view.dart';
 import 'package:OculaCare/presentation/more_section/more_view.dart';
 import 'package:OculaCare/presentation/more_section/pdf_view.dart';
 import 'package:OculaCare/presentation/patient_profile/profile_view.dart';
+import 'package:OculaCare/presentation/result/disease_analysis_view.dart';
 import 'package:OculaCare/presentation/result/result_view.dart';
 import 'package:OculaCare/presentation/test_dashboard/test_dash_view.dart';
 import 'package:OculaCare/presentation/therapy/scheduled_therapy.dart';
@@ -91,9 +93,8 @@ final router = GoRouter(
             routes: <RouteBase>[
               GoRoute(
                 path: RouteNames.dashboardRoute,
-                pageBuilder: (context, state) => MaterialPage(
-                    child:
-                        DashboardScreen()), // Updated with the DashboardScreen
+                pageBuilder: (context, state) =>
+                    const MaterialPage(child: DashboardScreen()),
               ),
             ],
           ),
@@ -116,10 +117,6 @@ final router = GoRouter(
             flow: flow,
           );
         }),
-    // GoRoute(
-    //   path: RouteNames.resultRoute,
-    //   builder: (context, state) => const ResultView(),
-    // ),
     GoRoute(
       parentNavigatorKey: navigatorKey,
       path: RouteNames.onBoardingRoute,
@@ -168,7 +165,7 @@ final router = GoRouter(
     GoRoute(
       parentNavigatorKey: navigatorKey,
       path: RouteNames.resultRoute,
-      builder: (context, state) => const ResultView(),
+      builder: (context, state) => const DiseaseResultView(),
     ),
     GoRoute(
       parentNavigatorKey: navigatorKey,
@@ -202,6 +199,15 @@ final router = GoRouter(
           int flag = state.extra as int;
           return CameraDistanceView(
             flag: flag,
+          );
+        }),
+    GoRoute(
+        parentNavigatorKey: navigatorKey,
+        path: RouteNames.diseaseAnalysisRoute,
+        builder: (context, state) {
+          DiseaseResultModel data = state.extra as DiseaseResultModel;
+          return DiseaseAnalysisView(
+            result: data,
           );
         }),
     GoRoute(
@@ -249,10 +255,9 @@ final router = GoRouter(
       path: RouteNames.snellanRoute,
       builder: (context, state) => const SnellanChart(),
     ),
-    // Therapy-specific routes
     GoRoute(
       parentNavigatorKey: navigatorKey,
-      path: RouteNames.therapy, // Path for the therapy screen
+      path: RouteNames.therapy,
       builder: (context, state) {
         final exercise = state.extra as Map<String, dynamic>;
         return MultiBlocProvider(
@@ -269,13 +274,12 @@ final router = GoRouter(
                 BlocProvider.of<TimerCubit>(context),
                 BlocProvider.of<MusicCubit>(context),
               )..startTherapy(
-                exercise['title'],
-                exercise['timeLimit'],
-                exercise['instructions'],
-                exercise['sound'],
-                exercise['category'],
-              ),
-                 
+                  exercise['title'],
+                  exercise['timeLimit'],
+                  exercise['instructions'],
+                  exercise['sound'],
+                  exercise['category'],
+                ),
             ),
           ],
           child: TherapyScreen(exercise: exercise),
@@ -297,10 +301,6 @@ final router = GoRouter(
           TestResultModel test = state.extra as TestResultModel;
           return TestReport(test: test);
         }),
-    // GoRoute(
-    //   path: RouteNames.imgCaptureRoute,
-    //   builder: (context, state) => const ImageCaptureScreen(),
-    // ),
   ],
   initialLocation: sharedPrefs.isLoggedIn
       ? RouteNames.homeRoute

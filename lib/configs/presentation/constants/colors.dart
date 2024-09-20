@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class AppColors {
   AppColors._();
-  static const screenBackground = Color(0xFFF9FAFB);
+  static const screenBackground = Color(0xFFF1F3F4);
   static const appColor = Color(0xFF034694);
   static const whiteColor = Color(0xFFFFFFFF);
   static final textGrey = Colors.grey.shade700;
@@ -24,6 +24,7 @@ class AppColors {
   static const Color lightGray = Color(0xFFD3D3D3);
   static const Color deepOrange = Color(0xFFFF8C00);
   static const Color teal = Color(0xFF008080);
+  static const Color graphBg = Color(0xFF372F2F);
 
   static const Color contentColorGreen = Color(0xFF00C853);  // Added Green Color
   static const Color contentColorPurple = Color(0xFF9C27B0); // Purple

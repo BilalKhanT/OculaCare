@@ -36,7 +36,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.sizeOf(context).height;
     double screenWidth = MediaQuery.sizeOf(context).width;
-
+    sharedPrefs.therapyFetched = false;
+    sharedPrefs.historyFetched = false;
     return ScreenUtilInit(
       builder: (context, child) {
         return Listener(

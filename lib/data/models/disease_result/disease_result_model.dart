@@ -1,27 +1,56 @@
 class DiseaseResultModel {
-  final EyePrediction leftEye;
-  final EyePrediction rightEye;
+  final String? patientName;
+  final String? date;
+  final String? treatment;
+  final String? causes;
+  final String? medicineRecommendations;
+  final String? impacts;
+  final String? precautions;
+  final EyePrediction? leftEye;
+  final EyePrediction? rightEye;
 
-  DiseaseResultModel({required this.leftEye, required this.rightEye});
+  DiseaseResultModel({
+    this.patientName,
+    this.date,
+    this.treatment,
+    this.causes,
+    this.medicineRecommendations,
+    this.impacts,
+    this.precautions,
+    this.leftEye,
+    this.rightEye,
+  });
 
   factory DiseaseResultModel.fromJson(Map<String, dynamic> json) {
     return DiseaseResultModel(
-      leftEye: EyePrediction.fromJson(json['left_eye']),
-      rightEye: EyePrediction.fromJson(json['right_eye']),
+      patientName: json['patient_name'] ?? '',
+      date: json['date'] ?? '',
+      treatment: json['treatment'] ?? '',
+      causes: json['causes'] ?? '',
+      medicineRecommendations: json['medicine_recommendations'] ?? '',
+      impacts: json['impacts'] ?? '',
+      precautions: json['precautions'] ?? '',
+      leftEye: json['left_eye'] != null
+          ? EyePrediction.fromJson(json['left_eye'])
+          : null,
+      rightEye: json['right_eye'] != null
+          ? EyePrediction.fromJson(json['right_eye'])
+          : null,
     );
   }
 }
 
 class EyePrediction {
-  final String message;
-  final String prediction;
+  final String? prediction;
+  final String? probability;
 
-  EyePrediction({required this.message, required this.prediction});
+  EyePrediction({this.prediction, this.probability});
 
   factory EyePrediction.fromJson(Map<String, dynamic> json) {
     return EyePrediction(
-      message: json['prediction'],
-      prediction: json['probability'],
+      prediction: json['prediction'] ?? '',
+      probability: json['probability'] ?? '',
     );
   }
 }
+

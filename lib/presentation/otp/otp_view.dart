@@ -1,6 +1,7 @@
 import 'package:OculaCare/configs/routes/route_names.dart';
 import 'package:OculaCare/configs/utils/utils.dart';
 import 'package:OculaCare/presentation/sign_up/widgets/cstm_flat_btn.dart';
+import 'package:OculaCare/presentation/widgets/cstm_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -65,8 +66,8 @@ class OtpScreen extends StatelessWidget {
           builder: (context, state) {
             if (state is OtpStateLoading) {
               return const Center(
-                child: CircularProgressIndicator(
-                  color: AppColors.appColor,
+                child: DotLoader(
+                  loaderColor: AppColors.appColor,
                 ),
               );
             } else if (state is OtpStateFailure) {
@@ -80,7 +81,7 @@ class OtpScreen extends StatelessWidget {
                   Text(
                     'Verification',
                     style: TextStyle(
-                      fontFamily: 'Poppins',
+                      fontFamily: 'MontserratMedium',
                       fontSize: 32.sp,
                       fontWeight: FontWeight.bold,
                       letterSpacing: 1.0,
@@ -93,14 +94,14 @@ class OtpScreen extends StatelessWidget {
                   Text(
                     'Enter the code sent to the email',
                     style: TextStyle(
-                        fontFamily: 'Poppins',
+                        fontFamily: 'MontserratMedium',
                         fontSize: 16.sp,
                         color: Colors.grey.shade700),
                   ),
                   Text(
                     state.email,
                     style: TextStyle(
-                        fontFamily: 'Poppins',
+                        fontFamily: 'MontserratMedium',
                         fontSize: 16.sp,
                         color: Colors.grey.shade700),
                   ),
@@ -141,7 +142,7 @@ class OtpScreen extends StatelessWidget {
                       Text(
                         'Didn\'t receive code?',
                         style: TextStyle(
-                            fontFamily: 'Poppins',
+                            fontFamily: 'MontserratMedium',
                             fontSize: 16.sp,
                             color: Colors.grey.shade700),
                       ),
@@ -153,7 +154,7 @@ class OtpScreen extends StatelessWidget {
                         child: Text(
                           'Resend OTP',
                           style: TextStyle(
-                              fontFamily: 'Poppins',
+                              fontFamily: 'MontserratMedium',
                               fontSize: 16.sp,
                               color: AppColors.appColor),
                         ),
