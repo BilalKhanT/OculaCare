@@ -116,6 +116,7 @@ class ContrastCubit extends Cubit<ContrastState> {
         ResponseModel resp_ = await ml.getData(
             'Additionally, mention any potential impacts daily activities without heading and only 3 points, also generate text in such a way that youre talking to the patient directly');
         TestResultModel data = TestResultModel(
+            email: sharedPrefs.email,
             patientName: sharedPrefs.userName,
             date: date,
             testType: 'Vision Acuity Test',
