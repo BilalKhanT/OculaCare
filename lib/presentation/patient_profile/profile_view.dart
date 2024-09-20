@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:OculaCare/configs/extension/extensions.dart';
 import 'package:OculaCare/configs/presentation/constants/colors.dart';
 import 'package:OculaCare/configs/routes/route_names.dart';
 import 'package:OculaCare/logic/patient_profile/patient_profile_cubit.dart';
@@ -19,7 +20,6 @@ import 'package:go_router/go_router.dart';
 import '../../logic/location_cubit/location_cubit.dart';
 import '../../logic/patient_profile/gender_cubit.dart';
 import '../../logic/patient_profile/upload_profile_photo_cubit.dart';
-import '../sign_up/widgets/cstm_flat_btn.dart';
 
 class PatientProfileScreen extends StatelessWidget {
   const PatientProfileScreen({Key? key}) : super(key: key);
@@ -29,6 +29,7 @@ class PatientProfileScreen extends StatelessWidget {
     final formKeyA = GlobalKey<FormState>();
     final formKeyB = GlobalKey<FormState>();
     double screenHeight = MediaQuery.sizeOf(context).height;
+    double screenWidth = MediaQuery.sizeOf(context).width;
     return Scaffold(
       backgroundColor: AppColors.screenBackground,
       appBar: AppBar(
@@ -44,6 +45,9 @@ class PatientProfileScreen extends StatelessWidget {
         ),
         leading: IconButton(
           onPressed: () {
+            context.read<UploadProfilePhotoCubit>().dispose();
+            context.read<PatientProfileCubit>().disposeEdit();
+            context.read<GenderCubit>().dispose();
             context.pop();
           },
           icon: const Icon(
@@ -124,19 +128,19 @@ class PatientProfileScreen extends StatelessWidget {
                       },
                     ),
                     SizedBox(
-                      height: 20.h,
+                      height: screenHeight * 0.02,
                     ),
                     Text(
                       'Gender',
                       style: TextStyle(
-                        fontFamily: 'Poppins',
+                        fontFamily: 'MontserratMedium',
                         fontWeight: FontWeight.w800,
-                        fontSize: 20.sp,
+                        fontSize: screenWidth * 0.045,
                       ),
                     ),
                     const GenderRow(),
                     SizedBox(
-                      height: 20.h,
+                      height: screenHeight * 0.02,
                     ),
                     Form(
                       key: formKeyA,
@@ -146,227 +150,127 @@ class PatientProfileScreen extends StatelessWidget {
                           Text(
                             'Age',
                             style: TextStyle(
-                              fontFamily: 'Poppins',
+                              fontFamily: 'MontserratMedium',
                               fontWeight: FontWeight.w800,
-                              fontSize: 20.sp,
+                              fontSize: screenWidth * 0.045,
                             ),
                           ),
-                          TextFormField(
-                            controller: context
-                                .read<PatientProfileCubit>()
-                                .ageController,
-                            readOnly: true,
-                            decoration: InputDecoration(
-                              prefixIcon: const Icon(Icons.lock_clock),
-                              suffixIcon: ConstrainedBox(
-                                constraints: BoxConstraints(
-                                    maxHeight: screenHeight * 0.2),
-                                child: PopupMenuButton<int>(
-                                  surfaceTintColor: Colors.white,
-                                  elevation: 3.0,
-                                  color: Colors.white,
-                                  offset: const Offset(1, 3),
-                                  icon: const Icon(
-                                    Icons.keyboard_arrow_down_rounded,
-                                    color: AppColors.appColor,
-                                    size: 40,
-                                  ),
-                                  onSelected: (int value) {
-                                    context
-                                        .read<PatientProfileCubit>()
-                                        .ageController
-                                        .text = value.toString();
-                                  },
-                                  itemBuilder: (BuildContext context) {
-                                    return List<PopupMenuEntry<int>>.generate(
-                                      100,
-                                      (int index) => PopupMenuItem(
-                                        value: index + 18,
-                                        child: Text(
-                                          (index + 18).toString(),
-                                          style: TextStyle(
-                                            fontFamily: 'Poppins',
-                                            fontSize: 18.sp,
-                                            color: Colors.black,
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                              hintText: 'Select Age',
-                              hintStyle: TextStyle(
-                                fontFamily: 'Poppins',
-                                fontSize: 18.sp,
-                                fontWeight: FontWeight.w100,
-                                color: AppColors.textGrey,
-                                letterSpacing: 1.0,
-                              ),
-                              focusedBorder: const UnderlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: AppColors.appColor),
-                              ),
-                            ),
-                            validator: (value) {
+                          SizedBox(height: screenHeight * 0.01,),
+                          CustomTextField(
+                            hintText: 'Enter Age',
+                            focusNode: context.read<PatientProfileCubit>().focusAge,
+                            obscureText: false,
+                            controller: context.read<PatientProfileCubit>().ageController,
+                            editable: true,
+                            validatorFunction: (value) {
                               if (value == null || value.isEmpty) {
-                                return 'Please select age';
+                                return 'Please enter age';
                               }
+                              final RegExp regex = RegExp(r'^[0-9]+$');
+                              if (!regex.hasMatch(value)) {
+                                return 'Age must be a valid number';
+                              }
+                              final int? age = int.tryParse(value);
+                              if (age == null || age <= 0 || age > 120) {
+                                return 'Please enter a valid age between 1 and 120';
+                              }
+
                               return null;
                             },
-                            style: TextStyle(
-                              fontFamily: 'Poppins',
-                              fontSize: 18.sp,
-                              color: Colors.black,
-                              letterSpacing: 1.0,
-                            ),
                           ),
                           SizedBox(
-                            height: 30.h,
+                            height: screenHeight * 0.03,
                           ),
                           Text(
                             'Address',
                             style: TextStyle(
-                              fontFamily: 'Poppins',
+                              fontFamily: 'MontserratMedium',
                               fontWeight: FontWeight.w800,
-                              fontSize: 20.sp,
+                              fontSize: screenWidth * 0.045,
                             ),
                           ),
-                          TextFormField(
-                            maxLines: 1,
-                            controller: context
-                                .read<PatientProfileCubit>()
-                                .addressController,
-                            readOnly: true,
-                            decoration: InputDecoration(
-                              prefixIcon:
-                                  const Icon(Icons.location_on_outlined),
-                              suffixIcon: IconButton(
-                                onPressed: () {
-                                  context.read<LocationCubit>().setLocation();
-                                  context.push(RouteNames.locationRoute);
+                          SizedBox(height: screenHeight * 0.01,),
+                          SizedBox(
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(20.r),
+                              child: TextFormField(
+                                readOnly: true,
+                                controller: context.read<PatientProfileCubit>().addressController,
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter address';
+                                  }
+                                  return null;
                                 },
-                                icon: const Icon(
-                                  Icons.add,
-                                  color: AppColors.appColor,
-                                  size: 30,
+                                focusNode: context.read<PatientProfileCubit>().focusAdd,
+                                cursorColor: AppColors.appColor,
+                                style: context.appTheme.textTheme.labelMedium?.copyWith(
+                                    color: AppColors.secondaryText,
+                                    fontSize: MediaQuery.sizeOf(context).width * 0.04),
+                                decoration: InputDecoration(
+                                  suffixIcon: IconButton(onPressed: () {
+                                    context.read<LocationCubit>().setLocation();
+                                    context.push(RouteNames.locationRoute);
+                                  }, icon: const Icon(Icons.location_on_outlined, color: AppColors.appColor,)),
+                                  fillColor: Colors.white,
+                                  filled: true,
+                                  hintStyle: context.appTheme.textTheme.labelMedium?.copyWith(
+                                      color: context.appTheme.focusColor,
+                                      fontSize: MediaQuery.sizeOf(context).width * 0.04),
+                                  hintText: 'Set Address',
+                                  border: InputBorder.none,
+                                  contentPadding: EdgeInsets.only(
+                                    top: MediaQuery.sizeOf(context).height * 0.015,
+                                    left: 20.w,
+                                    bottom: MediaQuery.sizeOf(context).height * 0.015,
+                                  ),
                                 ),
                               ),
-                              hintText: 'Add Address',
-                              hintStyle: TextStyle(
-                                fontFamily: 'Poppins',
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.w100,
-                                color: AppColors.textGrey,
-                                letterSpacing: 1.0,
-                              ),
-                              focusedBorder: const UnderlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: AppColors.appColor),
-                              ),
-                            ),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter address';
-                              }
-                              return null;
-                            },
-                            style: TextStyle(
-                              fontFamily: 'Poppins',
-                              fontSize: 16.sp,
-                              color: Colors.black,
-                              letterSpacing: 1.0,
-                              overflow: TextOverflow.ellipsis,
                             ),
                           ),
                           SizedBox(
-                            height: 30.h,
+                            height: screenHeight * 0.03,
                           ),
                           Text(
                             'Contact',
                             style: TextStyle(
-                              fontFamily: 'Poppins',
+                              fontFamily: 'MontserratMedium',
                               fontWeight: FontWeight.w800,
-                              fontSize: 20.sp,
+                              fontSize: screenWidth * 0.045,
                             ),
                           ),
-                          TextFormField(
-                            keyboardType: TextInputType.number,
-                            maxLines: 1,
-                            controller: context
-                                .read<PatientProfileCubit>()
-                                .phoneController,
-                            decoration: InputDecoration(
-                              prefixIcon: const Icon(Icons.phone_outlined),
-                              hintText: 'Enter Contact Number',
-                              hintStyle: TextStyle(
-                                fontFamily: 'Poppins',
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.w100,
-                                color: AppColors.textGrey,
-                                letterSpacing: 1.0,
-                              ),
-                              focusedBorder: const UnderlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: AppColors.appColor),
-                              ),
-                            ),
-                            validator: (value) {
+                          SizedBox(height: screenHeight * 0.01,),
+                          CustomTextField(
+                            hintText: 'Enter Contact Number',
+                            focusNode: context.read<PatientProfileCubit>().focusPhone,
+                            obscureText: false,
+                            controller: context.read<PatientProfileCubit>().phoneController,
+                            editable: true,
+                            validatorFunction: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Please enter contact number';
                               }
                               final RegExp phoneRegExp =
-                                  RegExp(r'^(03|92)\d{9}$');
+                              RegExp(r'^(03|92)\d{9}$');
                               if (!phoneRegExp.hasMatch(value)) {
                                 return 'Please enter a valid number';
                               }
                               return null;
                             },
-                            style: TextStyle(
-                              fontFamily: 'Poppins',
-                              fontSize: 16.sp,
-                              color: Colors.black,
-                              letterSpacing: 1.0,
-                              overflow: TextOverflow.ellipsis,
-                            ),
                           ),
-                          // InternationalPhoneNumberInput(
-                          //   textFieldController:
-                          //       context.read<PatientProfileCubit>().phoneController,
-                          //   maxLength: 9,
-                          //   onInputChanged: (PhoneNumber number) {},
-                          //   validator: (p0) {
-                          //     if (p0?.isEmpty ?? false) {
-                          //       return "";
-                          //     }
-                          //     return null;
-                          //   },
-                          //
-                          //   countries: const ["PK"],
-                          //   selectorTextStyle: TextStyle(
-                          //     color: Colors.black,
-                          //     fontSize: 18.sp,
-                          //   ),
-                          //   // isEnabled: false,
-                          //   hintText: 'Enter your phone number',
-                          //   textStyle: TextStyle(
-                          //     fontSize: 18.sp,
-                          //     fontWeight: FontWeight.w400,
-                          //   ),
-                          //   initialValue: PhoneNumber(isoCode: 'PK'),
-                          // ),
                           SizedBox(
-                            height: 50.h,
+                            height: screenHeight * 0.05,
                           ),
-                          CustomFlatButton(
-                            onTap: () async {
+                          ButtonFlat(
+                            textColor: Colors.white,
+                            onPress: () async {
                               if (formKeyA.currentState!.validate()) {
                                 context
                                     .read<PatientProfileCubit>()
                                     .savePatientProfile(context);
                               }
                             },
-                            text: 'Save',
+                            text: 'Save Profile',
                             btnColor: AppColors.appColor,
                           ),
                         ],
@@ -386,14 +290,35 @@ class PatientProfileScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Center(
-                      child: CircleAvatar(
-                        radius: 80.h,
-                        backgroundImage:
-                            MemoryImage(base64Decode(patient.profileImage!)),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border:
+                          Border.all(color: Colors.black, width: 2),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.5),
+                              spreadRadius: 1,
+                              blurRadius: 6,
+                              offset: const Offset(0, 3),
+                            ),
+                          ],
+                        ),
+                        child: ClipOval(
+                          child: Container(
+                            height: screenHeight * 0.2,
+                            width: screenHeight * 0.2,
+                            color: Colors.white,
+                            child: Image.memory(
+                              base64Decode(patient.profileImage!),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
                       ),
                     ),
                     SizedBox(
-                      height: 10.h,
+                      height: screenHeight * 0.02,
                     ),
                     Center(
                       child: Text(
@@ -406,7 +331,7 @@ class PatientProfileScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      height: 30.h,
+                      height: screenHeight * 0.03,
                     ),
                     ProfileListTile(
                       leading: SvgPicture.asset("assets/svgs/profileEmail.svg"),
@@ -414,7 +339,7 @@ class PatientProfileScreen extends StatelessWidget {
                       value: patient.email!,
                     ),
                     SizedBox(
-                      height: 20.h,
+                      height: screenHeight * 0.02,
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 8.w),
@@ -424,7 +349,7 @@ class PatientProfileScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      height: 20.h,
+                      height: screenHeight * 0.02,
                     ),
                     ProfileListTile(
                       leading: SvgPicture.asset("assets/svgs/account.svg"),
@@ -432,7 +357,7 @@ class PatientProfileScreen extends StatelessWidget {
                       value: patient.gender!,
                     ),
                     SizedBox(
-                      height: 20.h,
+                      height: screenHeight * 0.02,
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 8.w),
@@ -442,7 +367,7 @@ class PatientProfileScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      height: 20.h,
+                      height: screenHeight * 0.02,
                     ),
                     ProfileListTile(
                       leading: SvgPicture.asset("assets/svgs/profileAge.svg"),
@@ -450,7 +375,7 @@ class PatientProfileScreen extends StatelessWidget {
                       value: patient.age.toString(),
                     ),
                     SizedBox(
-                      height: 20.h,
+                      height: screenHeight * 0.02,
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 8.w),
@@ -460,7 +385,7 @@ class PatientProfileScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      height: 20.h,
+                      height: screenHeight * 0.02,
                     ),
                     ProfileListTile(
                       leading: SvgPicture.asset("assets/svgs/profilePhone.svg"),
@@ -468,7 +393,7 @@ class PatientProfileScreen extends StatelessWidget {
                       value: patient.contactNumber!,
                     ),
                     SizedBox(
-                      height: 20.h,
+                      height: screenHeight * 0.02,
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 8.w),
@@ -478,7 +403,7 @@ class PatientProfileScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      height: 20.h,
+                      height: screenHeight * 0.02,
                     ),
                     ProfileListTile(
                       leading:
@@ -487,7 +412,7 @@ class PatientProfileScreen extends StatelessWidget {
                       value: patient.address!.locationName!,
                     ),
                     SizedBox(
-                      height: 20.h,
+                      height: screenHeight * 0.02,
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 8.w),
@@ -497,7 +422,7 @@ class PatientProfileScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      height: 30.h,
+                      height: screenHeight * 0.03,
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 25.0),
@@ -521,7 +446,7 @@ class PatientProfileScreen extends StatelessWidget {
                           text: 'Edit Profile'),
                     ),
                     SizedBox(
-                      height: 20.h,
+                      height: screenHeight * 0.02,
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 25.0),
@@ -577,31 +502,47 @@ class PatientProfileScreen extends StatelessWidget {
                           }
                         },
                         child: Center(
-                          child: CircleAvatar(
-                            backgroundColor:
-                                AppColors.appColor.withOpacity(0.2),
-                            radius: 80.h,
-                            backgroundImage: MemoryImage(base64Decode(image64)),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border:
+                              Border.all(color: Colors.black, width: 2),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  spreadRadius: 1,
+                                  blurRadius: 6,
+                                  offset: const Offset(0, 3),
+                                ),
+                              ],
+                            ),
+                            child: ClipOval(
+                              child: Container(
+                                height: screenHeight * 0.2,
+                                width: screenHeight * 0.2,
+                                color: Colors.white,
+                                child: Image.memory(
+                                  base64Decode(image64),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
                           ),
                         ),
                       );
                     },
                   ),
-                  SizedBox(
-                    height: 20.h,
-                  ),
+                  SizedBox(height: screenHeight * 0.02,),
                   Text(
                     'Gender',
                     style: TextStyle(
-                      fontFamily: 'Montserrat',
+                      fontFamily: 'MontserratMedium',
                       fontWeight: FontWeight.w800,
-                      fontSize: 18.sp,
+                      fontSize: screenWidth * 0.045,
                     ),
                   ),
                   const GenderRow(),
-                  SizedBox(
-                    height: 15.h,
-                  ),
+                  SizedBox(height: screenHeight * 0.01,),
                   Form(
                     key: formKeyB,
                     child: Column(
@@ -613,14 +554,12 @@ class PatientProfileScreen extends StatelessWidget {
                         Text(
                           'Age',
                           style: TextStyle(
-                            fontFamily: 'Montserrat',
+                            fontFamily: 'MontserratMedium',
                             fontWeight: FontWeight.w800,
-                            fontSize: 18.sp,
+                            fontSize: screenWidth * 0.045,
                           ),
                         ),
-                        const SizedBox(
-                          height: 5.0,
-                        ),
+                        SizedBox(height: screenHeight * 0.01,),
                         CustomTextField(
                           hintText: '',
                           focusNode:
@@ -641,55 +580,68 @@ class PatientProfileScreen extends StatelessWidget {
                             return null;
                           },
                         ),
-                        SizedBox(
-                          height: 25.h,
-                        ),
+                        SizedBox(height: screenHeight * 0.03,),
                         Text(
                           'Address',
                           style: TextStyle(
-                            fontFamily: 'Montserrat',
+                            fontFamily: 'MontserratMedium',
                             fontWeight: FontWeight.w800,
-                            fontSize: 18.sp,
+                            fontSize: screenWidth * 0.045,
                           ),
                         ),
-                        const SizedBox(
-                          height: 5.0,
-                        ),
-                        CustomTextField(
-                          hintText: '',
-                          focusNode: context
-                              .read<PatientProfileCubit>()
-                              .addressFocusNode,
-                          obscureText: false,
-                          controller: context
-                              .read<PatientProfileCubit>()
-                              .updateAddressController,
-                          editable: true,
-                          validatorFunction: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter address';
-                            }
-                            context
-                                .read<PatientProfileCubit>()
-                                .updateAddressController
-                                .text = value;
-                            return null;
-                          },
-                        ),
+                        SizedBox(height: screenHeight * 0.01,),
                         SizedBox(
-                          height: 25.h,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(20.r),
+                            child: TextFormField(
+                              readOnly: true,
+                              controller: context
+                                  .read<PatientProfileCubit>()
+                                  .updateAddressController,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter address';
+                                }
+                                return null;
+                              },
+                              focusNode: context
+                                  .read<PatientProfileCubit>()
+                                  .addressFocusNode,
+                              cursorColor: AppColors.appColor,
+                              style: context.appTheme.textTheme.labelMedium?.copyWith(
+                                  color: AppColors.secondaryText,
+                                  fontSize: MediaQuery.sizeOf(context).width * 0.04),
+                              decoration: InputDecoration(
+                                suffixIcon: IconButton(onPressed: () {
+                                  context.read<LocationCubit>().setLocation();
+                                  context.push(RouteNames.locationRoute);
+                                }, icon: const Icon(Icons.location_on_outlined, color: AppColors.appColor,)),
+                                fillColor: Colors.white,
+                                filled: true,
+                                hintStyle: context.appTheme.textTheme.labelMedium?.copyWith(
+                                    color: context.appTheme.focusColor,
+                                    fontSize: MediaQuery.sizeOf(context).width * 0.04),
+                                hintText: 'Set Address',
+                                border: InputBorder.none,
+                                contentPadding: EdgeInsets.only(
+                                  top: MediaQuery.sizeOf(context).height * 0.015,
+                                  left: 20.w,
+                                  bottom: MediaQuery.sizeOf(context).height * 0.015,
+                                ),
+                              ),
+                            ),
+                          ),
                         ),
+                        SizedBox(height: screenHeight * 0.03,),
                         Text(
                           'Contact',
                           style: TextStyle(
-                            fontFamily: 'Montserrat',
+                            fontFamily: 'MontserratMedium',
                             fontWeight: FontWeight.w800,
-                            fontSize: 18.sp,
+                            fontSize: screenWidth * 0.045,
                           ),
                         ),
-                        const SizedBox(
-                          height: 5.0,
-                        ),
+                        SizedBox(height: screenHeight * 0.01,),
                         CustomTextField(
                           hintText: '',
                           focusNode: context
