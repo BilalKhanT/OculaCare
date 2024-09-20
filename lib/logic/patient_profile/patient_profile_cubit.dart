@@ -24,6 +24,10 @@ class PatientProfileCubit extends Cubit<PatientProfileState> {
   final phoneController = TextEditingController();
   final ageController = TextEditingController();
 
+  final focusAge = FocusNode();
+  final focusAdd = FocusNode();
+  final focusPhone = FocusNode();
+
   final passwordFocusNode = FocusNode();
   final contactFocusNode = FocusNode();
   final ageFocusNode = FocusNode();
@@ -34,6 +38,13 @@ class PatientProfileCubit extends Cubit<PatientProfileState> {
   String imageBase64 = '';
 
   disposeEdit() {
+    imageBase64 = '';
+    ageController.clear();
+    addressController.clear();
+    lat = 0.0;
+    long = 0.0;
+    phoneController.clear();
+    gender = '';
     updatePasswordController.clear();
     updateAgeController.clear();
     updateAddressController.clear();
