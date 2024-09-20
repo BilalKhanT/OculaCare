@@ -24,7 +24,7 @@ class SnellanTestCubit extends Cubit<SnellanTestState> {
   String recognizedText = "";
   late stt.SpeechToText _speech;
   MlModel ml = MlModel();
-  bool api = true;
+  bool api = false;
 
   final List<double> snellanDistances = [
     60.0,
@@ -97,16 +97,15 @@ class SnellanTestCubit extends Cubit<SnellanTestState> {
 
   void startListening() {
     _speech.listen(
-      onResult: (result) {
-        recognizedText = result.recognizedWords;
-      },
-      listenFor: const Duration(seconds: 6),
-      pauseFor: const Duration(seconds: 6),
-      listenOptions: stt.SpeechListenOptions(
-        partialResults: false,
-        cancelOnError: false,
-      )
-    );
+        onResult: (result) {
+          recognizedText = result.recognizedWords;
+        },
+        listenFor: const Duration(seconds: 6),
+        pauseFor: const Duration(seconds: 6),
+        listenOptions: stt.SpeechListenOptions(
+          partialResults: false,
+          cancelOnError: false,
+        ));
 
     Future.delayed(const Duration(seconds: 6), () async {
       await _speech.stop();
@@ -181,16 +180,13 @@ class SnellanTestCubit extends Cubit<SnellanTestState> {
       api = true;
       String fraction = calculateVisionAcuity();
       ResponseModel response = await ml.getData(
-          'The Snellen chart test is a standard eye exam that measures how well you can see at a distance. The patient recently took this test and achieved a visual acuity of $fraction. Please provide a brief analysis in 2 lines of the patient’s visual acuity without a heading. Generate text as if you are talking directly to the patient. Consider if the vision is normal (6/6), slightly reduced (6/9), or progressively worse for lower fractions.'
-      );
+          'The Snellen chart test is a standard eye exam that measures how well you can see at a distance. The patient recently took this test and achieved a visual acuity of $fraction. Please provide a brief analysis in 2 lines of the patient’s visual acuity without a heading. Generate text as if you are talking directly to the patient. Consider if the vision is normal (6/6), slightly reduced (6/9), or progressively worse for lower fractions.');
 
       ResponseModel resp = await ml.getData(
-          'Also, provide recommendations in the form of points (without any heading or subheadings) with only 3 points. Generate text as if you are talking directly to the patient.'
-      );
+          'Also, provide recommendations in the form of points (without any heading or subheadings) with only 3 points. Generate text as if you are talking directly to the patient.');
 
       ResponseModel resp_ = await ml.getData(
-          'Additionally, mention any three potential impacts of reduced visual acuity in daily activities in form of points without headings or subheadings. Generate text as if you are talking directly to the patient.'
-      );
+          'Additionally, mention any three potential impacts of reduced visual acuity in daily activities in form of points without headings or subheadings. Generate text as if you are talking directly to the patient.');
       String date = getCurrentDateString();
       TestResultModel data = TestResultModel(
           email: sharedPrefs.email,
@@ -205,8 +201,7 @@ class SnellanTestCubit extends Cubit<SnellanTestState> {
       await testRepo.addTestRecord(data);
       testResults.add(data);
       api = false;
-    }
-    catch (e) {
+    } catch (e) {
       api = false;
     }
   }
@@ -240,7 +235,7 @@ class SnellanTestCubit extends Cubit<SnellanTestState> {
       case 7:
         return "6/6";
       default:
-        return "6/60";
+        return "6/6";
     }
   }
 }
