@@ -56,9 +56,9 @@ class ChangePassView extends StatelessWidget {
                     Text(
                       'Password',
                       style: TextStyle(
-                        fontFamily: 'MontserratMedium',
-                        fontWeight: FontWeight.w800,
-                        fontSize: screenWidth * 0.037,
+                        fontFamily: 'Montserrat',
+                        fontWeight: FontWeight.bold,
+                        fontSize: screenWidth * 0.045,
                       ),
                     ),
                     SizedBox(height: screenHeight * 0.01,),
@@ -99,9 +99,9 @@ class ChangePassView extends StatelessWidget {
                     Text(
                       'Confirm Password',
                       style: TextStyle(
-                        fontFamily: 'MontserratMedium',
-                        fontWeight: FontWeight.w800,
-                        fontSize: screenWidth * 0.037,
+                        fontFamily: 'Montserrat',
+                        fontWeight: FontWeight.bold,
+                        fontSize: screenWidth * 0.045,
                       ),
                     ),
                     SizedBox(height: screenHeight * 0.01,),
