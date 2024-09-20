@@ -17,7 +17,7 @@ class OnBoardingCubit extends Cubit<OnBoardingState> {
         "Timely identify eye diseases with our advanced detection tools."),
     OnBoardingContent(
         title: 'Eye Therapies',
-        image: 'assets/svgs/detect_img.svg',
+        image: 'assets/svgs/therapy_img.svg',
         discription:
         "Access personalized therapy plans to improve your eye health."),
     OnBoardingContent(
