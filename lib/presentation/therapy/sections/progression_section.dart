@@ -1,3 +1,4 @@
+import 'package:OculaCare/data/repositories/local/preferences/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shimmer/shimmer.dart';
@@ -22,7 +23,7 @@ class ProgressionSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<TherapyCubit>().mapTherapies(patientName);
+    context.read<TherapyCubit>().mapTherapies(sharedPrefs.email);
 
     return BlocBuilder<TherapyCubit, TherapyState>(
       builder: (context, state) {
@@ -66,7 +67,7 @@ class ProgressionSection extends StatelessWidget {
               ),
               SizedBox(height: screenHeight * 0.02),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 60.0, vertical: 10.0),
+                padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 10.0),
                 child: Container(
                   decoration: BoxDecoration(
                     color: AppColors.whiteColor,
