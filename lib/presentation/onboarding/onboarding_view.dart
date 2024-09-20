@@ -1,144 +1,170 @@
+import 'package:OculaCare/logic/sign_up_cubit/sign_up_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:OculaCare/configs/presentation/constants/colors.dart';
 import 'package:OculaCare/configs/routes/route_names.dart';
-import 'package:OculaCare/logic/sign_up_cubit/sign_up_cubit.dart';
-import 'package:OculaCare/presentation/sign_up/widgets/cstm_flat_btn.dart';
-import 'data_onboarding/content_model.dart';
+import '../../logic/onboarding/onboarding_cubit.dart';
+import '../../logic/onboarding/onboarding_state.dart';
 
-class OnBoardingScreen extends StatefulWidget {
-  const OnBoardingScreen({super.key});
-
-  @override
-  _OnBoardingScreenState createState() => _OnBoardingScreenState();
-}
-
-class _OnBoardingScreenState extends State<OnBoardingScreen> {
-  int currentIndex = 0;
-  late PageController _controller;
-
-  @override
-  void initState() {
-    _controller = PageController(initialPage: 0);
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
+class OnBoardingView extends StatelessWidget {
+  const OnBoardingView({super.key});
 
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.sizeOf(context).height;
+    double screenWidth = MediaQuery.sizeOf(context).width;
+    context.read<OnBoardingCubit>().setIndex(0);
     return Scaffold(
-      body: Column(
-        children: [
-          Expanded(
-            child: PageView.builder(
-              controller: _controller,
-              itemCount: contents.length,
-              onPageChanged: (int index) {
-                setState(() {
-                  currentIndex = index;
-                });
-              },
-              itemBuilder: (_, i) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 10.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(contents[i].image.toString()),
-                      SizedBox(height: screenHeight * 0.05,),
-                      Text(
-                        contents[i].title.toString(),
-                        style: TextStyle(
-                          fontFamily: 'Poppins',
-                          fontSize: 30.sp,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 1.0,
-                          color: AppColors.appColor,
+      backgroundColor: Colors.white,
+      body: BlocBuilder<OnBoardingCubit, OnBoardingState>(
+          builder: (context, state) {
+            if (state is OnBoardingLoaded) {
+              PageController controller =
+                  context.read<OnBoardingCubit>().pageController;
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: PageView.builder(
+                        controller: controller,
+                        itemCount: context.read<OnBoardingCubit>().contents.length,
+                        onPageChanged: (int index) {
+                          context.read<OnBoardingCubit>().setIndex(index);
+                        },
+                        itemBuilder: (_, i) {
+                          return Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SvgPicture.asset(
+                                context.read<OnBoardingCubit>().contents[i].image!,
+                                height: screenHeight * 0.35,
+                                fit: BoxFit.fitHeight,
+                              ),
+                              SizedBox(height: screenHeight * 0.04),
+                              Text(
+                                context.read<OnBoardingCubit>().contents[i].title!,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontFamily: 'MontserratMedium',
+                                  fontSize: screenWidth * 0.06,
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColors.appColor,
+                                ),
+                              ),
+                              SizedBox(height: screenHeight * 0.02),
+                              Text(
+                                context
+                                    .read<OnBoardingCubit>()
+                                    .contents[i]
+                                    .discription!,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontFamily: 'Montserrat',
+                                  fontSize: screenWidth * 0.037,
+                                  color: Colors.grey.shade900,
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: List.generate(
+                        context.read<OnBoardingCubit>().contents.length,
+                            (index) => buildDot(index, context),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        if (context.read<OnBoardingCubit>().currentIndex ==
+                            context.read<OnBoardingCubit>().contents.length - 1) {
+                          context.read<SignUpCubit>().loadSignUpScreen();
+                          context.go(RouteNames.signUpRoute, extra: 'boarding');
+                        }
+                        context.read<OnBoardingCubit>().pageController.nextPage(
+                          duration: const Duration(milliseconds: 100),
+                          curve: Curves.bounceIn,
+                        );
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 60.0, vertical: 40.0),
+                        child: Container(
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            color: AppColors.appColor,
+                            borderRadius: BorderRadius.circular(30.0),
+                            boxShadow: [
+                              BoxShadow(
+                                offset: const Offset(1, 1),
+                                blurRadius: 15,
+                                color: Colors.grey.withOpacity(0.66),
+                              ),
+                            ],
+                          ),
+                          child: Center(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 15.0,
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    context.read<OnBoardingCubit>().currentIndex ==
+                                        context
+                                            .read<OnBoardingCubit>()
+                                            .contents
+                                            .length -
+                                            1
+                                        ? 'Get Started'
+                                        : 'Next',
+                                    style: TextStyle(
+                                        fontFamily: 'Montserrat',
+                                        fontSize: screenWidth * 0.045,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w800),
+                                  ),
+                                  SizedBox(
+                                    width: screenWidth * 0.05,
+                                  ),
+                                  const Icon(
+                                    Icons.navigate_next_outlined,
+                                    color: Colors.white,
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
                         ),
                       ),
-                      SizedBox(height: screenHeight * 0.01),
-                      Text(
-                        contents[i].discription.toString(),
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 16.sp,
-                          color: AppColors.textGrey,
-                        ),
-                      )
-                    ],
-                  ),
-                );
-              },
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: List.generate(
-              contents.length,
-                  (index) => buildDot(index, context),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 30.0),
-            child: CustomFlatButton(
-              onTap: () {
-                if (currentIndex == contents.length - 1) {
-                  context.read<SignUpCubit>().loadSignUpScreen();
-                  context.push(RouteNames.signUpRoute, extra: 'boarding');
-                }
-                _controller.nextPage(
-                  duration: const Duration(milliseconds: 100),
-                  curve: Curves.easeOutCirc,
-                );
-              },
-              text: currentIndex == contents.length - 1 ? "Get Started" : "Next",
-              btnColor: AppColors.appColor,
-            ),
-          ),
-          // Container(
-          //   height: 60,
-          //   margin: const EdgeInsets.all(40),
-          //   width: double.infinity,
-          //   decoration: BoxDecoration(
-          //     color: AppColors.appColor,
-          //
-          //   ),
-          //   child: TextButton(
-          //     onPressed: () {
-          //       if (currentIndex == contents.length - 1) {
-          //         context.read<SignUpCubit>().loadSignUpScreen();
-          //         context.push(RouteNames.signUpRoute);
-          //       }
-          //       _controller.nextPage(
-          //         duration: const Duration(milliseconds: 100),
-          //         curve: Curves.easeOutCirc,
-          //       );
-          //     },
-          //     child: Text(
-          //         currentIndex == contents.length - 1 ? "Continue" : "Next"),
-          //   ),
-          // )
-        ],
-      ),
+                    ),
+                  ],
+                ),
+              );
+            } else {
+              return const SizedBox.shrink();
+            }
+          }),
     );
   }
 
   Container buildDot(int index, BuildContext context) {
     return Container(
       height: 10,
-      width: currentIndex == index ? 25 : 10,
+      width: context.read<OnBoardingCubit>().currentIndex == index ? 25 : 10,
       margin: const EdgeInsets.only(right: 5),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        color: AppColors.appColor,
+        color: context.read<OnBoardingCubit>().currentIndex == index
+            ? AppColors.appColor
+            : Colors.grey.shade800,
       ),
     );
   }
