@@ -427,7 +427,7 @@ class PatientProfileScreen extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 25.0),
                       child: ButtonFlat(
-                          btnColor: Colors.black,
+                          btnColor: AppColors.appColor,
                           textColor: Colors.white,
                           onPress: () {
                             context
@@ -451,8 +451,8 @@ class PatientProfileScreen extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 25.0),
                       child: ButtonFlat(
-                          btnColor: Colors.redAccent,
-                          textColor: Colors.white,
+                          btnColor: Colors.white,
+                          textColor: Colors.black,
                           onPress: () {
                             showModalBottomSheet(
                               context: context,
