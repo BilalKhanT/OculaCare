@@ -18,6 +18,7 @@ class TestReport extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(test.testScore);
     double screenHeight = MediaQuery.sizeOf(context).height;
     double screenWidth = MediaQuery.sizeOf(context).width;
     String? patientData = sharedPrefs.patientData;
@@ -179,7 +180,36 @@ class TestReport extends StatelessWidget {
                     ? TrackChart(
                         score: test.testScore,
                       )
-                    : SeverityChart(score: test.testScore),
+                    : test.testName == 'Snellan Chart'
+                        ? Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Image.asset(
+                                  'assets/images/result_test.png',
+                                  height: screenHeight * 0.15,
+                                ),
+                                SizedBox(
+                                  height: screenHeight * 0.01,
+                                ),
+                                Text(
+                                  '6/${test.testScore}',
+                                  style: TextStyle(
+                                    color: AppColors.appColor,
+                                    fontFamily: 'MontserratMedium',
+                                    fontWeight: FontWeight.w800,
+                                    fontSize: screenWidth * 0.04,
+                                    letterSpacing: 0.5,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: screenHeight * 0.02,
+                                ),
+                              ],
+                            ),
+                          )
+                        : SeverityChart(score: test.testScore),
                 Text(
                   'Analysis:',
                   style: TextStyle(
