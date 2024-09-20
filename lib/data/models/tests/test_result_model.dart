@@ -1,4 +1,5 @@
 class TestResultModel {
+  final String email;
   final String patientName;
   final String date;
   final String testType;
@@ -9,6 +10,7 @@ class TestResultModel {
   final String precautions;
 
   TestResultModel({
+    required this.email,
     required this.patientName,
     required this.date,
     required this.testType,
@@ -21,6 +23,7 @@ class TestResultModel {
 
   factory TestResultModel.fromJson(Map<String, dynamic> json) {
     return TestResultModel(
+      email: json['email'] ?? '',
       patientName: json['patient_name'] ?? '',
       date: json['date'] ?? '',
       testType: json['test_type'] ?? '',
@@ -34,6 +37,7 @@ class TestResultModel {
 
   Map<String, dynamic> toJson() {
     return {
+      'email': email,
       'patient_name': patientName,
       'date': date,
       'test_type': testType,
