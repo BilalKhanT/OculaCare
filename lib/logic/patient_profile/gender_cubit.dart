@@ -5,6 +5,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class GenderCubit extends Cubit<String?> {
   GenderCubit() : super(null);
 
+  dispose() {
+    emit(null);
+  }
+
   void selectGender(String gender, BuildContext context) {
     context.read<PatientProfileCubit>().setGender(gender);
     emit(gender);

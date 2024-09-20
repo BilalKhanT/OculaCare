@@ -321,6 +321,8 @@ class MoreView extends StatelessWidget {
                           onTap: () {
                             sharedPrefs.isLoggedIn = false;
                             sharedPrefs.isProfileSetup = false;
+                            sharedPrefs.patientData = '';
+                            sharedPrefs.userName = '';
                             context.read<LoginCubit>().loadLoginScreen();
                             context.go(RouteNames.loginRoute);
                           },

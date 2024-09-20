@@ -40,6 +40,12 @@ class SeverityChart extends StatelessWidget {
                     value: (10 - finalScore).toDouble(),
                     color: Colors.grey.shade800,
                     radius: 30,
+                    titleStyle: TextStyle(
+                      fontFamily: 'MontserratMedium',
+                      fontWeight: FontWeight.w800,
+                      fontSize: screenWidth * 0.035,
+                      color: Colors.white,
+                    ),
                   ),
                 ],
                 sectionsSpace: 5,

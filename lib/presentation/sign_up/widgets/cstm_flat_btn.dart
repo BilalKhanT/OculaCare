@@ -21,7 +21,7 @@ class CustomFlatButton extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           color: btnColor,
-          borderRadius: BorderRadius.circular(25.0),
+          borderRadius: BorderRadius.circular(8.0),
         ),
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 10.0),
@@ -29,7 +29,7 @@ class CustomFlatButton extends StatelessWidget {
             child: Text(
               text,
               style: TextStyle(
-                fontFamily: 'Poppins',
+                fontFamily: 'MontserratMedium',
                 fontSize: 20.sp,
                 fontWeight: FontWeight.w500,
                 color: Colors.white,

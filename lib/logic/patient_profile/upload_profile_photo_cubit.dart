@@ -11,6 +11,10 @@ class UploadProfilePhotoCubit extends Cubit<UploadProfilePhotoState> {
 
   XFile? image;
 
+  void dispose() {
+    image = null;
+  }
+
   uploadPhoto(BuildContext context) async {
     emit(UploadProfilePhotoStateLoading());
     final picker = ImagePicker();

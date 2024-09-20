@@ -1,5 +1,6 @@
 import 'package:OculaCare/configs/presentation/constants/colors.dart';
 import 'package:OculaCare/presentation/location/widget/location_set_view.dart';
+import 'package:OculaCare/presentation/widgets/cstm_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -14,20 +15,23 @@ class LocationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.screenBackground,
       appBar: AppBar(
+        backgroundColor: AppColors.screenBackground,
         leading: IconButton(
             onPressed: () {
               context.pop();
             },
             icon: const Icon(
-              Icons.arrow_back,
+              Icons.arrow_back_ios_new,
               size: 30,
+              color: AppColors.appColor,
             )),
         title: const Text(
           'Address',
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            fontFamily: 'Poppins',
+            fontFamily: 'MontserratMedium',
           ),
         ),
       ),
@@ -36,7 +40,7 @@ class LocationScreen extends StatelessWidget {
           builder: (context, state) {
             if (state is LocationLoading) {
               return const Center(
-                child: CircularProgressIndicator(color: AppColors.appColor),
+                child: DotLoader(loaderColor: AppColors.appColor),
               );
             } else if (state is LocationError) {
               return Center(

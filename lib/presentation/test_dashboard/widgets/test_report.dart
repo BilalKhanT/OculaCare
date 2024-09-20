@@ -1,5 +1,6 @@
+import 'dart:convert';
+
 import 'package:OculaCare/configs/presentation/constants/colors.dart';
-import 'package:OculaCare/configs/routes/route_names.dart';
 import 'package:OculaCare/data/models/tests/test_result_model.dart';
 import 'package:OculaCare/presentation/test_dashboard/widgets/severity_chart.dart';
 import 'package:OculaCare/presentation/test_dashboard/widgets/snellan_chart_widget.dart';
@@ -7,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../data/models/patient/patient_model.dart';
+import '../../../data/repositories/local/preferences/shared_prefs.dart';
 import '../../../logic/tests/test_dash_tab_cubit.dart';
 
 class TestReport extends StatelessWidget {
@@ -17,6 +20,9 @@ class TestReport extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.sizeOf(context).height;
     double screenWidth = MediaQuery.sizeOf(context).width;
+    String? patientData = sharedPrefs.patientData;
+    Map<String, dynamic> decodedData = jsonDecode(patientData);
+    Patient patient = Patient.fromJson(decodedData);
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
       appBar: AppBar(
@@ -33,7 +39,7 @@ class TestReport extends StatelessWidget {
         leading: IconButton(
             onPressed: () {
               context.read<TestDashTabCubit>().toggleTab(1);
-              context.push(RouteNames.testRoute);
+              context.pop();
             },
             icon: const Icon(
               Icons.arrow_back_ios_new,
@@ -79,17 +85,22 @@ class TestReport extends StatelessWidget {
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         border:
-                            Border.all(color: AppColors.appColor, width: 3.0),
+                            Border.all(color: AppColors.appColor, width: 1.5),
                       ),
                       child: ClipOval(
                         child: Container(
                           height: screenHeight * 0.1,
                           width: screenHeight * 0.1,
                           color: Colors.white,
-                          child: Image.asset(
-                            'assets/images/profile_place.png',
-                            fit: BoxFit.cover,
-                          ),
+                          child: patientData == ''
+                              ? Image.asset(
+                                  'assets/images/profile_place.png',
+                                  fit: BoxFit.cover,
+                                )
+                              : Image.memory(
+                                  base64Decode(patient.profileImage!),
+                                  fit: BoxFit.cover,
+                                ),
                         ),
                       ),
                     ),

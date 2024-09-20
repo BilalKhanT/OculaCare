@@ -1,10 +1,12 @@
 import 'package:OculaCare/logic/auth_cubit/auth_cubit.dart';
+import 'package:OculaCare/logic/detection/detection_cubit.dart';
 import 'package:OculaCare/logic/feedback_cubit/feedback_cubit.dart';
 import 'package:OculaCare/logic/image_capture/toggle_capture_btn_cubit.dart';
 import 'package:OculaCare/logic/keyboard_listener_cubit/keyboard_list_cubit.dart';
 import 'package:OculaCare/logic/location_cubit/location_cubit.dart';
 import 'package:OculaCare/logic/login_cubit/login_pass_cubit.dart';
 import 'package:OculaCare/logic/patient_profile/gender_cubit.dart';
+import 'package:OculaCare/logic/patient_profile/pass_cubit.dart';
 import 'package:OculaCare/logic/patient_profile/patient_profile_cubit.dart';
 import 'package:OculaCare/logic/patient_profile/upload_profile_photo_cubit.dart';
 import 'package:OculaCare/logic/pdf_cubit/pdf_cubit_state.dart';
@@ -153,6 +155,12 @@ class ProvideMultiBloc extends StatelessWidget {
           BlocProvider.of<TimerCubit>(context),
           BlocProvider.of<MusicCubit>(context))),
       BlocProvider(create: (context) => TherapyDashboardCubit()),
+      BlocProvider(
+        create: (context) => DetectionCubit(),
+      ),
+      BlocProvider(
+        create: (context) => PassCubit(),
+      ),
     ], child: child);
   }
 }

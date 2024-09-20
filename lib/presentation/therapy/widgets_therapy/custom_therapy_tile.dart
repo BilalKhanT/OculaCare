@@ -6,7 +6,8 @@ class TherapyTile extends StatelessWidget {
   final double screenHeight;
   final VoidCallback onTap;
 
-  const TherapyTile({super.key,
+  const TherapyTile({
+    super.key,
     required this.therapy,
     required this.screenHeight,
     required this.onTap,
@@ -25,13 +26,6 @@ class TherapyTile extends StatelessWidget {
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(15.0),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.1),
-                spreadRadius: 2,
-                blurRadius: 5,
-              ),
-            ],
           ),
           child: Row(
             children: [
@@ -77,20 +71,15 @@ class TherapyTile extends StatelessWidget {
                 padding: const EdgeInsets.only(right: 9.0),
                 child: Column(
                   children: [
-                    SizedBox(height: screenHeight * 0.092,),
+                    SizedBox(
+                      height: screenHeight * 0.092,
+                    ),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 5),
                       decoration: BoxDecoration(
                         color: AppColors.appColor,
                         borderRadius: BorderRadius.circular(15.0),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.5),
-                            spreadRadius: 2,
-                            blurRadius: 8,
-                            offset: const Offset(0, 3),
-                          ),
-                        ],
                       ),
                       child: Text(
                         "${therapy['timeLimit']} min",
@@ -98,8 +87,7 @@ class TherapyTile extends StatelessWidget {
                             fontFamily: 'Montserrat',
                             fontWeight: FontWeight.bold,
                             fontSize: screenWidth * 0.03,
-                            color: AppColors.whiteColor
-                        ),
+                            color: AppColors.whiteColor),
                       ),
                     ),
                   ],

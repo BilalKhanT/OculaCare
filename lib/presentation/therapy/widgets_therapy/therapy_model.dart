@@ -28,7 +28,7 @@ class TherapyModel extends StatelessWidget {
           },
           builder: (context, state) {
             return Container(
-              height: screenHeight * 0.65,
+              height: therapy['benefits'].length == 2 ? screenHeight * 0.65 : screenHeight * 0.66,
               width: screenWidth,
               decoration: const BoxDecoration(
                 color: AppColors.screenBackground,
@@ -104,7 +104,7 @@ class TherapyModel extends StatelessWidget {
                     Column(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                          padding: const EdgeInsets.symmetric(horizontal: 20.0),
                           child: ButtonFlat(
                             btnColor: AppColors.appColor,
                             textColor: AppColors.whiteColor,
@@ -120,7 +120,7 @@ class TherapyModel extends StatelessWidget {
                         ),
                         const SizedBox(height: 10),
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                          padding: const EdgeInsets.symmetric(horizontal: 20.0),
                           child: ButtonFlat(
                             btnColor: Colors.black,
                             textColor: AppColors.whiteColor,

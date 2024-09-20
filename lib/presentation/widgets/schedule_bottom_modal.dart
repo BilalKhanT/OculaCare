@@ -41,7 +41,7 @@ class ScheduleBottomModal extends StatelessWidget {
                       context.pop();
                     },
                     icon: const Icon(
-                      Icons.cancel_outlined,
+                      Icons.cancel_rounded,
                       color: Colors.redAccent,
                       size: 40.0,
                     ),
@@ -115,7 +115,7 @@ class ScheduleBottomModal extends StatelessWidget {
                       child: Text(
                         'Select',
                         style: TextStyle(
-                          color: AppColors.appColor,
+                          color: Colors.black,
                           fontFamily: 'MontserratMedium',
                           fontWeight: FontWeight.w900,
                           fontSize: screenWidth * 0.04,

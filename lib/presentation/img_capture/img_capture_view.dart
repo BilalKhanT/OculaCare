@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:OculaCare/presentation/widgets/cstm_loader.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -28,15 +29,15 @@ class ImageCaptureScreen extends StatelessWidget {
         backgroundColor: AppColors.screenBackground,
         appBar: AppBar(
           backgroundColor: AppColors.screenBackground,
-          title: Text(
-            'Image Capture',
-            style: TextStyle(
-              fontWeight: FontWeight.w700,
-              fontFamily: 'Poppins',
-              fontSize: 16.sp,
-              color: Colors.black,
-            ),
-          ),
+          // title: Text(
+          //   'Image Capture',
+          //   style: TextStyle(
+          //     color: Colors.black,
+          //     fontFamily: 'MontserratMedium',
+          //     fontWeight: FontWeight.w800,
+          //     fontSize: width * 0.05,
+          //   ),
+          // ),
           leading: IconButton(
             onPressed: () async {
               await context.read<ImageCaptureCubit>().dispose();
@@ -49,6 +50,48 @@ class ImageCaptureScreen extends StatelessWidget {
               color: AppColors.appColor,
             ),
           ),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 10.0),
+              child: GestureDetector(
+                onTap: () async {
+                  final pickedFile =
+                  await ImagePicker().pickImage(
+                    source: ImageSource.gallery,
+                    maxWidth: 1800,
+                    maxHeight: 1800,
+                    imageQuality: 85,
+                  );
+                  if (context.mounted) {
+                    context
+                        .read<ImageCaptureCubit>()
+                        .uploadEyeImage(pickedFile!);
+                  }
+                },
+                child: Row(
+                  children: [
+                    SvgPicture.asset(
+                      'assets/svgs/gallery.svg',
+                      // ignore: deprecated_member_use
+                      color: AppColors.appColor,
+                    ),
+                    const SizedBox(
+                      width: 6.0,
+                    ),
+                    Text(
+                      'Upload from Gallery',
+                      style: TextStyle(
+                        color: AppColors.appColor,
+                        fontFamily: 'MontserratMedium',
+                        fontWeight: FontWeight.w800,
+                        fontSize: width * 0.035,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            )
+          ],
         ),
         body: SizedBox(
           height: height,
@@ -57,8 +100,8 @@ class ImageCaptureScreen extends StatelessWidget {
             builder: (context, state) {
               if (state is ImageCaptureStateLoading) {
                 return const Center(
-                  child: CircularProgressIndicator(
-                    color: AppColors.appColor,
+                  child: DotLoader(
+                    loaderColor: AppColors.appColor,
                   ),
                 );
               } else if (state is ImageCaptureStateFailure) {
@@ -82,87 +125,82 @@ class ImageCaptureScreen extends StatelessWidget {
                           Center(
                             child: Column(
                               children: [
-                                SizedBox(height: 150.h,),
+                                SizedBox(
+                                  height: 150.h,
+                                ),
                                 Expanded(
                                   child: Column(
                                     children: [
                                       CustomPaint(
                                         foregroundPainter: BorderPainter(),
                                         child: SizedBox(
-                                          width: MediaQuery.sizeOf(context).width * 0.75,
-                                          height: MediaQuery.sizeOf(context).height * 0.175,
+                                          width:
+                                              width *
+                                                  0.75,
+                                          height: height *
+                                              0.175,
                                         ),
                                       ),
                                     ],
                                   ),
                                 ),
-                                // Expanded(
-                                //   child: Lottie.asset(
-                                //     "assets/lotties/face_scan.json",
-                                //     repeat: true,
-                                //   ),
-                                // ),
                                 disable == true
-                                    ? Text(
-                                        state.status == 1
-                                            ? ' No Face Detected'
-                                            : 'Please place eyes with in camera frame',
-                                        style: TextStyle(
-                                          fontSize: 16.sp,
-                                          fontFamily: 'Poppins',
-                                          color: Colors.red,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      )
+                                    ? Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: Colors.grey.withOpacity(0.1),
+                                  ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+                                        child: Text(
+                                            state.status == 1
+                                                ? ' No Face Detected'
+                                                : 'Please place eyes with in camera frame',
+                                            style: TextStyle(
+                                              fontSize: width * 0.035,
+                                              fontFamily: 'MontserratMedium',
+                                              fontWeight: FontWeight.w800,
+                                              color: Colors.red,
+                                            ),
+                                          ),
+                                      ),
+                                    )
                                     : const SizedBox.shrink(),
                                 Padding(
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 30.0, vertical: 20.0),
                                     child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         disable
-                                            ? Expanded(
-                                                child: CustomFlatButton(
-                                                  onTap: () {},
-                                                  text: 'Disabled',
-                                                  btnColor: Colors.grey,
+                                            ? Container(
+                                                height: 60,
+                                                width: 60,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          50.0),
+                                                  color: Colors.grey,
                                                 ),
                                               )
-                                            : Expanded(
-                                                child: CustomFlatButton(
-                                                  onTap: () {
-                                                    context
-                                                        .read<ImageCaptureCubit>()
-                                                        .captureEyeImage();
-                                                  },
-                                                  text: 'Capture',
-                                                  btnColor: AppColors.appColor,
+                                            : InkWell(
+                                                onTap: () {
+                                                  context
+                                                      .read<ImageCaptureCubit>()
+                                                      .captureEyeImage();
+                                                },
+                                                child: Container(
+                                                  height: 60,
+                                                  width: 60,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            50.0),
+                                                    color: AppColors.appColor,
+                                                  ),
                                                 ),
                                               ),
-                                        const SizedBox(
-                                          width: 10.0,
-                                        ),
-                                        GestureDetector(
-                                          onTap: () async {
-                                            final pickedFile =
-                                                await ImagePicker().pickImage(
-                                              source: ImageSource.gallery,
-                                              maxWidth: 1800,
-                                              maxHeight: 1800,
-                                              imageQuality: 85,
-                                            );
-                                            if (context.mounted) {
-                                              context
-                                                  .read<ImageCaptureCubit>()
-                                                  .uploadEyeImage(pickedFile!);
-                                            }
-                                          },
-                                          child: SvgPicture.asset('assets/svgs/gallery.svg',
-                                            height: 50.h,
-                                            width: 50.h,
-                                            // ignore: deprecated_member_use
-                                          color: Colors.grey.shade300,),
-                                        )
+
                                       ],
                                     )),
                               ],
@@ -231,7 +269,8 @@ class ImageCaptureScreen extends StatelessWidget {
                                                             50.0),
                                                   ),
                                                   child: const Icon(
-                                                    Icons.remove_red_eye_outlined,
+                                                    Icons
+                                                        .remove_red_eye_outlined,
                                                     color: Colors.white,
                                                   ),
                                                 ),
@@ -250,7 +289,8 @@ class ImageCaptureScreen extends StatelessWidget {
                                               ],
                                             ),
                                             const Icon(
-                                              Icons.keyboard_arrow_down_outlined,
+                                              Icons
+                                                  .keyboard_arrow_down_outlined,
                                               color: AppColors.appColor,
                                               size: 40.0,
                                             ),
@@ -261,8 +301,10 @@ class ImageCaptureScreen extends StatelessWidget {
                                           ? Row(
                                               children: <Widget>[
                                                 Padding(
-                                                  padding: const EdgeInsets.only(
-                                                      left: 10.0, bottom: 10.0),
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          left: 10.0,
+                                                          bottom: 10.0),
                                                   child: Image.file(
                                                     File(state.leftEye.path),
                                                     height: 150,
@@ -279,8 +321,8 @@ class ImageCaptureScreen extends StatelessWidget {
                                                             .read<
                                                                 ImageCaptureCubit>()
                                                             .downloadFile(
-                                                                state
-                                                                    .leftEye.path,
+                                                                state.leftEye
+                                                                    .path,
                                                                 'image');
                                                         if (context.mounted) {
                                                           AppUtils.showToast(
@@ -355,7 +397,8 @@ class ImageCaptureScreen extends StatelessWidget {
                                                             50.0),
                                                   ),
                                                   child: const Icon(
-                                                    Icons.remove_red_eye_outlined,
+                                                    Icons
+                                                        .remove_red_eye_outlined,
                                                     color: Colors.white,
                                                   ),
                                                 ),
@@ -374,7 +417,8 @@ class ImageCaptureScreen extends StatelessWidget {
                                               ],
                                             ),
                                             const Icon(
-                                              Icons.keyboard_arrow_down_outlined,
+                                              Icons
+                                                  .keyboard_arrow_down_outlined,
                                               color: AppColors.appColor,
                                               size: 40.0,
                                             ),
@@ -385,8 +429,10 @@ class ImageCaptureScreen extends StatelessWidget {
                                           ? Row(
                                               children: <Widget>[
                                                 Padding(
-                                                  padding: const EdgeInsets.only(
-                                                      left: 10.0, bottom: 10.0),
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          left: 10.0,
+                                                          bottom: 10.0),
                                                   child: Image.file(
                                                     File(state.rightEye.path),
                                                     height: 150,
