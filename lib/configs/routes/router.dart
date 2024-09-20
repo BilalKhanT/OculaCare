@@ -120,7 +120,7 @@ final router = GoRouter(
     GoRoute(
       parentNavigatorKey: navigatorKey,
       path: RouteNames.onBoardingRoute,
-      builder: (context, state) => const OnBoardingScreen(),
+      builder: (context, state) => const OnBoardingView(),
     ),
     GoRoute(
       parentNavigatorKey: navigatorKey,
