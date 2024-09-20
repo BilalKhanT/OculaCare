@@ -14,11 +14,27 @@
       },
       "oauth_client": [
         {
+          "client_id": "495205479847-6jq8jeg4lhn137kpdl1eof42j08ij0qn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.ocula_care",
+            "certificate_hash": "5c70ac3e141fcba8ffd5a95a18935a38d2b4f5b8"
+          }
+        },
+        {
           "client_id": "495205479847-autf19969tt8lfa2737njgvq4f47l248.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.ocula_care",
             "certificate_hash": "d0218278320e1a2694396387e82d68f8a78521b6"
+          }
+        },
+        {
+          "client_id": "495205479847-tdqboo4l9qag1obeb94b5f14fva9ba8o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.ocula_care",
+            "certificate_hash": "3532accce4b843156bd484e3b1e77f92158affa9"
           }
         },
         {
