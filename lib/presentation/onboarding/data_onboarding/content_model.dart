@@ -16,23 +16,6 @@ class EducationModel {
   });
 }
 
-List<OnBoardingContent> contents = [
-  OnBoardingContent(
-      title: 'Timely Detection',
-      image: 'assets/images/onboarding_vector.png',
-      discription:
-          "Timely identify eye diseases with our advanced detection tools."),
-  OnBoardingContent(
-      title: 'Therapies',
-      image: 'assets/images/onboarding_vector.png',
-      discription:
-          "Access personalized therapy plans to improve your eye health."),
-  OnBoardingContent(
-      title: 'Vision Tests',
-      image: 'assets/images/onboarding_vector.png',
-      discription:
-          "Take comprehensive vision tests to monitor your eye health."),
-];
 
 List<EducationModel> education = [
   EducationModel(
