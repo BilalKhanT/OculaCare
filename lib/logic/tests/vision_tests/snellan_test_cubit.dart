@@ -193,6 +193,7 @@ class SnellanTestCubit extends Cubit<SnellanTestState> {
       );
       String date = getCurrentDateString();
       TestResultModel data = TestResultModel(
+          email: sharedPrefs.email,
           patientName: sharedPrefs.userName,
           date: date,
           testType: 'Vision Acuity Test',
