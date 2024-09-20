@@ -674,7 +674,7 @@ class PatientProfileScreen extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 25.0),
                           child: ButtonFlat(
-                              btnColor: Colors.black,
+                              btnColor: AppColors.appColor,
                               textColor: Colors.white,
                               onPress: () async {
                                 if (formKeyB.currentState!.validate()) {
