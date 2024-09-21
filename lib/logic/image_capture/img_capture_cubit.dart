@@ -159,22 +159,27 @@ class ImageCaptureCubit extends Cubit<ImageCaptureState> {
     isCapturing = true;
     cameraController.stopImageStream();
     emit(ImageCaptureStateLoading());
-    InputImage eyeImage = InputImage.fromFilePath(image.path);
-    final List<Face>? faces = await faceDetector?.processImage(eyeImage);
-    if (faces != null) {
-      for (Face face in faces!) {
-        final FaceLandmark? leftEye = face.landmarks[FaceLandmarkType.leftEye];
-        final FaceLandmark? rightEye = face.landmarks[FaceLandmarkType.rightEye];
-        if (leftEye != null && rightEye != null) {
-          await cropImage(leftEye.position, rightEye.position, image);
-        }
-        else {
-          emit(ImageCaptureStateLoaded(false, 0));
+    try {
+      InputImage eyeImage = InputImage.fromFilePath(image.path);
+      final List<Face>? faces = await faceDetector?.processImage(eyeImage);
+      if (faces != null) {
+        for (Face face in faces) {
+          final FaceLandmark? leftEye = face.landmarks[FaceLandmarkType.leftEye];
+          final FaceLandmark? rightEye = face.landmarks[FaceLandmarkType.rightEye];
+          if (leftEye != null && rightEye != null) {
+            await cropImage(leftEye.position, rightEye.position, image);
+          }
+          else {
+            emit(ImageCaptureStateFailure('Error'));
+          }
         }
       }
+      else {
+        emit(ImageCaptureStateFailure('Error'));
+      }
     }
-    else {
-      emit(ImageCaptureStateLoaded(false, 0));
+    catch (e) {
+      emit(ImageCaptureStateFailure('Error'));
     }
   }
 
@@ -208,18 +213,8 @@ class ImageCaptureCubit extends Cubit<ImageCaptureState> {
     XFile leftEyeXFile = XFile(newPathLeft);
     XFile rightEyeXFile = XFile(newPathRight);
 
-    emit(ImagesCropped(leftEyeXFile, rightEyeXFile, false, false));
+    emit(ImagesCropped(leftEyeXFile, rightEyeXFile,));
     isCapturing = false;
-  }
-
-  void switchButtonLeft(XFile left, XFile right, bool leftFlag, bool rightFlag) {
-    emit(ImageCaptureStateLoading());
-    emit(ImagesCropped(left, right, leftFlag, rightFlag));
-  }
-
-  void switchButtonRight(XFile left, XFile right, bool leftFlag, bool rightFlag) {
-    emit(ImageCaptureStateLoading());
-    emit(ImagesCropped(left, right, leftFlag, rightFlag));
   }
 
   Future<bool> downloadFile(String path, String suggestedName) async {
@@ -247,17 +242,16 @@ class ImageCaptureCubit extends Cubit<ImageCaptureState> {
         body: json.encode(payload),
       );
       if (response.statusCode == 200) {
-        print('success');
         var data = jsonDecode(response.body);
         DiseaseResultModel result = DiseaseResultModel.fromJson(data);
         globalResults.add(result);
       }
       else{
-        print("Nothing ${response.statusCode}");
+        debugPrint("Nothing ${response.statusCode}");
       }
     }
     catch(e) {
-      print('error $e');
+      debugPrint('error $e');
     }
   }
 
