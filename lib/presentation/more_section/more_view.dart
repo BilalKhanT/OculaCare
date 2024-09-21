@@ -1,3 +1,4 @@
+import 'package:OculaCare/configs/utils/utils.dart';
 import 'package:OculaCare/logic/image_capture/img_capture_cubit.dart';
 import 'package:OculaCare/logic/login_cubit/login_cubit.dart';
 import 'package:OculaCare/logic/patient_profile/patient_profile_cubit.dart';
@@ -6,10 +7,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../configs/presentation/constants/colors.dart';
 import '../../configs/routes/route_names.dart';
 import '../../data/repositories/local/preferences/shared_prefs.dart';
+import '../../logic/detection/detection_cubit.dart';
 import '../../logic/pdf_cubit/pdf_cubit_state.dart';
 import '../widgets/need_to_setup_profile_widget.dart';
 
@@ -148,7 +151,7 @@ class MoreView extends StatelessWidget {
                               text: "Address Book",
                               icon: "assets/svgs/bookmark_hospital.svg",
                               onTap: () {
-
+                                AppUtils.showToast(context, 'Feature Under Development', 'This feature will be available in next version', false);
                               },
                             ),
                             divider(),
@@ -165,7 +168,7 @@ class MoreView extends StatelessWidget {
                                   );
                                   return;
                                 } else {
-                                  // context.push(RouteNames.addPaymentMethod);
+                                  AppUtils.showToast(context, 'Feature Under Development', 'This feature will be available in next version', false);
                                 }
                               },
                             ),
@@ -183,7 +186,7 @@ class MoreView extends StatelessWidget {
                                   );
                                   return;
                                 } else {
-                                  // context.push(RouteNames);
+                                  AppUtils.showToast(context, 'Feature Under Development', 'This feature will be available in next version', false);
                                 }
                               },
                             ),
@@ -201,6 +204,7 @@ class MoreView extends StatelessWidget {
                                   );
                                   return;
                                 } else {
+                                  context.read<DetectionCubit>().loadDiseaseResults();
                                   context.push(RouteNames.resultRoute);
                                 }
                               },
@@ -222,21 +226,6 @@ class MoreView extends StatelessWidget {
                             borderRadius: BorderRadius.circular(10)),
                         child: Column(
                           children: [
-                            // MoreTab(
-                            //   text: "FAQs",
-                            //   icon: "assets/svgs/faq.svg",
-                            //   onTap: () async {
-                            //     // const url =
-                            //     //     "https://almeeraloyalty.com/portal/Index.aspx?MenuId=6&LanguageId=1";
-                            //     // Uri faqLaunchUrl = Uri.parse(
-                            //     //   url,
-                            //     // );
-                            //     // if (await canLaunchUrl(faqLaunchUrl)) {
-                            //     //   await launchUrl(faqLaunchUrl);
-                            //     // }
-                            //   },
-                            // ),
-                            // divider(),
                             MoreTab(
                               text: "Feedback",
                               icon: "assets/svgs/feedback.svg",
@@ -248,8 +237,15 @@ class MoreView extends StatelessWidget {
                             MoreTab(
                               text: "Partners",
                               icon: "assets/svgs/partners.svg",
-                              onTap: () {
-                                // context.push(RouteNames.partnerRoute);
+                              onTap: () async {
+                                const url =
+                                    'https://oculastatic.web.app/partners.html';
+                                Uri privacyPolicyLaunchUrl = Uri.parse(
+                                  url,
+                                );
+                                if (await canLaunchUrl(privacyPolicyLaunchUrl)) {
+                                await launchUrl(privacyPolicyLaunchUrl);
+                                }
                               },
                             ),
                             divider(),
@@ -257,14 +253,14 @@ class MoreView extends StatelessWidget {
                               text: "Terms and Conditions",
                               icon: "assets/svgs/terms-and-conditions.svg",
                               onTap: () async {
-                                // const url =
-                                //     "https://almeeraloyalty.com/portal/Index.aspx?MenuId=6&LanguageId=1";
-                                // Uri tcLaunchUrl = Uri.parse(
-                                //   url,
-                                // );
-                                // if (await canLaunchUrl(tcLaunchUrl)) {
-                                //   await launchUrl(tcLaunchUrl);
-                                // }
+                                const url =
+                                    'https://oculastatic.web.app/terms_conditions.html';
+                                Uri tcLaunchUrl = Uri.parse(
+                                  url,
+                                );
+                                if (await canLaunchUrl(tcLaunchUrl)) {
+                                  await launchUrl(tcLaunchUrl);
+                                }
                               },
                             ),
                             divider(),
@@ -272,14 +268,14 @@ class MoreView extends StatelessWidget {
                               text: "Privacy Policy",
                               icon: "assets/svgs/privacy-policy.svg",
                               onTap: () async {
-                                // const url =
-                                //     "https://almeeraloyalty.com/portal/Index.aspx?MenuId=15";
-                                // Uri privacyPolicyLaunchUrl = Uri.parse(
-                                //   url,
-                                // );
-                                // if (await canLaunchUrl(privacyPolicyLaunchUrl)) {
-                                //   await launchUrl(privacyPolicyLaunchUrl);
-                                // }
+                                const url =
+                                    'https://oculastatic.web.app/privacy_policy.html';
+                                Uri privacyPolicyLaunchUrl = Uri.parse(
+                                  url,
+                                );
+                                if (await canLaunchUrl(privacyPolicyLaunchUrl)) {
+                                  await launchUrl(privacyPolicyLaunchUrl);
+                                }
                               },
                             ),
                           ],
