@@ -62,80 +62,74 @@ class ScheduledTherapies extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: () {
-                              context
-                                  .read<TherapyScheduleTabCubit>()
-                                  .toggleTab(0);
-                              context
-                                  .read<TherapyScheduleCubit>()
-                                  .loadGeneralTherapies();
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                border: Border(
-                                  bottom: BorderSide(
-                                    color: generalSelected
-                                        ? AppColors.appColor
-                                        : Colors.transparent,
-                                    width: 4.0,
-                                  ),
-                                ),
-                              ),
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 1.0),
-                              child: Text(
-                                'General Therapy',
-                                style: TextStyle(
-                                  fontFamily: 'MontserratMedium',
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: screenWidth * 0.045,
+                        GestureDetector(
+                          onTap: () {
+                            context
+                                .read<TherapyScheduleTabCubit>()
+                                .toggleTab(0);
+                            context
+                                .read<TherapyScheduleCubit>()
+                                .loadGeneralTherapies();
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              border: Border(
+                                bottom: BorderSide(
                                   color: generalSelected
                                       ? AppColors.appColor
-                                      : Colors.black,
+                                      : Colors.transparent,
+                                  width: 4.0,
                                 ),
-                                overflow: TextOverflow.ellipsis,
                               ),
+                            ),
+                            padding: const EdgeInsets.symmetric(vertical: 1.0),
+                            child: Text(
+                              'General',
+                              style: TextStyle(
+                                fontFamily: 'MontserratMedium',
+                                fontWeight: FontWeight.w700,
+                                fontSize: screenWidth * 0.045,
+                                color: generalSelected
+                                    ? AppColors.appColor
+                                    : Colors.black,
+                              ),
+                              overflow: TextOverflow.ellipsis,
                             ),
                           ),
                         ),
                         const SizedBox(width: 10),
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: () {
-                              context
-                                  .read<TherapyScheduleTabCubit>()
-                                  .toggleTab(1);
-                              context
-                                  .read<TherapyScheduleCubit>()
-                                  .loadDiseaseSpecificTherapies();
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                border: Border(
-                                  bottom: BorderSide(
-                                    color: diseaseSpecificSelected
-                                        ? AppColors.appColor
-                                        : Colors.transparent,
-                                    width: 4.0,
-                                  ),
-                                ),
-                              ),
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 1.0),
-                              child: Text(
-                                'Disease Specific Therapy',
-                                style: TextStyle(
-                                  fontFamily: 'MontserratMedium',
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: screenWidth * 0.045,
+                        GestureDetector(
+                          onTap: () {
+                            context
+                                .read<TherapyScheduleTabCubit>()
+                                .toggleTab(1);
+                            context
+                                .read<TherapyScheduleCubit>()
+                                .loadDiseaseSpecificTherapies();
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              border: Border(
+                                bottom: BorderSide(
                                   color: diseaseSpecificSelected
                                       ? AppColors.appColor
-                                      : Colors.black,
+                                      : Colors.transparent,
+                                  width: 4.0,
                                 ),
-                                overflow: TextOverflow.ellipsis,
                               ),
+                            ),
+                            padding: const EdgeInsets.symmetric(vertical: 1.0),
+                            child: Text(
+                              'Disease Specific',
+                              style: TextStyle(
+                                fontFamily: 'MontserratMedium',
+                                fontWeight: FontWeight.w700,
+                                fontSize: screenWidth * 0.045,
+                                color: diseaseSpecificSelected
+                                    ? AppColors.appColor
+                                    : Colors.black,
+                              ),
+                              overflow: TextOverflow.ellipsis,
                             ),
                           ),
                         ),
@@ -177,6 +171,7 @@ class ScheduledTherapies extends StatelessWidget {
                                   padding: const EdgeInsets.symmetric(
                                       vertical: 10.0),
                                   child: Slidable(
+                                    key: const ValueKey(0),
                                     endActionPane: ActionPane(
                                       motion: const StretchMotion(),
                                       children: [
@@ -184,81 +179,93 @@ class ScheduledTherapies extends StatelessWidget {
                                           onPressed: (context) => context
                                               .read<TherapyScheduleCubit>()
                                               .removeScheduledTherapy(
-                                                  '${state.scheduledTherapies[index]['id']}'),
+                                                  '${state.scheduledTherapies[index]['id']}',
+                                                  state.scheduledTherapies[
+                                                                  index]
+                                                              ['category'] !=
+                                                          'General'
+                                                      ? false
+                                                      : true),
                                           icon: Icons.delete,
                                           backgroundColor:
                                               const Color(0xffB81736),
                                         )
                                       ],
                                     ),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(10),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.grey.withOpacity(0.5),
-                                            spreadRadius: 2,
-                                            blurRadius: 8,
-                                            offset: const Offset(0, 3),
-                                          ),
-                                        ],
-                                      ),
-                                      child: Row(
-                                        children: [
-                                          Expanded(
-                                            child: Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 15.0,
-                                                  top: 10.0,
-                                                  bottom: 10.0),
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: <Widget>[
-                                                  Text(
-                                                    '${state.scheduledTherapies[index]['title']}',
-                                                    style: TextStyle(
-                                                      color: AppColors.appColor,
-                                                      fontFamily:
-                                                          'MontserratMedium',
-                                                      fontWeight:
-                                                          FontWeight.w900,
-                                                      fontSize:
-                                                          screenWidth * 0.04,
+                                    child: Builder(
+                                      builder: (context) => Container(
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        ),
+                                        child: Row(
+                                          children: [
+                                            Expanded(
+                                              child: Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 15.0,
+                                                    top: 10.0,
+                                                    bottom: 10.0),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: <Widget>[
+                                                    Text(
+                                                      '${state.scheduledTherapies[index]['title']}',
+                                                      style: TextStyle(
+                                                        color:
+                                                            AppColors.appColor,
+                                                        fontFamily:
+                                                            'MontserratMedium',
+                                                        fontWeight:
+                                                            FontWeight.w900,
+                                                        fontSize:
+                                                            screenWidth * 0.04,
+                                                      ),
                                                     ),
-                                                  ),
-                                                  const SizedBox(height: 5),
-                                                  Text(
-                                                    'Time:',
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontFamily:
-                                                          'MontserratMedium',
-                                                      fontWeight:
-                                                          FontWeight.w900,
-                                                      fontSize:
-                                                          screenWidth * 0.04,
+                                                    const SizedBox(height: 5),
+                                                    Text(
+                                                      'Time:',
+                                                      style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontFamily:
+                                                            'MontserratMedium',
+                                                        fontWeight:
+                                                            FontWeight.w900,
+                                                        fontSize:
+                                                            screenWidth * 0.04,
+                                                      ),
                                                     ),
-                                                  ),
-                                                  Text(
-                                                    '${state.scheduledTherapies[index]['time']}',
-                                                    style: TextStyle(
-                                                      color:
-                                                          Colors.grey.shade700,
-                                                      fontFamily:
-                                                          'MontserratMedium',
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      fontSize:
-                                                          screenWidth * 0.035,
+                                                    Text(
+                                                      '${state.scheduledTherapies[index]['time']}',
+                                                      style: TextStyle(
+                                                        color: Colors
+                                                            .grey.shade700,
+                                                        fontFamily:
+                                                            'MontserratMedium',
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        fontSize:
+                                                            screenWidth * 0.035,
+                                                      ),
                                                     ),
-                                                  ),
-                                                ],
+                                                  ],
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                        ],
+                                            IconButton(
+                                              onPressed: () {
+                                                Slidable.of(context)
+                                                    ?.openEndActionPane();
+                                              },
+                                              icon: const Icon(
+                                                  Icons.delete_outlined),
+                                              color: Colors.red,
+                                              iconSize: 32,
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
