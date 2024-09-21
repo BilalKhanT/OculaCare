@@ -41,7 +41,6 @@ class TherapyRepository {
         }).toList();
 
         globalTherapies = therapies;
-        print(globalTherapies);
       } else {
         throw Exception('Failed to load therapy records');
       }
