@@ -168,7 +168,7 @@ class ScheduledTests extends StatelessWidget {
                         )
                       : Padding(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 10.0, vertical: 5.0),
+                              horizontal: 5.0, vertical: 0.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
@@ -183,6 +183,7 @@ class ScheduledTests extends StatelessWidget {
                                       padding: const EdgeInsets.symmetric(
                                           vertical: 10.0),
                                       child: Slidable(
+                                        key: const ValueKey(0),
                                         endActionPane: ActionPane(
                                           motion: const StretchMotion(),
                                           children: [
@@ -198,82 +199,86 @@ class ScheduledTests extends StatelessWidget {
                                             )
                                           ],
                                         ),
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                color: Colors.grey
-                                                    .withOpacity(0.5),
-                                                spreadRadius: 2,
-                                                blurRadius: 8,
-                                                offset: const Offset(0, 3),
-                                              ),
-                                            ],
-                                          ),
-                                          child: Row(
-                                            children: [
-                                              Expanded(
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: 15.0,
-                                                          top: 10.0,
-                                                          bottom: 10.0),
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: <Widget>[
-                                                      Text(
-                                                        '${state.scheduledNotifications[index]['title']}',
-                                                        style: TextStyle(
-                                                          color: AppColors
-                                                              .appColor,
-                                                          fontFamily:
-                                                              'MontserratMedium',
-                                                          fontWeight:
-                                                              FontWeight.w900,
-                                                          fontSize:
-                                                              screenWidth *
-                                                                  0.04,
+                                        child: Builder(
+                                          builder: (context) => Container(
+                                            decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                            ),
+                                            child: Row(
+                                              children: [
+                                                Expanded(
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            left: 15.0,
+                                                            top: 10.0,
+                                                            bottom: 10.0),
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: <Widget>[
+                                                        Text(
+                                                          '${state.scheduledNotifications[index]['title']}',
+                                                          style: TextStyle(
+                                                            color: AppColors
+                                                                .appColor,
+                                                            fontFamily:
+                                                                'MontserratMedium',
+                                                            fontWeight:
+                                                                FontWeight.w900,
+                                                            fontSize:
+                                                                screenWidth *
+                                                                    0.04,
+                                                          ),
                                                         ),
-                                                      ),
-                                                      const SizedBox(height: 5),
-                                                      Text(
-                                                        'Time:',
-                                                        style: TextStyle(
-                                                          color: Colors.black,
-                                                          fontFamily:
-                                                              'MontserratMedium',
-                                                          fontWeight:
-                                                              FontWeight.w900,
-                                                          fontSize:
-                                                              screenWidth *
-                                                                  0.04,
+                                                        const SizedBox(
+                                                            height: 5),
+                                                        Text(
+                                                          'Time:',
+                                                          style: TextStyle(
+                                                            color: Colors.black,
+                                                            fontFamily:
+                                                                'MontserratMedium',
+                                                            fontWeight:
+                                                                FontWeight.w900,
+                                                            fontSize:
+                                                                screenWidth *
+                                                                    0.04,
+                                                          ),
                                                         ),
-                                                      ),
-                                                      Text(
-                                                        '${state.scheduledNotifications[index]['time']}',
-                                                        style: TextStyle(
-                                                          color: Colors
-                                                              .grey.shade700,
-                                                          fontFamily:
-                                                              'MontserratMedium',
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          fontSize:
-                                                              screenWidth *
-                                                                  0.035,
+                                                        Text(
+                                                          '${state.scheduledNotifications[index]['time']}',
+                                                          style: TextStyle(
+                                                            color: Colors
+                                                                .grey.shade700,
+                                                            fontFamily:
+                                                                'MontserratMedium',
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                            fontSize:
+                                                                screenWidth *
+                                                                    0.035,
+                                                          ),
                                                         ),
-                                                      ),
-                                                    ],
+                                                      ],
+                                                    ),
                                                   ),
                                                 ),
-                                              ),
-                                            ],
+                                                IconButton(
+                                                  onPressed: () {
+                                                    Slidable.of(context)?.openEndActionPane();
+                                                  },
+                                                  icon: const Icon(
+                                                      Icons
+                                                      .delete_outlined),
+                                                  color: Colors.red,
+                                                  iconSize: 32,
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -307,7 +312,7 @@ class ScheduledTests extends StatelessWidget {
                         )
                       : Padding(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 10.0, vertical: 5.0),
+                              horizontal: 5.0, vertical: 0.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
@@ -322,6 +327,7 @@ class ScheduledTests extends StatelessWidget {
                                       padding: const EdgeInsets.symmetric(
                                           vertical: 10.0),
                                       child: Slidable(
+                                        key: const ValueKey(0),
                                         endActionPane: ActionPane(
                                           motion: const StretchMotion(),
                                           children: [
@@ -337,82 +343,85 @@ class ScheduledTests extends StatelessWidget {
                                             )
                                           ],
                                         ),
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                color: Colors.grey
-                                                    .withOpacity(0.5),
-                                                spreadRadius: 2,
-                                                blurRadius: 8,
-                                                offset: const Offset(0, 3),
-                                              ),
-                                            ],
-                                          ),
-                                          child: Row(
-                                            children: [
-                                              Expanded(
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: 15.0,
-                                                          top: 10.0,
-                                                          bottom: 10.0),
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: <Widget>[
-                                                      Text(
-                                                        '${state.scheduledNotifications[index]['title']}',
-                                                        style: TextStyle(
-                                                          color: AppColors
-                                                              .appColor,
-                                                          fontFamily:
-                                                              'MontserratMedium',
-                                                          fontWeight:
-                                                              FontWeight.w900,
-                                                          fontSize:
-                                                              screenWidth *
-                                                                  0.04,
+                                        child: Builder(
+                                          builder: (context) => Container(
+                                            decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                            ),
+                                            child: Row(
+                                              children: [
+                                                Expanded(
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            left: 15.0,
+                                                            top: 10.0,
+                                                            bottom: 10.0),
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: <Widget>[
+                                                        Text(
+                                                          '${state.scheduledNotifications[index]['title']}',
+                                                          style: TextStyle(
+                                                            color: AppColors
+                                                                .appColor,
+                                                            fontFamily:
+                                                                'MontserratMedium',
+                                                            fontWeight:
+                                                                FontWeight.w900,
+                                                            fontSize:
+                                                                screenWidth *
+                                                                    0.04,
+                                                          ),
                                                         ),
-                                                      ),
-                                                      const SizedBox(height: 5),
-                                                      Text(
-                                                        'Time:',
-                                                        style: TextStyle(
-                                                          color: Colors.black,
-                                                          fontFamily:
-                                                              'MontserratMedium',
-                                                          fontWeight:
-                                                              FontWeight.w900,
-                                                          fontSize:
-                                                              screenWidth *
-                                                                  0.04,
+                                                        const SizedBox(height: 5),
+                                                        Text(
+                                                          'Time:',
+                                                          style: TextStyle(
+                                                            color: Colors.black,
+                                                            fontFamily:
+                                                                'MontserratMedium',
+                                                            fontWeight:
+                                                                FontWeight.w900,
+                                                            fontSize:
+                                                                screenWidth *
+                                                                    0.04,
+                                                          ),
                                                         ),
-                                                      ),
-                                                      Text(
-                                                        '${state.scheduledNotifications[index]['time']}',
-                                                        style: TextStyle(
-                                                          color: Colors
-                                                              .grey.shade700,
-                                                          fontFamily:
-                                                              'MontserratMedium',
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          fontSize:
-                                                              screenWidth *
-                                                                  0.035,
+                                                        Text(
+                                                          '${state.scheduledNotifications[index]['time']}',
+                                                          style: TextStyle(
+                                                            color: Colors
+                                                                .grey.shade700,
+                                                            fontFamily:
+                                                                'MontserratMedium',
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                            fontSize:
+                                                                screenWidth *
+                                                                    0.035,
+                                                          ),
                                                         ),
-                                                      ),
-                                                    ],
+                                                      ],
+                                                    ),
                                                   ),
                                                 ),
-                                              ),
-                                            ],
+                                                IconButton(
+                                                  onPressed: () {
+                                                    Slidable.of(context)?.openEndActionPane();
+                                                  },
+                                                  icon: const Icon(
+                                                      Icons
+                                                          .delete_outlined),
+                                                  color: Colors.red,
+                                                  iconSize: 32,
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       ),
