@@ -102,6 +102,7 @@ class TestGraphProgress extends StatelessWidget {
               height: screenHeight * 0.03,
             ),
             ProgressChartScreen(
+              test: context.read<TestProgressionCubit>().selectedTest,
               testScores: score,
             )
           ],
