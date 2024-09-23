@@ -109,7 +109,7 @@ class AnimalGameInitial extends StatelessWidget {
                 ),
                 SizedBox(height: screenHeight * 0.02),
                 ButtonFlat(
-                  btnColor: Colors.black,
+                  btnColor: AppColors.secondaryBtnColor,
                   textColor: Colors.white,
                   onPress: () {
                     showModalBottomSheet(
