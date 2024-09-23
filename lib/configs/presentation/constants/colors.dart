@@ -4,7 +4,7 @@ class AppColors {
   AppColors._();
   static const screenBackground = Color(0xFFF1F3F4);
   static const appColor = Color(0xFF034694);
-  static const secondaryBtnColor = Color(0xFFB0C4DE);
+  static const secondaryBtnColor = Colors.black;
   static const whiteColor = Color(0xFFFFFFFF);
   static final textGrey = Colors.grey.shade700;
   static const Color textPrimary = Colors.black;
