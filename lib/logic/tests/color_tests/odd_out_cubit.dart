@@ -136,7 +136,7 @@ class OddOutCubit extends Cubit<OddOutState> {
         selectedIndex: index,
       ));
       _isHandlingSelection = false;
-      if (questions > 10) {
+      if (questions >= 10) {
         endGame();
       } else {
         Future.delayed(const Duration(milliseconds: 200), _nextQuestion);
@@ -169,6 +169,15 @@ class OddOutCubit extends Cubit<OddOutState> {
     DateFormat formatter = DateFormat('dd-MM-yyyy');
     String formattedDate = formatter.format(now);
     return formattedDate;
+  }
+
+  void end() {
+    _audioPlayer.stop();
+    _errorPlayer.stop();
+    _successPlayer.stop();
+    emit(OddOutState.initial()
+        .copyWith(status: OddOutStatus.gameOver, score: state.score));
+    _timer?.cancel();
   }
 
   void endGame() async {
