@@ -38,7 +38,7 @@ class TestDashView extends StatelessWidget {
           color: AppColors.appColor.withOpacity(0.4));
     } else if (testName == 'Contrast Sensitivity') {
       return HistoryArgsModel(
-          imagePath: 'aassets/images/contrast_test.png',
+          imagePath: 'assets/images/contrast_test.png',
           color: Colors.grey.withOpacity(0.4));
     } else if (testName == 'Animal Track') {
       return HistoryArgsModel(
@@ -672,15 +672,15 @@ class TestDashView extends StatelessWidget {
                       ),
                     );
                   } else if (state is TestProgression) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            height: screenHeight * 0.02,
-                          ),
-                          Text(
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: screenHeight * 0.02,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                          child: Text(
                             'Tests Progress',
                             style: TextStyle(
                                 fontFamily: 'MontserratMedium',
@@ -688,18 +688,18 @@ class TestDashView extends StatelessWidget {
                                 fontSize: screenWidth * 0.045,
                                 color: AppColors.appColor),
                           ),
-                          SizedBox(
-                            height: screenHeight * 0.03,
-                          ),
-                          Center(
-                              child: ProgressCalendarScreen(
-                                  data: state.progressData)),
-                          SizedBox(
-                            height: screenHeight * 0.035,
-                          ),
-                          const TestGraphProgress(),
-                        ],
-                      ),
+                        ),
+                        SizedBox(
+                          height: screenHeight * 0.03,
+                        ),
+                        Center(
+                            child: ProgressCalendarScreen(
+                                data: state.progressData)),
+                        SizedBox(
+                          height: screenHeight * 0.035,
+                        ),
+                        const TestGraphProgress(),
+                      ],
                     );
                   } else {
                     return const SizedBox.shrink();
