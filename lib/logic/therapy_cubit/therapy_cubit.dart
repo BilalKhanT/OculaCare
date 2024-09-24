@@ -29,7 +29,8 @@ class TherapyCubit extends Cubit<TherapyState> {
   Future<void> loadTherapyHistory(String patientName) async {
     emit(TherapyLoading());
     try {
-      if (globalTherapies.isEmpty) {
+      if (globalTherapies.isEmpty || sharedPrefs.therapyFetched == false) {
+        sharedPrefs.therapyFetched = true;
         await therapyRepository.getTherapyRecord(patientName);
       }
         emit(TherapyHistoryLoaded(globalTherapies));
@@ -548,25 +549,6 @@ class TherapyCubit extends Cubit<TherapyState> {
 
       if (isSaved) {
         globalTherapies.add(newTherapy);
-        DateTime date = DateFormat('dd-MM-yyyy').parse(newTherapy.date);
-
-        // Update globalTherapyProgressData
-        globalTherapyProgressData.update(
-          date,
-              (existingDuration) => existingDuration + newTherapy.duration,
-          ifAbsent: () => newTherapy.duration,
-        );
-
-        if (categoryDateTherapyCount.containsKey(newTherapy.therapyType)) {
-          categoryDateTherapyCount[newTherapy.therapyType]!.update(
-            date,
-                (existingCount) => existingCount + 1,
-            ifAbsent: () => 1,
-          );
-        } else {
-          categoryDateTherapyCount[newTherapy.therapyType] = {date: 1};
-        }
-
         emit(TherapyHistoryLoaded(globalTherapies));
         emit(TherapyProgressionLoaded(globalTherapyProgressData));
         emit(TherapyCompleted(therapyTitle: title));

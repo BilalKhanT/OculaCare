@@ -102,14 +102,11 @@ class TherapyBarChart extends StatelessWidget {
                 fontWeight: FontWeight.bold,
                 fontSize: 14,
               );
-
-              // Get the category name based on the index
-              String category =
-                  categoryDateTherapyCount.keys.toList()[value.toInt()];
-
-              // Map the full category name to its abbreviation
+              if (value.toInt() < 0 || value.toInt() >= categoryAbbreviations.length) {
+                return const SizedBox.shrink(); // Return an empty widget for invalid values
+              }
+              String category = categoryAbbreviations.keys.toList()[value.toInt()];
               String abbreviation = categoryAbbreviations[category] ?? category;
-
               return SideTitleWidget(
                 axisSide: meta.axisSide,
                 space: 16,
@@ -133,41 +130,43 @@ class TherapyBarChart extends StatelessWidget {
           sideTitles: SideTitles(showTitles: false),
         ),
       ),
-      borderData: FlBorderData(show: false),
       barGroups: showingGroups(),
+      borderData: FlBorderData(show: false),
       gridData: const FlGridData(show: false),
     );
   }
 
   List<BarChartGroupData> showingGroups() {
-    return List.generate(categoryDateTherapyCount.length, (index) {
-      String category = categoryDateTherapyCount.keys.toList()[index];
+    return List.generate(categoryAbbreviations.length, (index) {
+      String category = categoryAbbreviations.keys.toList()[index];
       int therapyCount = categoryDateTherapyCount[category]
-              ?.values
-              .fold<int?>(0, (int? sum, int count) => (sum ?? 0) + count) ??
+          ?.values
+          .fold<int?>(0, (int? sum, int count) => (sum ?? 0) + count) ??
           0;
+
       return makeGroupData(index, therapyCount.toDouble());
     });
   }
 
+
   BarChartGroupData makeGroupData(
-    int x,
-    double y, {
-    bool isTouched = false,
-    double width = 22,
-    Color barColor = AppColors.appColor,
-  }) {
+      int x,
+      double y, {
+        bool isTouched = false,
+        double width = 22,
+        Color barColor = AppColors.appColor,  // Blue bar for actual data
+      }) {
     return BarChartGroupData(
       x: x,
       barRods: [
         BarChartRodData(
-          toY: y,
-          color: barColor,
+          toY: y > 0 ? y : 0.5,  // Show a minimal bar for zero values
+          color: y > 0 ? barColor : Colors.transparent,  // Transparent for zero counts
           width: width,
           backDrawRodData: BackgroundBarChartRodData(
             show: true,
-            toY: 20,
-            color: AppColors.appColor.withOpacity(0.3),
+            toY: 20,  // This is the height for the background bar
+            color: AppColors.appColor.withOpacity(0.3),  // Background bar with low opacity
           ),
         ),
       ],

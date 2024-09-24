@@ -141,8 +141,11 @@ class HistorySection extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: screenHeight * 0.02),
-                  _buildTherapyList(
-                      generalTherapies, screenHeight, screenWidth),
+                  SizedBox(
+                    height: screenHeight * 0.3,
+                    child: _buildTherapyList(
+                        generalTherapies, screenHeight, screenWidth),
+                  ),
                 ],
                 if (generalTherapies.isEmpty) ...[
                   Padding(
@@ -158,7 +161,8 @@ class HistorySection extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: screenHeight * 0.02),
-                  Center(
+                  SizedBox(
+                    height: screenHeight * 0.3,
                     child: Text(
                       'No General Therapies',
                       style: TextStyle(
@@ -185,20 +189,26 @@ class HistorySection extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: screenHeight * 0.02),
-                  _buildTherapyList(
-                      diseaseTherapies, screenHeight, screenWidth),
+                  SizedBox(
+                    height: screenHeight * 0.3,
+                    child: _buildTherapyList(
+                        diseaseTherapies, screenHeight, screenWidth),
+                  ),
                 ],
                 if (diseaseTherapies.isEmpty) ...[
-                  SizedBox(height: screenHeight * 0.3),
+                  SizedBox(height: screenHeight * 0.2),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                    child: Text(
-                      'Disease-Specific Therapies',
-                      style: TextStyle(
-                        fontFamily: 'MontserratMedium',
-                        fontWeight: FontWeight.w800,
-                        fontSize: screenWidth * 0.045,
-                        color: AppColors.appColor,
+                    child: SizedBox(
+                      height: screenHeight * 0.4,
+                      child: Text(
+                        'Disease-Specific Therapies',
+                        style: TextStyle(
+                          fontFamily: 'MontserratMedium',
+                          fontWeight: FontWeight.w800,
+                          fontSize: screenWidth * 0.045,
+                          color: AppColors.appColor,
+                        ),
                       ),
                     ),
                   ),
@@ -231,7 +241,7 @@ class HistorySection extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 5.0),
       child: ListView.builder(
         shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
+        scrollDirection: Axis.vertical,
         itemCount: therapies.length,
         itemBuilder: (context, index) {
           final TherapyModel therapy = therapies[index];
