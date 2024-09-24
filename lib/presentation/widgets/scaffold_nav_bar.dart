@@ -40,7 +40,7 @@ class ScaffoldWithNavBar extends StatelessWidget {
               );
             }),
             indicatorColor: Colors.grey.shade200,
-            backgroundColor: Colors.white,
+            backgroundColor: AppColors.whiteColor,
             elevation: 5,
           ),
           child: NavigationBar(
