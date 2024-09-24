@@ -1,6 +1,7 @@
+import 'package:OculaCare/presentation/widgets/btn_flat.dart';
+import 'package:OculaCare/presentation/widgets/cstm_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 
@@ -18,9 +19,13 @@ class FeedbackView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.sizeOf(context).height;
+    double screenWidth = MediaQuery.sizeOf(context).width;
     return Scaffold(
+      backgroundColor: AppColors.screenBackground,
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
+        backgroundColor: AppColors.screenBackground,
         leading: IconButton(
             onPressed: () {
               context.pop();
@@ -29,27 +34,33 @@ class FeedbackView extends StatelessWidget {
                   .emitInitial(cubit: context.read<AuthCubit>());
             },
             icon: const Icon(
-              Icons.arrow_back,
+              Icons.arrow_back_ios_new,
+              color: AppColors.appColor,
               size: 30,
             )),
-        title: const Text(
+        title: Text(
           'Rate your experience',
           style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontFamily: 'Poppins',
+            color: Colors.black,
+            fontFamily: 'MontserratMedium',
+            fontWeight: FontWeight.w800,
+            fontSize: screenWidth * 0.05,
           ),
         ),
       ),
       body: BlocConsumer<FeedbackCubit, FeedbackState>(
         listener: (context, state) {
           if (state is FeedbackServerError) {
-            AppUtils.showToast(context, 'Server Error', 'Server error has occurred, please try again later', true);
+            AppUtils.showToast(context, 'Server Error',
+                'Server error has occurred, please try again later', true);
           }
         },
         builder: (context, state) {
           if (state is FeedbackLoading) {
             return const Center(
-              child: CircularProgressIndicator(),
+              child: DotLoader(
+                loaderColor: AppColors.appColor,
+              ),
             );
           }
           if (state is FeedbackCompleted) {
@@ -57,74 +68,60 @@ class FeedbackView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SvgPicture.asset('assets/svgs/thank_you.svg'),
-                const SizedBox(
-                  height: 20,
+                SizedBox(
+                  height: screenHeight * 0.03,
                 ),
-                const Text(
+                Text(
                   'Thank you.',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: Color(0xFF1D2838),
-                    fontSize: 24,
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.w700,
+                    color: const Color(0xFF1D2838),
+                    fontFamily: 'MontserratMedium',
+                    fontWeight: FontWeight.w800,
+                    fontSize: screenWidth * 0.06,
                     height: 0,
                     letterSpacing: -0.96,
                   ),
                 ),
-                const SizedBox(
-                  height: 20,
+                SizedBox(
+                  height: screenHeight * 0.03,
                 ),
-                const Text(
+                Text(
                   'Your feedback will help us improve\nthe app for everyone',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: Color(0xFF475466),
-                    fontSize: 14,
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.w400,
+                    color: const Color(0xFF475466),
+                    fontFamily: 'MontserratMedium',
+                    fontWeight: FontWeight.w800,
+                    fontSize: screenWidth * 0.038,
                     height: 0,
                     letterSpacing: -0.56,
                   ),
                 ),
-                const SizedBox(
-                  height: 40,
+                SizedBox(
+                  height: screenHeight * 0.05,
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 30, right: 30),
-                  child: InkWell(
-                    onTap: () {
-                      context.go(RouteNames.homeRoute);
-                      context
-                          .read<FeedbackCubit>()
-                          .emitInitial(cubit: context.read<AuthCubit>());
-                      context.read<FeedbackCubit>().clearController();
-                    },
-                    child: Container(
-                      height: 50,
-                      margin: const EdgeInsets.only(top: 10),
-                      decoration: BoxDecoration(
-                        color: AppColors.appColor,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: const Center(
-                        child: Text(
-                          "Back to home",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: 'Poppins',
-                            fontSize: 16,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+                    padding: const EdgeInsets.only(left: 30, right: 30),
+                    child: ButtonFlat(
+                        btnColor: AppColors.appColor,
+                        textColor: Colors.white,
+                        onPress: () {
+                          context.go(RouteNames.homeRoute);
+                          context
+                              .read<FeedbackCubit>()
+                              .emitInitial(cubit: context.read<AuthCubit>());
+                          context.read<FeedbackCubit>().clearController();
+                        },
+                        text: 'Back to home')),
               ],
             );
           }
           return Column(
             children: [
+              SizedBox(
+                height: screenHeight * 0.03,
+              ),
               Padding(
                 padding: const EdgeInsets.only(top: 10),
                 child: BlocBuilder<FeedbackCubit, FeedbackState>(
@@ -160,15 +157,17 @@ class FeedbackView extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 (state is FeedbackLiked)
-                                    ? SvgPicture.asset('assets/svgs/liked_feedback_pressed.svg')
-                                    : SvgPicture.asset('assets/svgs/liked_experience.svg'),
-                                const Text(
+                                    ? SvgPicture.asset(
+                                        'assets/svgs/liked_feedback_pressed.svg')
+                                    : SvgPicture.asset(
+                                        'assets/svgs/liked_experience.svg'),
+                                Text(
                                   'Loved it',
                                   style: TextStyle(
-                                    color: Color(0xFF98A1B2),
-                                    fontSize: 16,
-                                    fontFamily: 'Poppins',
-                                    fontWeight: FontWeight.w600,
+                                    color: const Color(0xFF98A1B2),
+                                    fontFamily: 'MontserratMedium',
+                                    fontWeight: FontWeight.w800,
+                                    fontSize: screenWidth * 0.04,
                                   ),
                                 ),
                               ],
@@ -205,15 +204,17 @@ class FeedbackView extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 (state is FeedbackUnLiked)
-                                    ? SvgPicture.asset('assets/svgs/unliked_feedback_pressed.svg')
-                                    : SvgPicture.asset('assets/svgs/unliked_experience.svg'),
-                                const Text(
+                                    ? SvgPicture.asset(
+                                        'assets/svgs/unliked_feedback_pressed.svg')
+                                    : SvgPicture.asset(
+                                        'assets/svgs/unliked_experience.svg'),
+                                Text(
                                   'Not Great',
                                   style: TextStyle(
-                                    color: Color(0xFF98A1B2),
-                                    fontSize: 16,
-                                    fontFamily: 'Poppins',
-                                    fontWeight: FontWeight.w600,
+                                    color: const Color(0xFF98A1B2),
+                                    fontFamily: 'MontserratMedium',
+                                    fontWeight: FontWeight.w800,
+                                    fontSize: screenWidth * 0.04,
                                   ),
                                 ),
                               ],
@@ -225,6 +226,9 @@ class FeedbackView extends StatelessWidget {
                   },
                 ),
               ),
+              SizedBox(
+                height: screenHeight * 0.05,
+              ),
               BlocBuilder<KeyboardListenerCubit, KeyboardListenerState>(
                 builder: (context, state) {
                   if (state is KeyboardClosed) {
@@ -233,13 +237,15 @@ class FeedbackView extends StatelessWidget {
                         if (state is FeedbackLiked) {
                           return Column(
                             children:
-                            state.selectionStatus.keys.map((itemName) {
+                                state.selectionStatus.keys.map((itemName) {
                               return Padding(
                                 padding:
-                                const EdgeInsets.only(left: 30, right: 30),
+                                    const EdgeInsets.only(left: 30, right: 30),
                                 child: InkWell(
                                   onTap: () {
-                                    context.read<FeedbackCubit>().toggleLikedItem(itemName);
+                                    context
+                                        .read<FeedbackCubit>()
+                                        .toggleLikedItem(itemName);
                                   },
                                   child: Container(
                                     height: MediaQuery.sizeOf(context).height *
@@ -247,7 +253,7 @@ class FeedbackView extends StatelessWidget {
                                     margin: const EdgeInsets.only(top: 10),
                                     decoration: BoxDecoration(
                                       color: state.selectionStatus[itemName] ??
-                                          false
+                                              false
                                           ? Colors.green[200]
                                           : Colors.grey,
                                       borderRadius: BorderRadius.circular(10),
@@ -257,12 +263,13 @@ class FeedbackView extends StatelessWidget {
                                         itemName,
                                         style: TextStyle(
                                           color:
-                                          state.selectionStatus[itemName] ??
-                                              false
-                                              ? Colors.black
-                                              : Colors.white,
-                                          fontFamily: 'Poppins',
-                                          fontSize: 16,
+                                              state.selectionStatus[itemName] ??
+                                                      false
+                                                  ? Colors.black
+                                                  : Colors.white,
+                                          fontFamily: 'MontserratMedium',
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: screenWidth * 0.04,
                                         ),
                                       ),
                                     ),
@@ -275,13 +282,15 @@ class FeedbackView extends StatelessWidget {
                         if (state is FeedbackUnLiked) {
                           return Column(
                             children:
-                            state.selectionStatus.keys.map((itemName) {
+                                state.selectionStatus.keys.map((itemName) {
                               return Padding(
                                 padding:
-                                const EdgeInsets.only(left: 30, right: 30),
+                                    const EdgeInsets.only(left: 30, right: 30),
                                 child: InkWell(
                                   onTap: () {
-                                    context.read<FeedbackCubit>().toggleUnLikedItem(itemName);
+                                    context
+                                        .read<FeedbackCubit>()
+                                        .toggleUnLikedItem(itemName);
                                   },
                                   child: Container(
                                     height: MediaQuery.sizeOf(context).height *
@@ -289,7 +298,7 @@ class FeedbackView extends StatelessWidget {
                                     margin: const EdgeInsets.only(top: 10),
                                     decoration: BoxDecoration(
                                       color: state.selectionStatus[itemName] ??
-                                          false
+                                              false
                                           ? Colors.red[200]
                                           : Colors.grey,
                                       borderRadius: BorderRadius.circular(10),
@@ -299,12 +308,13 @@ class FeedbackView extends StatelessWidget {
                                         itemName,
                                         style: TextStyle(
                                           color:
-                                          state.selectionStatus[itemName] ??
-                                              false
-                                              ? Colors.black
-                                              : Colors.white,
-                                          fontFamily: 'Poppins',
-                                          fontSize: 16,
+                                              state.selectionStatus[itemName] ??
+                                                      false
+                                                  ? Colors.black
+                                                  : Colors.white,
+                                          fontFamily: 'MontserratMedium',
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: screenWidth * 0.04,
                                         ),
                                       ),
                                     ),
@@ -320,6 +330,9 @@ class FeedbackView extends StatelessWidget {
                   }
                   return const SizedBox();
                 },
+              ),
+              SizedBox(
+                height: screenHeight * 0.03,
               ),
               BlocBuilder<FeedbackCubit, FeedbackState>(
                 builder: (context, state) {
@@ -350,18 +363,27 @@ class FeedbackView extends StatelessWidget {
                               keyboardType: TextInputType.multiline,
                               expands: true,
                               style: TextStyle(
+                                fontFamily: 'MontserratMedium',
                                 color: Colors.black,
-                                fontFamily: 'Poppins',
-                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w600,
+                                fontSize: screenWidth * 0.037,
                               ),
-                              decoration: const InputDecoration(
+                              decoration: InputDecoration(
+                                hintStyle: TextStyle(
+                                  fontFamily: 'MontserratMedium',
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: screenWidth * 0.037,
+                                ),
                                 hintText: "Add text here (optional)",
                                 border: InputBorder.none,
                                 isDense: true,
-                                contentPadding: EdgeInsets.all(8),
+                                contentPadding: const EdgeInsets.all(8),
                               ),
                             ),
                           ),
+                        ),
+                        SizedBox(
+                          height: screenHeight * 0.03,
                         ),
                         Padding(
                           padding: const EdgeInsets.only(left: 30, right: 30),
@@ -370,7 +392,11 @@ class FeedbackView extends StatelessWidget {
                               if (state is FeedbackLiked) {
                                 if (state.selectionStatus.values
                                     .every((element) => element == false)) {
-                                  AppUtils.showToast(context, 'Error', 'Please select at least one option', true);
+                                  AppUtils.showToast(
+                                      context,
+                                      'Error',
+                                      'Please select at least one option',
+                                      true);
                                   return;
                                 }
                               }
@@ -378,7 +404,11 @@ class FeedbackView extends StatelessWidget {
                                 if (state.selectionStatus.values
                                     .toList()
                                     .every((element) => element == false)) {
-                                  AppUtils.showToast(context, 'Error', 'Please select at least one option', true);
+                                  AppUtils.showToast(
+                                      context,
+                                      'Error',
+                                      'Please select at least one option',
+                                      true);
                                   return;
                                 }
                               }
@@ -392,9 +422,13 @@ class FeedbackView extends StatelessWidget {
                                 return GestureDetector(
                                   onTap: () {
                                     if (state is FeedbackLiked) {
-                                      if (state.selectionStatus.values
-                                          .every((element) => element == false)) {
-                                        AppUtils.showToast(context, 'Error', 'Please select at least one option', true);
+                                      if (state.selectionStatus.values.every(
+                                          (element) => element == false)) {
+                                        AppUtils.showToast(
+                                            context,
+                                            'Error',
+                                            'Please select at least one option',
+                                            true);
                                         return;
                                       }
                                       List<String> list = state
@@ -410,18 +444,24 @@ class FeedbackView extends StatelessWidget {
                                       list.remove("");
                                       context
                                           .read<FeedbackCubit>()
-                                          .submitFeedback('Liked',
-                                          list,
-                                          context
-                                              .read<FeedbackCubit>()
-                                              .textFeedbackController
-                                              .text);
+                                          .submitFeedback(
+                                              'Liked',
+                                              list,
+                                              context
+                                                  .read<FeedbackCubit>()
+                                                  .textFeedbackController
+                                                  .text);
                                     }
                                     if (state is FeedbackUnLiked) {
                                       if (state.selectionStatus.values
                                           .toList()
-                                          .every((element) => element == false)) {
-                                        AppUtils.showToast(context, 'Error', 'Please select at least one option', true);
+                                          .every(
+                                              (element) => element == false)) {
+                                        AppUtils.showToast(
+                                            context,
+                                            'Error',
+                                            'Please select at least one option',
+                                            true);
                                         return;
                                       }
                                       List<String> list = state
@@ -438,28 +478,29 @@ class FeedbackView extends StatelessWidget {
 
                                       context
                                           .read<FeedbackCubit>()
-                                          .submitFeedback('Unliked',
-                                          list,
-                                          context
-                                              .read<FeedbackCubit>()
-                                              .textFeedbackController
-                                              .text);
+                                          .submitFeedback(
+                                              'Unliked',
+                                              list,
+                                              context
+                                                  .read<FeedbackCubit>()
+                                                  .textFeedbackController
+                                                  .text);
                                     }
                                   },
                                   child: Container(
-                                    height: 40,
+                                    height: 55,
                                     margin: const EdgeInsets.only(top: 10),
                                     decoration: BoxDecoration(
                                       color: AppColors.appColor,
                                       borderRadius: BorderRadius.circular(10),
                                     ),
-                                    child: const Center(
+                                    child: Center(
                                       child: Text(
                                         "Submit",
                                         style: TextStyle(
                                           color: Colors.white,
-                                          fontFamily: 'Poppins',
-                                          fontSize: 16,
+                                          fontFamily: 'MontserratMedium',
+                                          fontSize: screenWidth * 0.045,
                                         ),
                                       ),
                                     ),
