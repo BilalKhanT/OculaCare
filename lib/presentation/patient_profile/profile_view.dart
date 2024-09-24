@@ -110,20 +110,42 @@ class PatientProfileScreen extends StatelessWidget {
                                         : null,
                                   ),
                                 )
-                              : GestureDetector(
-                                  onTap: () async {
-                                    context
-                                        .read<UploadProfilePhotoCubit>()
-                                        .uploadPhoto(context);
-                                  },
-                                  child: CircleAvatar(
-                                    backgroundColor:
-                                        AppColors.appColor.withOpacity(0.2),
-                                    radius: 80.h,
-                                    child: const Icon(Icons.person,
-                                        color: Colors.white, size: 50),
+                              : Stack(
+                            children: [
+                              GestureDetector(
+                                onTap: () async {
+                                  context.read<UploadProfilePhotoCubit>().uploadPhoto(context);
+                                },
+                                child: CircleAvatar(
+                                  backgroundColor: AppColors.appColor.withOpacity(0.2),
+                                  radius: 80.h,
+                                  child: const Icon(Icons.person, color: Colors.white, size: 50),
+                                ),
+                              ),
+                              Positioned(
+                                bottom: 0,
+                                right: 0,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: AppColors.appColor,
+                                    shape: BoxShape.circle,
+                                    border: Border.all(
+                                      color: Colors.white,
+                                      width: 2.0,
+                                    ),
+                                  ),
+                                  child: const Padding(
+                                    padding: EdgeInsets.all(4.0),
+                                    child: Icon(
+                                      Icons.add,
+                                      color: Colors.white,
+                                      size: 20,
+                                    ),
                                   ),
                                 ),
+                              ),
+                            ],
+                          ),
                         );
                       },
                     ),
