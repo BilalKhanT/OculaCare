@@ -16,7 +16,6 @@ import '../../logic/detection/detection_cubit.dart';
 import '../../logic/pdf_cubit/pdf_cubit_state.dart';
 import '../widgets/need_to_setup_profile_widget.dart';
 
-
 class MoreView extends StatelessWidget {
   const MoreView({super.key});
 
@@ -26,289 +25,312 @@ class MoreView extends StatelessWidget {
       backgroundColor: AppColors.screenBackground,
       body: SafeArea(
         child: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10.0),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                  padding: const EdgeInsets.all(10),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Container(
-                        padding: const EdgeInsets.all(10),
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Leaflets",
-                                style: TextStyle(
-                                    fontFamily: "MontserratMedium",
-                                    color: AppColors.appColor,
-                                    fontWeight: FontWeight.w800,
-                                    letterSpacing: 1,
-                                    fontSize: 17.sp),
-                              ),
-                              const SizedBox(
-                                height: 7,
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  context
-                                      .read<PDFCubit>()
-                                      .fetchAndInitializePDFList();
-                                  context.push(RouteNames.pdfViewRoute);
-                                },
-                                child: Center(
-                                  child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(10),
-                                      child:
-                                      Image.asset("assets/images/eye_leaflet.jpg")),
-                                ),
-                              )
-                            ]),
-                      ),
-                      Container(
-                        color: AppColors.appColor.withOpacity(0.2),
-                        padding: const EdgeInsets.all(15),
-                        child: GestureDetector(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Leaflets",
+                          style: TextStyle(
+                              fontFamily: "MontserratMedium",
+                              color: AppColors.appColor,
+                              fontWeight: FontWeight.w800,
+                              letterSpacing: 1,
+                              fontSize: 17.sp),
+                        ),
+                        const SizedBox(
+                          height: 7,
+                        ),
+                        GestureDetector(
                           onTap: () {
-                            if (!sharedPrefs.isProfileSetup) {
-                              showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return const Dialog(child: NeedToSetupProfileWidget());
-                                },
-                              );
-                              return;
-                            }
-                            context.read<ImageCaptureCubit>().initializeCamera();
-                            context.push(RouteNames.imgCaptureRoute);
+                            context
+                                .read<PDFCubit>()
+                                .fetchAndInitializePDFList();
+                            context.push(RouteNames.pdfViewRoute);
                           },
-                          child: Container(
-                            padding: const EdgeInsets.all(15),
-                            decoration: BoxDecoration(
+                          child: Center(
+                            child: ClipRRect(
                                 borderRadius: BorderRadius.circular(10),
-                                color: Colors.white),
-                            child: Center(
-                              child: Column(
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      SvgPicture.asset(
-                                        "assets/svgs/eye_scan.svg",
-                                        // ignore: deprecated_member_use
-                                        color: AppColors.appColor,
-                                      ),
-                                      SizedBox(width: 5.w,),
-                                      Text('Scan&Detect',
-                                      style: TextStyle(
-                                        fontFamily: 'MontserratMedium',
-                                        color: AppColors.appColor,
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 18.sp,
-                                      ),),
-                                    ],
+                                child: Image.asset(
+                                    "assets/images/eye_leaflet.jpg")),
+                          ),
+                        )
+                      ]),
+                ),
+                Container(
+                  color: AppColors.appColor.withOpacity(0.2),
+                  padding: const EdgeInsets.all(15),
+                  child: GestureDetector(
+                    onTap: () {
+                      if (!sharedPrefs.isProfileSetup) {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return const Dialog(
+                                child: NeedToSetupProfileWidget());
+                          },
+                        );
+                        return;
+                      }
+                      context.read<ImageCaptureCubit>().initializeCamera();
+                      context.push(RouteNames.imgCaptureRoute);
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(15),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.white),
+                      child: Center(
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                SvgPicture.asset(
+                                  "assets/svgs/eye_scan.svg",
+                                  // ignore: deprecated_member_use
+                                  color: AppColors.appColor,
+                                ),
+                                SizedBox(
+                                  width: 5.w,
+                                ),
+                                Text(
+                                  'Scan&Detect',
+                                  style: TextStyle(
+                                    fontFamily: 'MontserratMedium',
+                                    color: AppColors.appColor,
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 18.sp,
                                   ),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  Text(
-                                    "Detect Eye Disease",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 11.sp,
-                                      fontFamily: 'Montserrat',
-                                    ),
-                                  )
-                                ],
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Text(
+                              "Detect Eye Disease",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 11.sp,
+                                fontFamily: 'Montserrat',
                               ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Container(
-                        margin: EdgeInsets.symmetric(
-                          horizontal: 20.h,
-                        ),
-                        padding:
-                        EdgeInsets.symmetric(vertical: 20.h, horizontal: 10.h),
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Column(
-                          children: [
-                            MoreTab(
-                              text: "Account",
-                              icon: "assets/svgs/account.svg",
-                              onTap: () {
-                                context.read<PatientProfileCubit>().loadPatientProfile(sharedPrefs.email);
-                                context.push(RouteNames.profileRoute);
-                              },
-                            ),
-                            divider(),
-                            MoreTab(
-                              text: "Address Book",
-                              icon: "assets/svgs/bookmark_hospital.svg",
-                              onTap: () {
-                                AppUtils.showToast(context, 'Feature Under Development', 'This feature will be available in next version', false);
-                              },
-                            ),
-                            divider(),
-                            MoreTab(
-                              text: "Explore Eye Hospitals",
-                              icon: "assets/svgs/charm_search.svg",
-                              onTap: () {
-                                if (!sharedPrefs.isLoggedIn) {
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) {
-                                      return const Dialog(child: NeedToSetupProfileWidget());
-                                    },
-                                  );
-                                  return;
-                                } else {
-                                  AppUtils.showToast(context, 'Feature Under Development', 'This feature will be available in next version', false);
-                                }
-                              },
-                            ),
-                            divider(),
-                            MoreTab(
-                              text: "View Bookmarked Hospitals",
-                              icon: "assets/svgs/hospital.svg",
-                              onTap: () {
-                                if (!sharedPrefs.isProfileSetup) {
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) {
-                                      return const Dialog(child: NeedToSetupProfileWidget());
-                                    },
-                                  );
-                                  return;
-                                } else {
-                                  AppUtils.showToast(context, 'Feature Under Development', 'This feature will be available in next version', false);
-                                }
-                              },
-                            ),
-                            divider(),
-                            MoreTab(
-                              text: "View Detection Results",
-                              icon: "assets/svgs/detection_result.svg",
-                              onTap: () {
-                                if (!sharedPrefs.isProfileSetup) {
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) {
-                                      return const Dialog(child: NeedToSetupProfileWidget());
-                                    },
-                                  );
-                                  return;
-                                } else {
-                                  context.read<DetectionCubit>().loadDiseaseResults();
-                                  context.push(RouteNames.resultRoute);
-                                }
-                              },
-                            ),
+                            )
                           ],
                         ),
                       ),
-                      const SizedBox(
-                        height: 20,
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Container(
+                  margin: EdgeInsets.symmetric(
+                    horizontal: 20.h,
+                  ),
+                  padding:
+                      EdgeInsets.symmetric(vertical: 20.h, horizontal: 10.h),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10)),
+                  child: Column(
+                    children: [
+                      MoreTab(
+                        text: "Account",
+                        icon: "assets/svgs/account.svg",
+                        onTap: () {
+                          context
+                              .read<PatientProfileCubit>()
+                              .loadPatientProfile(sharedPrefs.email);
+                          context.push(RouteNames.profileRoute);
+                        },
                       ),
-                      Container(
+                      divider(),
+                      MoreTab(
+                        text: "Address Book",
+                        icon: "assets/svgs/bookmark_hospital.svg",
+                        onTap: () {
+                          AppUtils.showToast(
+                              context,
+                              'Feature Under Development',
+                              'This feature will be available in next version',
+                              false);
+                        },
+                      ),
+                      divider(),
+                      MoreTab(
+                        text: "Explore Eye Hospitals",
+                        icon: "assets/svgs/charm_search.svg",
+                        onTap: () {
+                          if (!sharedPrefs.isLoggedIn) {
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return const Dialog(
+                                    child: NeedToSetupProfileWidget());
+                              },
+                            );
+                            return;
+                          } else {
+                            AppUtils.showToast(
+                                context,
+                                'Feature Under Development',
+                                'This feature will be available in next version',
+                                false);
+                          }
+                        },
+                      ),
+                      divider(),
+                      MoreTab(
+                        text: "View Bookmarked Hospitals",
+                        icon: "assets/svgs/hospital.svg",
+                        onTap: () {
+                          if (!sharedPrefs.isProfileSetup) {
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return const Dialog(
+                                    child: NeedToSetupProfileWidget());
+                              },
+                            );
+                            return;
+                          } else {
+                            AppUtils.showToast(
+                                context,
+                                'Feature Under Development',
+                                'This feature will be available in next version',
+                                false);
+                          }
+                        },
+                      ),
+                      divider(),
+                      MoreTab(
+                        text: "View Detection Results",
+                        icon: "assets/svgs/detection_result.svg",
+                        onTap: () {
+                          if (!sharedPrefs.isProfileSetup) {
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return const Dialog(
+                                    child: NeedToSetupProfileWidget());
+                              },
+                            );
+                            return;
+                          } else {
+                            context.read<DetectionCubit>().loadDiseaseResults();
+                            context.push(RouteNames.resultRoute);
+                          }
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Container(
+                  margin: EdgeInsets.symmetric(
+                    horizontal: 20.h,
+                  ),
+                  padding:
+                      EdgeInsets.symmetric(vertical: 20.h, horizontal: 10.h),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10)),
+                  child: Column(
+                    children: [
+                      MoreTab(
+                        text: "Feedback",
+                        icon: "assets/svgs/feedback.svg",
+                        onTap: () {
+                          context.push(RouteNames.feedbackRoute);
+                        },
+                      ),
+                      divider(),
+                      MoreTab(
+                        text: "Partners",
+                        icon: "assets/svgs/partners.svg",
+                        onTap: () async {
+                          const url =
+                              'https://oculastatic.web.app/partners.html';
+                          Uri privacyPolicyLaunchUrl = Uri.parse(
+                            url,
+                          );
+                          if (await canLaunchUrl(privacyPolicyLaunchUrl)) {
+                            await launchUrl(privacyPolicyLaunchUrl);
+                          }
+                        },
+                      ),
+                      divider(),
+                      MoreTab(
+                        text: "Terms and Conditions",
+                        icon: "assets/svgs/terms-and-conditions.svg",
+                        onTap: () async {
+                          const url =
+                              'https://oculastatic.web.app/terms_conditions.html';
+                          Uri tcLaunchUrl = Uri.parse(
+                            url,
+                          );
+                          if (await canLaunchUrl(tcLaunchUrl)) {
+                            await launchUrl(tcLaunchUrl);
+                          }
+                        },
+                      ),
+                      divider(),
+                      MoreTab(
+                        text: "Privacy Policy",
+                        icon: "assets/svgs/privacy-policy.svg",
+                        onTap: () async {
+                          const url =
+                              'https://oculastatic.web.app/privacy_policy.html';
+                          Uri privacyPolicyLaunchUrl = Uri.parse(
+                            url,
+                          );
+                          if (await canLaunchUrl(privacyPolicyLaunchUrl)) {
+                            await launchUrl(privacyPolicyLaunchUrl);
+                          }
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                sharedPrefs.isLoggedIn
+                    ? Container(
                         margin: EdgeInsets.symmetric(
                           horizontal: 20.h,
                         ),
-                        padding:
-                        EdgeInsets.symmetric(vertical: 20.h, horizontal: 10.h),
+                        padding: EdgeInsets.symmetric(
+                            vertical: 20.h, horizontal: 10.h),
                         decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(10)),
-                        child: Column(
-                          children: [
-                            MoreTab(
-                              text: "Feedback",
-                              icon: "assets/svgs/feedback.svg",
-                              onTap: () {
-                                context.push(RouteNames.feedbackRoute);
-                              },
-                            ),
-                            divider(),
-                            MoreTab(
-                              text: "Partners",
-                              icon: "assets/svgs/partners.svg",
-                              onTap: () async {
-                                const url =
-                                    'https://oculastatic.web.app/partners.html';
-                                Uri privacyPolicyLaunchUrl = Uri.parse(
-                                  url,
-                                );
-                                if (await canLaunchUrl(privacyPolicyLaunchUrl)) {
-                                await launchUrl(privacyPolicyLaunchUrl);
-                                }
-                              },
-                            ),
-                            divider(),
-                            MoreTab(
-                              text: "Terms and Conditions",
-                              icon: "assets/svgs/terms-and-conditions.svg",
-                              onTap: () async {
-                                const url =
-                                    'https://oculastatic.web.app/terms_conditions.html';
-                                Uri tcLaunchUrl = Uri.parse(
-                                  url,
-                                );
-                                if (await canLaunchUrl(tcLaunchUrl)) {
-                                  await launchUrl(tcLaunchUrl);
-                                }
-                              },
-                            ),
-                            divider(),
-                            MoreTab(
-                              text: "Privacy Policy",
-                              icon: "assets/svgs/privacy-policy.svg",
-                              onTap: () async {
-                                const url =
-                                    'https://oculastatic.web.app/privacy_policy.html';
-                                Uri privacyPolicyLaunchUrl = Uri.parse(
-                                  url,
-                                );
-                                if (await canLaunchUrl(privacyPolicyLaunchUrl)) {
-                                  await launchUrl(privacyPolicyLaunchUrl);
-                                }
-                              },
-                            ),
-                          ],
+                        child: MoreTab(
+                          text: "Logout",
+                          icon: "assets/svgs/log_out.svg",
+                          onTap: () {
+                            sharedPrefs.isLoggedIn = false;
+                            context.go(RouteNames.loginRoute);
+                          },
                         ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      sharedPrefs.isLoggedIn ?
-                        Container(
-                          margin: EdgeInsets.symmetric(
-                            horizontal: 20.h,
-                          ),
-                          padding:
-                          EdgeInsets.symmetric(vertical: 20.h, horizontal: 10.h),
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10)),
-                          child: MoreTab(
-                            text: "Logout",
-                            icon: "assets/svgs/log_out.svg",
-                            onTap: () {
-                              sharedPrefs.isLoggedIn = false;
-                              context.go(RouteNames.loginRoute);
-                            },
-                          ),
-                        ) : Container(
+                      )
+                    : Container(
                         margin: EdgeInsets.symmetric(
                           horizontal: 20.h,
                         ),
-                        padding:
-                        EdgeInsets.symmetric(vertical: 20.h, horizontal: 10.h),
+                        padding: EdgeInsets.symmetric(
+                            vertical: 20.h, horizontal: 10.h),
                         decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(10)),
@@ -325,37 +347,37 @@ class MoreView extends StatelessWidget {
                           },
                         ),
                       ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Container(
-                        alignment: Alignment.center,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "Version 0.0.1 (1)",
-                              style: TextStyle(
-                                fontSize: 12.sp,
-                                color: Colors.grey.shade400,
-                                fontFamily: 'MontserratMedium',
-                              ),
-                            ),
-                            Text(
-                              "${DateTime.now().year} OculaCare All Rights Reserved.",
-                              style: TextStyle(
-                                fontSize: 12.sp,
-                                fontFamily: 'MontserratMedium',
-                              ),
-                            )
-                          ],
+                const SizedBox(
+                  height: 20,
+                ),
+                Container(
+                  alignment: Alignment.center,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Version 0.0.1 (1)",
+                        style: TextStyle(
+                          fontSize: 12.sp,
+                          color: Colors.grey.shade400,
+                          fontFamily: 'MontserratMedium',
                         ),
                       ),
+                      Text(
+                        "${DateTime.now().year} OculaCare All Rights Reserved.",
+                        style: TextStyle(
+                          fontSize: 12.sp,
+                          fontFamily: 'MontserratMedium',
+                        ),
+                      )
                     ],
                   ),
                 ),
-              ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
