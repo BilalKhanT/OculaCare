@@ -40,6 +40,7 @@ class AnimalTrackScoreCubit extends Cubit<AnimalTrackScoreState> {
             'Now provide three potential impacts that this level of vision tracking ability might have on the patient’s daily activities. provide three impacts only, write them as if you are directly advising the patient, without adding any headings or subheadings just points.');
         String date = getCurrentDateString();
         TestResultModel data = TestResultModel(
+            email: sharedPrefs.email,
             patientName: sharedPrefs.userName,
             date: date,
             testType: 'Vision Acuity Test',

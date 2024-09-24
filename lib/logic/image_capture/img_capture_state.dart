@@ -26,8 +26,6 @@ class ImageCaptureStateFailure extends ImageCaptureState {
 class ImagesCropped extends ImageCaptureState {
   final XFile leftEye;
   final XFile rightEye;
-  final bool leftOpen;
-  final bool rightOpen;
 
-  ImagesCropped(this.leftEye, this.rightEye, this.leftOpen, this.rightOpen);
+  ImagesCropped(this.leftEye, this.rightEye,);
 }

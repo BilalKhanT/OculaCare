@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class ProgressChartScreen extends StatelessWidget {
+  final String test;
   final Map<DateTime, double> testScores;
 
-  const ProgressChartScreen({super.key, required this.testScores});
+  const ProgressChartScreen({super.key, required this.testScores, required this.test});
 
   LineChartData generateLineChartData(
       List<MapEntry<DateTime, double>> sortedEntries) {
@@ -14,7 +15,6 @@ class ProgressChartScreen extends StatelessWidget {
       double score = entry.value.value;
       return FlSpot(index.toDouble(), score);
     }).toList();
-
     return LineChartData(
       backgroundColor: const Color(0xFF1B233E),
       gridData: FlGridData(
@@ -40,10 +40,10 @@ class ProgressChartScreen extends StatelessWidget {
             reservedSize: 30,
             getTitlesWidget: (value, meta) {
               return Text(
-                '${value.toInt()}',
+                test == 'Snellan Chart' ? '6/${value.toInt()}' : '${value.toInt()}',
                 style: TextStyle(
-                  color: Colors.black.withOpacity(0.6),
-                  fontSize: 10,
+                  color: Colors.black.withOpacity(0.7),
+                  fontSize: 9,
                   fontFamily: 'MontserratMedium',
                 ),
               );
@@ -62,8 +62,8 @@ class ProgressChartScreen extends StatelessWidget {
                 return Text(
                   DateFormat('MMM d').format(date),
                   style: TextStyle(
-                    color: Colors.black.withOpacity(0.6),
-                    fontSize: 10,
+                    color: Colors.black.withOpacity(0.7),
+                    fontSize: 9,
                     fontFamily: 'MontserratMedium',
                   ),
                 );
@@ -121,6 +121,7 @@ class ProgressChartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.sizeOf(context).height;
     double screenWidth = MediaQuery.sizeOf(context).width;
     if (testScores.isEmpty || testScores.length == 1) {
       return Center(
@@ -140,11 +141,14 @@ class ProgressChartScreen extends StatelessWidget {
           ? sortedEntries.sublist(sortedEntries.length - 5)
           : sortedEntries;
 
-      return SizedBox(
-        height: 250,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-          child: LineChart(generateLineChartData(entriesToPlot)),
+      return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 7.0),
+        child: SizedBox(
+          height: height * 0.3,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+            child: LineChart(generateLineChartData(entriesToPlot)),
+          ),
         ),
       );
     }

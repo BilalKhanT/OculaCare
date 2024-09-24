@@ -1,3 +1,4 @@
+import 'package:OculaCare/configs/utils/utils.dart';
 import 'package:OculaCare/logic/patient_profile/pass_cubit.dart';
 import 'package:OculaCare/logic/patient_profile/pass_state.dart';
 import 'package:OculaCare/presentation/widgets/btn_flat.dart';
@@ -48,7 +49,8 @@ class ChangePassView extends StatelessWidget {
             Form(
               key: formKey,
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 15.0, vertical: 10.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -61,16 +63,14 @@ class ChangePassView extends StatelessWidget {
                         fontSize: screenWidth * 0.045,
                       ),
                     ),
-                    SizedBox(height: screenHeight * 0.01,),
+                    SizedBox(
+                      height: screenHeight * 0.01,
+                    ),
                     CustomTextField(
                       hintText: 'Enter Password',
-                      focusNode: context
-                          .read<PassCubit>()
-                          .passFocus,
+                      focusNode: context.read<PassCubit>().passFocus,
                       obscureText: false,
-                      controller: context
-                          .read<PassCubit>()
-                          .passController,
+                      controller: context.read<PassCubit>().passController,
                       editable: true,
                       validatorFunction: (value) {
                         if (value == null || value.isEmpty) {
@@ -88,14 +88,13 @@ class ChangePassView extends StatelessWidget {
                         if (!regExp.hasMatch(value)) {
                           return 'Password must include upper and lower case letters, digits, and . or _';
                         }
-                        context
-                            .read<PassCubit>()
-                            .passController
-                            .text = value;
+                        context.read<PassCubit>().passController.text = value;
                         return null;
                       },
                     ),
-                    SizedBox(height: screenHeight * 0.03,),
+                    SizedBox(
+                      height: screenHeight * 0.03,
+                    ),
                     Text(
                       'Confirm Password',
                       style: TextStyle(
@@ -104,37 +103,41 @@ class ChangePassView extends StatelessWidget {
                         fontSize: screenWidth * 0.045,
                       ),
                     ),
-                    SizedBox(height: screenHeight * 0.01,),
+                    SizedBox(
+                      height: screenHeight * 0.01,
+                    ),
                     CustomTextField(
                       hintText: 'Confirm Password',
-                      focusNode: context
-                          .read<PassCubit>()
-                          .conPassFocus,
+                      focusNode: context.read<PassCubit>().conPassFocus,
                       obscureText: false,
-                      controller: context
-                          .read<PassCubit>()
-                          .conPassController,
+                      controller: context.read<PassCubit>().conPassController,
                       editable: true,
                       validatorFunction: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter a password';
                         }
-                        if (value != context.read<PassCubit>().passController.text.trim()) {
+                        if (value !=
+                            context
+                                .read<PassCubit>()
+                                .passController
+                                .text
+                                .trim()) {
                           return 'Passwords do not match';
                         }
-                        context
-                            .read<PassCubit>()
-                            .conPassController
-                            .text = value;
+                        context.read<PassCubit>().conPassController.text =
+                            value;
                         return null;
                       },
                     ),
-                    SizedBox(height: screenHeight * 0.05,),
-                    BlocBuilder<PassCubit, PassState> (
+                    SizedBox(
+                      height: screenHeight * 0.05,
+                    ),
+                    BlocBuilder<PassCubit, PassState>(
                       builder: (context, state) {
                         if (state is PassLoading) {
                           return Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 5.0),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 40.0, vertical: 5.0),
                             child: Container(
                               decoration: BoxDecoration(
                                 color: AppColors.appColor,
@@ -163,11 +166,30 @@ class ChangePassView extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(horizontal: 20.0),
                           child: ButtonFlat(
                               textColor: Colors.white,
-                              onPress: () {
+                              onPress: () async {
                                 if (formKey.currentState!.validate()) {
-                                  context.read<PassCubit>().updatePassword();
+                                  bool flag = await context
+                                      .read<PassCubit>()
+                                      .updatePassword();
+                                  if (context.mounted) {
+                                    if (flag) {
+                                      AppUtils.showToast(
+                                          context,
+                                          'Password Updated',
+                                          'Your password has been successfully updated',
+                                          false);
+                                    } else {
+                                      AppUtils.showToast(
+                                          context,
+                                          'Password Error',
+                                          'Something went wrong, please try again',
+                                          true);
+                                    }
+                                  }
                                 }
-                              }, text: 'Update Password', btnColor: AppColors.appColor),
+                              },
+                              text: 'Update Password',
+                              btnColor: AppColors.appColor),
                         );
                       },
                     ),

@@ -136,7 +136,7 @@ class OddOutCubit extends Cubit<OddOutState> {
         selectedIndex: index,
       ));
       _isHandlingSelection = false;
-      if (questions > 10) {
+      if (questions >= 10) {
         endGame();
       } else {
         Future.delayed(const Duration(milliseconds: 200), _nextQuestion);
@@ -171,6 +171,15 @@ class OddOutCubit extends Cubit<OddOutState> {
     return formattedDate;
   }
 
+  void end() {
+    _audioPlayer.stop();
+    _errorPlayer.stop();
+    _successPlayer.stop();
+    emit(OddOutState.initial()
+        .copyWith(status: OddOutStatus.gameOver, score: state.score));
+    _timer?.cancel();
+  }
+
   void endGame() async {
     _audioPlayer.stop();
     _errorPlayer.stop();
@@ -190,6 +199,7 @@ class OddOutCubit extends Cubit<OddOutState> {
         ResponseModel resp_ = await ml.getData(
             'Additionally, mention only 3 potential impacts of color differentiation difficulties in daily activities without heading or subheadings. Generate text as if you are talking directly to the patient.');
         TestResultModel data = TestResultModel(
+            email: sharedPrefs.email,
             patientName: sharedPrefs.userName,
             date: date,
             testType: 'Color Perception Test',

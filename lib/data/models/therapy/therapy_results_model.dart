@@ -1,4 +1,5 @@
 class TherapyModel {
+  final String email;
   final String patientName;
   final String date;
   final String therapyType;
@@ -6,6 +7,7 @@ class TherapyModel {
   final int duration;
 
   TherapyModel({
+    required this.email,
     required this.patientName,
     required this.date,
     required this.therapyType,
@@ -15,6 +17,7 @@ class TherapyModel {
 
   factory TherapyModel.fromJson(Map<String, dynamic> json) {
     return TherapyModel(
+      email: json['email'] ?? '',
       patientName: json['patient_name'] ?? '',
       date: json['date'] ?? '',
       therapyType: json['therapy_type'] ?? '',
@@ -25,6 +28,7 @@ class TherapyModel {
 
   Map<String, dynamic> toJson() {
     return {
+      'email': email,
       'patient_name': patientName,
       'date': date,
       'therapy_type': therapyType,

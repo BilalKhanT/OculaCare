@@ -133,7 +133,7 @@ class ScheduleBottomModal extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 20.0),
                       child: Container(
                         decoration: BoxDecoration(
-                          color: Colors.black,
+                          color: AppColors.appColor,
                           borderRadius: BorderRadius.circular(10.0),
                           boxShadow: [
                             BoxShadow(
@@ -156,7 +156,7 @@ class ScheduleBottomModal extends StatelessWidget {
                     );
                   }
                   return ButtonFlat(
-                    btnColor: Colors.black,
+                    btnColor: AppColors.appColor,
                     textColor: Colors.white,
                     onPress: () async {
                       if (controller.text.trim() == '') {

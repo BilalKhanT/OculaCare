@@ -294,7 +294,7 @@ class PatientProfileScreen extends StatelessWidget {
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           border:
-                          Border.all(color: Colors.black, width: 2),
+                          Border.all(color: AppColors.appColor, width: 4),
                           boxShadow: [
                             BoxShadow(
                               color: Colors.grey.withOpacity(0.5),
@@ -427,7 +427,7 @@ class PatientProfileScreen extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 25.0),
                       child: ButtonFlat(
-                          btnColor: Colors.black,
+                          btnColor: AppColors.appColor,
                           textColor: Colors.white,
                           onPress: () {
                             context
@@ -451,7 +451,7 @@ class PatientProfileScreen extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 25.0),
                       child: ButtonFlat(
-                          btnColor: Colors.redAccent,
+                          btnColor: AppColors.secondaryBtnColor,
                           textColor: Colors.white,
                           onPress: () {
                             showModalBottomSheet(
@@ -674,7 +674,7 @@ class PatientProfileScreen extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 25.0),
                           child: ButtonFlat(
-                              btnColor: Colors.black,
+                              btnColor: AppColors.appColor,
                               textColor: Colors.white,
                               onPress: () async {
                                 if (formKeyB.currentState!.validate()) {

@@ -262,65 +262,65 @@ class MatchColorGameScreen extends StatelessWidget {
       double screenHeight,
       double screenWidth,
       List<Color> colors) {
-    return Column(
-      children: [
-        Expanded(
-          child: FlowingWavePaint(
-            color: state.currentColor,
-            shouldAnimate: state.timeLeft == 10,
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Container(
-            height: 80,
-            width: 80,
-            decoration: BoxDecoration(
-              color: Colors.grey.shade400,
-              borderRadius: BorderRadius.circular(50.0),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
-                  spreadRadius: 2,
-                  blurRadius: 8,
-                  offset: const Offset(0, 3),
-                ),
-              ],
+    return Container(
+      height: screenHeight,
+      width: screenWidth,
+      color: AppColors.backgroundTherapy,
+      child: Column(
+        children: [
+          Expanded(
+            child: FlowingWavePaint(
+              color: state.currentColor,
+              shouldAnimate: state.timeLeft == 10,
             ),
-            child: Center(
-              child: Text(
-                '${state.timeLeft}',
-                style: TextStyle(
-                  color: state.timeLeft <= 3 ? Colors.red : Colors.black,
-                  fontFamily: 'MontserratMedium',
-                  fontWeight: FontWeight.w900,
-                  fontSize: screenWidth * 0.07,
+          ),
+          _buildLivesLeft(state.livesLeft),
+
+          SizedBox(height: screenHeight * 0.01,),
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Container(
+              height: 65,
+              width: 65,
+              decoration: BoxDecoration(
+                color: AppColors.textTherapy,
+                borderRadius: BorderRadius.circular(50.0),
+              ),
+              child: Center(
+                child: Text(
+                  '${state.timeLeft}',
+                  style: TextStyle(
+                    color: state.timeLeft <= 3 ? Colors.red : Colors.black,
+                    fontFamily: 'MontserratMedium',
+                    fontWeight: FontWeight.w900,
+                    fontSize: screenWidth * 0.06,
+                  ),
                 ),
               ),
             ),
           ),
-        ),
-        _buildLivesLeft(state.livesLeft),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 30.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: state.options.map((color) {
-              return GestureDetector(
-                onTap: () {
-                  context.read<MatchColorCubit>().chooseColor(color);
-                },
-                child: SvgPicture.asset(
-                  'assets/svgs/bucket.svg',
-                  colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
-                  width: screenHeight * 0.1,
-                  height: screenHeight * 0.1,
-                ),
-              );
-            }).toList(),
+          SizedBox(height: screenHeight * 0.03,),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 30.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: state.options.map((color) {
+                return GestureDetector(
+                  onTap: () {
+                    context.read<MatchColorCubit>().chooseColor(color);
+                  },
+                  child: SvgPicture.asset(
+                    'assets/svgs/bucket.svg',
+                    colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
+                    width: screenHeight * 0.1,
+                    height: screenHeight * 0.1,
+                  ),
+                );
+              }).toList(),
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 

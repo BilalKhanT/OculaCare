@@ -18,22 +18,14 @@ class ButtonFlat extends StatelessWidget {
           decoration: BoxDecoration(
             color: btnColor,
             borderRadius: BorderRadius.circular(10.0),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
-                spreadRadius: 2,
-                blurRadius: 8,
-                offset: const Offset(0, 3),
-              ),
-            ],
           ),
           child: Center(
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 15.0),
               child: Text(text,
               style: TextStyle(
-                fontFamily: 'Montserrat',
-                fontWeight: FontWeight.bold,
+                fontFamily: 'Poppins',
+                fontWeight: FontWeight.w600,
                 fontSize: screenWidth * 0.045,
                 color: textColor,
               ),),

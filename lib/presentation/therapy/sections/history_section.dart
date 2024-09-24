@@ -1,3 +1,4 @@
+import 'package:OculaCare/data/repositories/local/preferences/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shimmer/shimmer.dart';
@@ -22,13 +23,15 @@ class HistorySection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<TherapyCubit>(context).loadTherapyHistory(patientName);
+    BlocProvider.of<TherapyCubit>(context)
+        .loadTherapyHistory(sharedPrefs.email);
 
     return BlocBuilder<TherapyCubit, TherapyState>(
       builder: (context, state) {
         if (state is TherapyLoading) {
           return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 20.0),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 5.0, vertical: 20.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -51,7 +54,8 @@ class HistorySection extends StatelessWidget {
                     itemCount: 5,
                     itemBuilder: (context, index) {
                       return Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 3.0),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 8.0, horizontal: 3.0),
                         child: Shimmer.fromColors(
                           baseColor: Colors.grey[300]!,
                           highlightColor: Colors.grey[100]!,
@@ -110,163 +114,139 @@ class HistorySection extends StatelessWidget {
             ),
           );
         } else if (state is TherapyHistoryLoaded) {
-          if (state.therapyHistory.isEmpty) {
-            return Center(
-              child: Text(
-                'No history available',
-                style: TextStyle(
-                  color: AppColors.textPrimary,
-                  fontSize: screenWidth * 0.045,
-                ),
-              ),
-            );
-          } else {
-            final generalTherapies = state.therapyHistory
-                .where((therapy) => therapy.therapyType == "General")
-                .toList();
-            final diseaseTherapies = state.therapyHistory
-                .where((therapy) => therapy.therapyType != "General")
-                .toList();
+          final generalTherapies = state.therapyHistory
+              .where((therapy) => therapy.therapyType == "General")
+              .toList();
+          final diseaseTherapies = state.therapyHistory
+              .where((therapy) => therapy.therapyType != "General")
+              .toList();
 
-            return Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 5.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  if (generalTherapies.isNotEmpty) ...[
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                      child: Text(
-                        'General Exercises',
-                        style: TextStyle(
-                          fontFamily: 'MontserratMedium',
-                          fontWeight: FontWeight.w800,
-                          fontSize: screenWidth * 0.045,
-                          color: AppColors.appColor,
-                        ),
+          return Padding(
+            padding:
+                const EdgeInsets.symmetric(vertical: 10.0, horizontal: 5.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                if (generalTherapies.isNotEmpty) ...[
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                    child: Text(
+                      'General Exercises',
+                      style: TextStyle(
+                        fontFamily: 'MontserratMedium',
+                        fontWeight: FontWeight.w800,
+                        fontSize: screenWidth * 0.045,
+                        color: AppColors.appColor,
                       ),
                     ),
-                    SizedBox(height: screenHeight * 0.02),
-                    _buildTherapyList(generalTherapies, screenHeight, screenWidth),
-                  ],
-                  if (generalTherapies.isEmpty) ...[
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                      child: Text(
-                        'General Exercises',
-                        style: TextStyle(
-                          fontFamily: 'MontserratMedium',
-                          fontWeight: FontWeight.w800,
-                          fontSize: screenWidth * 0.045,
-                          color: AppColors.appColor,
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: screenHeight * 0.02),
-                    Center(
-                      child: Text(
-                        'No General Therapies',
-                        style: TextStyle(
-                          fontFamily: 'MontserratMedium',
-                          fontWeight: FontWeight.w800,
-                          fontSize: screenWidth * 0.045,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                  ],
-                  if (diseaseTherapies.isNotEmpty) ...[
-                    SizedBox(height: screenHeight * 0.04),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                      child: Text(
-                        'Disease-Specific Therapies',
-                        style: TextStyle(
-                          fontFamily: 'MontserratMedium',
-                          fontWeight: FontWeight.w800,
-                          fontSize: screenWidth * 0.045,
-                          color: AppColors.appColor,
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: screenHeight * 0.02),
-                    _buildTherapyList(diseaseTherapies, screenHeight, screenWidth),
-                  ],
-                  if (diseaseTherapies.isEmpty) ...[
-                    SizedBox(height: screenHeight * 0.04),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                      child: Text(
-                        'Disease-Specific Therapies',
-                        style: TextStyle(
-                          fontFamily: 'MontserratMedium',
-                          fontWeight: FontWeight.w800,
-                          fontSize: screenWidth * 0.045,
-                          color: AppColors.appColor,
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: screenHeight * 0.02),
-                    Center(
-                      child: Text(
-                        'No Diseases-Specific Therapies',
-                        style: TextStyle(
-                          fontFamily: 'MontserratMedium',
-                          fontWeight: FontWeight.w800,
-                          fontSize: screenWidth * 0.045,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                  ],
+                  ),
+                  SizedBox(height: screenHeight * 0.02),
+                  SizedBox(
+                    height: screenHeight * 0.3,
+                    child: _buildTherapyList(
+                        generalTherapies, screenHeight, screenWidth),
+                  ),
                 ],
-              ),
-            );
-          }
-        } else if (state is TherapyHistoryEmpty) {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                child: Text(
-                  'General Exercises',
-                  style: TextStyle(
-                    fontFamily: 'MontserratMedium',
-                    fontWeight: FontWeight.w800,
-                    fontSize: screenWidth * 0.045,
-                    color: AppColors.appColor,
+                if (generalTherapies.isEmpty) ...[
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                    child: Text(
+                      'General Exercises',
+                      style: TextStyle(
+                        fontFamily: 'MontserratMedium',
+                        fontWeight: FontWeight.w800,
+                        fontSize: screenWidth * 0.045,
+                        color: AppColors.appColor,
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              Center(
-                child: Text(
-                  'No therapies taken yet',
-                  style: TextStyle(
-                    color: Colors.red,
-                    fontSize: screenWidth * 0.045,
+                  SizedBox(height: screenHeight * 0.02),
+                  SizedBox(
+                    height: screenHeight * 0.3,
+                    child: Text(
+                      'No General Therapies',
+                      style: TextStyle(
+                        fontFamily: 'MontserratMedium',
+                        fontWeight: FontWeight.w800,
+                        fontSize: screenWidth * 0.045,
+                        color: Colors.black,
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            ],
+                ],
+                if (diseaseTherapies.isNotEmpty) ...[
+                  SizedBox(height: screenHeight * 0.04),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                    child: Text(
+                      'Disease-Specific Therapies',
+                      style: TextStyle(
+                        fontFamily: 'MontserratMedium',
+                        fontWeight: FontWeight.w800,
+                        fontSize: screenWidth * 0.045,
+                        color: AppColors.appColor,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: screenHeight * 0.02),
+                  SizedBox(
+                    height: screenHeight * 0.3,
+                    child: _buildTherapyList(
+                        diseaseTherapies, screenHeight, screenWidth),
+                  ),
+                ],
+                if (diseaseTherapies.isEmpty) ...[
+                  SizedBox(height: screenHeight * 0.2),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                    child: SizedBox(
+                      height: screenHeight * 0.4,
+                      child: Text(
+                        'Disease-Specific Therapies',
+                        style: TextStyle(
+                          fontFamily: 'MontserratMedium',
+                          fontWeight: FontWeight.w800,
+                          fontSize: screenWidth * 0.045,
+                          color: AppColors.appColor,
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: screenHeight * 0.02),
+                  Center(
+                    child: Text(
+                      'No Diseases-Specific Therapies',
+                      style: TextStyle(
+                        fontFamily: 'MontserratMedium',
+                        fontWeight: FontWeight.w800,
+                        fontSize: screenWidth * 0.045,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                ],
+              ],
+            ),
           );
         } else {
-          // Handle unexpected states
           return const SizedBox.shrink();
         }
       },
     );
   }
-  Widget _buildTherapyList(List<TherapyModel> therapies, double screenHeight, double screenWidth) {
+
+  Widget _buildTherapyList(
+      List<TherapyModel> therapies, double screenHeight, double screenWidth) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 5.0),
       child: ListView.builder(
         shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
+        scrollDirection: Axis.vertical,
         itemCount: therapies.length,
         itemBuilder: (context, index) {
           final TherapyModel therapy = therapies[index];
-          final HistoryArgsModel assetData = getTherapyAsset(therapy.therapyName);
+          final HistoryArgsModel assetData =
+              getTherapyAsset(therapy.therapyName);
           return TherapyHistoryTile(
             title: therapy.therapyName,
             date: therapy.date,

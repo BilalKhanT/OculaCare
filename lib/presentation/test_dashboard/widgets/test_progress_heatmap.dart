@@ -8,18 +8,12 @@ class ProgressCalendarScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.sizeOf(context).height;
+    double width = MediaQuery.sizeOf(context).width;
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(8.0),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.5),
-            spreadRadius: 2,
-            blurRadius: 8,
-            offset: const Offset(0, 3),
-          ),
-        ],
       ),
       child: Padding(
         padding: const EdgeInsets.all(5.0),
@@ -31,17 +25,16 @@ class ProgressCalendarScreen extends StatelessWidget {
           colorMode: ColorMode.color,
           defaultColor: Colors.grey[200],
           initDate: DateTime.now(),
-          size: 30,
-          fontSize: 12,
-          monthFontSize: 14,
+          size: height * 0.04,
+          fontSize: width * 0.03,
+          monthFontSize: width * 0.035,
           textColor: Colors.black,
-          weekFontSize: 12,
+          weekFontSize: width * 0.03,
           weekTextColor: AppColors.appColor,
           borderRadius: 50,
           flexible: false,
           margin: const EdgeInsets.symmetric(horizontal: 7.0, vertical: 2.0),
           onClick: (date) {
-            print('Selected Date: $date');
           },
           showColorTip: false,
         ),

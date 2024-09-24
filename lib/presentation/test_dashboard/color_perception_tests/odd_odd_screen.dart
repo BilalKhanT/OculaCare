@@ -52,7 +52,7 @@ class OutOddScreen extends StatelessWidget {
       ),
       leading: IconButton(
         onPressed: () {
-          context.read<OddOutCubit>().endGame();
+          context.read<OddOutCubit>().end();
           context.pop();
         },
         icon: const Icon(
@@ -200,59 +200,64 @@ class _GameOverScreen extends StatelessWidget {
     double screenHeight = MediaQuery.sizeOf(context).height;
     double screenWidth = MediaQuery.sizeOf(context).width;
     return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Image.asset(
-            'assets/images/result_test.png',
-            height: screenHeight * 0.3,
-          ),
-          SizedBox(
-            height: screenHeight * 0.02,
-          ),
-          Text('Test Completed !',
+      child: Container(
+        height: screenHeight,
+        width: screenWidth,
+        color: AppColors.screenBackground,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Image.asset(
+              'assets/images/result_test.png',
+              height: screenHeight * 0.3,
+            ),
+            SizedBox(
+              height: screenHeight * 0.02,
+            ),
+            Text('Test Completed !',
+                style: TextStyle(
+                  color: Colors.green,
+                  fontFamily: 'MontserratMedium',
+                  fontWeight: FontWeight.w800,
+                  fontSize: screenWidth * 0.05,
+                )),
+            SizedBox(height: screenHeight * 0.02),
+            SeverityChart(score: score),
+            Text(
+              'You got $score out of 10 correct.',
+              textAlign: TextAlign.center,
               style: TextStyle(
-                color: Colors.green,
+                color: Colors.black,
                 fontFamily: 'MontserratMedium',
                 fontWeight: FontWeight.w800,
-                fontSize: screenWidth * 0.05,
-              )),
-          SizedBox(height: screenHeight * 0.02),
-          SeverityChart(score: score),
-          Text(
-            'You got $score out of 10 correct.',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.black,
-              fontFamily: 'MontserratMedium',
-              fontWeight: FontWeight.w800,
-              fontSize: screenWidth * 0.04,),
-          ),
-          SizedBox(height: screenHeight * 0.05),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30.0),
-            child: ButtonFlat(
-                btnColor: AppColors.appColor,
-                textColor: Colors.white,
-                onPress: () =>
-                    context.read<OddOutCubit>().restartGame(),
-                text: 'Restart Test'),
-          ),
-          SizedBox(
-            height: screenHeight * 0.02,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30.0),
-            child: ButtonFlat(
-                btnColor: Colors.black,
-                textColor: Colors.white,
-                onPress: () {
-                  context.read<OddOutCubit>().endGame();
-                  context.pop();
-                },
-                text: 'Exit Test'),
-          )
-        ],
+                fontSize: screenWidth * 0.04,),
+            ),
+            SizedBox(height: screenHeight * 0.05),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30.0),
+              child: ButtonFlat(
+                  btnColor: AppColors.appColor,
+                  textColor: Colors.white,
+                  onPress: () =>
+                      context.read<OddOutCubit>().restartGame(),
+                  text: 'Restart Test'),
+            ),
+            SizedBox(
+              height: screenHeight * 0.02,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30.0),
+              child: ButtonFlat(
+                  btnColor: Colors.black,
+                  textColor: Colors.white,
+                  onPress: () {
+                    context.read<OddOutCubit>().endGame();
+                    context.pop();
+                  },
+                  text: 'Exit Test'),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -265,12 +270,24 @@ class _GameInProgressScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        _LivesDisplay(livesLeft: state.livesLeft),
-        _TimerDisplay(timeLeft: state.timeLeft),
-        _GridBlocks(state: state),
-      ],
+    double screenHeight = MediaQuery.sizeOf(context).height;
+    double screenWidth = MediaQuery.sizeOf(context).width;
+    return Container(
+      height: screenHeight,
+      width: screenWidth,
+      color: AppColors.screenBackground,
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(height: screenHeight * 0.05,),
+            _LivesDisplay(livesLeft: state.livesLeft),
+            _TimerDisplay(timeLeft: state.timeLeft),
+            _GridBlocks(state: state),
+          ],
+        ),
+      ),
     );
   }
 }
@@ -314,16 +331,8 @@ class _TimerDisplay extends StatelessWidget {
         height: 80,
         width: 80,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: AppColors.whiteColor,
           borderRadius: BorderRadius.circular(50.0),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 2,
-              blurRadius: 8,
-              offset: const Offset(0, 3),
-            ),
-          ],
         ),
         child: Center(
           child: Text(

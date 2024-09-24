@@ -1,4 +1,5 @@
 import 'package:OculaCare/configs/utils/utils.dart';
+import 'package:OculaCare/presentation/widgets/cstm_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -51,7 +52,7 @@ class SignUpScreen extends StatelessWidget {
                   builder: (context, state) {
                 if (state is SignUpStateLoading) {
                   return const Center(
-                    child: CircularProgressIndicator(color: AppColors.appColor,),
+                    child: DotLoader(loaderColor: AppColors.appColor,),
                   );
                 } else if (state is SignUpStateFailure) {
                   return Center(
@@ -136,7 +137,16 @@ class SignUpScreen extends StatelessWidget {
                                 width: 5.0,
                               ),
                               CustomImageButton(
-                                onTap: () {},
+                                onTap: () async{
+                                  bool flag = await context.read<SignUpCubit>().createUserWithFacebook();
+                                  if (!flag) {
+                                    AppUtils.showToast(context, 'Email Already Registered', 'Please use a different google account to register a new account', true);
+                                  }
+                                  else {
+                                    AppUtils.showToast(context, 'Update Password', 'Your account password has been set as \'******\', update it in profile', false);
+                                    context.go(RouteNames.homeRoute);
+                                  }
+                                },
                                 imagePath: 'assets/images/fbIcon.png',
                               )
                             ],

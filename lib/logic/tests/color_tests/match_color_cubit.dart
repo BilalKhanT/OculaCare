@@ -188,6 +188,7 @@ class MatchColorCubit extends Cubit<MatchColorState> {
         ResponseModel resp_ = await ml.getData(
             'Additionally, mention only 3 points potential impacts of difficulties in color recognition and matching in daily activities without heading or subheadings. Generate text as if you are talking directly to the patient.');
         TestResultModel data = TestResultModel(
+            email: sharedPrefs.email,
             patientName: sharedPrefs.userName,
             date: date,
             testType: 'Color Perception Test',

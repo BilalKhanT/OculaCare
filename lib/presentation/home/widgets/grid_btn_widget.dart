@@ -5,53 +5,73 @@ import 'package:flutter_svg/svg.dart';
 class GridButtonWidget extends StatelessWidget {
   const GridButtonWidget(
       {super.key,
-        required this.onTap,
-        required this.iconData,
-        required this.title,
-        required this.subtitle,
-        required this.constraints});
+      required this.onTap,
+      required this.iconData,
+      required this.title,
+      required this.subtitle,
+      required this.constraints,
+      required this.color,
+      required this.colorSecondary});
 
   final Function onTap;
   final String iconData;
   final String title;
   final String subtitle;
+  final Color color;
+  final Color colorSecondary;
   final BoxConstraints constraints;
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.sizeOf(context).height;
+    double screenWidth = MediaQuery.sizeOf(context).width;
     return GestureDetector(
       onTap: () {
         onTap();
       },
       child: Container(
-        height: constraints.maxHeight * 0.9,
-        width: constraints.maxWidth * 0.35,
+        height: screenHeight * 0.3,
+        width: constraints.maxWidth * 0.25,
         padding: const EdgeInsets.symmetric(horizontal: 5),
         decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(12),
+          color: color,
+          borderRadius: BorderRadius.circular(100),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.shade500,
+              blurRadius: 1,
+              offset: const Offset(0, 1),
+            ),
+          ],
         ),
         alignment: Alignment.center,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SvgPicture.asset(
-              iconData,
-              height: 20,
-              width: 30,
-              // ignore: deprecated_member_use
-              color: AppColors.appColor,
-              fit: BoxFit.scaleDown,
+            Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(100),
+                  color: colorSecondary),
+              child: Padding(
+                padding: const EdgeInsets.all(9.0),
+                child: SvgPicture.asset(
+                  iconData,
+                  height: screenHeight * 0.04,
+                  width: screenHeight * 0.04,
+                  // ignore: deprecated_member_use
+                  color: AppColors.whiteColor,
+                ),
+              ),
             ),
-            const SizedBox(
-              height: 7,
+            SizedBox(
+              height: screenHeight * 0.015,
             ),
             Text(
               title,
-              style: const TextStyle(
-                color: Colors.black,
-                fontSize: 10,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: screenWidth * 0.032,
                 fontFamily: 'MontserratMedium',
                 fontWeight: FontWeight.w600,
               ),
@@ -59,10 +79,10 @@ class GridButtonWidget extends StatelessWidget {
             ),
             Text(
               subtitle,
-              style: const TextStyle(
+              style: TextStyle(
                 fontFamily: 'MontserratBold',
-                color: Colors.black,
-                fontSize: 10,
+                color: Colors.white,
+                fontSize: screenWidth * 0.027,
                 fontWeight: FontWeight.w600,
               ),
               textAlign: TextAlign.center,

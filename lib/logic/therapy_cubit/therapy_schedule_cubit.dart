@@ -78,10 +78,15 @@ class TherapyScheduleCubit extends Cubit<TherapyScheduleState> {
     }
   }
 
-  Future<void> removeScheduledTherapy(String id) async {
+  Future<void> removeScheduledTherapy(String id, bool flag) async {
     emit(TherapyScheduleLoading());
     await NotificationService.cancelTherapyNotification(int.parse(id));
-    await loadScheduledTherapies();
+    if (flag) {
+      loadGeneralTherapies();
+    }
+    else {
+      loadDiseaseSpecificTherapies();
+    }
   }
 
 

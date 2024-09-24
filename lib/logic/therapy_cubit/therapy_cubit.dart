@@ -29,14 +29,11 @@ class TherapyCubit extends Cubit<TherapyState> {
   Future<void> loadTherapyHistory(String patientName) async {
     emit(TherapyLoading());
     try {
-      if (globalTherapies.isEmpty) {
+      if (globalTherapies.isEmpty || sharedPrefs.therapyFetched == false) {
+        sharedPrefs.therapyFetched = true;
         await therapyRepository.getTherapyRecord(patientName);
       }
-      if (globalTherapies.isNotEmpty) {
         emit(TherapyHistoryLoaded(globalTherapies));
-      } else {
-        emit(TherapyHistoryEmpty());
-      }
     } catch (e) {
       emit(TherapyError(therapyErr: 'Failed to load therapy history: $e'));
     }
@@ -54,7 +51,6 @@ class TherapyCubit extends Cubit<TherapyState> {
       if (globalTherapies.isEmpty) {
         await therapyRepository.getTherapyRecord(patientName);
       }
-      if (globalTherapies.isNotEmpty) {
         globalTherapyProgressData = {};
         categoryDateTherapyCount = {};
         final DateFormat dateFormat = DateFormat('dd-MM-yyyy');
@@ -81,9 +77,6 @@ class TherapyCubit extends Cubit<TherapyState> {
         }
 
         emit(TherapyProgressionLoaded(globalTherapyProgressData));
-      } else {
-        emit(TherapyProgressionEmpty());
-      }
     } catch (e) {
       emit(TherapyProgressError(therapyProgressErr: 'Failed to load therapy history: $e'));
     }
@@ -542,6 +535,7 @@ class TherapyCubit extends Cubit<TherapyState> {
     String formattedDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
 
     TherapyModel newTherapy = TherapyModel(
+      email: sharedPrefs.email,
       patientName: sharedPrefs.userName,
       date: formattedDate,
       therapyType: category,
@@ -555,25 +549,6 @@ class TherapyCubit extends Cubit<TherapyState> {
 
       if (isSaved) {
         globalTherapies.add(newTherapy);
-        DateTime date = DateFormat('dd-MM-yyyy').parse(newTherapy.date);
-
-        // Update globalTherapyProgressData
-        globalTherapyProgressData.update(
-          date,
-              (existingDuration) => existingDuration + newTherapy.duration,
-          ifAbsent: () => newTherapy.duration,
-        );
-
-        if (categoryDateTherapyCount.containsKey(newTherapy.therapyType)) {
-          categoryDateTherapyCount[newTherapy.therapyType]!.update(
-            date,
-                (existingCount) => existingCount + 1,
-            ifAbsent: () => 1,
-          );
-        } else {
-          categoryDateTherapyCount[newTherapy.therapyType] = {date: 1};
-        }
-
         emit(TherapyHistoryLoaded(globalTherapies));
         emit(TherapyProgressionLoaded(globalTherapyProgressData));
         emit(TherapyCompleted(therapyTitle: title));
