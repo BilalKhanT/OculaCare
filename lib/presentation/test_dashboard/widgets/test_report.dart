@@ -7,8 +7,10 @@ import 'package:OculaCare/presentation/test_dashboard/widgets/severity_chart.dar
 import 'package:OculaCare/presentation/test_dashboard/widgets/snellan_chart_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../data/models/address/address_model.dart';
 import '../../../data/models/patient/patient_model.dart';
 import '../../../data/repositories/local/preferences/shared_prefs.dart';
 import '../../../logic/tests/test_dash_tab_cubit.dart';
@@ -19,11 +21,21 @@ class TestReport extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Patient patient = Patient(
+        email: '',
+        username: '',
+        profileImage: '',
+        age: 0,
+        gender: '',
+        contactNumber: '',
+        address: Address(lat: 0, long: 0, locationName: ''));
     double screenHeight = MediaQuery.sizeOf(context).height;
     double screenWidth = MediaQuery.sizeOf(context).width;
     String? patientData = sharedPrefs.patientData;
-    Map<String, dynamic> decodedData = jsonDecode(patientData);
-    Patient patient = Patient.fromJson(decodedData);
+    if (patientData != '') {
+      Map<String, dynamic> decodedData = jsonDecode(patientData);
+      patient = Patient.fromJson(decodedData);
+    }
     return Scaffold(
       backgroundColor: AppColors.screenBackground,
       appBar: AppBar(
@@ -128,10 +140,14 @@ class TestReport extends StatelessWidget {
                                 width: screenHeight * 0.13,
                                 color: Colors.white,
                                 child: patientData == ''
-                                    ? Image.asset(
-                                        'assets/images/profile_place.png',
-                                        fit: BoxFit.cover,
-                                      )
+                                    ? Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: SvgPicture.asset(
+                                    "assets/svgs/account.svg",
+                                    // ignore: deprecated_member_use
+                                    color: Colors.grey.shade800,
+                                  ),
+                                )
                                     : Image.memory(
                                         base64Decode(patient.profileImage!),
                                         fit: BoxFit.cover,
