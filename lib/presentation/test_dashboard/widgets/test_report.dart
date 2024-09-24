@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:OculaCare/configs/presentation/constants/colors.dart';
 import 'package:OculaCare/data/models/tests/test_result_model.dart';
+import 'package:OculaCare/presentation/test_dashboard/widgets/pdf_generator_test.dart';
 import 'package:OculaCare/presentation/test_dashboard/widgets/severity_chart.dart';
 import 'package:OculaCare/presentation/test_dashboard/widgets/snellan_chart_widget.dart';
 import 'package:flutter/material.dart';
@@ -18,16 +19,15 @@ class TestReport extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(test.testScore);
     double screenHeight = MediaQuery.sizeOf(context).height;
     double screenWidth = MediaQuery.sizeOf(context).width;
     String? patientData = sharedPrefs.patientData;
     Map<String, dynamic> decodedData = jsonDecode(patientData);
     Patient patient = Patient.fromJson(decodedData);
     return Scaffold(
-      backgroundColor: AppColors.whiteColor,
+      backgroundColor: AppColors.screenBackground,
       appBar: AppBar(
-        backgroundColor: AppColors.whiteColor,
+        backgroundColor: AppColors.screenBackground,
         title: Text(
           'Test Report',
           style: TextStyle(
@@ -49,246 +49,299 @@ class TestReport extends StatelessWidget {
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 10.0),
-            child: Row(
-              children: [
-                const Icon(
-                  Icons.upload_outlined,
-                  color: AppColors.appColor,
-                ),
-                const SizedBox(
-                  width: 5.0,
-                ),
-                Text(
-                  'Download',
-                  style: TextStyle(
+            child: GestureDetector(
+              onTap: () {
+                final report = PdfReportGenerator(
+                    userName: test.patientName,
+                    testDate: test.date,
+                    testType: test.testType,
+                    testName: test.testName,
+                    testScore: test.testScore,
+                    analysis: test.resultDescription,
+                    recommendations: test.recommendation,
+                    impacts: test.precautions,
+                    userProfileImageBase64: patient.profileImage!);
+                downloadReport(context, report);
+              },
+              child: Row(
+                children: [
+                  const Icon(
+                    Icons.upload_outlined,
                     color: AppColors.appColor,
-                    fontFamily: 'MontserratMedium',
-                    fontWeight: FontWeight.w800,
-                    fontSize: screenWidth * 0.04,
                   ),
-                ),
-              ],
+                  const SizedBox(
+                    width: 5.0,
+                  ),
+                  Text(
+                    'Download',
+                    style: TextStyle(
+                      color: AppColors.appColor,
+                      fontFamily: 'MontserratMedium',
+                      fontWeight: FontWeight.w800,
+                      fontSize: screenWidth * 0.04,
+                    ),
+                  ),
+                ],
+              ),
             ),
           )
         ],
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5.0),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Row(
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border:
-                            Border.all(color: AppColors.appColor, width: 1.5),
-                      ),
-                      child: ClipOval(
-                        child: Container(
-                          height: screenHeight * 0.1,
-                          width: screenHeight * 0.1,
-                          color: Colors.white,
-                          child: patientData == ''
-                              ? Image.asset(
-                                  'assets/images/profile_place.png',
-                                  fit: BoxFit.cover,
-                                )
-                              : Image.memory(
-                                  base64Decode(patient.profileImage!),
-                                  fit: BoxFit.cover,
-                                ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 30.0,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          test.patientName,
-                          style: TextStyle(
-                            color: AppColors.appColor,
-                            fontFamily: 'MontserratMedium',
-                            fontWeight: FontWeight.w800,
-                            fontSize: screenWidth * 0.04,
-                          ),
-                        ),
-                        SizedBox(
-                          height: screenHeight * 0.006,
-                        ),
-                        Text(
-                          test.date,
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontFamily: 'MontserratMedium',
-                            fontWeight: FontWeight.w800,
-                            fontSize: screenWidth * 0.03,
-                          ),
-                        ),
-                        SizedBox(
-                          height: screenHeight * 0.003,
-                        ),
-                        Text(
-                          test.testType,
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontFamily: 'MontserratMedium',
-                            fontWeight: FontWeight.w800,
-                            fontSize: screenWidth * 0.03,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: screenHeight * 0.03,
-                ),
-                Row(
-                  children: [
-                    Text(
-                      'Test Name:',
-                      style: TextStyle(
-                        color: AppColors.appColor,
-                        fontFamily: 'MontserratMedium',
-                        fontWeight: FontWeight.w800,
-                        fontSize: screenWidth * 0.04,
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 10.0,
-                    ),
-                    Text(
-                      test.testName,
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontFamily: 'Montserrat',
-                        fontWeight: FontWeight.bold,
-                        fontSize: screenWidth * 0.04,
-                      ),
-                    ),
-                  ],
-                ),
-                test.testName == 'Animal Track'
-                    ? TrackChart(
-                        score: test.testScore,
-                      )
-                    : test.testName == 'Snellan Chart'
-                        ? Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Image.asset(
-                                  'assets/images/result_test.png',
-                                  height: screenHeight * 0.15,
-                                ),
-                                SizedBox(
-                                  height: screenHeight * 0.01,
-                                ),
-                                Text(
-                                  '6/${test.testScore}',
-                                  style: TextStyle(
-                                    color: AppColors.appColor,
-                                    fontFamily: 'MontserratMedium',
-                                    fontWeight: FontWeight.w800,
-                                    fontSize: screenWidth * 0.04,
-                                    letterSpacing: 0.5,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: screenHeight * 0.02,
-                                ),
-                              ],
-                            ),
-                          )
-                        : SeverityChart(score: test.testScore),
-                Text(
-                  'Analysis:',
-                  style: TextStyle(
-                    color: AppColors.appColor,
-                    fontFamily: 'MontserratMedium',
-                    fontWeight: FontWeight.w800,
-                    fontSize: screenWidth * 0.04,
-                    letterSpacing: 0.5,
-                  ),
-                ),
-                SizedBox(
-                  height: screenHeight * 0.01,
-                ),
-                Text(
-                  test.resultDescription,
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontFamily: 'Montserrat',
-                    fontWeight: FontWeight.bold,
-                    fontSize: screenWidth * 0.032,
-                    letterSpacing: 0.5,
-                  ),
-                ),
-                SizedBox(
-                  height: screenHeight * 0.025,
-                ),
-                Text(
-                  'Recommendations:',
-                  style: TextStyle(
-                    color: AppColors.appColor,
-                    fontFamily: 'MontserratMedium',
-                    fontWeight: FontWeight.w800,
-                    fontSize: screenWidth * 0.04,
-                    letterSpacing: 0.5,
-                  ),
-                ),
-                SizedBox(
-                  height: screenHeight * 0.01,
-                ),
-                Text(
-                  test.recommendation,
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontFamily: 'Montserrat',
-                    fontWeight: FontWeight.bold,
-                    fontSize: screenWidth * 0.032,
-                    letterSpacing: 0.5,
-                  ),
-                ),
-                SizedBox(
-                  height: screenHeight * 0.025,
-                ),
-                Text(
-                  'Impacts:',
-                  style: TextStyle(
-                    color: AppColors.appColor,
-                    fontFamily: 'MontserratMedium',
-                    fontWeight: FontWeight.w800,
-                    fontSize: screenWidth * 0.04,
-                    letterSpacing: 0.5,
-                  ),
-                ),
-                SizedBox(
-                  height: screenHeight * 0.01,
-                ),
-                Text(
-                  test.precautions,
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontFamily: 'Montserrat',
-                    fontWeight: FontWeight.bold,
-                    fontSize: screenWidth * 0.032,
-                    letterSpacing: 0.5,
-                  ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 25.0),
+        child: Center(
+          child: Container(
+            height: screenHeight * 0.8,
+            width: screenWidth,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(12.0),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.shade300,
+                  blurRadius: 1,
+                  spreadRadius: 3,
+                  offset: const Offset(0, 1),
                 ),
               ],
+            ),
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5.0),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border:
+                                  Border.all(color: AppColors.appColor, width: 1.5),
+                            ),
+                            child: ClipOval(
+                              child: Container(
+                                height: screenHeight * 0.13,
+                                width: screenHeight * 0.13,
+                                color: Colors.white,
+                                child: patientData == ''
+                                    ? Image.asset(
+                                        'assets/images/profile_place.png',
+                                        fit: BoxFit.cover,
+                                      )
+                                    : Image.memory(
+                                        base64Decode(patient.profileImage!),
+                                        fit: BoxFit.cover,
+                                      ),
+                              ),
+                            ),
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Image.asset(
+                                'assets/images/logo_ocula_login.png',
+                                height: screenHeight * 0.04,
+                                width: screenHeight * 0.04,
+                              ),
+                              Text(
+                                'OculaCare',
+                                style: TextStyle(
+                                  color: AppColors.appColor,
+                                  fontFamily: 'MontserratMedium',
+                                  fontWeight: FontWeight.w800,
+                                  fontSize: screenWidth * 0.035,
+                                ),
+                              ),
+                              SizedBox(height: screenHeight * 0.05,)
+                            ],
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: screenHeight * 0.02,
+                      ),
+                      Text(
+                        'Name: ${test.patientName}',
+                        style: TextStyle(
+                          color: AppColors.textPrimary,
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.bold,
+                          fontSize: screenWidth * 0.037,
+                        ),
+                      ),
+                      SizedBox(
+                        height: screenHeight * 0.003,
+                      ),
+                      Text(
+                        'Date: ${test.date}',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.bold,
+                          fontSize: screenWidth * 0.037,
+                        ),
+                      ),
+                      SizedBox(
+                        height: screenHeight * 0.003,
+                      ),
+                      Text(
+                        'Test Type: ${test.testType}',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.bold,
+                          fontSize: screenWidth * 0.037,
+                        ),
+                      ),
+                      SizedBox(
+                        height: screenHeight * 0.03,
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            'Test Name:',
+                            style: TextStyle(
+                              color: AppColors.appColor,
+                              fontFamily: 'MontserratMedium',
+                              fontWeight: FontWeight.w800,
+                              fontSize: screenWidth * 0.037,
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 10.0,
+                          ),
+                          Text(
+                            test.testName,
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontFamily: 'Montserrat',
+                              fontWeight: FontWeight.bold,
+                              fontSize: screenWidth * 0.037,
+                            ),
+                          ),
+                        ],
+                      ),
+                      test.testName == 'Animal Track'
+                          ? TrackChart(
+                              score: test.testScore,
+                            )
+                          : test.testName == 'Snellan Chart'
+                              ? Center(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      Image.asset(
+                                        'assets/images/result_test.png',
+                                        height: screenHeight * 0.15,
+                                      ),
+                                      SizedBox(
+                                        height: screenHeight * 0.01,
+                                      ),
+                                      Text(
+                                        '6/${test.testScore}',
+                                        style: TextStyle(
+                                          color: AppColors.appColor,
+                                          fontFamily: 'MontserratMedium',
+                                          fontWeight: FontWeight.w800,
+                                          fontSize: screenWidth * 0.04,
+                                          letterSpacing: 0.5,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: screenHeight * 0.02,
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              : SeverityChart(score: test.testScore),
+                      Text(
+                        'Analysis:',
+                        style: TextStyle(
+                          color: AppColors.appColor,
+                          fontFamily: 'MontserratMedium',
+                          fontWeight: FontWeight.w800,
+                          fontSize: screenWidth * 0.04,
+                          letterSpacing: 0.5,
+                        ),
+                      ),
+                      SizedBox(
+                        height: screenHeight * 0.003,
+                      ),
+                      Text(
+                        test.resultDescription,
+                        textAlign: TextAlign.justify,
+                        style: TextStyle(
+                          color: Colors.grey.shade800,
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.bold,
+                          fontSize: screenWidth * 0.034,
+                          letterSpacing: 0.5,
+                        ),
+                      ),
+                      SizedBox(
+                        height: screenHeight * 0.025,
+                      ),
+                      Text(
+                        'Recommendations:',
+                        style: TextStyle(
+                          color: AppColors.appColor,
+                          fontFamily: 'MontserratMedium',
+                          fontWeight: FontWeight.w800,
+                          fontSize: screenWidth * 0.04,
+                          letterSpacing: 0.5,
+                        ),
+                      ),
+                      SizedBox(
+                        height: screenHeight * 0.003,
+                      ),
+                      Text(
+                        test.recommendation,
+                        textAlign: TextAlign.justify,
+                        style: TextStyle(
+                          color: Colors.grey.shade800,
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.bold,
+                          fontSize: screenWidth * 0.034,
+                          letterSpacing: 0.5,
+                        ),
+                      ),
+                      SizedBox(
+                        height: screenHeight * 0.025,
+                      ),
+                      Text(
+                        'Impacts:',
+                        style: TextStyle(
+                          color: AppColors.appColor,
+                          fontFamily: 'MontserratMedium',
+                          fontWeight: FontWeight.w800,
+                          fontSize: screenWidth * 0.04,
+                          letterSpacing: 0.5,
+                        ),
+                      ),
+                      SizedBox(
+                        height: screenHeight * 0.003,
+                      ),
+                      Text(
+                        test.precautions,
+                        textAlign: TextAlign.justify,
+                        style: TextStyle(
+                          color: Colors.grey.shade800,
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.bold,
+                          fontSize: screenWidth * 0.034,
+                          letterSpacing: 0.5,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ),
           ),
         ),
