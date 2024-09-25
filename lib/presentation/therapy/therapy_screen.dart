@@ -25,7 +25,7 @@ class TherapyScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
-
+// ignore: deprecated_member_use
     return WillPopScope(
       onWillPop: () async {
         BlocProvider.of<TherapyCubit>(context).stopTherapy();
@@ -245,7 +245,7 @@ class TherapyScreen extends StatelessWidget {
                             btnColor: AppColors.appColor,
                             textColor: AppColors.whiteColor,
                             onPress: () {
-                              context.push(RouteNames.therapyFeedbackRoute);
+                              context.push(RouteNames.therapyFeedbackRoute, extra: state.therapyModel);
                             },
                             text: "Submit Feedback"),
                       ),
