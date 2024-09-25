@@ -391,7 +391,7 @@ class HomeScreen extends StatelessWidget {
                                     child: SizedBox(
                                       height: screenHeight * 0.5,
                                       child: Image.asset(
-                                          'assets/images/edu_1.jpeg'),
+                                          'assets/images/edu_1.png'),
                                     ),
                                   ),
                                 );
@@ -428,7 +428,7 @@ class HomeScreen extends StatelessWidget {
                                   ),
                                   height: 150.h,
                                   child: Image.asset(
-                                    'assets/images/edu_1.jpeg',
+                                    'assets/images/edu_1.png',
                                     fit: BoxFit.cover,
                                   )),
                             ),
@@ -445,7 +445,7 @@ class HomeScreen extends StatelessWidget {
                                     child: SizedBox(
                                       height: screenHeight * 0.5,
                                       child: Image.asset(
-                                          'assets/images/edu_3.jpeg'),
+                                          'assets/images/eye_2.png'),
                                     ),
                                   ),
                                 );
@@ -481,7 +481,7 @@ class HomeScreen extends StatelessWidget {
                                 ),
                                 height: 150.h,
                                 child: Image.asset(
-                                  'assets/images/edu_3.jpeg',
+                                  'assets/images/eye_2.png',
                                   fit: BoxFit.cover,
                                 ),
                               ),
@@ -499,7 +499,7 @@ class HomeScreen extends StatelessWidget {
                                     child: SizedBox(
                                       height: screenHeight * 0.5,
                                       child: Image.asset(
-                                          'assets/images/edu_2.jpeg'),
+                                          'assets/images/edu_eye.png'),
                                     ),
                                   ),
                                 );
@@ -535,7 +535,7 @@ class HomeScreen extends StatelessWidget {
                                 ),
                                 height: 150.h,
                                 child: Image.asset(
-                                  'assets/images/edu_2.jpeg',
+                                  'assets/images/edu_eye.png',
                                   fit: BoxFit.cover,
                                 ),
                               ),
@@ -553,7 +553,7 @@ class HomeScreen extends StatelessWidget {
                                     child: SizedBox(
                                       height: screenHeight * 0.5,
                                       child: Image.asset(
-                                          'assets/images/edu_1.jpeg'),
+                                          'assets/images/edu_3.png'),
                                     ),
                                   ),
                                 );
@@ -590,7 +590,7 @@ class HomeScreen extends StatelessWidget {
                                 ),
                                 height: 150.h,
                                 child: Image.asset(
-                                  'assets/images/edu_1.jpeg',
+                                  'assets/images/edu_3.png',
                                   fit: BoxFit.cover,
                                 ),
                               ),
@@ -599,7 +599,7 @@ class HomeScreen extends StatelessWidget {
                         ),
                       ],
                       options: CarouselOptions(
-                          height: 250,
+                          height: screenHeight * 0.28,
                           aspectRatio: 16 / 9,
                           autoPlay: true,
                           viewportFraction: 0.5,
