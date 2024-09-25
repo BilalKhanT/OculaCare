@@ -66,6 +66,8 @@ dependencies:
   flutter_heatmap_calendar: ^1.0.5
   shimmer: ^3.0.0
   url_launcher: ^6.3.0
+  pdf: ^3.11.1
+  printing: ^5.13.1
 
 dev_dependencies:
   flutter_test:

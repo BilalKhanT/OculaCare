@@ -4,23 +4,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import '../../../configs/presentation/constants/colors.dart';
+import '../../../configs/routes/route_names.dart';
+import '../../../configs/utils/utils.dart';
+import '../../../data/models/therapy/therapy_results_model.dart';
+import '../../../logic/auth_cubit/auth_cubit.dart';
+import '../../../logic/keyboard_listener_cubit/keyboard_list_cubit.dart';
+import '../../../logic/keyboard_listener_cubit/keyboard_list_state.dart';
+import '../../../logic/therapy_cubit/therapy_feedback_cubit.dart';
+import '../../../logic/therapy_cubit/therapy_feedback_states.dart';
 
-import '../../configs/presentation/constants/colors.dart';
-import '../../configs/routes/route_names.dart';
-import '../../configs/utils/utils.dart';
-import '../../logic/auth_cubit/auth_cubit.dart';
-import '../../logic/feedback_cubit/feedback_cubit.dart';
-import '../../logic/feedback_cubit/feedback_state.dart';
-import '../../logic/keyboard_listener_cubit/keyboard_list_cubit.dart';
-import '../../logic/keyboard_listener_cubit/keyboard_list_state.dart';
-
-class FeedbackView extends StatelessWidget {
-  const FeedbackView({super.key});
+class TherapyFeedbackView extends StatelessWidget {
+  final TherapyModel therapy;
+  const TherapyFeedbackView({super.key, required this.therapy});
 
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.sizeOf(context).height;
     double screenWidth = MediaQuery.sizeOf(context).width;
+
+
     return Scaffold(
       backgroundColor: AppColors.screenBackground,
       resizeToAvoidBottomInset: false,
@@ -29,9 +32,6 @@ class FeedbackView extends StatelessWidget {
         leading: IconButton(
             onPressed: () {
               context.pop();
-              context
-                  .read<FeedbackCubit>()
-                  .emitInitial(cubit: context.read<AuthCubit>());
             },
             icon: const Icon(
               Icons.arrow_back_ios_new,
@@ -48,22 +48,22 @@ class FeedbackView extends StatelessWidget {
           ),
         ),
       ),
-      body: BlocConsumer<FeedbackCubit, FeedbackState>(
+      body: BlocConsumer<TherapyFeedbackCubit, TherapyFeedbackState>(
         listener: (context, state) {
-          if (state is FeedbackServerError) {
+          if (state is TherapyFeedbackServerError) {
             AppUtils.showToast(context, 'Server Error',
                 'Server error has occurred, please try again later', true);
           }
         },
         builder: (context, state) {
-          if (state is FeedbackLoading) {
+          if (state is TherapyFeedbackLoading) {
             return const Center(
               child: DotLoader(
                 loaderColor: AppColors.appColor,
               ),
             );
           }
-          if (state is FeedbackCompleted) {
+          if (state is TherapyFeedbackCompleted) {
             return Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -107,13 +107,13 @@ class FeedbackView extends StatelessWidget {
                         btnColor: AppColors.appColor,
                         textColor: Colors.white,
                         onPress: () {
-                          context.go(RouteNames.homeRoute);
+                          context.go(RouteNames.dashboardRoute);
                           context
-                              .read<FeedbackCubit>()
+                              .read<TherapyFeedbackCubit>()
                               .emitInitial(cubit: context.read<AuthCubit>());
-                          context.read<FeedbackCubit>().clearController();
+                          context.read<TherapyFeedbackCubit>().clearController();
                         },
-                        text: 'Back to home')),
+                        text: 'Back to Dashboard')),
               ],
             );
           }
@@ -124,15 +124,15 @@ class FeedbackView extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 10),
-                child: BlocBuilder<FeedbackCubit, FeedbackState>(
+                child: BlocBuilder<TherapyFeedbackCubit, TherapyFeedbackState>(
                   builder: (context, state) {
                     return Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         InkWell(
                           onTap: () {
-                            context.read<FeedbackCubit>().likedFeedbackState();
-                            context.read<FeedbackCubit>().clearController();
+                            context.read<TherapyFeedbackCubit>().likedFeedbackState();
+                            context.read<TherapyFeedbackCubit>().clearController();
                           },
                           child: Container(
                             width: MediaQuery.sizeOf(context).width * 0.38,
@@ -156,11 +156,11 @@ class FeedbackView extends StatelessWidget {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                (state is FeedbackLiked)
+                                (state is TherapyFeedbackLiked)
                                     ? SvgPicture.asset(
-                                        'assets/svgs/liked_feedback_pressed.svg')
+                                    'assets/svgs/liked_feedback_pressed.svg')
                                     : SvgPicture.asset(
-                                        'assets/svgs/liked_experience.svg'),
+                                    'assets/svgs/liked_experience.svg'),
                                 Text(
                                   'Loved it',
                                   style: TextStyle(
@@ -177,9 +177,9 @@ class FeedbackView extends StatelessWidget {
                         InkWell(
                           onTap: () {
                             context
-                                .read<FeedbackCubit>()
+                                .read<TherapyFeedbackCubit>()
                                 .unlikedFeedbackState();
-                            context.read<FeedbackCubit>().clearController();
+                            context.read<TherapyFeedbackCubit>().clearController();
                           },
                           child: Container(
                             width: MediaQuery.sizeOf(context).width * 0.38,
@@ -203,11 +203,11 @@ class FeedbackView extends StatelessWidget {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                (state is FeedbackUnLiked)
+                                (state is TherapyFeedbackUnLiked)
                                     ? SvgPicture.asset(
-                                        'assets/svgs/unliked_feedback_pressed.svg')
+                                    'assets/svgs/unliked_feedback_pressed.svg')
                                     : SvgPicture.asset(
-                                        'assets/svgs/unliked_experience.svg'),
+                                    'assets/svgs/unliked_experience.svg'),
                                 Text(
                                   'Not Great',
                                   style: TextStyle(
@@ -232,19 +232,19 @@ class FeedbackView extends StatelessWidget {
               BlocBuilder<KeyboardListenerCubit, KeyboardListenerState>(
                 builder: (context, state) {
                   if (state is KeyboardClosed) {
-                    return BlocBuilder<FeedbackCubit, FeedbackState>(
+                    return BlocBuilder<TherapyFeedbackCubit, TherapyFeedbackState>(
                       builder: (context, state) {
-                        if (state is FeedbackLiked) {
+                        if (state is TherapyFeedbackLiked) {
                           return Column(
                             children:
-                                state.selectionStatus.keys.map((itemName) {
+                            state.selectionStatus.keys.map((itemName) {
                               return Padding(
                                 padding:
-                                    const EdgeInsets.only(left: 30, right: 30),
+                                const EdgeInsets.only(left: 30, right: 30),
                                 child: InkWell(
                                   onTap: () {
                                     context
-                                        .read<FeedbackCubit>()
+                                        .read<TherapyFeedbackCubit>()
                                         .toggleLikedItem(itemName);
                                   },
                                   child: Container(
@@ -253,7 +253,7 @@ class FeedbackView extends StatelessWidget {
                                     margin: const EdgeInsets.only(top: 10),
                                     decoration: BoxDecoration(
                                       color: state.selectionStatus[itemName] ??
-                                              false
+                                          false
                                           ? Colors.green[200]
                                           : Colors.grey,
                                       borderRadius: BorderRadius.circular(10),
@@ -263,10 +263,10 @@ class FeedbackView extends StatelessWidget {
                                         itemName,
                                         style: TextStyle(
                                           color:
-                                              state.selectionStatus[itemName] ??
-                                                      false
-                                                  ? Colors.black
-                                                  : Colors.white,
+                                          state.selectionStatus[itemName] ??
+                                              false
+                                              ? Colors.black
+                                              : Colors.white,
                                           fontFamily: 'MontserratMedium',
                                           fontWeight: FontWeight.w600,
                                           fontSize: screenWidth * 0.04,
@@ -279,17 +279,17 @@ class FeedbackView extends StatelessWidget {
                             }).toList(),
                           );
                         }
-                        if (state is FeedbackUnLiked) {
+                        if (state is TherapyFeedbackUnLiked) {
                           return Column(
                             children:
-                                state.selectionStatus.keys.map((itemName) {
+                            state.selectionStatus.keys.map((itemName) {
                               return Padding(
                                 padding:
-                                    const EdgeInsets.only(left: 30, right: 30),
+                                const EdgeInsets.only(left: 30, right: 30),
                                 child: InkWell(
                                   onTap: () {
                                     context
-                                        .read<FeedbackCubit>()
+                                        .read<TherapyFeedbackCubit>()
                                         .toggleUnLikedItem(itemName);
                                   },
                                   child: Container(
@@ -298,7 +298,7 @@ class FeedbackView extends StatelessWidget {
                                     margin: const EdgeInsets.only(top: 10),
                                     decoration: BoxDecoration(
                                       color: state.selectionStatus[itemName] ??
-                                              false
+                                          false
                                           ? Colors.red[200]
                                           : Colors.grey,
                                       borderRadius: BorderRadius.circular(10),
@@ -308,10 +308,10 @@ class FeedbackView extends StatelessWidget {
                                         itemName,
                                         style: TextStyle(
                                           color:
-                                              state.selectionStatus[itemName] ??
-                                                      false
-                                                  ? Colors.black
-                                                  : Colors.white,
+                                          state.selectionStatus[itemName] ??
+                                              false
+                                              ? Colors.black
+                                              : Colors.white,
                                           fontFamily: 'MontserratMedium',
                                           fontWeight: FontWeight.w600,
                                           fontSize: screenWidth * 0.04,
@@ -334,9 +334,9 @@ class FeedbackView extends StatelessWidget {
               SizedBox(
                 height: screenHeight * 0.03,
               ),
-              BlocBuilder<FeedbackCubit, FeedbackState>(
+              BlocBuilder<TherapyFeedbackCubit, TherapyFeedbackState>(
                 builder: (context, state) {
-                  if (state is FeedbackLiked || state is FeedbackUnLiked) {
+                  if (state is TherapyFeedbackLiked || state is TherapyFeedbackUnLiked) {
                     return Column(
                       children: [
                         Padding(
@@ -355,10 +355,10 @@ class FeedbackView extends StatelessWidget {
                               maxLines: null,
                               maxLength: 400,
                               controller: context
-                                  .read<FeedbackCubit>()
+                                  .read<TherapyFeedbackCubit>()
                                   .textFeedbackController,
                               focusNode: context
-                                  .read<FeedbackCubit>()
+                                  .read<TherapyFeedbackCubit>()
                                   .textFeedbackNode,
                               keyboardType: TextInputType.multiline,
                               expands: true,
@@ -389,7 +389,7 @@ class FeedbackView extends StatelessWidget {
                           padding: const EdgeInsets.only(left: 30, right: 30),
                           child: InkWell(
                             onTap: () {
-                              if (state is FeedbackLiked) {
+                              if (state is TherapyFeedbackLiked) {
                                 if (state.selectionStatus.values
                                     .every((element) => element == false)) {
                                   AppUtils.showToast(
@@ -400,7 +400,7 @@ class FeedbackView extends StatelessWidget {
                                   return;
                                 }
                               }
-                              if (state is FeedbackUnLiked) {
+                              if (state is TherapyFeedbackUnLiked) {
                                 if (state.selectionStatus.values
                                     .toList()
                                     .every((element) => element == false)) {
@@ -413,17 +413,17 @@ class FeedbackView extends StatelessWidget {
                                 }
                               }
                               context
-                                  .read<FeedbackCubit>()
+                                  .read<TherapyFeedbackCubit>()
                                   .toggleFeedbackCompleted();
-                              context.read<FeedbackCubit>().clearController();
+                              context.read<TherapyFeedbackCubit>().clearController();
                             },
-                            child: BlocBuilder<FeedbackCubit, FeedbackState>(
+                            child: BlocBuilder<TherapyFeedbackCubit, TherapyFeedbackState>(
                               builder: (context, state) {
                                 return GestureDetector(
                                   onTap: () {
-                                    if (state is FeedbackLiked) {
+                                    if (state is TherapyFeedbackLiked) {
                                       if (state.selectionStatus.values.every(
-                                          (element) => element == false)) {
+                                              (element) => element == false)) {
                                         AppUtils.showToast(
                                             context,
                                             'Error',
@@ -441,18 +441,17 @@ class FeedbackView extends StatelessWidget {
                                         }
                                         return "";
                                       }).toList();
+                                      print(therapy.email);
                                       list.remove("");
-                                      context
-                                          .read<FeedbackCubit>()
-                                          .submitFeedback(
-                                              'Liked',
-                                              list,
-                                              context
-                                                  .read<FeedbackCubit>()
-                                                  .textFeedbackController
-                                                  .text);
+                                      context.read<TherapyFeedbackCubit>().submitFeedback(
+                                        'Unliked',
+                                        list,
+                                        context.read<TherapyFeedbackCubit>().textFeedbackController.text,
+                                        therapy,
+                                      );
+
                                     }
-                                    if (state is FeedbackUnLiked) {
+                                    if (state is TherapyFeedbackUnLiked) {
                                       if (state.selectionStatus.values
                                           .toList()
                                           .every(
@@ -475,16 +474,14 @@ class FeedbackView extends StatelessWidget {
                                         return "";
                                       }).toList();
                                       list.remove("");
+                                      print(therapy);
+                                      context.read<TherapyFeedbackCubit>().submitFeedback(
+                                        'liked',
+                                        list,
+                                        context.read<TherapyFeedbackCubit>().textFeedbackController.text,
+                                        therapy,
+                                      );
 
-                                      context
-                                          .read<FeedbackCubit>()
-                                          .submitFeedback(
-                                              'Unliked',
-                                              list,
-                                              context
-                                                  .read<FeedbackCubit>()
-                                                  .textFeedbackController
-                                                  .text);
                                     }
                                   },
                                   child: Container(
