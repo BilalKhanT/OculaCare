@@ -552,7 +552,7 @@ class TherapyCubit extends Cubit<TherapyState> {
         globalTherapies.add(newTherapy);
         emit(TherapyHistoryLoaded(globalTherapies));
         emit(TherapyProgressionLoaded(globalTherapyProgressData));
-        emit(TherapyCompleted(therapyTitle: title));
+        emit(TherapyCompleted(therapyTitle: title, therapyModel: newTherapy));
       } else {
         emit(const TherapyError(therapyErr: 'Failed to save therapy'));
       }
