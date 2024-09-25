@@ -12,3 +12,4 @@ List <TherapyModel> globalTherapies = [];
 Map<DateTime, int> globalTherapyProgressData = {};
 Map<String, int> barChartData = {};
 Map<String, Map<DateTime, int>> categoryDateTherapyCount = {};
+int trackLevel = 0;
