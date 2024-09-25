@@ -106,7 +106,7 @@ final List<Map<String, dynamic>> pterygiumTherapies = [
     "sound": "assets/audio/relaxing_breathing.mp3",
     "benefits": [
       "Relieves eye tension",
-      "Improves blood circulation around the eyes",
+      "Improves blood circulation.",
       "Reduces puffiness"
     ],
     "instructions": [

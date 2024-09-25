@@ -15,6 +15,7 @@ import 'package:OculaCare/presentation/result/result_view.dart';
 import 'package:OculaCare/presentation/test_dashboard/test_dash_view.dart';
 import 'package:OculaCare/presentation/therapy/scheduled_therapy.dart';
 import 'package:OculaCare/presentation/test_dashboard/widgets/test_report.dart';
+import 'package:OculaCare/presentation/therapy/sections/therapy_feedback_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -23,6 +24,8 @@ import 'package:OculaCare/presentation/home/home_view.dart';
 import 'package:OculaCare/presentation/img_capture/img_capture_view.dart';
 import 'package:OculaCare/presentation/onboarding/onboarding_view.dart';
 import 'package:OculaCare/presentation/sign_up/sign_up_view.dart';
+import '../../data/models/therapy/therapy_feedback_model.dart';
+import '../../data/models/therapy/therapy_results_model.dart';
 import '../../logic/tests/vision_tests/animal_track_cubit.dart';
 import '../../logic/tests/test_cubit.dart';
 import '../../logic/tests/test_dash_tab_cubit.dart';
@@ -301,6 +304,13 @@ final router = GoRouter(
           TestResultModel test = state.extra as TestResultModel;
           return TestReport(test: test);
         }),
+    GoRoute(
+      parentNavigatorKey: navigatorKey,
+      path: RouteNames.therapyFeedbackRoute,
+      builder: (context, state){
+        TherapyModel therapy = state.extra as TherapyModel;
+        return  TherapyFeedbackView( therapy : therapy );
+      }),
   ],
   initialLocation: sharedPrefs.isLoggedIn
       ? RouteNames.homeRoute
