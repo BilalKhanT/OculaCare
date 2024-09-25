@@ -50,14 +50,14 @@ class HomeScreen extends StatelessWidget {
           child: SizedBox(
             child: Padding(
               padding:
-                  const EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
+                  const EdgeInsets.symmetric(horizontal: 0.0, vertical: 20.0),
               child: SingleChildScrollView(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(left: 5.0),
+                      padding: const EdgeInsets.only(left: 15.0, right: 10.0),
                       child: Text(
                         'Today, $date',
                         style: TextStyle(
@@ -73,7 +73,7 @@ class HomeScreen extends StatelessWidget {
                       height: screenHeight * 0.01,
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 5.0),
+                      padding: const EdgeInsets.only(left: 15.0, right: 10.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -109,7 +109,7 @@ class HomeScreen extends StatelessWidget {
                             ],
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(right: 15.0),
+                            padding: const EdgeInsets.only(right: 25.0, left: 10.0),
                             child: Container(
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
@@ -237,7 +237,7 @@ class HomeScreen extends StatelessWidget {
                       height: screenHeight * 0.04,
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 15),
+                      padding: const EdgeInsets.only(left: 0),
                       child: SizedBox(
                         height: screenHeight * 0.18,
                         width: MediaQuery.sizeOf(context).width,
@@ -247,33 +247,36 @@ class HomeScreen extends StatelessWidget {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                GridButtonWidget(
-                                  onTap: () {
-                                    if (!sharedPrefs.isProfileSetup) {
-                                      showDialog(
-                                        context: context,
-                                        builder: (context) {
-                                          return const Dialog(
-                                              child:
-                                                  NeedToSetupProfileWidget());
-                                        },
-                                      );
-                                      return;
-                                    }
-                                    context
-                                        .read<ImageCaptureCubit>()
-                                        .initializeCamera();
-                                    context.push(RouteNames.imgCaptureRoute);
-                                  },
-                                  iconData: "assets/svgs/eye_scan.svg",
-                                  constraints: constraints,
-                                  title: "Fast Way",
-                                  subtitle: "To Detect",
-                                  color: const Color(0xFF9673D4),
-                                  colorSecondary: const Color(0xFF6B4FA0),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 15.0),
+                                  child: GridButtonWidget(
+                                    onTap: () {
+                                      if (!sharedPrefs.isProfileSetup) {
+                                        showDialog(
+                                          context: context,
+                                          builder: (context) {
+                                            return const Dialog(
+                                                child:
+                                                    NeedToSetupProfileWidget());
+                                          },
+                                        );
+                                        return;
+                                      }
+                                      context
+                                          .read<ImageCaptureCubit>()
+                                          .initializeCamera();
+                                      context.push(RouteNames.imgCaptureRoute);
+                                    },
+                                    iconData: "assets/svgs/eye_scan.svg",
+                                    constraints: constraints,
+                                    title: "Fast Way",
+                                    subtitle: "To Detect",
+                                    color: const Color(0xFF9673D4),
+                                    colorSecondary: const Color(0xFF6B4FA0),
+                                  ),
                                 ),
-                                const SizedBox(
-                                  width: 20,
+                                 SizedBox(
+                                  width: screenHeight * 0.025,
                                 ),
                                 GridButtonWidget(
                                   onTap: () {
@@ -297,8 +300,8 @@ class HomeScreen extends StatelessWidget {
                                   color: const Color(0xFF59AFCC),
                                   colorSecondary: const Color(0xFF357C92),
                                 ),
-                                const SizedBox(
-                                  width: 20,
+                                SizedBox(
+                                  width: screenHeight * 0.025,
                                 ),
                                 GridButtonWidget(
                                   onTap: () {
@@ -315,22 +318,25 @@ class HomeScreen extends StatelessWidget {
                                   color: const Color(0xFFF683A2),
                                   colorSecondary: const Color(0xFFCF617F),
                                 ),
-                                const SizedBox(
-                                  width: 20,
+                                SizedBox(
+                                  width: screenHeight * 0.025,
                                 ),
-                                GridButtonWidget(
-                                  onTap: () {
-                                    context
-                                        .read<PDFCubit>()
-                                        .fetchAndInitializePDFList();
-                                    context.push(RouteNames.pdfViewRoute);
-                                  },
-                                  constraints: constraints,
-                                  iconData: 'assets/svgs/leaflet.svg',
-                                  title: "Explore",
-                                  subtitle: "Leaflets",
-                                  color: const Color(0xffbbbcbf),
-                                  colorSecondary: const Color(0xFF8D8D90),
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 15.0),
+                                  child: GridButtonWidget(
+                                    onTap: () {
+                                      context
+                                          .read<PDFCubit>()
+                                          .fetchAndInitializePDFList();
+                                      context.push(RouteNames.pdfViewRoute);
+                                    },
+                                    constraints: constraints,
+                                    iconData: 'assets/svgs/leaflet.svg',
+                                    title: "Explore",
+                                    subtitle: "Leaflets",
+                                    color: const Color(0xffbbbcbf),
+                                    colorSecondary: const Color(0xFF8D8D90),
+                                  ),
                                 ),
                               ],
                             ),
@@ -342,7 +348,7 @@ class HomeScreen extends StatelessWidget {
                       height: screenHeight * 0.03,
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 15.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -391,7 +397,7 @@ class HomeScreen extends StatelessWidget {
                                     child: SizedBox(
                                       height: screenHeight * 0.5,
                                       child: Image.asset(
-                                          'assets/images/edu_1.jpeg'),
+                                          'assets/images/edu_1.png'),
                                     ),
                                   ),
                                 );
@@ -428,7 +434,7 @@ class HomeScreen extends StatelessWidget {
                                   ),
                                   height: 150.h,
                                   child: Image.asset(
-                                    'assets/images/edu_1.jpeg',
+                                    'assets/images/edu_1.png',
                                     fit: BoxFit.cover,
                                   )),
                             ),
@@ -445,7 +451,7 @@ class HomeScreen extends StatelessWidget {
                                     child: SizedBox(
                                       height: screenHeight * 0.5,
                                       child: Image.asset(
-                                          'assets/images/edu_3.jpeg'),
+                                          'assets/images/eye_2.png'),
                                     ),
                                   ),
                                 );
@@ -481,7 +487,7 @@ class HomeScreen extends StatelessWidget {
                                 ),
                                 height: 150.h,
                                 child: Image.asset(
-                                  'assets/images/edu_3.jpeg',
+                                  'assets/images/eye_2.png',
                                   fit: BoxFit.cover,
                                 ),
                               ),
@@ -499,7 +505,7 @@ class HomeScreen extends StatelessWidget {
                                     child: SizedBox(
                                       height: screenHeight * 0.5,
                                       child: Image.asset(
-                                          'assets/images/edu_2.jpeg'),
+                                          'assets/images/edu_eye.png'),
                                     ),
                                   ),
                                 );
@@ -535,7 +541,7 @@ class HomeScreen extends StatelessWidget {
                                 ),
                                 height: 150.h,
                                 child: Image.asset(
-                                  'assets/images/edu_2.jpeg',
+                                  'assets/images/edu_eye.png',
                                   fit: BoxFit.cover,
                                 ),
                               ),
@@ -553,7 +559,7 @@ class HomeScreen extends StatelessWidget {
                                     child: SizedBox(
                                       height: screenHeight * 0.5,
                                       child: Image.asset(
-                                          'assets/images/edu_1.jpeg'),
+                                          'assets/images/edu_3.png'),
                                     ),
                                   ),
                                 );
@@ -590,7 +596,7 @@ class HomeScreen extends StatelessWidget {
                                 ),
                                 height: 150.h,
                                 child: Image.asset(
-                                  'assets/images/edu_1.jpeg',
+                                  'assets/images/edu_3.png',
                                   fit: BoxFit.cover,
                                 ),
                               ),
@@ -599,7 +605,7 @@ class HomeScreen extends StatelessWidget {
                         ),
                       ],
                       options: CarouselOptions(
-                          height: 250,
+                          height: screenHeight * 0.28,
                           aspectRatio: 16 / 9,
                           autoPlay: true,
                           viewportFraction: 0.5,

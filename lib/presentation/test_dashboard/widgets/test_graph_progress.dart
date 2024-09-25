@@ -37,13 +37,6 @@ class TestGraphProgress extends StatelessWidget {
                   height: screenHeight * 0.05,
                   width: screenWidth * 0.4,
                   decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
-                        blurRadius: 10,
-                        offset: const Offset(0, 5),
-                      ),
-                    ],
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(50.0),
                   ),

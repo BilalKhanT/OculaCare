@@ -59,7 +59,7 @@ class MoreView extends StatelessWidget {
                             child: ClipRRect(
                                 borderRadius: BorderRadius.circular(10),
                                 child: Image.asset(
-                                    "assets/images/eye_leaflet.jpg")),
+                                    "assets/images/eye_leaflet.png")),
                           ),
                         )
                       ]),
