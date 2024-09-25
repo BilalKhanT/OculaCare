@@ -61,24 +61,32 @@ class ProgressionSection extends StatelessWidget {
         }
         else if (state is TherapyProgressionLoaded) {
           content = Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ProgressCalendarScreen(
-                data: globalTherapyProgressData,
+              Center(
+                child: ProgressCalendarScreen(
+                  data: globalTherapyProgressData,
+                ),
+              ),
+              SizedBox(height: screenHeight * 0.02),
+              Text(
+                'Therapy Categories',
+                textAlign: TextAlign.left,
+                style: TextStyle(
+                  fontFamily: 'MontserratMedium',
+                  fontWeight: FontWeight.w800,
+                  fontSize: screenWidth * 0.045,
+                  color: AppColors.appColor,
+
+                ),
               ),
               SizedBox(height: screenHeight * 0.02),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 10.0),
+                padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
                 child: Container(
                   decoration: BoxDecoration(
                     color: AppColors.whiteColor,
                     borderRadius: BorderRadius.circular(15.0),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
-                        spreadRadius: 2,
-                        blurRadius: 5,
-                      ),
-                    ],
                   ),
                   child: const TherapyBarChart(),
                 ),
