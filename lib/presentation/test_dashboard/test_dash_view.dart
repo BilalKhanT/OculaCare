@@ -12,6 +12,7 @@ import 'package:shimmer/shimmer.dart';
 
 import '../../configs/presentation/constants/colors.dart';
 import '../../configs/routes/route_names.dart';
+import '../../data/repositories/local/preferences/shared_prefs.dart';
 import '../../logic/tests/color_more_cubit.dart';
 import '../../logic/tests/color_more_state.dart';
 import '../../logic/tests/color_tests/isihara_cubit.dart';
@@ -27,6 +28,7 @@ import '../../logic/tests/test_schedule_tab_cubit.dart';
 import '../../logic/tests/test_state.dart';
 import '../../logic/tests/vision_tests/contrast_cubit.dart';
 import '../../logic/tests/vision_tests/snellan_test_cubit.dart';
+import '../widgets/need_to_setup_profile_widget.dart';
 
 class TestDashView extends StatelessWidget {
   const TestDashView({super.key});
@@ -334,6 +336,16 @@ class TestDashView extends StatelessWidget {
                                   'Test snellan chart test to\nmeasure your vision acuity.',
                               image: 'assets/images/snellan_test.png',
                               onPress: () {
+                                if (!sharedPrefs.isProfileSetup) {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return const Dialog(
+                                          child: NeedToSetupProfileWidget());
+                                    },
+                                  );
+                                  return;
+                                }
                                 context
                                     .read<SnellanTestCubit>()
                                     .loadSnellanTest();
@@ -348,6 +360,16 @@ class TestDashView extends StatelessWidget {
                                   'Track animals and maintain\nfocus to test vision.',
                               image: 'assets/images/drag_test.png',
                               onPress: () {
+                                if (!sharedPrefs.isProfileSetup) {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return const Dialog(
+                                          child: NeedToSetupProfileWidget());
+                                    },
+                                  );
+                                  return;
+                                }
                                 context.go(
                                   RouteNames.trackInitialRoute,
                                 );
@@ -399,6 +421,16 @@ class TestDashView extends StatelessWidget {
                                             image:
                                                 'assets/images/contrast_test.png',
                                             onPress: () {
+                                              if (!sharedPrefs.isProfileSetup) {
+                                                showDialog(
+                                                  context: context,
+                                                  builder: (context) {
+                                                    return const Dialog(
+                                                        child: NeedToSetupProfileWidget());
+                                                  },
+                                                );
+                                                return;
+                                              }
                                               context
                                                   .read<ContrastCubit>()
                                                   .emitInitial();
@@ -458,6 +490,16 @@ class TestDashView extends StatelessWidget {
                                   'Identify digits and patterns\nin isihara plates.',
                               image: 'assets/images/isihara_test.png',
                               onPress: () {
+                                if (!sharedPrefs.isProfileSetup) {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return const Dialog(
+                                          child: NeedToSetupProfileWidget());
+                                    },
+                                  );
+                                  return;
+                                }
                                 context.read<IshiharaCubit>().restartTest();
                                 context.push(RouteNames.isiharaRoute);
                               },
@@ -468,6 +510,16 @@ class TestDashView extends StatelessWidget {
                                   'Identify and pick the tile\nwith odd color.',
                               image: 'assets/images/odd_test.png',
                               onPress: () {
+                                if (!sharedPrefs.isProfileSetup) {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return const Dialog(
+                                          child: NeedToSetupProfileWidget());
+                                    },
+                                  );
+                                  return;
+                                }
                                 context.read<OddOutCubit>().emitInitial();
                                 context.push(RouteNames.oddOutRoute);
                               },
@@ -518,6 +570,16 @@ class TestDashView extends StatelessWidget {
                                             image:
                                                 'assets/images/color_match_test.png',
                                             onPress: () {
+                                              if (!sharedPrefs.isProfileSetup) {
+                                                showDialog(
+                                                  context: context,
+                                                  builder: (context) {
+                                                    return const Dialog(
+                                                        child: NeedToSetupProfileWidget());
+                                                  },
+                                                );
+                                                return;
+                                              }
                                               context
                                                   .read<MatchColorCubit>()
                                                   .emitInitial();
