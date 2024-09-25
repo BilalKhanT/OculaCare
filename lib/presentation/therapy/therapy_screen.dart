@@ -9,9 +9,11 @@ import 'package:OculaCare/presentation/therapy/widgets_therapy/cstm_therapies_pr
 import 'package:OculaCare/presentation/widgets/btn_flat.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 import 'package:rive/rive.dart' as rive;
 
+import '../../configs/routes/route_names.dart';
 import '../widgets/cstm_loader.dart';
 
 class TherapyScreen extends StatelessWidget {
@@ -243,7 +245,7 @@ class TherapyScreen extends StatelessWidget {
                             btnColor: AppColors.appColor,
                             textColor: AppColors.whiteColor,
                             onPress: () {
-                              print("Feedback logic");
+                              context.push(RouteNames.therapyFeedbackRoute);
                             },
                             text: "Submit Feedback"),
                       ),
