@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-
 import '../../../configs/presentation/constants/colors.dart';
 import '../../../configs/routes/route_names.dart';
 import '../../../configs/utils/utils.dart';
+import '../../../data/models/therapy/therapy_results_model.dart';
 import '../../../logic/auth_cubit/auth_cubit.dart';
 import '../../../logic/keyboard_listener_cubit/keyboard_list_cubit.dart';
 import '../../../logic/keyboard_listener_cubit/keyboard_list_state.dart';
@@ -15,12 +15,15 @@ import '../../../logic/therapy_cubit/therapy_feedback_cubit.dart';
 import '../../../logic/therapy_cubit/therapy_feedback_states.dart';
 
 class TherapyFeedbackView extends StatelessWidget {
-  const TherapyFeedbackView({super.key});
+  final TherapyModel therapy;
+  const TherapyFeedbackView({super.key, required this.therapy});
 
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.sizeOf(context).height;
     double screenWidth = MediaQuery.sizeOf(context).width;
+
+
     return Scaffold(
       backgroundColor: AppColors.screenBackground,
       resizeToAvoidBottomInset: false,
@@ -438,16 +441,15 @@ class TherapyFeedbackView extends StatelessWidget {
                                         }
                                         return "";
                                       }).toList();
+                                      print(therapy.email);
                                       list.remove("");
-                                      context
-                                          .read<TherapyFeedbackCubit>()
-                                          .submitFeedback(
-                                          'Liked',
-                                          list,
-                                          context
-                                              .read<TherapyFeedbackCubit>()
-                                              .textFeedbackController
-                                              .text);
+                                      context.read<TherapyFeedbackCubit>().submitFeedback(
+                                        'Unliked',
+                                        list,
+                                        context.read<TherapyFeedbackCubit>().textFeedbackController.text,
+                                        therapy,
+                                      );
+
                                     }
                                     if (state is TherapyFeedbackUnLiked) {
                                       if (state.selectionStatus.values
@@ -472,16 +474,14 @@ class TherapyFeedbackView extends StatelessWidget {
                                         return "";
                                       }).toList();
                                       list.remove("");
+                                      print(therapy);
+                                      context.read<TherapyFeedbackCubit>().submitFeedback(
+                                        'liked',
+                                        list,
+                                        context.read<TherapyFeedbackCubit>().textFeedbackController.text,
+                                        therapy,
+                                      );
 
-                                      context
-                                          .read<TherapyFeedbackCubit>()
-                                          .submitFeedback(
-                                          'Unliked',
-                                          list,
-                                          context
-                                              .read<TherapyFeedbackCubit>()
-                                              .textFeedbackController
-                                              .text);
                                     }
                                   },
                                   child: Container(
