@@ -290,9 +290,10 @@ class TherapyError extends TherapyState {
 
 class TherapyCompleted extends TherapyState {
   final String therapyTitle;
+  final TherapyModel therapyModel;
 
-  const TherapyCompleted({required this.therapyTitle});
+  const TherapyCompleted( {required this.therapyModel, required this.therapyTitle});
 
   @override
-  List<Object> get props => [therapyTitle];
+  List<Object> get props => [therapyTitle, therapyModel];
 }
