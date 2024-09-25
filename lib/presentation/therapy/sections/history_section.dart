@@ -31,7 +31,7 @@ class HistorySection extends StatelessWidget {
         if (state is TherapyLoading) {
           return Padding(
             padding:
-                const EdgeInsets.symmetric(horizontal: 5.0, vertical: 20.0),
+                const EdgeInsets.symmetric(horizontal: 5.0, vertical: 10.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -41,7 +41,7 @@ class HistorySection extends StatelessWidget {
                     baseColor: Colors.grey[300]!,
                     highlightColor: Colors.grey[100]!,
                     child: Container(
-                      width: double.infinity,
+                      width: screenWidth * 0.5,
                       height: 20.0,
                       color: Colors.white,
                     ),
@@ -71,7 +71,72 @@ class HistorySection extends StatelessWidget {
                               Expanded(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
+                                  children: <Widget>[
+                                    Container(
+                                      width: double.infinity,
+                                      height: 12.0,
+                                      color: Colors.white,
+                                    ),
+                                    const SizedBox(height: 5.0),
+                                    Container(
+                                      width: double.infinity,
+                                      height: 12.0,
+                                      color: Colors.white,
+                                    ),
+                                    const SizedBox(height: 5.0),
+                                    Container(
+                                      width: 100.0,
+                                      height: 12.0,
+                                      color: Colors.white,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                SizedBox(height: screenHeight * 0.02),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                  child: Shimmer.fromColors(
+                    baseColor: Colors.grey[300]!,
+                    highlightColor: Colors.grey[100]!,
+                    child: Container(
+                      width: screenWidth * 0.6,
+                      height: 20.0,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                SizedBox(height: screenHeight * 0.02),
+                SizedBox(
+                  height: screenHeight * 0.35,
+                  child: ListView.builder(
+                    itemCount: 5,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 8.0, horizontal: 3.0),
+                        child: Shimmer.fromColors(
+                          baseColor: Colors.grey[300]!,
+                          highlightColor: Colors.grey[100]!,
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                width: 60.0,
+                                height: 60.0,
+                                color: Colors.white,
+                              ),
+                              const SizedBox(width: 10.0),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
                                     Container(
                                       width: double.infinity,
                                       height: 12.0,
@@ -142,7 +207,7 @@ class HistorySection extends StatelessWidget {
                   ),
                   SizedBox(height: screenHeight * 0.02),
                   SizedBox(
-                    height: screenHeight * 0.3,
+                    height: screenHeight * 0.27,
                     child: _buildTherapyList(
                         generalTherapies, screenHeight, screenWidth),
                   ),
@@ -162,7 +227,7 @@ class HistorySection extends StatelessWidget {
                   ),
                   SizedBox(height: screenHeight * 0.02),
                   SizedBox(
-                    height: screenHeight * 0.3,
+                    height: screenHeight * 0.27,
                     child: Text(
                       'No General Therapies',
                       style: TextStyle(
@@ -175,7 +240,7 @@ class HistorySection extends StatelessWidget {
                   ),
                 ],
                 if (diseaseTherapies.isNotEmpty) ...[
-                  SizedBox(height: screenHeight * 0.04),
+                  SizedBox(height: screenHeight * 0.02),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 5.0),
                     child: Text(
@@ -190,32 +255,29 @@ class HistorySection extends StatelessWidget {
                   ),
                   SizedBox(height: screenHeight * 0.02),
                   SizedBox(
-                    height: screenHeight * 0.3,
+                    height: screenHeight * 0.27,
                     child: _buildTherapyList(
                         diseaseTherapies, screenHeight, screenWidth),
                   ),
                 ],
                 if (diseaseTherapies.isEmpty) ...[
-                  SizedBox(height: screenHeight * 0.2),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                    child: SizedBox(
-                      height: screenHeight * 0.4,
-                      child: Text(
-                        'Disease-Specific Therapies',
-                        style: TextStyle(
-                          fontFamily: 'MontserratMedium',
-                          fontWeight: FontWeight.w800,
-                          fontSize: screenWidth * 0.045,
-                          color: AppColors.appColor,
-                        ),
+                    child: Text(
+                      'General Exercises',
+                      style: TextStyle(
+                        fontFamily: 'MontserratMedium',
+                        fontWeight: FontWeight.w800,
+                        fontSize: screenWidth * 0.045,
+                        color: AppColors.appColor,
                       ),
                     ),
                   ),
                   SizedBox(height: screenHeight * 0.02),
-                  Center(
+                  SizedBox(
+                    height: screenHeight * 0.27,
                     child: Text(
-                      'No Diseases-Specific Therapies',
+                      'No Disease Specific Therapies',
                       style: TextStyle(
                         fontFamily: 'MontserratMedium',
                         fontWeight: FontWeight.w800,
