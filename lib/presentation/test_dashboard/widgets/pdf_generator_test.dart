@@ -122,7 +122,7 @@ class PdfReportGenerator {
               ),
             ),
             pw.Text(
-              '$score',
+              testName == 'Snellan Chart' ? '6/$score' : '$score',
               style: pw.TextStyle(
                 fontSize: 40,
                 fontWeight: pw.FontWeight.bold,
