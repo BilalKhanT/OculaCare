@@ -4,8 +4,9 @@ import 'package:OculaCare/logic/therapy_cubit/therapy_feedback_states.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:http/http.dart' as http;
-import '../../configs/app/app_globals.dart';
+import '../../data/models/therapy/therapy_feedback_model.dart';
+import '../../data/models/therapy/therapy_results_model.dart';
+import '../../data/repositories/therapy/therapy_feedback_repo.dart';
 import '../auth_cubit/auth_cubit.dart';
 import '../keyboard_listener_cubit/keyboard_list_cubit.dart';
 import '../keyboard_listener_cubit/keyboard_list_state.dart';
@@ -15,6 +16,8 @@ class TherapyFeedbackCubit extends Cubit<TherapyFeedbackState> {
   TherapyFeedbackCubit(this.keyboardListenerCubit) : super(TherapyFeedbackInitial()) {
     listenToKeyboardFocus();
   }
+
+  final TherapyFeedbackRepository therapyFeedbackRepository = TherapyFeedbackRepository();
 
   Map<String, bool> likedItems = {
     "Therapy was easy to follow": false,
@@ -111,23 +114,22 @@ class TherapyFeedbackCubit extends Cubit<TherapyFeedbackState> {
   }
 
   Future<void> submitFeedback(
-      String category, List<String> data, String customFeedback) async {
+      String category, List<String> data, String customFeedback, TherapyModel therapy) async {
     emit(TherapyFeedbackLoading());
     try {
-      var url = Uri.parse('$ipServer/api/feedback/submit');
-      var response = await http.post(
-        url,
-        headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({
-          'email': sharedPrefs.email,
-          'category': category,
-          'defaults': data,
-          'customMessage': customFeedback,
-        }),
+      TherapyFeedbackModel feedback = TherapyFeedbackModel(
+        email: sharedPrefs.email,
+        therapy: therapy,
+        category: category,
+        defaults: data,
+        customMessage: customFeedback,
       );
-      if (response.statusCode == 200) {
+
+      bool success = await therapyFeedbackRepository.submitTherapyFeedback(feedback);
+      if(success){
         emit(TherapyFeedbackCompleted());
-      } else {
+      }
+      else{
         emit(TherapyFeedbackServerError());
       }
     } catch (e) {
