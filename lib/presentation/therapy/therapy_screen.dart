@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:OculaCare/configs/presentation/constants/colors.dart';
+import 'package:OculaCare/configs/utils/utils.dart';
 import 'package:OculaCare/logic/therapy_cubit/therapy_cubit.dart';
 import 'package:OculaCare/logic/therapy_cubit/therapy_state.dart';
 import 'package:OculaCare/logic/therapy_cubit/timer_cubit.dart';
@@ -31,9 +32,7 @@ class TherapyScreen extends StatelessWidget {
       child: BlocConsumer<TherapyCubit, TherapyState>(
         listener: (context, state) {
           if (state is TherapyCompleted) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text("Therapy completed successfully!")),
-            );
+            AppUtils.showToast(context, state.therapyTitle, "Therapy completed successfully!", false);
           }
         },
         builder: (context, state) {
