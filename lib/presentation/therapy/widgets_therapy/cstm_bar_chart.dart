@@ -25,20 +25,9 @@ class TherapyBarChart extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                const Text(
-                  'Therapy Categories',
-                  style: TextStyle(
-                    color: AppColors.appColor,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(
-                  height: 4,
-                ),
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 40),
                     child: BarChart(
                       mainBarData(context),
                       swapAnimationDuration: const Duration(milliseconds: 250),
