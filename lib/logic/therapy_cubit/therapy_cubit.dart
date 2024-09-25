@@ -30,6 +30,7 @@ class TherapyCubit extends Cubit<TherapyState> {
     emit(TherapyLoading());
     try {
       if (globalTherapies.isEmpty || sharedPrefs.therapyFetched == false) {
+        globalTherapies.clear();
         sharedPrefs.therapyFetched = true;
         await therapyRepository.getTherapyRecord(patientName);
       }
