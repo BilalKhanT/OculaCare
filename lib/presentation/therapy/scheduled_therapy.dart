@@ -58,7 +58,6 @@ class ScheduledTherapies extends StatelessWidget {
                     generalSelected = state.isGeneral;
                     diseaseSpecificSelected = state.isDiseaseSpecific;
                   }
-
                   return SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Padding(
@@ -105,11 +104,9 @@ class ScheduledTherapies extends StatelessWidget {
                         ],
                       ),
                     );
-                  } else if (state is TherapyScheduled &&
-                      state.scheduledTherapies.isNotEmpty) {
+                  } else if (state is TherapyScheduled && state.scheduledTherapies.isNotEmpty) {
                     return Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 5.0, vertical: 5.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 5.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
@@ -120,24 +117,24 @@ class ScheduledTherapies extends StatelessWidget {
                               itemCount: state.scheduledTherapies.length,
                               itemBuilder: (context, index) {
                                 return Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 10.0),
+                                  padding: const EdgeInsets.symmetric(vertical: 10.0),
                                   child: Slidable(
+                                    key: const ValueKey(0),
                                     endActionPane: ActionPane(
                                       motion: const StretchMotion(),
                                       children: [
                                         SlidableAction(
-                                          onPressed: (context) {
-                                            bool isGeneralSelected = context.read<TherapyScheduleTabCubit>().state is TherapyScheduleTabToggled &&
-                                                (context.read<TherapyScheduleTabCubit>().state as TherapyScheduleTabToggled).isGeneral;
-                                            context.read<TherapyScheduleCubit>().removeScheduledTherapy(
-                                                '${state.scheduledTherapies[index]['id']}',
-                                                isGeneralSelected
-                                            );
-                                          },
+                                          key: ValueKey(0),
+                                          onPressed: (context) => context
+                                              .read<TherapyScheduleCubit>()
+                                              .removeScheduledTherapy(
+                                            '${state.scheduledTherapies[index]['id']}',
+                                            context.read<TherapyScheduleTabCubit>().state is TherapyScheduleTabToggled &&
+                                                (context.read<TherapyScheduleTabCubit>().state as TherapyScheduleTabToggled).isGeneral,
+                                          ),
                                           icon: Icons.delete,
                                           backgroundColor: const Color(0xffB81736),
-                                        ),
+                                        )
                                       ],
                                     ),
                                     child: Container(
@@ -149,24 +146,17 @@ class ScheduledTherapies extends StatelessWidget {
                                         children: [
                                           Expanded(
                                             child: Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 15.0,
-                                                  top: 10.0,
-                                                  bottom: 10.0),
+                                              padding: const EdgeInsets.only(left: 15.0, top: 10.0, bottom: 10.0),
                                               child: Column(
-                                                crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                                crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: <Widget>[
                                                   Text(
                                                     '${state.scheduledTherapies[index]['title']}',
                                                     style: TextStyle(
                                                       color: AppColors.appColor,
-                                                      fontFamily:
-                                                      'MontserratMedium',
-                                                      fontWeight:
-                                                      FontWeight.w900,
-                                                      fontSize:
-                                                      screenWidth * 0.04,
+                                                      fontFamily: 'MontserratMedium',
+                                                      fontWeight: FontWeight.w900,
+                                                      fontSize: screenWidth * 0.04,
                                                     ),
                                                   ),
                                                   const SizedBox(height: 5),
@@ -174,12 +164,9 @@ class ScheduledTherapies extends StatelessWidget {
                                                     'Time:',
                                                     style: TextStyle(
                                                       color: Colors.black,
-                                                      fontFamily:
-                                                      'MontserratMedium',
-                                                      fontWeight:
-                                                      FontWeight.w900,
-                                                      fontSize:
-                                                      screenWidth * 0.04,
+                                                      fontFamily: 'MontserratMedium',
+                                                      fontWeight: FontWeight.w900,
+                                                      fontSize: screenWidth * 0.04,
                                                     ),
                                                   ),
                                                   Text(
@@ -187,17 +174,34 @@ class ScheduledTherapies extends StatelessWidget {
                                                       DateTime.parse(state.scheduledTherapies[index]['time']!),
                                                     ),
                                                     style: TextStyle(
-                                                      color:
-                                                      Colors.grey.shade700,
-                                                      fontFamily:
-                                                      'MontserratMedium',
-                                                      fontWeight:
-                                                      FontWeight.w600,
-                                                      fontSize:
-                                                      screenWidth * 0.035,
+                                                      color: Colors.grey.shade700,
+                                                      fontFamily: 'MontserratMedium',
+                                                      fontWeight: FontWeight.w600,
+                                                      fontSize: screenWidth * 0.035,
                                                     ),
                                                   ),
                                                 ],
+                                              ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(right: 10.0),
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(100.0),
+                                                color: Colors.red.withOpacity(0.2),
+                                              ),
+                                              child: Padding(
+                                                padding: const EdgeInsets.all(5.0),
+                                                child: IconButton(
+                                                  onPressed: () {
+                                                    print('hhhhhhhhh');
+                                                    Slidable.of(context)?.openEndActionPane();
+                                                  },
+                                                  icon: const Icon(Icons.delete_outlined),
+                                                  color: Colors.red,
+                                                  iconSize: 32,
+                                                ),
                                               ),
                                             ),
                                           ),

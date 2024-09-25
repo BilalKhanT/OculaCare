@@ -165,6 +165,7 @@ class ScheduleBottomModal extends StatelessWidget {
                       } else {
                         await context.read<ScheduleCubit>().scheduleTest(test);
                         if (context.mounted) {
+                          AppUtils.showToast(context, "Test Scheduled", "Your test has been successfully scheduled", false);
                           context.pop();
                         }
                       }
