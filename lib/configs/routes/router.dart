@@ -15,6 +15,7 @@ import 'package:OculaCare/presentation/result/result_view.dart';
 import 'package:OculaCare/presentation/test_dashboard/test_dash_view.dart';
 import 'package:OculaCare/presentation/therapy/scheduled_therapy.dart';
 import 'package:OculaCare/presentation/test_dashboard/widgets/test_report.dart';
+import 'package:OculaCare/presentation/therapy/sections/therapy_feedback_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -301,6 +302,11 @@ final router = GoRouter(
           TestResultModel test = state.extra as TestResultModel;
           return TestReport(test: test);
         }),
+    GoRoute(
+      parentNavigatorKey: navigatorKey,
+      path: RouteNames.therapyFeedbackRoute,
+      builder: (context, state) => const TherapyFeedbackView(),
+    ),
   ],
   initialLocation: sharedPrefs.isLoggedIn
       ? RouteNames.homeRoute
