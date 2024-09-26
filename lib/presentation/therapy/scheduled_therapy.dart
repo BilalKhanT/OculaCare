@@ -119,12 +119,11 @@ class ScheduledTherapies extends StatelessWidget {
                                 return Padding(
                                   padding: const EdgeInsets.symmetric(vertical: 10.0),
                                   child: Slidable(
-                                    key: const ValueKey(0),
+                                    key: ValueKey(state.scheduledTherapies[index]['id']),
                                     endActionPane: ActionPane(
                                       motion: const StretchMotion(),
                                       children: [
                                         SlidableAction(
-                                          key: ValueKey(0),
                                           onPressed: (context) => context
                                               .read<TherapyScheduleCubit>()
                                               .removeScheduledTherapy(
@@ -137,75 +136,76 @@ class ScheduledTherapies extends StatelessWidget {
                                         )
                                       ],
                                     ),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      child: Row(
-                                        children: [
-                                          Expanded(
-                                            child: Padding(
-                                              padding: const EdgeInsets.only(left: 15.0, top: 10.0, bottom: 10.0),
-                                              child: Column(
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                children: <Widget>[
-                                                  Text(
-                                                    '${state.scheduledTherapies[index]['title']}',
-                                                    style: TextStyle(
-                                                      color: AppColors.appColor,
-                                                      fontFamily: 'MontserratMedium',
-                                                      fontWeight: FontWeight.w900,
-                                                      fontSize: screenWidth * 0.04,
-                                                    ),
-                                                  ),
-                                                  const SizedBox(height: 5),
-                                                  Text(
-                                                    'Time:',
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontFamily: 'MontserratMedium',
-                                                      fontWeight: FontWeight.w900,
-                                                      fontSize: screenWidth * 0.04,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    DateFormat('dd MMM hh:mm a').format(
-                                                      DateTime.parse(state.scheduledTherapies[index]['time']!),
-                                                    ),
-                                                    style: TextStyle(
-                                                      color: Colors.grey.shade700,
-                                                      fontFamily: 'MontserratMedium',
-                                                      fontWeight: FontWeight.w600,
-                                                      fontSize: screenWidth * 0.035,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.only(right: 10.0),
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.circular(100.0),
-                                                color: Colors.red.withOpacity(0.2),
-                                              ),
+                                    child: Builder(
+                                      builder: (context) => Container(
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.circular(10),
+                                        ),
+                                        child: Row(
+                                          children: [
+                                            Expanded(
                                               child: Padding(
-                                                padding: const EdgeInsets.all(5.0),
-                                                child: IconButton(
-                                                  onPressed: () {
-                                                    print('hhhhhhhhh');
-                                                    Slidable.of(context)?.openEndActionPane();
-                                                  },
-                                                  icon: const Icon(Icons.delete_outlined),
-                                                  color: Colors.red,
-                                                  iconSize: 32,
+                                                padding: const EdgeInsets.only(left: 15.0, top: 10.0, bottom: 10.0),
+                                                child: Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: <Widget>[
+                                                    Text(
+                                                      '${state.scheduledTherapies[index]['title']}',
+                                                      style: TextStyle(
+                                                        color: AppColors.appColor,
+                                                        fontFamily: 'MontserratMedium',
+                                                        fontWeight: FontWeight.w900,
+                                                        fontSize: screenWidth * 0.04,
+                                                      ),
+                                                    ),
+                                                    const SizedBox(height: 5),
+                                                    Text(
+                                                      'Time:',
+                                                      style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontFamily: 'MontserratMedium',
+                                                        fontWeight: FontWeight.w900,
+                                                        fontSize: screenWidth * 0.04,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      DateFormat('dd MMM hh:mm a').format(
+                                                        DateTime.parse(state.scheduledTherapies[index]['time']!),
+                                                      ),
+                                                      style: TextStyle(
+                                                        color: Colors.grey.shade700,
+                                                        fontFamily: 'MontserratMedium',
+                                                        fontWeight: FontWeight.w600,
+                                                        fontSize: screenWidth * 0.035,
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
                                               ),
                                             ),
-                                          ),
-                                        ],
+                                            Padding(
+                                              padding: const EdgeInsets.only(right: 10.0),
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                  borderRadius: BorderRadius.circular(100.0),
+                                                  color: Colors.red.withOpacity(0.2),
+                                                ),
+                                                child: Padding(
+                                                  padding: const EdgeInsets.all(5.0),
+                                                  child: IconButton(
+                                                    onPressed: () {
+                                                      Slidable.of(context)?.openEndActionPane();
+                                                    },
+                                                    icon: const Icon(Icons.delete_outlined),
+                                                    color: Colors.red,
+                                                    iconSize: 32,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
