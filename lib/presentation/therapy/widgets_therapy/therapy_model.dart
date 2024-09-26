@@ -23,7 +23,13 @@ class TherapyModel extends StatelessWidget {
         return BlocConsumer<TherapyScheduleCubit, TherapyScheduleState>(
           listener: (context, state) {
             if (state is TherapyScheduledSuccessfully) {
-              AppUtils.showToast(context, "Therapy Scheduled", "Therapy has been scheduled successfully", false);
+              DateTime now = DateTime.now();
+              if(state.scheduledTime.isBefore(now)){
+                AppUtils.showToast(context, "Error", "Therapy not scheduled. Please choose a valid future time.", true);
+              }
+              else{
+                AppUtils.showToast(context, "Therapy Scheduled", "Therapy has been scheduled successfully", false);
+              }
             }
           },
           builder: (context, state) {
