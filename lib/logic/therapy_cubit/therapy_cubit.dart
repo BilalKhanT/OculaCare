@@ -12,7 +12,6 @@ import 'therapy_state.dart';
 import 'timer_cubit.dart';
 import 'music_cubit.dart';
 import 'package:flutter_tts/flutter_tts.dart';
-import 'package:nb_utils/nb_utils.dart';
 
 class TherapyCubit extends Cubit<TherapyState> {
   final FlutterTts _flutterTts = FlutterTts();
@@ -47,17 +46,24 @@ class TherapyCubit extends Cubit<TherapyState> {
       emit(TherapyProgressionLoaded(globalTherapyProgressData));
       return;
     }
+
     emit(TherapyLoading());
     try {
-      if (globalTherapies.isEmpty) {
+      if (globalTherapies.isEmpty || sharedPrefs.therapyFetched == false) {
+        globalTherapies.clear();
+        sharedPrefs.therapyFetched = true;
         await therapyRepository.getTherapyRecord(patientName);
       }
+
+      if (globalTherapies.isNotEmpty) {
         globalTherapyProgressData = {};
         categoryDateTherapyCount = {};
         final DateFormat dateFormat = DateFormat('dd-MM-yyyy');
+
         for (var therapy in globalTherapies) {
           try {
             DateTime date = dateFormat.parse(therapy.date);
+
             globalTherapyProgressData.update(
               date,
                   (existingDuration) => existingDuration + therapy.duration,
@@ -72,12 +78,15 @@ class TherapyCubit extends Cubit<TherapyState> {
             } else {
               categoryDateTherapyCount[therapy.therapyType] = {date: 1};
             }
-          } catch (dateError) {
-            log("Error parsing or processing therapy date: ${therapy.date}, Error: $dateError");
+
+          } catch (e) {
+            print("Error parsing date: ${therapy.date}, Error: $e");
           }
         }
-
         emit(TherapyProgressionLoaded(globalTherapyProgressData));
+      } else {
+        emit(const TherapyProgressionLoaded({}));
+      }
     } catch (e) {
       emit(TherapyProgressError(therapyProgressErr: 'Failed to load therapy history: $e'));
     }
