@@ -40,14 +40,14 @@ class SnellanTestCubit extends Cubit<SnellanTestState> {
   ];
 
   List<List<String>> snellanList = [
-    ['AP'],
+    ['PR'],
     ['BK', 'LW'],
     ['GF', 'OP', 'NL'],
     ['FP', 'CN', 'LO', 'GR'],
     ['DE', 'GC', 'AS', 'OP', 'ZY'],
     ['NX', 'ZS', 'PJ', 'VN', 'KP', 'AY'],
-    ['UK', 'MJ', 'EB', 'NJ', 'BS', 'LP', 'OC'],
-    ['IF', 'SV', 'MA', 'KX', 'ZM', 'BG', 'IK', 'OM'],
+    ['UK', 'MJ', 'EB', 'NJ', 'PR', 'LP', 'OC'],
+    ['IF', 'SV', 'MA', 'KX', 'ZM', 'PG', 'IK', 'OM'],
   ];
 
   Future<void> loadSnellanTest() async {
