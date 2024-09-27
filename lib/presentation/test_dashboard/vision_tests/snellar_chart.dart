@@ -1,15 +1,18 @@
-import 'package:OculaCare/presentation/test_dashboard/widgets/snellan_chart_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 import '../../../configs/presentation/constants/colors.dart';
 import '../../../configs/routes/route_names.dart';
+import '../../../configs/utils/utils.dart';
 import '../../../logic/camera/camera_cubit.dart';
 import '../../../logic/tests/test_cubit.dart';
 import '../../../logic/tests/test_schedule_cubit.dart';
 import '../../../logic/tests/vision_tests/snellan_test_cubit.dart';
 import '../../../logic/tests/vision_tests/snellan_test_state.dart';
+import '../../../logic/tests/vision_tests/stt_cubit.dart';
+import '../../../logic/tests/vision_tests/stt_state.dart';
 import '../../widgets/btn_flat.dart';
 import '../../widgets/cstm_loader.dart';
 import '../../widgets/schedule_bottom_modal.dart';
@@ -40,6 +43,7 @@ class SnellanChart extends StatelessWidget {
           leading: IconButton(
             onPressed: () async {
               await context.read<SnellanTestCubit>().emitCompleted();
+
               if (context.mounted) {
                 context.read<TestCubit>().loadTests();
                 context.go(RouteNames.testRoute);
@@ -186,27 +190,88 @@ class SnellanChart extends StatelessWidget {
               );
             } else if (state is SnellanTestNext) {
               return Center(
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                    Text(
-                      state.alphabets[state.index],
-                      style: TextStyle(
-                        fontFamily: 'MontserratMedium',
-                        fontWeight: FontWeight.w800,
-                        color: Colors.black,
-                        fontSize: state.fontSize,
-                        letterSpacing: 15.0,
+                  child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 40.0),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        state.alphabets[state.index],
+                        style: TextStyle(
+                          fontFamily: 'MontserratMedium',
+                          fontWeight: FontWeight.w800,
+                          color: Colors.black,
+                          fontSize: state.fontSize,
+                          letterSpacing: 25.0,
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      height: screenHeight * 0.2,
-                    ),
-                    Lottie.asset(
-                      "assets/lotties/speak.json",
-                      height: screenHeight * 0.3,
-                    ),
-                  ]));
+                      SizedBox(
+                        height: screenHeight * 0.45,
+                      ),
+                      BlocBuilder<SttCubit, SttState>(
+                        builder: (context, state) {
+                          if (state is SttListening) {
+                            return Center(
+                              child: GestureDetector(
+                                onTap: () async {
+                                  String result = await context
+                                      .read<SttCubit>()
+                                      .stopSpeaking();
+                                  if (result == '' && context.mounted) {
+                                    AppUtils.showToast(
+                                        context,
+                                        'Speak Again',
+                                        'An error occurred, please try again.',
+                                        true);
+                                  } else {
+                                    if (context.mounted) {
+                                      await context
+                                          .read<SnellanTestCubit>()
+                                          .moveNext(result);
+                                    }
+                                  }
+                                },
+                                child: Center(
+                                  child: Lottie.asset(
+                                    "assets/lotties/speak.json",
+                                    height: screenHeight * 0.2,
+                                    width: screenHeight * 0.2,
+                                  ),
+                                ),
+                              ),
+                            );
+                          }
+                          return GestureDetector(
+                            onTap: () {
+                              context.read<SttCubit>().startSpeaking();
+                            },
+                            child: SizedBox(
+                              width: screenHeight * 0.2,
+                              height: screenHeight * 0.2,
+                              child: Padding(
+                                padding: const EdgeInsets.all(40.0),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(100.0),
+                                    color: AppColors.appColor,
+                                  ),
+                                  child: Center(
+                                    child: SvgPicture.asset(
+                                      "assets/svgs/mic.svg",
+                                      // ignore: deprecated_member_use
+                                      color: Colors.white,
+                                      height: screenHeight * 0.04,
+                                      width: screenHeight * 0.04,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      )
+                    ]),
+              ));
             } else if (state is SnellanTestCompleted) {
               return Center(
                 child: Column(

@@ -162,10 +162,36 @@ class ScheduleBottomModal extends StatelessWidget {
                       if (controller.text.trim() == '') {
                         AppUtils.showToast(context, 'Error',
                             'Please select date and time', true);
-                      } else {
+                        return;
+                      }
+                      try {
+                        DateTime scheduledTime =
+                            DateTime.parse(controller.text.trim());
                         await context.read<ScheduleCubit>().scheduleTest(test);
                         if (context.mounted) {
+                          DateTime now = DateTime.now();
+                          if (scheduledTime.isBefore(now)) {
+                            AppUtils.showToast(
+                                context,
+                                "Error",
+                                "Test not scheduled. Please choose a valid future time.",
+                                true);
+                          } else {
+                            AppUtils.showToast(
+                                context,
+                                "Test Scheduled",
+                                "Your test has been successfully scheduled",
+                                false);
+                          }
                           context.pop();
+                        }
+                      } catch (e) {
+                        if (context.mounted) {
+                          AppUtils.showToast(
+                              context,
+                              "Error",
+                              "Invalid date format. Please enter a valid date and time.",
+                              true);
                         }
                       }
                     },
@@ -210,7 +236,7 @@ class ScheduleBottomModal extends StatelessWidget {
     if (date == null) return null;
 
     final TimeOfDay? time = await showTimePicker(
-      context: context,
+      context: context.mounted == true ? context : context,
       initialTime: TimeOfDay.fromDateTime(now),
       builder: (BuildContext context, Widget? child) {
         return Theme(

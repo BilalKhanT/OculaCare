@@ -1,12 +1,11 @@
-import 'package:OculaCare/configs/routes/route_names.dart';
-import 'package:OculaCare/logic/otp_cubit/otp_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import '../../../configs/presentation/constants/colors.dart';
-import '../../../data/repositories/local/preferences/shared_prefs.dart';
+import '../../../configs/routes/route_names.dart';
 import '../../../logic/login_cubit/login_cubit.dart';
+import '../../../logic/otp_cubit/otp_cubit.dart';
 import '../../sign_up/widgets/cstm_flat_btn.dart';
 
 class ForgotPasswordForm extends StatelessWidget {
@@ -71,9 +70,12 @@ class ForgotPasswordForm extends StatelessWidget {
                 if (!check) {
                   return;
                 }
-                context.read<OtpCubit>().sendRecoveryOTP(loginCubit.recoveryEmailController.text.trim());
-                loginCubit.recoveryEmailController.clear();
-                context.push(RouteNames.otpRoute, extra: 'recover');
+                if (context.mounted) {
+                  context.read<OtpCubit>().sendRecoveryOTP(
+                      loginCubit.recoveryEmailController.text.trim());
+                  loginCubit.recoveryEmailController.clear();
+                  context.push(RouteNames.otpRoute, extra: 'recover');
+                }
               },
               text: 'Submit Email',
               btnColor: AppColors.appColor,

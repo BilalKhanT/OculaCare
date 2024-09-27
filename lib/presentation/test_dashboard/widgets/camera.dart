@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -12,7 +11,6 @@ import '../../../logic/tests/vision_tests/contrast_cubit.dart';
 import '../../../logic/tests/vision_tests/snellan_initial_cubit.dart';
 import '../../../logic/tests/vision_tests/snellan_test_cubit.dart';
 import '../../widgets/cstm_loader.dart';
-
 
 class CameraDistanceView extends StatelessWidget {
   final int flag;
@@ -28,20 +26,22 @@ class CameraDistanceView extends StatelessWidget {
         backgroundColor: AppColors.screenBackground,
         appBar: AppBar(
           backgroundColor: AppColors.screenBackground,
-          leading: IconButton (
+          leading: IconButton(
             onPressed: () async {
               await context.read<CameraCubit>().disposeCamera();
               if (context.mounted) {
                 if (flag == 1) {
                   context.read<ContrastCubit>().emitInitial();
                   context.go(RouteNames.contrastRoute, extra: false);
-                }
-                else if (flag == 2) {
-                  context.go(RouteNames.trackInitialRoute,);
-                }
-                else if (flag == 3) {
+                } else if (flag == 2) {
+                  context.go(
+                    RouteNames.trackInitialRoute,
+                  );
+                } else if (flag == 3) {
                   context.read<SnellanTestCubit>().loadSnellanTest();
-                  context.go(RouteNames.snellanRoute,);
+                  context.go(
+                    RouteNames.snellanRoute,
+                  );
                 }
               }
             },
@@ -59,11 +59,11 @@ class CameraDistanceView extends StatelessWidget {
               if (flag == 1) {
                 context.read<ContrastCubit>().startGame();
                 context.go(RouteNames.contrastRoute, extra: false);
-              }
-              else if (flag == 2) {
-                context.go(RouteNames.trackRoute,);
-              }
-              else if (flag == 3) {
+              } else if (flag == 2) {
+                context.go(
+                  RouteNames.trackRoute,
+                );
+              } else if (flag == 3) {
                 context.read<SnellanInitialCubit>().startSpeaking('left');
                 context.push(RouteNames.snellanInitialRoute, extra: 'left');
               }
@@ -89,7 +89,8 @@ class CameraDistanceView extends StatelessWidget {
               );
             } else if (state is CameraLoaded) {
               return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 25.0),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 15.0, vertical: 25.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
@@ -143,13 +144,17 @@ class CameraDistanceView extends StatelessWidget {
                         textAlign: TextAlign.left,
                       ),
                     ),
-                    SizedBox(height: screenHeight * 0.1,),
+                    SizedBox(
+                      height: screenHeight * 0.1,
+                    ),
                     Center(
                       child: Flexible(
                         child: Text(
                           state.state,
                           style: TextStyle(
-                            color: state.state == 'Checking' ? Colors.green : Colors.red,
+                            color: state.state == 'Checking'
+                                ? Colors.green
+                                : Colors.red,
                             fontFamily: 'MontserratMedium',
                             fontSize: screenWidth * 0.04,
                           ),

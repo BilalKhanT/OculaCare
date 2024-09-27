@@ -1,25 +1,26 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:OculaCare/configs/extension/extensions.dart';
-import 'package:OculaCare/configs/presentation/constants/colors.dart';
-import 'package:OculaCare/configs/routes/route_names.dart';
-import 'package:OculaCare/logic/patient_profile/patient_profile_cubit.dart';
-import 'package:OculaCare/logic/patient_profile/patient_profile_state.dart';
-import 'package:OculaCare/logic/patient_profile/upload_profile_photo_state.dart';
-import 'package:OculaCare/presentation/patient_profile/change_pass_view.dart';
-import 'package:OculaCare/presentation/patient_profile/widgets/gender_row.dart';
-import 'package:OculaCare/presentation/patient_profile/widgets/profile_list_tile.dart';
-import 'package:OculaCare/presentation/widgets/btn_flat.dart';
-import 'package:OculaCare/presentation/widgets/cstm_loader.dart';
-import 'package:OculaCare/presentation/widgets/cstm_text_field.dart';
+
+import 'package:cculacare/configs/extension/extensions.dart';
+import 'package:cculacare/presentation/patient_profile/widgets/gender_row.dart';
+import 'package:cculacare/presentation/patient_profile/widgets/profile_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import '../../configs/presentation/constants/colors.dart';
+import '../../configs/routes/route_names.dart';
 import '../../logic/location_cubit/location_cubit.dart';
 import '../../logic/patient_profile/gender_cubit.dart';
+import '../../logic/patient_profile/patient_profile_cubit.dart';
+import '../../logic/patient_profile/patient_profile_state.dart';
 import '../../logic/patient_profile/upload_profile_photo_cubit.dart';
+import '../../logic/patient_profile/upload_profile_photo_state.dart';
+import '../widgets/btn_flat.dart';
+import '../widgets/cstm_loader.dart';
+import '../widgets/cstm_text_field.dart';
+import 'change_pass_view.dart';
 
 class PatientProfileScreen extends StatelessWidget {
   const PatientProfileScreen({Key? key}) : super(key: key);
@@ -111,41 +112,45 @@ class PatientProfileScreen extends StatelessWidget {
                                   ),
                                 )
                               : Stack(
-                            children: [
-                              GestureDetector(
-                                onTap: () async {
-                                  context.read<UploadProfilePhotoCubit>().uploadPhoto(context);
-                                },
-                                child: CircleAvatar(
-                                  backgroundColor: AppColors.appColor.withOpacity(0.2),
-                                  radius: 80.h,
-                                  child: const Icon(Icons.person, color: Colors.white, size: 50),
-                                ),
-                              ),
-                              Positioned(
-                                bottom: 0,
-                                right: 0,
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: AppColors.appColor,
-                                    shape: BoxShape.circle,
-                                    border: Border.all(
-                                      color: Colors.white,
-                                      width: 2.0,
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () async {
+                                        context
+                                            .read<UploadProfilePhotoCubit>()
+                                            .uploadPhoto(context);
+                                      },
+                                      child: CircleAvatar(
+                                        backgroundColor:
+                                            AppColors.appColor.withOpacity(0.2),
+                                        radius: 80.h,
+                                        child: const Icon(Icons.person,
+                                            color: Colors.white, size: 50),
+                                      ),
                                     ),
-                                  ),
-                                  child: const Padding(
-                                    padding: EdgeInsets.all(4.0),
-                                    child: Icon(
-                                      Icons.add,
-                                      color: Colors.white,
-                                      size: 20,
+                                    Positioned(
+                                      bottom: 10,
+                                      right: 10,
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          color: AppColors.appColor,
+                                          shape: BoxShape.circle,
+                                          border: Border.all(
+                                            color: Colors.white,
+                                            width: 2.0,
+                                          ),
+                                        ),
+                                        child: const Padding(
+                                          padding: EdgeInsets.all(4.0),
+                                          child: Icon(
+                                            Icons.add,
+                                            color: Colors.white,
+                                            size: 20,
+                                          ),
+                                        ),
+                                      ),
                                     ),
-                                  ),
+                                  ],
                                 ),
-                              ),
-                            ],
-                          ),
                         );
                       },
                     ),
@@ -177,12 +182,17 @@ class PatientProfileScreen extends StatelessWidget {
                               fontSize: screenWidth * 0.045,
                             ),
                           ),
-                          SizedBox(height: screenHeight * 0.01,),
+                          SizedBox(
+                            height: screenHeight * 0.01,
+                          ),
                           CustomTextField(
                             hintText: 'Enter Age',
-                            focusNode: context.read<PatientProfileCubit>().focusAge,
+                            focusNode:
+                                context.read<PatientProfileCubit>().focusAge,
                             obscureText: false,
-                            controller: context.read<PatientProfileCubit>().ageController,
+                            controller: context
+                                .read<PatientProfileCubit>()
+                                .ageController,
                             editable: true,
                             validatorFunction: (value) {
                               if (value == null || value.isEmpty) {
@@ -211,40 +221,62 @@ class PatientProfileScreen extends StatelessWidget {
                               fontSize: screenWidth * 0.045,
                             ),
                           ),
-                          SizedBox(height: screenHeight * 0.01,),
+                          SizedBox(
+                            height: screenHeight * 0.01,
+                          ),
                           SizedBox(
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(20.r),
                               child: TextFormField(
                                 readOnly: true,
-                                controller: context.read<PatientProfileCubit>().addressController,
+                                controller: context
+                                    .read<PatientProfileCubit>()
+                                    .addressController,
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
                                     return 'Please enter address';
                                   }
                                   return null;
                                 },
-                                focusNode: context.read<PatientProfileCubit>().focusAdd,
+                                focusNode: context
+                                    .read<PatientProfileCubit>()
+                                    .focusAdd,
                                 cursorColor: AppColors.appColor,
-                                style: context.appTheme.textTheme.labelMedium?.copyWith(
-                                    color: AppColors.secondaryText,
-                                    fontSize: MediaQuery.sizeOf(context).width * 0.04),
+                                style: context.appTheme.textTheme.labelMedium
+                                    ?.copyWith(
+                                        color: AppColors.secondaryText,
+                                        fontSize:
+                                            MediaQuery.sizeOf(context).width *
+                                                0.04),
                                 decoration: InputDecoration(
-                                  suffixIcon: IconButton(onPressed: () {
-                                    context.read<LocationCubit>().setLocation();
-                                    context.push(RouteNames.locationRoute);
-                                  }, icon: const Icon(Icons.location_on_outlined, color: AppColors.appColor,)),
+                                  suffixIcon: IconButton(
+                                      onPressed: () {
+                                        context
+                                            .read<LocationCubit>()
+                                            .setLocation();
+                                        context.push(RouteNames.locationRoute);
+                                      },
+                                      icon: const Icon(
+                                        Icons.location_on_outlined,
+                                        color: AppColors.appColor,
+                                      )),
                                   fillColor: Colors.white,
                                   filled: true,
-                                  hintStyle: context.appTheme.textTheme.labelMedium?.copyWith(
-                                      color: context.appTheme.focusColor,
-                                      fontSize: MediaQuery.sizeOf(context).width * 0.04),
+                                  hintStyle: context
+                                      .appTheme.textTheme.labelMedium
+                                      ?.copyWith(
+                                          color: context.appTheme.focusColor,
+                                          fontSize:
+                                              MediaQuery.sizeOf(context).width *
+                                                  0.04),
                                   hintText: 'Set Address',
                                   border: InputBorder.none,
                                   contentPadding: EdgeInsets.only(
-                                    top: MediaQuery.sizeOf(context).height * 0.015,
+                                    top: MediaQuery.sizeOf(context).height *
+                                        0.015,
                                     left: 20.w,
-                                    bottom: MediaQuery.sizeOf(context).height * 0.015,
+                                    bottom: MediaQuery.sizeOf(context).height *
+                                        0.015,
                                   ),
                                 ),
                               ),
@@ -261,19 +293,24 @@ class PatientProfileScreen extends StatelessWidget {
                               fontSize: screenWidth * 0.045,
                             ),
                           ),
-                          SizedBox(height: screenHeight * 0.01,),
+                          SizedBox(
+                            height: screenHeight * 0.01,
+                          ),
                           CustomTextField(
                             hintText: 'Enter Contact Number',
-                            focusNode: context.read<PatientProfileCubit>().focusPhone,
+                            focusNode:
+                                context.read<PatientProfileCubit>().focusPhone,
                             obscureText: false,
-                            controller: context.read<PatientProfileCubit>().phoneController,
+                            controller: context
+                                .read<PatientProfileCubit>()
+                                .phoneController,
                             editable: true,
                             validatorFunction: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Please enter contact number';
                               }
                               final RegExp phoneRegExp =
-                              RegExp(r'^(03|92)\d{9}$');
+                                  RegExp(r'^(03|92)\d{9}$');
                               if (!phoneRegExp.hasMatch(value)) {
                                 return 'Please enter a valid number';
                               }
@@ -316,7 +353,7 @@ class PatientProfileScreen extends StatelessWidget {
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           border:
-                          Border.all(color: AppColors.appColor, width: 4),
+                              Border.all(color: AppColors.appColor, width: 4),
                           boxShadow: [
                             BoxShadow(
                               color: Colors.grey.withOpacity(0.5),
@@ -527,8 +564,7 @@ class PatientProfileScreen extends StatelessWidget {
                           child: Container(
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              border:
-                              Border.all(color: Colors.black, width: 2),
+                              border: Border.all(color: Colors.black, width: 2),
                               boxShadow: [
                                 BoxShadow(
                                   color: Colors.grey.withOpacity(0.5),
@@ -554,7 +590,9 @@ class PatientProfileScreen extends StatelessWidget {
                       );
                     },
                   ),
-                  SizedBox(height: screenHeight * 0.02,),
+                  SizedBox(
+                    height: screenHeight * 0.02,
+                  ),
                   Text(
                     'Gender',
                     style: TextStyle(
@@ -564,7 +602,9 @@ class PatientProfileScreen extends StatelessWidget {
                     ),
                   ),
                   const GenderRow(),
-                  SizedBox(height: screenHeight * 0.01,),
+                  SizedBox(
+                    height: screenHeight * 0.01,
+                  ),
                   Form(
                     key: formKeyB,
                     child: Column(
@@ -581,7 +621,9 @@ class PatientProfileScreen extends StatelessWidget {
                             fontSize: screenWidth * 0.045,
                           ),
                         ),
-                        SizedBox(height: screenHeight * 0.01,),
+                        SizedBox(
+                          height: screenHeight * 0.01,
+                        ),
                         CustomTextField(
                           hintText: '',
                           focusNode:
@@ -602,7 +644,9 @@ class PatientProfileScreen extends StatelessWidget {
                             return null;
                           },
                         ),
-                        SizedBox(height: screenHeight * 0.03,),
+                        SizedBox(
+                          height: screenHeight * 0.03,
+                        ),
                         Text(
                           'Address',
                           style: TextStyle(
@@ -611,7 +655,9 @@ class PatientProfileScreen extends StatelessWidget {
                             fontSize: screenWidth * 0.045,
                           ),
                         ),
-                        SizedBox(height: screenHeight * 0.01,),
+                        SizedBox(
+                          height: screenHeight * 0.01,
+                        ),
                         SizedBox(
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(20.r),
@@ -630,31 +676,49 @@ class PatientProfileScreen extends StatelessWidget {
                                   .read<PatientProfileCubit>()
                                   .addressFocusNode,
                               cursorColor: AppColors.appColor,
-                              style: context.appTheme.textTheme.labelMedium?.copyWith(
-                                  color: AppColors.secondaryText,
-                                  fontSize: MediaQuery.sizeOf(context).width * 0.04),
+                              style: context.appTheme.textTheme.labelMedium
+                                  ?.copyWith(
+                                      color: AppColors.secondaryText,
+                                      fontSize:
+                                          MediaQuery.sizeOf(context).width *
+                                              0.04),
                               decoration: InputDecoration(
-                                suffixIcon: IconButton(onPressed: () {
-                                  context.read<LocationCubit>().setLocation();
-                                  context.push(RouteNames.locationRoute);
-                                }, icon: const Icon(Icons.location_on_outlined, color: AppColors.appColor,)),
+                                suffixIcon: IconButton(
+                                    onPressed: () {
+                                      context
+                                          .read<LocationCubit>()
+                                          .setLocation();
+                                      context.push(RouteNames.locationRoute);
+                                    },
+                                    icon: const Icon(
+                                      Icons.location_on_outlined,
+                                      color: AppColors.appColor,
+                                    )),
                                 fillColor: Colors.white,
                                 filled: true,
-                                hintStyle: context.appTheme.textTheme.labelMedium?.copyWith(
-                                    color: context.appTheme.focusColor,
-                                    fontSize: MediaQuery.sizeOf(context).width * 0.04),
+                                hintStyle: context
+                                    .appTheme.textTheme.labelMedium
+                                    ?.copyWith(
+                                        color: context.appTheme.focusColor,
+                                        fontSize:
+                                            MediaQuery.sizeOf(context).width *
+                                                0.04),
                                 hintText: 'Set Address',
                                 border: InputBorder.none,
                                 contentPadding: EdgeInsets.only(
-                                  top: MediaQuery.sizeOf(context).height * 0.015,
+                                  top:
+                                      MediaQuery.sizeOf(context).height * 0.015,
                                   left: 20.w,
-                                  bottom: MediaQuery.sizeOf(context).height * 0.015,
+                                  bottom:
+                                      MediaQuery.sizeOf(context).height * 0.015,
                                 ),
                               ),
                             ),
                           ),
                         ),
-                        SizedBox(height: screenHeight * 0.03,),
+                        SizedBox(
+                          height: screenHeight * 0.03,
+                        ),
                         Text(
                           'Contact',
                           style: TextStyle(
@@ -663,7 +727,9 @@ class PatientProfileScreen extends StatelessWidget {
                             fontSize: screenWidth * 0.045,
                           ),
                         ),
-                        SizedBox(height: screenHeight * 0.01,),
+                        SizedBox(
+                          height: screenHeight * 0.01,
+                        ),
                         CustomTextField(
                           hintText: '',
                           focusNode: context

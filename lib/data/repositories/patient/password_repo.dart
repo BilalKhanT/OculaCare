@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:nb_utils/nb_utils.dart';
 import 'package:http/http.dart' as http;
-import '../../../configs/app/app_globals.dart';
+import '../../../configs/global/app_globals.dart';
 import '../local/preferences/shared_prefs.dart';
 
 class PasswordRepo {

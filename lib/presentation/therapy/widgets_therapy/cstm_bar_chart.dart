@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
-import '../../../configs/app/app_globals.dart';
+import '../../../configs/global/app_globals.dart';
 import '../../../configs/presentation/constants/colors.dart';
 
 class TherapyBarChart extends StatelessWidget {
@@ -27,7 +27,8 @@ class TherapyBarChart extends StatelessWidget {
               children: <Widget>[
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 40),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 40),
                     child: BarChart(
                       mainBarData(context),
                       swapAnimationDuration: const Duration(milliseconds: 250),
@@ -60,7 +61,6 @@ class TherapyBarChart extends StatelessWidget {
                         .fold<int?>(
                             0, (int? sum, int count) => (sum ?? 0) + count) ??
                     0;
-
                 return BarTooltipItem(
                   '$category\n',
                   const TextStyle(
@@ -91,10 +91,12 @@ class TherapyBarChart extends StatelessWidget {
                 fontWeight: FontWeight.bold,
                 fontSize: 14,
               );
-              if (value.toInt() < 0 || value.toInt() >= categoryAbbreviations.length) {
-                return const SizedBox.shrink(); // Return an empty widget for invalid values
+              if (value.toInt() < 0 ||
+                  value.toInt() >= categoryAbbreviations.length) {
+                return const SizedBox.shrink();
               }
-              String category = categoryAbbreviations.keys.toList()[value.toInt()];
+              String category =
+                  categoryAbbreviations.keys.toList()[value.toInt()];
               String abbreviation = categoryAbbreviations[category] ?? category;
               return SideTitleWidget(
                 axisSide: meta.axisSide,
@@ -126,36 +128,48 @@ class TherapyBarChart extends StatelessWidget {
   }
 
   List<BarChartGroupData> showingGroups() {
+    int maxTherapyCount =
+        categoryAbbreviations.keys.fold<int>(0, (maxCount, category) {
+      int categoryTherapyCount = categoryDateTherapyCount[category]
+              ?.values
+              .fold<int>(0, (sum, count) => sum + count) ??
+          0;
+      return (categoryTherapyCount > maxCount)
+          ? categoryTherapyCount
+          : maxCount;
+    });
+
     return List.generate(categoryAbbreviations.length, (index) {
       String category = categoryAbbreviations.keys.toList()[index];
       int therapyCount = categoryDateTherapyCount[category]
-          ?.values
-          .fold<int?>(0, (int? sum, int count) => (sum ?? 0) + count) ??
+              ?.values
+              .fold<int?>(0, (int? sum, int count) => (sum ?? 0) + count) ??
           0;
-
-      return makeGroupData(index, therapyCount.toDouble());
+      double scaledHeight = (therapyCount > 0 && maxTherapyCount > 0)
+          ? (therapyCount / maxTherapyCount) * 10
+          : 0;
+      return makeGroupData(index, scaledHeight.toDouble());
     });
   }
 
-
   BarChartGroupData makeGroupData(
-      int x,
-      double y, {
-        bool isTouched = false,
-        double width = 22,
-        Color barColor = AppColors.appColor,  // Blue bar for actual data
-      }) {
+    int x,
+    double y, {
+    bool isTouched = false,
+    double width = 22,
+    Color barColor = AppColors.appColor,
+  }) {
     return BarChartGroupData(
       x: x,
       barRods: [
         BarChartRodData(
-          toY: y > 0 ? y : 0.5,  // Show a minimal bar for zero values
-          color: y > 0 ? barColor : Colors.transparent,  // Transparent for zero counts
+          toY: y,
+          color: y > 0 ? barColor : Colors.transparent,
           width: width,
           backDrawRodData: BackgroundBarChartRodData(
             show: true,
-            toY: 20,  // This is the height for the background bar
-            color: AppColors.appColor.withOpacity(0.3),  // Background bar with low opacity
+            toY: 20,
+            color: AppColors.appColor.withOpacity(0.3),
           ),
         ),
       ],

@@ -1,10 +1,10 @@
-import 'package:OculaCare/data/models/disease_result/disease_result_model.dart';
-import 'package:OculaCare/presentation/result/widgets/probability_chart.dart';
+import 'package:cculacare/presentation/result/widgets/probability_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../configs/presentation/constants/colors.dart';
+import '../../data/models/disease_result/disease_result_model.dart';
 
 class DiseaseAnalysisView extends StatelessWidget {
   final DiseaseResultModel result;
@@ -60,22 +60,29 @@ class DiseaseAnalysisView extends StatelessWidget {
                     ],
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 1.0),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 10.0, vertical: 1.0),
                     child: ProbabilityChart(
                         score: double.parse(
                             result.leftEye!.probability!.replaceAll('%', ''))),
                   ),
                 ),
               ),
-              SizedBox(height: screenHeight * 0.04,),
-              Text(result.leftEye!.prediction!,
+              SizedBox(
+                height: screenHeight * 0.04,
+              ),
+              Text(
+                result.leftEye!.prediction!,
                 style: TextStyle(
                   color: Colors.black,
                   fontFamily: 'MontserratMedium',
                   fontWeight: FontWeight.w800,
                   fontSize: screenWidth * 0.05,
-                ),),
-              SizedBox(height: screenHeight * 0.005,),
+                ),
+              ),
+              SizedBox(
+                height: screenHeight * 0.005,
+              ),
               Center(
                 child: Text(
                   'Note: This is is an AI guided diagnosis, seek medical expertise for professional guidance.',
@@ -88,31 +95,45 @@ class DiseaseAnalysisView extends StatelessWidget {
                   textAlign: TextAlign.justify,
                 ),
               ),
-              SizedBox(height: screenHeight * 0.03,),
-              Text('Description',
+              SizedBox(
+                height: screenHeight * 0.03,
+              ),
+              Text(
+                'Description',
                 style: TextStyle(
                   color: Colors.black,
                   fontFamily: 'MontserratMedium',
                   fontWeight: FontWeight.w800,
                   fontSize: screenWidth * 0.05,
-                ),),
-              SizedBox(height: screenHeight * 0.005,),
-              Text('Cataracts are a clouding of the eye natural lens, causing blurred vision and, if untreated, eventual blindness. Common in aging, they can be surgically removed to restore clearvision.',
-              style: TextStyle(
-                color: Colors.grey.shade900,
-                fontFamily: 'Montserrat',
-                fontWeight: FontWeight.w500,
-                fontSize: screenWidth * 0.032,
-              ),),
-              SizedBox(height: screenHeight * 0.03,),
-              Text('Your Test Results',
+                ),
+              ),
+              SizedBox(
+                height: screenHeight * 0.005,
+              ),
+              Text(
+                'Cataracts are a clouding of the eye natural lens, causing blurred vision and, if untreated, eventual blindness. Common in aging, they can be surgically removed to restore clearvision.',
+                style: TextStyle(
+                  color: Colors.grey.shade900,
+                  fontFamily: 'Montserrat',
+                  fontWeight: FontWeight.w500,
+                  fontSize: screenWidth * 0.032,
+                ),
+              ),
+              SizedBox(
+                height: screenHeight * 0.03,
+              ),
+              Text(
+                'Your Test Results',
                 style: TextStyle(
                   color: Colors.black,
                   fontFamily: 'MontserratMedium',
                   fontWeight: FontWeight.w800,
                   fontSize: screenWidth * 0.045,
-                ),),
-              SizedBox(height: screenHeight * 0.015,),
+                ),
+              ),
+              SizedBox(
+                height: screenHeight * 0.015,
+              ),
               customTileWidget(
                 title: 'Generate Diagnosis Report',
                 icon: SvgPicture.asset(
@@ -122,12 +143,12 @@ class DiseaseAnalysisView extends StatelessWidget {
                 ),
                 text: "Ready",
                 screenWidth: screenWidth,
-                onTap: () {
-
-                },
+                onTap: () {},
                 screenHeight: screenHeight,
               ),
-              SizedBox(height: screenHeight * 0.015,),
+              SizedBox(
+                height: screenHeight * 0.015,
+              ),
               customTileWidget(
                 title: 'Medicine Recommendations',
                 icon: SvgPicture.asset(
@@ -137,9 +158,7 @@ class DiseaseAnalysisView extends StatelessWidget {
                 ),
                 text: "Ready",
                 screenWidth: screenWidth,
-                onTap: () {
-
-                },
+                onTap: () {},
                 screenHeight: screenHeight,
               ),
             ],
@@ -232,5 +251,4 @@ class DiseaseAnalysisView extends StatelessWidget {
       ),
     );
   }
-
 }

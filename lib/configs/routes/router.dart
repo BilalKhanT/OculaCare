@@ -1,37 +1,33 @@
-import 'package:OculaCare/data/models/disease_result/disease_result_model.dart';
-import 'package:OculaCare/data/models/tests/score_model.dart';
-import 'package:OculaCare/data/models/tests/test_result_model.dart';
-import 'package:OculaCare/logic/therapy_cubit/music_cubit.dart';
-import 'package:OculaCare/logic/therapy_cubit/therapy_cubit.dart';
-import 'package:OculaCare/logic/therapy_cubit/timer_cubit.dart';
-import 'package:OculaCare/presentation/disease_detection/disease_detection_view.dart';
-import 'package:OculaCare/presentation/feedback/feedback_view.dart';
-import 'package:OculaCare/presentation/location/location_view.dart';
-import 'package:OculaCare/presentation/more_section/more_view.dart';
-import 'package:OculaCare/presentation/more_section/pdf_view.dart';
-import 'package:OculaCare/presentation/patient_profile/profile_view.dart';
-import 'package:OculaCare/presentation/result/disease_analysis_view.dart';
-import 'package:OculaCare/presentation/result/result_view.dart';
-import 'package:OculaCare/presentation/test_dashboard/test_dash_view.dart';
-import 'package:OculaCare/presentation/therapy/scheduled_therapy.dart';
-import 'package:OculaCare/presentation/test_dashboard/widgets/test_report.dart';
-import 'package:OculaCare/presentation/therapy/sections/therapy_feedback_view.dart';
+import 'package:cculacare/configs/routes/route_names.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:OculaCare/configs/routes/route_names.dart';
-import 'package:OculaCare/presentation/home/home_view.dart';
-import 'package:OculaCare/presentation/img_capture/img_capture_view.dart';
-import 'package:OculaCare/presentation/onboarding/onboarding_view.dart';
-import 'package:OculaCare/presentation/sign_up/sign_up_view.dart';
-import '../../data/models/therapy/therapy_feedback_model.dart';
+import '../../data/models/disease_result/disease_result_model.dart';
+import '../../data/models/tests/score_model.dart';
+import '../../data/models/tests/test_result_model.dart';
 import '../../data/models/therapy/therapy_results_model.dart';
 import '../../logic/tests/vision_tests/animal_track_cubit.dart';
 import '../../logic/tests/test_cubit.dart';
 import '../../logic/tests/test_dash_tab_cubit.dart';
+import '../../logic/therapy_cubit/music_cubit.dart';
+import '../../logic/therapy_cubit/therapy_cubit.dart';
+import '../../logic/therapy_cubit/timer_cubit.dart';
+import '../../presentation/disease_detection/disease_detection_view.dart';
+import '../../presentation/feedback/feedback_view.dart';
+import '../../presentation/home/home_view.dart';
+import '../../presentation/img_capture/img_capture_view.dart';
+import '../../presentation/location/location_view.dart';
 import '../../presentation/login/login_view.dart';
 import '../../data/repositories/local/preferences/shared_prefs.dart';
+import '../../presentation/more_section/more_view.dart';
+import '../../presentation/more_section/pdf_view.dart';
+import '../../presentation/onboarding/onboarding_view.dart';
 import '../../presentation/otp/otp_view.dart';
+import '../../presentation/patient_profile/profile_view.dart';
+import '../../presentation/result/disease_analysis_view.dart';
+import '../../presentation/result/result_view.dart';
+import '../../presentation/sign_up/sign_up_view.dart';
+import '../../presentation/test_dashboard/test_dash_view.dart';
 import '../../presentation/test_dashboard/vision_tests/animal_game_initial.dart';
 import '../../presentation/test_dashboard/vision_tests/animal_game_screen.dart';
 import '../../presentation/test_dashboard/color_perception_tests/ishihara_test_view.dart';
@@ -43,8 +39,11 @@ import '../../presentation/test_dashboard/vision_tests/game_over_screen.dart';
 import '../../presentation/test_dashboard/vision_tests/snellan_initial.dart';
 import '../../presentation/test_dashboard/vision_tests/snellar_chart.dart';
 import '../../presentation/test_dashboard/widgets/camera.dart';
+import '../../presentation/test_dashboard/widgets/test_report.dart';
 import '../../presentation/therapy/dashboard_screen.dart';
 import '../../presentation/therapy/disease_therapies_screen.dart';
+import '../../presentation/therapy/scheduled_therapy.dart';
+import '../../presentation/therapy/sections/therapy_feedback_view.dart';
 import '../../presentation/therapy/therapy_screen.dart';
 import '../../presentation/widgets/scaffold_nav_bar.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -305,12 +304,12 @@ final router = GoRouter(
           return TestReport(test: test);
         }),
     GoRoute(
-      parentNavigatorKey: navigatorKey,
-      path: RouteNames.therapyFeedbackRoute,
-      builder: (context, state){
-        TherapyModel therapy = state.extra as TherapyModel;
-        return  TherapyFeedbackView( therapy : therapy );
-      }),
+        parentNavigatorKey: navigatorKey,
+        path: RouteNames.therapyFeedbackRoute,
+        builder: (context, state) {
+          TherapyModel therapy = state.extra as TherapyModel;
+          return TherapyFeedbackView(therapy: therapy);
+        }),
   ],
   initialLocation: sharedPrefs.isLoggedIn
       ? RouteNames.homeRoute

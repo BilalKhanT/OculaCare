@@ -58,30 +58,39 @@ class ScheduledTherapies extends StatelessWidget {
                     generalSelected = state.isGeneral;
                     diseaseSpecificSelected = state.isDiseaseSpecific;
                   }
-
                   return SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 5.0),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 10.0, horizontal: 5.0),
                       child: Row(
                         children: [
                           _buildScheduleTab(
                             context,
                             'General',
                             generalSelected,
-                                () {
-                              context.read<TherapyScheduleTabCubit>().toggleTab(0);
-                              context.read<TherapyScheduleCubit>().loadGeneralTherapies();
+                            () {
+                              context
+                                  .read<TherapyScheduleTabCubit>()
+                                  .toggleTab(0);
+                              context
+                                  .read<TherapyScheduleCubit>()
+                                  .loadGeneralTherapies();
                             },
                           ),
-                          SizedBox(width: MediaQuery.of(context).size.width * 0.02),
+                          SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.02),
                           _buildScheduleTab(
                             context,
                             'Disease Specific',
                             diseaseSpecificSelected,
-                                () {
-                              context.read<TherapyScheduleTabCubit>().toggleTab(1);
-                              context.read<TherapyScheduleCubit>().loadDiseaseSpecificTherapies();
+                            () {
+                              context
+                                  .read<TherapyScheduleTabCubit>()
+                                  .toggleTab(1);
+                              context
+                                  .read<TherapyScheduleCubit>()
+                                  .loadDiseaseSpecificTherapies();
                             },
                           ),
                         ],
@@ -123,85 +132,131 @@ class ScheduledTherapies extends StatelessWidget {
                                   padding: const EdgeInsets.symmetric(
                                       vertical: 10.0),
                                   child: Slidable(
+                                    key: ValueKey(
+                                        state.scheduledTherapies[index]['id']),
                                     endActionPane: ActionPane(
                                       motion: const StretchMotion(),
                                       children: [
                                         SlidableAction(
-                                          onPressed: (context) {
-                                            bool isGeneralSelected = context.read<TherapyScheduleTabCubit>().state is TherapyScheduleTabToggled &&
-                                                (context.read<TherapyScheduleTabCubit>().state as TherapyScheduleTabToggled).isGeneral;
-                                            context.read<TherapyScheduleCubit>().removeScheduledTherapy(
+                                          onPressed: (context) => context
+                                              .read<TherapyScheduleCubit>()
+                                              .removeScheduledTherapy(
                                                 '${state.scheduledTherapies[index]['id']}',
-                                                isGeneralSelected
-                                            );
-                                          },
+                                                context
+                                                            .read<
+                                                                TherapyScheduleTabCubit>()
+                                                            .state
+                                                        is TherapyScheduleTabToggled &&
+                                                    (context
+                                                                .read<
+                                                                    TherapyScheduleTabCubit>()
+                                                                .state
+                                                            as TherapyScheduleTabToggled)
+                                                        .isGeneral,
+                                              ),
                                           icon: Icons.delete,
-                                          backgroundColor: const Color(0xffB81736),
-                                        ),
+                                          backgroundColor:
+                                              const Color(0xffB81736),
+                                        )
                                       ],
                                     ),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      child: Row(
-                                        children: [
-                                          Expanded(
-                                            child: Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 15.0,
-                                                  top: 10.0,
-                                                  bottom: 10.0),
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                                children: <Widget>[
-                                                  Text(
-                                                    '${state.scheduledTherapies[index]['title']}',
-                                                    style: TextStyle(
-                                                      color: AppColors.appColor,
-                                                      fontFamily:
-                                                      'MontserratMedium',
-                                                      fontWeight:
-                                                      FontWeight.w900,
-                                                      fontSize:
-                                                      screenWidth * 0.04,
+                                    child: Builder(
+                                      builder: (context) => Container(
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        ),
+                                        child: Row(
+                                          children: [
+                                            Expanded(
+                                              child: Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 15.0,
+                                                    top: 10.0,
+                                                    bottom: 10.0),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: <Widget>[
+                                                    Text(
+                                                      '${state.scheduledTherapies[index]['title']}',
+                                                      style: TextStyle(
+                                                        color:
+                                                            AppColors.appColor,
+                                                        fontFamily:
+                                                            'MontserratMedium',
+                                                        fontWeight:
+                                                            FontWeight.w900,
+                                                        fontSize:
+                                                            screenWidth * 0.04,
+                                                      ),
                                                     ),
-                                                  ),
-                                                  const SizedBox(height: 5),
-                                                  Text(
-                                                    'Time:',
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontFamily:
-                                                      'MontserratMedium',
-                                                      fontWeight:
-                                                      FontWeight.w900,
-                                                      fontSize:
-                                                      screenWidth * 0.04,
+                                                    const SizedBox(height: 5),
+                                                    Text(
+                                                      'Time:',
+                                                      style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontFamily:
+                                                            'MontserratMedium',
+                                                        fontWeight:
+                                                            FontWeight.w900,
+                                                        fontSize:
+                                                            screenWidth * 0.04,
+                                                      ),
                                                     ),
-                                                  ),
-                                                  Text(
-                                                    DateFormat('dd MMM hh:mm a').format(
-                                                      DateTime.parse(state.scheduledTherapies[index]['time']!),
+                                                    Text(
+                                                      DateFormat(
+                                                              'dd MMM hh:mm a')
+                                                          .format(
+                                                        DateTime.parse(state
+                                                                .scheduledTherapies[
+                                                            index]['time']!),
+                                                      ),
+                                                      style: TextStyle(
+                                                        color: Colors
+                                                            .grey.shade700,
+                                                        fontFamily:
+                                                            'MontserratMedium',
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        fontSize:
+                                                            screenWidth * 0.035,
+                                                      ),
                                                     ),
-                                                    style: TextStyle(
-                                                      color:
-                                                      Colors.grey.shade700,
-                                                      fontFamily:
-                                                      'MontserratMedium',
-                                                      fontWeight:
-                                                      FontWeight.w600,
-                                                      fontSize:
-                                                      screenWidth * 0.035,
-                                                    ),
-                                                  ),
-                                                ],
+                                                  ],
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                        ],
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  right: 10.0),
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          100.0),
+                                                  color: Colors.red
+                                                      .withOpacity(0.2),
+                                                ),
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(2.0),
+                                                  child: IconButton(
+                                                    onPressed: () {
+                                                      Slidable.of(context)
+                                                          ?.openEndActionPane();
+                                                    },
+                                                    icon: const Icon(
+                                                        Icons.delete_outlined),
+                                                    color: Colors.red,
+                                                    iconSize: 26,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -248,7 +303,8 @@ class ScheduledTherapies extends StatelessWidget {
       onTap: () => onTap(),
       child: Container(
         decoration: BoxDecoration(
-          color: isSelected ? AppColors.appColor.withOpacity(0.85) : Colors.white,
+          color:
+              isSelected ? AppColors.appColor.withOpacity(0.85) : Colors.white,
           borderRadius: BorderRadius.circular(25),
         ),
         padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 6.0),

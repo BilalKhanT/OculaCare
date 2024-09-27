@@ -1,4 +1,4 @@
-import 'package:OculaCare/data/models/therapy/therapy_results_model.dart';
+import 'package:cculacare/data/models/therapy/therapy_results_model.dart';
 
 class TherapyFeedbackModel {
   final String email;
@@ -15,7 +15,6 @@ class TherapyFeedbackModel {
     this.customMessage,
   });
 
-
   factory TherapyFeedbackModel.fromJson(Map<String, dynamic> json) {
     return TherapyFeedbackModel(
       email: json['email'] ?? '',
@@ -25,7 +24,6 @@ class TherapyFeedbackModel {
       customMessage: json['customMessage'],
     );
   }
-
 
   Map<String, dynamic> toJson() {
     return {

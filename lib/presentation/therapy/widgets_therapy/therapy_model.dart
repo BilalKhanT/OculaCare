@@ -23,12 +23,24 @@ class TherapyModel extends StatelessWidget {
         return BlocConsumer<TherapyScheduleCubit, TherapyScheduleState>(
           listener: (context, state) {
             if (state is TherapyScheduledSuccessfully) {
-              AppUtils.showToast(context, "Therapy Scheduled", "Therapy has been scheduled successfully", false);
+              DateTime now = DateTime.now();
+              if (state.scheduledTime.isBefore(now)) {
+                AppUtils.showToast(
+                    context,
+                    "Error",
+                    "Therapy not scheduled. Please choose a valid future time.",
+                    true);
+              } else {
+                AppUtils.showToast(context, "Therapy Scheduled",
+                    "Therapy has been scheduled successfully", false);
+              }
             }
           },
           builder: (context, state) {
             return Container(
-              height: therapy['benefits'].length == 2 ? screenHeight * 0.65 : screenHeight * 0.66,
+              height: therapy['benefits'].length == 2
+                  ? screenHeight * 0.65
+                  : screenHeight * 0.66,
               width: screenWidth,
               decoration: const BoxDecoration(
                 color: AppColors.screenBackground,
@@ -37,8 +49,8 @@ class TherapyModel extends StatelessWidget {
                     topRight: Radius.circular(20.0)),
               ),
               child: Padding(
-                padding:
-                const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 20.0, vertical: 20.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -81,24 +93,26 @@ class TherapyModel extends StatelessWidget {
                     // Therapy benefits
                     therapy.containsKey('benefits')
                         ? Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: therapy['benefits']
-                            .map<Widget>(
-                              (benefit) => Text(
-                            "• $benefit",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontFamily: 'MontserratMedium',
-                              fontWeight: FontWeight.w600,
-                              fontSize: screenWidth * 0.035,
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 15.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: therapy['benefits']
+                                  .map<Widget>(
+                                    (benefit) => Text(
+                                      "• $benefit",
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontFamily: 'MontserratMedium',
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: screenWidth * 0.035,
+                                      ),
+                                      textAlign: TextAlign.left,
+                                    ),
+                                  )
+                                  .toList(),
                             ),
-                            textAlign: TextAlign.left,
-                          ),
-                        ).toList(),
-                      ),
-                    )
+                          )
                         : const SizedBox.shrink(),
                     SizedBox(height: screenHeight * 0.03),
                     Column(
@@ -125,12 +139,15 @@ class TherapyModel extends StatelessWidget {
                             btnColor: AppColors.whiteColor,
                             textColor: Colors.black,
                             onPress: () async {
-                              DateTime? selectedDateTime = await _selectDateTime(context);
-                              if (selectedDateTime != null) {
-                                context.read<TherapyScheduleCubit>().scheduleTherapy(
-                                  therapy,
-                                  selectedDateTime,
-                                );
+                              DateTime? selectedDateTime =
+                                  await _selectDateTime(context);
+                              if (selectedDateTime != null && context.mounted) {
+                                context
+                                    .read<TherapyScheduleCubit>()
+                                    .scheduleTherapy(
+                                      therapy,
+                                      selectedDateTime,
+                                    );
                               }
                             },
                             text: "Schedule Therapy",
@@ -178,7 +195,7 @@ class TherapyModel extends StatelessWidget {
     if (date == null) return null;
 
     final TimeOfDay? time = await showTimePicker(
-      context: context,
+      context: context.mounted == true ? context : context,
       initialTime: TimeOfDay.fromDateTime(now),
       builder: (BuildContext context, Widget? child) {
         return Theme(

@@ -1,15 +1,15 @@
 import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
+import 'package:cculacare/logic/sign_up_cubit/sign_up_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:OculaCare/logic/sign_up_cubit/sign_up_state.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
 import 'package:nb_utils/nb_utils.dart';
-import '../../configs/app/app_globals.dart';
+import '../../configs/global/app_globals.dart';
 import '../../data/repositories/local/preferences/shared_prefs.dart';
 
 class SignUpCubit extends Cubit<SignUpState> {
@@ -41,7 +41,7 @@ class SignUpCubit extends Cubit<SignUpState> {
     }
   }
 
-  Future<bool> createUserWithGoogle() async{
+  Future<bool> createUserWithGoogle() async {
     emit(SignUpStateLoading());
     try {
       await googleSignIn.signOut();
@@ -54,7 +54,8 @@ class SignUpCubit extends Cubit<SignUpState> {
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
-      final UserCredential authResult = await auth.signInWithCredential(credential);
+      final UserCredential authResult =
+          await auth.signInWithCredential(credential);
       final User? user = authResult.user;
       String? email = user?.email;
       String? name = user?.displayName;
@@ -62,13 +63,11 @@ class SignUpCubit extends Cubit<SignUpState> {
       if (flag == true) {
         emit(SignUpStateLoaded());
         return true;
-      }
-      else {
+      } else {
         emit(SignUpStateLoaded());
         return false;
       }
-    }
-    catch(e) {
+    } catch (e) {
       emit(SignUpStateLoaded());
       log(e.toString());
       return false;
@@ -84,10 +83,11 @@ class SignUpCubit extends Cubit<SignUpState> {
 
       if (result.status == LoginStatus.success) {
         final AccessToken accessToken = result.accessToken!;
-        final AuthCredential credential = FacebookAuthProvider.credential(accessToken.token);
-        final UserCredential authResult = await auth.signInWithCredential(credential);
+        final AuthCredential credential =
+            FacebookAuthProvider.credential(accessToken.token);
+        final UserCredential authResult =
+            await auth.signInWithCredential(credential);
         final User? user = authResult.user;
-        print(user);
         String? name = user?.displayName;
         final flag = await registerFacebookUser(name!);
         if (flag == true) {
@@ -111,9 +111,6 @@ class SignUpCubit extends Cubit<SignUpState> {
     }
   }
 
-
-
-
   Future<bool> registerGoogleUser(String email, String userName) async {
     try {
       var url = Uri.parse('$ipServer/api/patients/register-google');
@@ -126,18 +123,15 @@ class SignUpCubit extends Cubit<SignUpState> {
           'password': '******',
         }),
       );
-      print(response.statusCode);
       if (response.statusCode == 200) {
         sharedPrefs.isProfileSetup = false;
         sharedPrefs.email = email;
         sharedPrefs.userName = userName;
         sharedPrefs.password = '******';
         return true;
-      }
-      else if (response.statusCode == 409) {
+      } else if (response.statusCode == 409) {
         return false;
-      }
-      else {
+      } else {
         log('Server error with status code: ${response.statusCode}');
         return false;
       }
@@ -159,18 +153,15 @@ class SignUpCubit extends Cubit<SignUpState> {
           'password': '******',
         }),
       );
-      print(response.statusCode);
       if (response.statusCode == 200) {
         sharedPrefs.isProfileSetup = false;
         sharedPrefs.email = "awaisjarral37@gmail.com";
         sharedPrefs.userName = userName;
         sharedPrefs.password = '******';
         return true;
-      }
-      else if (response.statusCode == 409) {
+      } else if (response.statusCode == 409) {
         return false;
-      }
-      else {
+      } else {
         log('Server error with status code: ${response.statusCode}');
         return false;
       }
@@ -179,5 +170,4 @@ class SignUpCubit extends Cubit<SignUpState> {
       return false;
     }
   }
-
 }

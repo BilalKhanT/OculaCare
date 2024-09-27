@@ -50,7 +50,8 @@ class ScheduleCubit extends Cubit<ScheduleState> {
   Future<void> loadVisionNotifications() async {
     List<Map<String, String>> result = [];
     emit(ScheduleLoading());
-    final List<Map<String, String>> notifications = await NotificationService.getScheduledNotifications();
+    final List<Map<String, String>> notifications =
+        await NotificationService.getScheduledNotifications();
     if (notifications.isNotEmpty) {
       for (var scheduled in notifications) {
         if (scheduled['body'] == 'You need to take Match Color Test.' ||
@@ -60,9 +61,9 @@ class ScheduleCubit extends Cubit<ScheduleState> {
           DateTime time = DateTime.parse(scheduled['time']!);
           if (DateTime.now().isBefore(time)) {
             result.add(scheduled);
-          }
-          else {
-            await NotificationService.removeScheduledNotification(int.parse(scheduled['id']!));
+          } else {
+            await NotificationService.removeScheduledNotification(
+                int.parse(scheduled['id']!));
           }
         }
       }
@@ -76,7 +77,7 @@ class ScheduleCubit extends Cubit<ScheduleState> {
     List<Map<String, String>> result = [];
     emit(ScheduleLoading());
     final List<Map<String, String>> notifications =
-    await NotificationService.getScheduledNotifications();
+        await NotificationService.getScheduledNotifications();
     if (notifications.isNotEmpty) {
       for (var scheduled in notifications) {
         if (scheduled['body'] == 'You need to take Match Color Test.' ||
@@ -85,9 +86,9 @@ class ScheduleCubit extends Cubit<ScheduleState> {
           DateTime time = DateTime.parse(scheduled['time']!);
           if (DateTime.now().isBefore(time)) {
             result.add(scheduled);
-          }
-          else {
-            await NotificationService.removeScheduledNotification(int.parse(scheduled['id']!));
+          } else {
+            await NotificationService.removeScheduledNotification(
+                int.parse(scheduled['id']!));
           }
         } else {}
       }
@@ -102,8 +103,7 @@ class ScheduleCubit extends Cubit<ScheduleState> {
     await NotificationService.cancelNotification(int.parse(id));
     if (type == 'color') {
       loadColorNotifications();
-    }
-    else {
+    } else {
       loadVisionNotifications();
     }
   }

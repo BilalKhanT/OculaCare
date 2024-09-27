@@ -1,11 +1,7 @@
 import 'dart:convert';
-
-import 'package:OculaCare/configs/extension/extensions.dart';
-import 'package:OculaCare/configs/utils/utils.dart';
-import 'package:OculaCare/data/models/address/address_model.dart';
-import 'package:OculaCare/data/repositories/local/preferences/shared_prefs.dart';
-import 'package:OculaCare/presentation/home/widgets/grid_btn_widget.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cculacare/configs/extension/extensions.dart';
+import 'package:cculacare/presentation/home/widgets/grid_btn_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,7 +11,10 @@ import 'package:intl/intl.dart';
 
 import '../../configs/presentation/constants/colors.dart';
 import '../../configs/routes/route_names.dart';
+import '../../configs/utils/utils.dart';
+import '../../data/models/address/address_model.dart';
 import '../../data/models/patient/patient_model.dart';
+import '../../data/repositories/local/preferences/shared_prefs.dart';
 import '../../logic/image_capture/img_capture_cubit.dart';
 import '../../logic/pdf_cubit/pdf_cubit_state.dart';
 import '../widgets/need_to_setup_profile_widget.dart';
@@ -109,7 +108,8 @@ class HomeScreen extends StatelessWidget {
                             ],
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(right: 25.0, left: 10.0),
+                            padding:
+                                const EdgeInsets.only(right: 25.0, left: 10.0),
                             child: Container(
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
@@ -275,7 +275,7 @@ class HomeScreen extends StatelessWidget {
                                     colorSecondary: const Color(0xFF6B4FA0),
                                   ),
                                 ),
-                                 SizedBox(
+                                SizedBox(
                                   width: screenHeight * 0.025,
                                 ),
                                 GridButtonWidget(

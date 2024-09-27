@@ -27,5 +27,8 @@ class ImagesCropped extends ImageCaptureState {
   final XFile leftEye;
   final XFile rightEye;
 
-  ImagesCropped(this.leftEye, this.rightEye,);
+  ImagesCropped(
+    this.leftEye,
+    this.rightEye,
+  );
 }

@@ -1,6 +1,3 @@
-import 'package:OculaCare/configs/routes/route_names.dart';
-import 'package:OculaCare/presentation/test_dashboard/widgets/severity_chart.dart';
-import 'package:OculaCare/presentation/widgets/cstm_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -12,7 +9,9 @@ import '../../../logic/tests/color_tests/isihara_cubit.dart';
 import '../../../logic/tests/color_tests/radio_btn_cubit.dart';
 import '../../../logic/tests/test_schedule_cubit.dart';
 import '../../widgets/btn_flat.dart';
+import '../../widgets/cstm_loader.dart';
 import '../../widgets/schedule_bottom_modal.dart';
+import '../widgets/severity_chart.dart';
 import 'ishihara_painter.dart';
 
 class IshiharaScreen extends StatelessWidget {
@@ -102,7 +101,8 @@ class IshiharaScreen extends StatelessWidget {
                         color: Colors.black,
                         fontFamily: 'MontserratMedium',
                         fontWeight: FontWeight.w800,
-                        fontSize: screenWidth * 0.04,),
+                        fontSize: screenWidth * 0.04,
+                      ),
                     ),
                     SizedBox(height: screenHeight * 0.05),
                     Padding(

@@ -1,4 +1,4 @@
-import 'package:OculaCare/logic/therapy_cubit/therapy_dashboard_states.dart';
+import 'package:cculacare/logic/therapy_cubit/therapy_dashboard_states.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TherapyDashboardCubit extends Cubit<TherapyDashboardStates> {

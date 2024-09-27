@@ -3,6 +3,8 @@ import 'package:go_router/go_router.dart';
 
 import '../../../configs/presentation/constants/colors.dart';
 import '../../../configs/routes/route_names.dart';
+import '../../../data/repositories/local/preferences/shared_prefs.dart';
+import '../../widgets/need_to_setup_profile_widget.dart';
 
 class DiseaseCardList extends StatelessWidget {
   final List<Map<String, String>> diseases = [
@@ -15,7 +17,8 @@ class DiseaseCardList extends StatelessWidget {
   final double screenHeight;
   final double screenWidth;
 
-  DiseaseCardList({super.key, required this.screenHeight, required this.screenWidth});
+  DiseaseCardList(
+      {super.key, required this.screenHeight, required this.screenWidth});
 
   @override
   Widget build(BuildContext context) {
@@ -29,10 +32,20 @@ class DiseaseCardList extends StatelessWidget {
 
           return GestureDetector(
             onTap: () {
+              if (!sharedPrefs.isProfileSetup) {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return const Dialog(child: NeedToSetupProfileWidget());
+                  },
+                );
+                return;
+              }
               context.push(RouteNames.diseaseTherapies, extra: disease['name']);
             },
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 20.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 5.0, vertical: 20.0),
               child: Container(
                 width: screenWidth * 0.45,
                 decoration: BoxDecoration(
@@ -49,7 +62,8 @@ class DiseaseCardList extends StatelessWidget {
                       bottom: 10,
                       right: 10,
                       child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 12, vertical: 8),
                         decoration: BoxDecoration(
                           color: AppColors.appColor,
                           borderRadius: BorderRadius.circular(20),

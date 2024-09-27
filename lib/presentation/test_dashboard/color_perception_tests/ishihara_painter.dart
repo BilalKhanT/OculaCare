@@ -73,7 +73,8 @@ class IshiharaPainter extends CustomPainter {
       textDirection: TextDirection.ltr,
     );
     textPainter.layout();
-    textPainter.paint(canvas, center - Offset(textPainter.width / 2, textPainter.height / 2));
+    textPainter.paint(
+        canvas, center - Offset(textPainter.width / 2, textPainter.height / 2));
   }
 
   Color _getRandomColor() {

@@ -10,14 +10,14 @@ class Address {
   });
 
   factory Address.fromJson(Map<String, dynamic> json) => Address(
-    lat: json["lat"],
-    long: json["long"],
-    locationName: json["locationName"],
-  );
+        lat: json["lat"],
+        long: json["long"],
+        locationName: json["locationName"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "lat": lat,
-    "long": long,
-    "locationName": locationName,
-  };
+        "lat": lat,
+        "long": long,
+        "locationName": locationName,
+      };
 }

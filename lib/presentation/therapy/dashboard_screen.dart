@@ -1,16 +1,16 @@
-import 'package:OculaCare/configs/presentation/constants/colors.dart';
-import 'package:OculaCare/logic/therapy_cubit/therapy_dashboard_cubit.dart';
-import 'package:OculaCare/logic/therapy_cubit/therapy_dashboard_states.dart';
-import 'package:OculaCare/presentation/therapy/sections/history_section.dart';
-import 'package:OculaCare/presentation/therapy/sections/progression_section.dart';
-import 'package:OculaCare/presentation/therapy/sections/therapy_section.dart';
-import 'package:OculaCare/presentation/therapy/widgets_therapy/therapy_tabs.dart';
+import 'package:cculacare/presentation/therapy/sections/history_section.dart';
+import 'package:cculacare/presentation/therapy/sections/progression_section.dart';
+import 'package:cculacare/presentation/therapy/sections/therapy_section.dart';
+import 'package:cculacare/presentation/therapy/widgets_therapy/therapy_tabs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import '../../configs/presentation/constants/colors.dart';
 import '../../configs/routes/route_names.dart';
 import '../../data/repositories/local/preferences/shared_prefs.dart';
+import '../../logic/therapy_cubit/therapy_dashboard_cubit.dart';
+import '../../logic/therapy_cubit/therapy_dashboard_states.dart';
 import '../../logic/therapy_cubit/therapy_schedule_tab_cubit.dart';
 import '../../logic/therapy_cubit/therapy_schedule_cubit.dart';
 
@@ -48,10 +48,9 @@ class DashboardScreen extends StatelessWidget {
               },
               child: Row(
                 children: [
-                  SvgPicture.asset(
-                      'assets/svgs/schedule.svg',
-                      color: AppColors.appColor
-                  ),
+                  SvgPicture.asset('assets/svgs/schedule.svg',
+                      // ignore: deprecated_member_use
+                      color: AppColors.appColor),
                   const SizedBox(
                     width: 6.0,
                   ),
@@ -80,15 +79,19 @@ class DashboardScreen extends StatelessWidget {
                 builder: (context, state) {
                   bool therapySelected = state is TherapyDashboardInitialState;
                   bool historySelected = state is TherapyDashboardHistoryState;
-                  bool progressionSelected = state is TherapyDashboardProgressionState;
+                  bool progressionSelected =
+                      state is TherapyDashboardProgressionState;
 
                   return TherapyTabs(
                     therapySelected: therapySelected,
                     historySelected: historySelected,
                     progressionSelected: progressionSelected,
-                    onSelectTherapy: () => context.read<TherapyDashboardCubit>().loadInitial(),
-                    onSelectHistory: () => context.read<TherapyDashboardCubit>().loadHistory(),
-                    onSelectProgression: () => context.read<TherapyDashboardCubit>().loadProgression(),
+                    onSelectTherapy: () =>
+                        context.read<TherapyDashboardCubit>().loadInitial(),
+                    onSelectHistory: () =>
+                        context.read<TherapyDashboardCubit>().loadHistory(),
+                    onSelectProgression: () =>
+                        context.read<TherapyDashboardCubit>().loadProgression(),
                   );
                 },
               ),

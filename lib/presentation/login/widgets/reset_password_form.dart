@@ -1,10 +1,10 @@
-import 'package:OculaCare/configs/utils/utils.dart';
-import 'package:OculaCare/logic/sign_up_cubit/sign_up_pass_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../configs/presentation/constants/colors.dart';
+import '../../../configs/utils/utils.dart';
 import '../../../logic/login_cubit/login_cubit.dart';
+import '../../../logic/sign_up_cubit/sign_up_pass_cubit.dart';
 import '../../sign_up/widgets/cstm_flat_btn.dart';
 
 class ResetPasswordForm extends StatelessWidget {
@@ -21,7 +21,7 @@ class ResetPasswordForm extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
         child: Column(
           children: <Widget>[
-            BlocBuilder<SignUpPassCubit, SignUpPassState> (
+            BlocBuilder<SignUpPassCubit, SignUpPassState>(
               builder: (context, state) {
                 return TextFormField(
                   controller: loginCubit.recoveryPassController,
@@ -36,9 +36,10 @@ class ResetPasswordForm extends StatelessWidget {
                             .read<SignUpPassCubit>()
                             .togglePasswordVisibility();
                       },
-                      icon: Icon(state is PasswordToggle && state.passVisible
-                          ? Icons.visibility_off
-                          : Icons.visibility,
+                      icon: Icon(
+                        state is PasswordToggle && state.passVisible
+                            ? Icons.visibility_off
+                            : Icons.visibility,
                         color: AppColors.appColor,
                       ),
                     ),
@@ -83,7 +84,7 @@ class ResetPasswordForm extends StatelessWidget {
             SizedBox(
               height: screenHeight * 0.01,
             ),
-            BlocBuilder<SignUpPassCubit, SignUpPassState> (
+            BlocBuilder<SignUpPassCubit, SignUpPassState>(
               builder: (context, state) {
                 return TextFormField(
                   controller: loginCubit.recoveryConfirmPassController,
@@ -123,7 +124,8 @@ class ResetPasswordForm extends StatelessWidget {
                     color: Colors.black,
                     letterSpacing: 1.0,
                   ),
-                  obscureText: !(state is PasswordToggle && state.confirmPassVisible),
+                  obscureText:
+                      !(state is PasswordToggle && state.confirmPassVisible),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please confirm your password';
@@ -147,11 +149,15 @@ class ResetPasswordForm extends StatelessWidget {
                   return;
                 }
                 bool flag = await loginCubit.changePassword();
-                if (flag) {
-                  AppUtils.showToast(context, 'Password Changed Successfully', 'Your password has been changed successfully.', false);
+                if (flag && context.mounted) {
+                  AppUtils.showToast(context, 'Password Changed Successfully',
+                      'Your password has been changed successfully.', false);
                   context.read<LoginCubit>().loadLoginScreen();
                 } else {
-                  AppUtils.showToast(context, 'Server Error', 'Please try again later.', true);
+                  if (context.mounted) {
+                    AppUtils.showToast(context, 'Server Error',
+                        'Please try again later.', true);
+                  }
                 }
               },
               text: 'Submit Password',

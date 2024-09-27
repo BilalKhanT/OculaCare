@@ -1,7 +1,7 @@
-import 'package:OculaCare/configs/app/app_globals.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:nb_utils/nb_utils.dart';
+import '../../../configs/global/app_globals.dart';
 import '../../models/tests/test_result_model.dart';
 
 class TestRepository {

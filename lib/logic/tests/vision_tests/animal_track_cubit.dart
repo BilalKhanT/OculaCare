@@ -1,7 +1,8 @@
-import 'package:OculaCare/configs/app/app_globals.dart';
-import 'package:OculaCare/data/models/tests/score_model.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../configs/global/app_globals.dart';
+import '../../../data/models/tests/score_model.dart';
 
 class AnimalTrackState {
   final int score;
@@ -9,9 +10,14 @@ class AnimalTrackState {
   final bool isGameOver;
   final int level;
 
-  AnimalTrackState({this.score = 0, this.mistaps = 0, this.isGameOver = false, this.level = 0});
+  AnimalTrackState(
+      {this.score = 0,
+      this.mistaps = 0,
+      this.isGameOver = false,
+      this.level = 0});
 
-  AnimalTrackState copyWith({int? score, int? mistaps, bool? isGameOver, int? level}) {
+  AnimalTrackState copyWith(
+      {int? score, int? mistaps, bool? isGameOver, int? level}) {
     return AnimalTrackState(
       score: score ?? this.score,
       mistaps: mistaps ?? this.mistaps,
@@ -20,7 +26,6 @@ class AnimalTrackState {
     );
   }
 }
-
 
 class AnimalTrackCubit extends Cubit<AnimalTrackState> {
   AnimalTrackCubit() : super(AnimalTrackState());

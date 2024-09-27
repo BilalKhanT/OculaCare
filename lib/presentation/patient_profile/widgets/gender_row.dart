@@ -1,8 +1,8 @@
-import 'package:OculaCare/configs/presentation/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../configs/presentation/constants/colors.dart';
 import '../../../logic/patient_profile/gender_cubit.dart';
 
 class GenderRow extends StatelessWidget {

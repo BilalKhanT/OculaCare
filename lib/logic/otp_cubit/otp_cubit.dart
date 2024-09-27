@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'dart:developer';
-import 'package:OculaCare/configs/app/app_globals.dart';
-import 'package:OculaCare/data/repositories/local/preferences/shared_prefs.dart';
 import 'package:bloc/bloc.dart';
+import '../../configs/global/app_globals.dart';
+import '../../data/repositories/local/preferences/shared_prefs.dart';
 import 'otp_state.dart';
 import 'package:http/http.dart' as http;
 
@@ -35,13 +35,11 @@ class OtpCubit extends Cubit<OtpState> {
         var otp = data['otp'];
         verificationOTP = otp.toString();
         emit(OtpStateLoaded(otp, email, name));
-      }
-      else if (response.statusCode == 409) {
+      } else if (response.statusCode == 409) {
         emit(OtpEmailExists());
-      }
-      else if (response.statusCode == 400) {
+      } else if (response.statusCode == 400) {
         emit(InvalidEmail());
-      }else {
+      } else {
         log('Server error with status code: ${response.statusCode}');
         emit(OtpStateFailure('Ops, something went wrong'));
       }
@@ -69,10 +67,9 @@ class OtpCubit extends Cubit<OtpState> {
           var otp = data['otp'];
           verificationOTP = otp.toString();
           emit(OtpStateLoaded(otp, email, name));
-        }
-        else if (response.statusCode == 409) {
+        } else if (response.statusCode == 409) {
           emit(OtpEmailNotExists());
-        }else {
+        } else {
           log('Server error with status code: ${response.statusCode}');
           emit(OtpStateFailure('Ops, something went wrong'));
         }
@@ -97,13 +94,11 @@ class OtpCubit extends Cubit<OtpState> {
         var otp = data['otp'];
         verificationOTP = otp.toString();
         emit(OtpStateLoaded(otp, email, name));
-      }
-      else if (response.statusCode == 409) {
+      } else if (response.statusCode == 409) {
         emit(OtpEmailExists());
-      }
-      else if (response.statusCode == 400) {
+      } else if (response.statusCode == 400) {
         emit(InvalidEmail());
-      }else {
+      } else {
         log('Server error with status code: ${response.statusCode}');
         emit(OtpStateFailure('Ops, something went wrong'));
       }
@@ -113,7 +108,7 @@ class OtpCubit extends Cubit<OtpState> {
     }
   }
 
-  Future<void> sendRecoveryOTP (String email) async{
+  Future<void> sendRecoveryOTP(String email) async {
     emit(OtpStateLoading());
     try {
       var url = Uri.parse('$ipServer/api/patients/recovery-otp');
@@ -130,10 +125,9 @@ class OtpCubit extends Cubit<OtpState> {
         var otp = data['otp'];
         verificationOTP = otp.toString();
         emit(OtpStateLoaded(otp, email, sharedPrefs.userName));
-      }
-      else if (response.statusCode == 409) {
+      } else if (response.statusCode == 409) {
         emit(OtpEmailNotExists());
-      }else {
+      } else {
         log('Server error with status code: ${response.statusCode}');
         emit(OtpStateFailure('Ops, something went wrong'));
       }
@@ -146,8 +140,7 @@ class OtpCubit extends Cubit<OtpState> {
   bool verifyOtp() {
     if (userOTP == verificationOTP) {
       return true;
-    }
-    else {
+    } else {
       return false;
     }
   }
@@ -174,8 +167,7 @@ class OtpCubit extends Cubit<OtpState> {
         sharedPrefs.userName = userName;
         sharedPrefs.password = userPassword;
         emit(Registered());
-      }
-      else {
+      } else {
         log('Server error with status code: ${response.statusCode}');
         emit(OtpStateFailure('Ops, something went wrong'));
       }

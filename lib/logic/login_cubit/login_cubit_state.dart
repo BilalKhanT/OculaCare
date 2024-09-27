@@ -13,9 +13,7 @@ class LoginStateForgotPassword extends LoginState {}
 
 class LoginStateResetPassword extends LoginState {}
 
-class LoginStateLoaded extends LoginState {
-
-}
+class LoginStateLoaded extends LoginState {}
 
 class LoginSuccess extends LoginState {}
 

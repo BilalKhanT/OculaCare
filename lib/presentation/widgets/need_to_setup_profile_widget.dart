@@ -1,18 +1,17 @@
-import 'package:OculaCare/logic/patient_profile/patient_profile_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
-import '../../configs/presentation/constants/colors.dart';
 import '../../configs/routes/route_names.dart';
+import '../../logic/patient_profile/patient_profile_cubit.dart';
 
 class NeedToSetupProfileWidget extends StatelessWidget {
   const NeedToSetupProfileWidget(
       {super.key,
-        this.showCloseButton = true,
-        this.showButton = true,
-        this.needToPop = true});
+      this.showCloseButton = true,
+      this.showButton = true,
+      this.needToPop = true});
   final bool showCloseButton;
   final bool showButton;
   final bool needToPop;
@@ -33,15 +32,15 @@ class NeedToSetupProfileWidget extends StatelessWidget {
                 height: 30,
                 child: showCloseButton
                     ? GestureDetector(
-                  onTap: () {
-                    context.pop();
-                  },
-                  child: const Icon(
-                    Icons.cancel,
-                    color: Colors.black,
-                    size: 30,
-                  ),
-                )
+                        onTap: () {
+                          context.pop();
+                        },
+                        child: const Icon(
+                          Icons.cancel,
+                          color: Colors.black,
+                          size: 30,
+                        ),
+                      )
                     : null,
               ),
               SizedBox(
@@ -75,7 +74,9 @@ class NeedToSetupProfileWidget extends StatelessWidget {
                       if (needToPop) {
                         context.pop();
                       }
-                      context.read<PatientProfileCubit>().loadPatientProfile('a');
+                      context
+                          .read<PatientProfileCubit>()
+                          .loadPatientProfile('a');
                       context.push(RouteNames.profileRoute);
                     },
                     child: Container(

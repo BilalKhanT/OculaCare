@@ -1,4 +1,4 @@
-import 'package:OculaCare/logic/patient_profile/patient_profile_cubit.dart';
+import 'package:cculacare/logic/patient_profile/patient_profile_cubit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

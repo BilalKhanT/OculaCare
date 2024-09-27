@@ -23,7 +23,7 @@ class TestHistoryTile extends StatelessWidget {
     double screenHeight = MediaQuery.sizeOf(context).height;
 
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10.0),
+      padding: const EdgeInsets.symmetric(vertical: 5.0),
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
@@ -40,19 +40,19 @@ class TestHistoryTile extends StatelessWidget {
                   width: screenHeight * 0.07,
                   color: avatarColor,
                   child: image == 'assets/images/isihara_test.png' ||
-                      image == 'assets/images/snellan_test.png' ||
-                      image == 'assets/images/drag_test.png'
+                          image == 'assets/images/snellan_test.png' ||
+                          image == 'assets/images/drag_test.png'
                       ? Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Image.asset(
-                      image,
-                      fit: BoxFit.cover,
-                    ),
-                  )
+                          padding: const EdgeInsets.all(8.0),
+                          child: Image.asset(
+                            image,
+                            fit: BoxFit.cover,
+                          ),
+                        )
                       : Image.asset(
-                    image,
-                    fit: BoxFit.cover,
-                  ),
+                          image,
+                          fit: BoxFit.cover,
+                        ),
                 ),
               ),
               const SizedBox(width: 15.0),
@@ -70,8 +70,8 @@ class TestHistoryTile extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 5.0),
-                    Container(
-                      width: double.infinity, // Ensures the row takes full width
+                    SizedBox(
+                      width: double.infinity,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [

@@ -1,19 +1,19 @@
 import 'dart:math';
-import 'package:OculaCare/configs/presentation/constants/colors.dart';
-import 'package:OculaCare/configs/utils/utils.dart';
-import 'package:OculaCare/logic/therapy_cubit/therapy_cubit.dart';
-import 'package:OculaCare/logic/therapy_cubit/therapy_state.dart';
-import 'package:OculaCare/logic/therapy_cubit/timer_cubit.dart';
-import 'package:OculaCare/presentation/therapy/widgets_therapy/corner_dot.dart';
-import 'package:OculaCare/presentation/therapy/widgets_therapy/cstm_therapies_progress_appbar.dart';
-import 'package:OculaCare/presentation/widgets/btn_flat.dart';
+import 'package:cculacare/presentation/therapy/widgets_therapy/corner_dot.dart';
+import 'package:cculacare/presentation/therapy/widgets_therapy/cstm_therapies_progress_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 import 'package:rive/rive.dart' as rive;
 
+import '../../configs/presentation/constants/colors.dart';
 import '../../configs/routes/route_names.dart';
+import '../../configs/utils/utils.dart';
+import '../../logic/therapy_cubit/therapy_cubit.dart';
+import '../../logic/therapy_cubit/therapy_state.dart';
+import '../../logic/therapy_cubit/timer_cubit.dart';
+import '../widgets/btn_flat.dart';
 import '../widgets/cstm_loader.dart';
 
 class TherapyScreen extends StatelessWidget {
@@ -34,7 +34,8 @@ class TherapyScreen extends StatelessWidget {
       child: BlocConsumer<TherapyCubit, TherapyState>(
         listener: (context, state) {
           if (state is TherapyCompleted) {
-            AppUtils.showToast(context, state.therapyTitle, "Therapy completed successfully!", false);
+            AppUtils.showToast(context, state.therapyTitle,
+                "Therapy completed successfully!", false);
           }
         },
         builder: (context, state) {
@@ -116,8 +117,7 @@ class TherapyScreen extends StatelessWidget {
               ),
             );
           } else if (state is TherapyDistanceGazingInProgress) {
-            return _buildDistanceGazingUI(
-                context, state);
+            return _buildDistanceGazingUI(context, state);
           } else if (state is TherapyYinYangAnimationInProgress) {
             return Scaffold(
               backgroundColor: AppColors.backgroundTherapy,
@@ -140,7 +140,8 @@ class TherapyScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  _buildInstructionsAndTimer(context, state.instructions, width),
+                  _buildInstructionsAndTimer(
+                      context, state.instructions, width),
                 ],
               ),
             );
@@ -245,7 +246,8 @@ class TherapyScreen extends StatelessWidget {
                             btnColor: AppColors.appColor,
                             textColor: AppColors.whiteColor,
                             onPress: () {
-                              context.push(RouteNames.therapyFeedbackRoute, extra: state.therapyModel);
+                              context.push(RouteNames.therapyFeedbackRoute,
+                                  extra: state.therapyModel);
                             },
                             text: "Submit Feedback"),
                       ),

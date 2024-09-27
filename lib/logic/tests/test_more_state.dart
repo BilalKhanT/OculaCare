@@ -14,4 +14,3 @@ class TestMoreToggled extends TestMoreState {
 
   const TestMoreToggled(this.flag);
 }
-

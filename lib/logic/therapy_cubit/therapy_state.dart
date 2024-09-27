@@ -1,6 +1,7 @@
 import 'dart:ui';
-import 'package:OculaCare/data/models/therapy/therapy_results_model.dart';
 import 'package:equatable/equatable.dart';
+
+import '../../data/models/therapy/therapy_results_model.dart';
 
 abstract class TherapyState extends Equatable {
   const TherapyState();
@@ -25,7 +26,6 @@ class TherapyHistoryLoaded extends TherapyState {
   List<Object> get props => [therapyHistory];
 }
 
-
 class TherapySaved extends TherapyState {}
 
 class TherapySaveError extends TherapyState {
@@ -49,7 +49,8 @@ class TherapyStepInProgress extends TherapyState {
   });
 
   @override
-  List<Object> get props => [therapyTitle, instruction, svgPath, stepIndex, remainingTime];
+  List<Object> get props =>
+      [therapyTitle, instruction, svgPath, stepIndex, remainingTime];
 }
 
 class TherapyTimerUpdate extends TherapyState {
@@ -75,7 +76,8 @@ class TherapyAnimationInProgress extends TherapyState {
   });
 
   @override
-  List<Object> get props => [therapyTitle, remainingTime, topPosition, leftPosition];
+  List<Object> get props =>
+      [therapyTitle, remainingTime, topPosition, leftPosition];
 }
 
 class TherapyDistanceGazingInProgress extends TherapyState {
@@ -96,7 +98,8 @@ class TherapyDistanceGazingInProgress extends TherapyState {
   });
 
   @override
-  List<Object> get props => [therapyTitle, instruction, svgPathFar, farSize, nearSize, remainingTime];
+  List<Object> get props =>
+      [therapyTitle, instruction, svgPathFar, farSize, nearSize, remainingTime];
 }
 
 class TherapyLottieAnimationInProgress extends TherapyState {
@@ -113,7 +116,8 @@ class TherapyLottieAnimationInProgress extends TherapyState {
   });
 
   @override
-  List<Object> get props => [therapyTitle, remainingTime, animationPath, instruction];
+  List<Object> get props =>
+      [therapyTitle, remainingTime, animationPath, instruction];
 }
 
 class TherapyYinYangAnimationInProgress extends TherapyState {
@@ -134,7 +138,14 @@ class TherapyYinYangAnimationInProgress extends TherapyState {
   });
 
   @override
-  List<Object> get props => [therapyTitle, remainingTime, instructions, animationPath, scale, rotation];
+  List<Object> get props => [
+        therapyTitle,
+        remainingTime,
+        instructions,
+        animationPath,
+        scale,
+        rotation
+      ];
 }
 
 class TherapyRiveAnimationInProgress extends TherapyState {
@@ -171,13 +182,13 @@ class TherapyBrockStringInProgress extends TherapyState {
 
   @override
   List<Object> get props => [
-    therapyTitle,
-    remainingTime,
-    instruction,
-    svgPath,
-    beadIndex,
-    beadOpacities,
-  ];
+        therapyTitle,
+        remainingTime,
+        instruction,
+        svgPath,
+        beadIndex,
+        beadOpacities,
+      ];
 }
 
 class TherapyMirrorEyeStretchInProgress extends TherapyState {
@@ -199,13 +210,13 @@ class TherapyMirrorEyeStretchInProgress extends TherapyState {
 
   @override
   List<Object> get props => [
-    therapyTitle,
-    instruction,
-    svgPath,
-    stepIndex,
-    dotPositions,
-    dotOpacity,
-  ];
+        therapyTitle,
+        instruction,
+        svgPath,
+        stepIndex,
+        dotPositions,
+        dotOpacity,
+      ];
 }
 
 class TherapyStoryDisplayInProgress extends TherapyState {
@@ -224,7 +235,6 @@ class TherapyStoryDisplayInProgress extends TherapyState {
   @override
   List<Object> get props => [therapyTitle, instruction, story, remainingTime];
 }
-
 
 class TherapyBlinkingAnimationInProgress extends TherapyState {
   final String therapyTitle;
@@ -251,7 +261,6 @@ class TherapyProgressionLoaded extends TherapyState {
   List<Object> get props => [therapyProgressData];
 }
 
-
 class TherapyProgressError extends TherapyState {
   final String therapyProgressErr;
 
@@ -270,13 +279,9 @@ class TherapyHistoryError extends TherapyState {
   List<Object> get props => [errorMessage];
 }
 
-class TherapyHistoryEmpty extends TherapyState {
+class TherapyHistoryEmpty extends TherapyState {}
 
-}
-
-class TherapyProgressionEmpty extends TherapyState {
-
-}
+class TherapyProgressionEmpty extends TherapyState {}
 
 class TherapyError extends TherapyState {
   final String therapyErr;
@@ -287,12 +292,12 @@ class TherapyError extends TherapyState {
   List<Object> get props => [therapyErr];
 }
 
-
 class TherapyCompleted extends TherapyState {
   final String therapyTitle;
   final TherapyModel therapyModel;
 
-  const TherapyCompleted( {required this.therapyModel, required this.therapyTitle});
+  const TherapyCompleted(
+      {required this.therapyModel, required this.therapyTitle});
 
   @override
   List<Object> get props => [therapyTitle, therapyModel];

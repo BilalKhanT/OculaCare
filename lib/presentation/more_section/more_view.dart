@@ -1,7 +1,3 @@
-import 'package:OculaCare/configs/utils/utils.dart';
-import 'package:OculaCare/logic/image_capture/img_capture_cubit.dart';
-import 'package:OculaCare/logic/login_cubit/login_cubit.dart';
-import 'package:OculaCare/logic/patient_profile/patient_profile_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,10 +5,15 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../configs/global/app_globals.dart';
 import '../../configs/presentation/constants/colors.dart';
 import '../../configs/routes/route_names.dart';
+import '../../configs/utils/utils.dart';
 import '../../data/repositories/local/preferences/shared_prefs.dart';
 import '../../logic/detection/detection_cubit.dart';
+import '../../logic/image_capture/img_capture_cubit.dart';
+import '../../logic/login_cubit/login_cubit.dart';
+import '../../logic/patient_profile/patient_profile_cubit.dart';
 import '../../logic/pdf_cubit/pdf_cubit_state.dart';
 import '../widgets/need_to_setup_profile_widget.dart';
 
@@ -170,7 +171,7 @@ class MoreView extends StatelessWidget {
                         text: "Explore Eye Hospitals",
                         icon: "assets/svgs/charm_search.svg",
                         onTap: () {
-                          if (!sharedPrefs.isLoggedIn) {
+                          if (!sharedPrefs.isProfileSetup) {
                             showDialog(
                               context: context,
                               builder: (context) {
@@ -320,7 +321,15 @@ class MoreView extends StatelessWidget {
                           text: "Logout",
                           icon: "assets/svgs/log_out.svg",
                           onTap: () {
+                            clearGlobalDataOnLogout();
                             sharedPrefs.isLoggedIn = false;
+                            sharedPrefs.isProfileSetup = false;
+                            sharedPrefs.patientData = '';
+                            sharedPrefs.userName = '';
+                            sharedPrefs.email = '';
+                            sharedPrefs.password = '';
+                            sharedPrefs.therapyFetched = false;
+                            sharedPrefs.historyFetched = false;
                             context.go(RouteNames.loginRoute);
                           },
                         ),
@@ -337,11 +346,16 @@ class MoreView extends StatelessWidget {
                         child: MoreTab(
                           text: "Logout",
                           icon: "assets/svgs/log_out.svg",
-                          onTap: () {
+                          onTap: () async {
+                            clearGlobalDataOnLogout();
                             sharedPrefs.isLoggedIn = false;
                             sharedPrefs.isProfileSetup = false;
                             sharedPrefs.patientData = '';
                             sharedPrefs.userName = '';
+                            sharedPrefs.email = '';
+                            sharedPrefs.password = '';
+                            sharedPrefs.therapyFetched = false;
+                            sharedPrefs.historyFetched = false;
                             context.read<LoginCubit>().loadLoginScreen();
                             context.go(RouteNames.loginRoute);
                           },

@@ -30,6 +30,6 @@ class ForgotPasswordBtn extends StatelessWidget {
           ),
         ),
       ),
-    );;
+    );
   }
 }

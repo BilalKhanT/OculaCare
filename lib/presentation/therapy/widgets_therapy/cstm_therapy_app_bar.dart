@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:OculaCare/configs/presentation/constants/colors.dart';
+
+import '../../../configs/presentation/constants/colors.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -21,7 +22,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: AppColors.backgroundTherapy,
       elevation: 0,
       leading: IconButton(
-        icon: const Icon(Icons.arrow_back_ios_new, color: AppColors.textTherapy),
+        icon:
+            const Icon(Icons.arrow_back_ios_new, color: AppColors.textTherapy),
         onPressed: onBackPressed,
       ),
       title: Text(

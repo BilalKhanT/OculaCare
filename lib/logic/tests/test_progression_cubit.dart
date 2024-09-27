@@ -1,5 +1,5 @@
-import 'package:OculaCare/logic/tests/test_progression_state.dart';
 import 'package:bloc/bloc.dart';
+import 'package:cculacare/logic/tests/test_progression_state.dart';
 import 'package:intl/intl.dart';
 
 import '../../configs/global/app_globals.dart';
@@ -24,8 +24,6 @@ class TestProgressionCubit extends Cubit<TestProgressionState> {
         .toList()
       ..sort((a, b) =>
           dateFormat.parse(a.date).compareTo(dateFormat.parse(b.date)));
-
-    print(filteredResults.length);
 
     for (var t in filteredResults) {
       DateTime testDate = dateFormat.parse(t.date);

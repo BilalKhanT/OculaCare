@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:go_router/go_router.dart';
-
 import '../../configs/presentation/constants/colors.dart';
 import '../../logic/tests/test_schedule_cubit.dart';
 import '../../logic/tests/test_schedule_tab_cubit.dart';
@@ -55,77 +54,38 @@ class ScheduledTests extends StatelessWidget {
                   visionSelected = state.isVision;
                   colorSelected = state.isColor;
                 }
-
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          context.read<ScheduleTabCubit>().toggleTab(0);
-                          context
-                              .read<ScheduleCubit>()
-                              .loadVisionNotifications();
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            border: Border(
-                              bottom: BorderSide(
-                                color: visionSelected
-                                    ? AppColors.appColor
-                                    : Colors.transparent,
-                                width: 4.0,
-                              ),
-                            ),
-                          ),
-                          padding: const EdgeInsets.symmetric(vertical: 1.0),
-                          child: Text(
-                            'Vision Tests',
-                            style: TextStyle(
-                              fontFamily: 'MontserratMedium',
-                              fontWeight: FontWeight.w700,
-                              fontSize: screenWidth * 0.045,
-                              color: visionSelected
-                                  ? AppColors.appColor
-                                  : Colors.black,
-                            ),
-                          ),
+                return SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10.0, horizontal: 5.0),
+                    child: Row(
+                      children: [
+                        _buildScheduleTab(
+                          context,
+                          'Vision Tests',
+                          visionSelected,
+                          () {
+                            context.read<ScheduleTabCubit>().toggleTab(0);
+                            context
+                                .read<ScheduleCubit>()
+                                .loadVisionNotifications();
+                          },
                         ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          context.read<ScheduleTabCubit>().toggleTab(1);
-                          context
-                              .read<ScheduleCubit>()
-                              .loadColorNotifications();
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            border: Border(
-                              bottom: BorderSide(
-                                color: colorSelected
-                                    ? AppColors.appColor
-                                    : Colors.transparent,
-                                width: 4.0,
-                              ),
-                            ),
-                          ),
-                          padding: const EdgeInsets.symmetric(vertical: 1.0),
-                          child: Text(
-                            'Color Tests',
-                            style: TextStyle(
-                              fontFamily: 'MontserratMedium',
-                              fontWeight: FontWeight.w700,
-                              fontSize: screenWidth * 0.045,
-                              color: colorSelected
-                                  ? AppColors.appColor
-                                  : Colors.black,
-                            ),
-                          ),
+                        SizedBox(width: screenWidth * 0.02),
+                        _buildScheduleTab(
+                          context,
+                          'Color Tests',
+                          colorSelected,
+                          () {
+                            context.read<ScheduleTabCubit>().toggleTab(1);
+                            context
+                                .read<ScheduleCubit>()
+                                .loadColorNotifications();
+                          },
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 );
               },
@@ -172,7 +132,7 @@ class ScheduledTests extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              SizedBox(height: screenHeight * 0.05),
+                              SizedBox(height: screenHeight * 0.02),
                               SizedBox(
                                 height: screenHeight * 0.7,
                                 child: ListView.builder(
@@ -267,15 +227,34 @@ class ScheduledTests extends StatelessWidget {
                                                     ),
                                                   ),
                                                 ),
-                                                IconButton(
-                                                  onPressed: () {
-                                                    Slidable.of(context)?.openEndActionPane();
-                                                  },
-                                                  icon: const Icon(
-                                                      Icons
-                                                      .delete_outlined),
-                                                  color: Colors.red,
-                                                  iconSize: 32,
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          right: 10.0),
+                                                  child: Container(
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              100.0),
+                                                      color: Colors.red
+                                                          .withOpacity(0.2),
+                                                    ),
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              1.0),
+                                                      child: IconButton(
+                                                        onPressed: () {
+                                                          Slidable.of(context)
+                                                              ?.openEndActionPane();
+                                                        },
+                                                        icon: const Icon(Icons
+                                                            .delete_outlined),
+                                                        color: Colors.red,
+                                                        iconSize: 26,
+                                                      ),
+                                                    ),
+                                                  ),
                                                 ),
                                               ],
                                             ),
@@ -378,7 +357,8 @@ class ScheduledTests extends StatelessWidget {
                                                                     0.04,
                                                           ),
                                                         ),
-                                                        const SizedBox(height: 5),
+                                                        const SizedBox(
+                                                            height: 5),
                                                         Text(
                                                           'Time:',
                                                           style: TextStyle(
@@ -410,15 +390,34 @@ class ScheduledTests extends StatelessWidget {
                                                     ),
                                                   ),
                                                 ),
-                                                IconButton(
-                                                  onPressed: () {
-                                                    Slidable.of(context)?.openEndActionPane();
-                                                  },
-                                                  icon: const Icon(
-                                                      Icons
-                                                          .delete_outlined),
-                                                  color: Colors.red,
-                                                  iconSize: 32,
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          right: 10.0),
+                                                  child: Container(
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              100.0),
+                                                      color: Colors.red
+                                                          .withOpacity(0.2),
+                                                    ),
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              5.0),
+                                                      child: IconButton(
+                                                        onPressed: () {
+                                                          Slidable.of(context)
+                                                              ?.openEndActionPane();
+                                                        },
+                                                        icon: const Icon(Icons
+                                                            .delete_outlined),
+                                                        color: Colors.red,
+                                                        iconSize: 32,
+                                                      ),
+                                                    ),
+                                                  ),
                                                 ),
                                               ],
                                             ),
@@ -439,6 +438,30 @@ class ScheduledTests extends StatelessWidget {
             ),
           ],
         )),
+      ),
+    );
+  }
+
+  Widget _buildScheduleTab(
+      BuildContext context, String title, bool isSelected, Function onTap) {
+    return GestureDetector(
+      onTap: () => onTap(),
+      child: Container(
+        decoration: BoxDecoration(
+          color:
+              isSelected ? AppColors.appColor.withOpacity(0.85) : Colors.white,
+          borderRadius: BorderRadius.circular(25),
+        ),
+        padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 6.0),
+        child: Text(
+          title,
+          style: TextStyle(
+            fontFamily: 'Montserrat',
+            fontWeight: FontWeight.bold,
+            fontSize: MediaQuery.of(context).size.width * 0.04,
+            color: isSelected ? AppColors.whiteColor : Colors.black,
+          ),
+        ),
       ),
     );
   }

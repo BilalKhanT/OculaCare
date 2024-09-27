@@ -1,11 +1,11 @@
 import 'dart:async';
-import 'package:OculaCare/configs/app/remote/ml_model.dart';
-import 'package:OculaCare/configs/global/app_globals.dart';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:bloc/bloc.dart';
 import 'package:intl/intl.dart';
 
+import '../../../configs/app/remote/ml_model.dart';
+import '../../../configs/global/app_globals.dart';
 import '../../../data/models/api_response/response_model.dart';
 import '../../../data/models/tests/test_result_model.dart';
 import '../../../data/repositories/local/preferences/shared_prefs.dart';

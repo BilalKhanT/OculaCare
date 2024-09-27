@@ -7,7 +7,8 @@ class TherapyCard extends StatelessWidget {
   final double screenHeight;
   final double screenWidth;
 
-  const TherapyCard({super.key,
+  const TherapyCard({
+    super.key,
     required this.therapy,
     required this.screenHeight,
     required this.screenWidth,
@@ -63,7 +64,8 @@ class TherapyCard extends StatelessWidget {
                 top: 20,
                 left: 10,
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                   decoration: BoxDecoration(
                     color: AppColors.appColor,
                     borderRadius: BorderRadius.circular(15.0),
@@ -83,7 +85,8 @@ class TherapyCard extends StatelessWidget {
                 bottom: 10,
                 right: 10,
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                   decoration: BoxDecoration(
                     color: AppColors.appColor,
                     borderRadius: BorderRadius.circular(15.0),
