@@ -1,8 +1,9 @@
-import 'package:OculaCare/configs/global/app_globals.dart';
-import 'package:OculaCare/data/models/disease_result/disease_result_model.dart';
-import 'package:OculaCare/logic/detection/detection_state.dart';
 import 'package:bloc/bloc.dart';
 import 'package:nb_utils/nb_utils.dart';
+
+import '../../configs/global/app_globals.dart';
+import '../../data/models/disease_result/disease_result_model.dart';
+import 'detection_state.dart';
 
 class DetectionCubit extends Cubit<DetectionState> {
   DetectionCubit() : super(DetectionInitial());

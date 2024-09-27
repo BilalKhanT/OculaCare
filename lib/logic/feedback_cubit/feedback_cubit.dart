@@ -1,10 +1,10 @@
 import 'dart:convert';
-import 'package:OculaCare/data/repositories/local/preferences/shared_prefs.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:http/http.dart' as http;
 import '../../configs/global/app_globals.dart';
+import '../../data/repositories/local/preferences/shared_prefs.dart';
 import '../auth_cubit/auth_cubit.dart';
 import '../keyboard_listener_cubit/keyboard_list_cubit.dart';
 import '../keyboard_listener_cubit/keyboard_list_state.dart';

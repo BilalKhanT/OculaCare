@@ -109,7 +109,7 @@ final List<Map<String, dynamic>> therapiesList = [
         "step": 16,
         "instruction": "Relax for 20 seconds.",
         "svgPath":
-        "assets/images/mind_chest_breathing/mind-chest_breathing.png",
+            "assets/images/mind_chest_breathing/mind-chest_breathing.png",
         "duration": 20
       },
       {
@@ -158,7 +158,7 @@ final List<Map<String, dynamic>> therapiesList = [
         "step": 24,
         "instruction": "Relax for 20 seconds.",
         "svgPath":
-        "assets/images/mind_chest_breathing/mind-chest_breathing.png",
+            "assets/images/mind_chest_breathing/mind-chest_breathing.png",
         "duration": 20
       },
       {
@@ -357,7 +357,8 @@ final List<Map<String, dynamic>> therapiesList = [
       },
       {
         "step": 4,
-        "instruction": "Now relax for 20 second and try this therapy 3 times a day.",
+        "instruction":
+            "Now relax for 20 second and try this therapy 3 times a day.",
         "svgPath": "assets/images/palming/palming.png",
         "duration": 20
       },

@@ -34,8 +34,7 @@ class PDFCubit extends Cubit<PDFState> {
     emit(PDFLoading());
     try {
       final items = [];
-      await fromAsset('assets/pdfs/ocula_pdf.pdf', 'ocula_pdf.pdf')
-          .then((f) {
+      await fromAsset('assets/pdfs/ocula_pdf.pdf', 'ocula_pdf.pdf').then((f) {
         items.add(f.path);
       });
       final controller = Completer<PDFViewController>();

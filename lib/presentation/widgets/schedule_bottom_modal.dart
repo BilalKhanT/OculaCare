@@ -160,11 +160,13 @@ class ScheduleBottomModal extends StatelessWidget {
                     textColor: Colors.white,
                     onPress: () async {
                       if (controller.text.trim() == '') {
-                        AppUtils.showToast(context, 'Error', 'Please select date and time', true);
+                        AppUtils.showToast(context, 'Error',
+                            'Please select date and time', true);
                         return;
                       }
                       try {
-                        DateTime scheduledTime = DateTime.parse(controller.text.trim());
+                        DateTime scheduledTime =
+                            DateTime.parse(controller.text.trim());
                         await context.read<ScheduleCubit>().scheduleTest(test);
                         if (context.mounted) {
                           DateTime now = DateTime.now();
@@ -173,25 +175,24 @@ class ScheduleBottomModal extends StatelessWidget {
                                 context,
                                 "Error",
                                 "Test not scheduled. Please choose a valid future time.",
-                                true
-                            );
+                                true);
                           } else {
                             AppUtils.showToast(
                                 context,
                                 "Test Scheduled",
                                 "Your test has been successfully scheduled",
-                                false
-                            );
+                                false);
                           }
                           context.pop();
                         }
                       } catch (e) {
-                        AppUtils.showToast(
-                            context,
-                            "Error",
-                            "Invalid date format. Please enter a valid date and time.",
-                            true
-                        );
+                        if (context.mounted) {
+                          AppUtils.showToast(
+                              context,
+                              "Error",
+                              "Invalid date format. Please enter a valid date and time.",
+                              true);
+                        }
                       }
                     },
                     text: 'Confirm',
@@ -235,7 +236,7 @@ class ScheduleBottomModal extends StatelessWidget {
     if (date == null) return null;
 
     final TimeOfDay? time = await showTimePicker(
-      context: context,
+      context: context.mounted == true ? context : context,
       initialTime: TimeOfDay.fromDateTime(now),
       builder: (BuildContext context, Widget? child) {
         return Theme(

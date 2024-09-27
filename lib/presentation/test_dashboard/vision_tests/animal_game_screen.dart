@@ -82,7 +82,8 @@ class AnimalGameScreen extends StatelessWidget {
                       ],
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10.0),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 10.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: List.generate(

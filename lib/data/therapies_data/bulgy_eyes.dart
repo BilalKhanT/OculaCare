@@ -154,7 +154,8 @@ final List<Map<String, dynamic>> bulgyEyeTherapies = [
       },
       {
         "step": 4,
-        "instruction": "Now relax for 20 second and try this therapy 3 times a day.",
+        "instruction":
+            "Now relax for 20 second and try this therapy 3 times a day.",
         "svgPath": "assets/images/palming/palming.png",
         "duration": 20
       },
@@ -271,7 +272,7 @@ final List<Map<String, dynamic>> bulgyEyeTherapies = [
   {
     "title": "Squint",
     "category": "Bulgy Eyes",
-    "timeLimit": 3,  // 3 minutes total
+    "timeLimit": 3, // 3 minutes total
     "description": "Strengthens muscles, reduces strain",
     "type": "instruction",
     "svgPath": "assets/images/bulgy_eyes/squint/squint.png",
@@ -280,7 +281,8 @@ final List<Map<String, dynamic>> bulgyEyeTherapies = [
     "instructions": [
       {
         "step": 1,
-        "instruction": "Squint your eyes gently as if you are trying to focus on a distant object.",
+        "instruction":
+            "Squint your eyes gently as if you are trying to focus on a distant object.",
         "svgPath": "assets/images/bulgy_eyes/squint/close_eyes.png",
         "duration": 5
       },
@@ -298,7 +300,8 @@ final List<Map<String, dynamic>> bulgyEyeTherapies = [
       },
       {
         "step": 4,
-        "instruction": "Squint your eyes gently as if you are trying to focus on a distant object.",
+        "instruction":
+            "Squint your eyes gently as if you are trying to focus on a distant object.",
         "svgPath": "assets/images/bulgy_eyes/squint/close_eyes.png",
         "duration": 5
       },
@@ -316,7 +319,8 @@ final List<Map<String, dynamic>> bulgyEyeTherapies = [
       },
       {
         "step": 7,
-        "instruction": "Squint your eyes gently as if you are trying to focus on a distant object.",
+        "instruction":
+            "Squint your eyes gently as if you are trying to focus on a distant object.",
         "svgPath": "assets/images/bulgy_eyes/squint/close_eyes.png",
         "duration": 5
       },
@@ -334,7 +338,8 @@ final List<Map<String, dynamic>> bulgyEyeTherapies = [
       },
       {
         "step": 10,
-        "instruction": "Squint your eyes gently as if you are trying to focus on a distant object.",
+        "instruction":
+            "Squint your eyes gently as if you are trying to focus on a distant object.",
         "svgPath": "assets/images/bulgy_eyes/squint/close_eyes.png",
         "duration": 5
       },
@@ -352,7 +357,8 @@ final List<Map<String, dynamic>> bulgyEyeTherapies = [
       },
       {
         "step": 13,
-        "instruction": "Squint your eyes gently as if you are trying to focus on a distant object.",
+        "instruction":
+            "Squint your eyes gently as if you are trying to focus on a distant object.",
         "svgPath": "assets/images/bulgy_eyes/squint/close_eyes.png",
         "duration": 5
       },
@@ -370,7 +376,8 @@ final List<Map<String, dynamic>> bulgyEyeTherapies = [
       },
       {
         "step": 16,
-        "instruction": "Squint your eyes gently as if you are trying to focus on a distant object.",
+        "instruction":
+            "Squint your eyes gently as if you are trying to focus on a distant object.",
         "svgPath": "assets/images/bulgy_eyes/squint/close_eyes.png",
         "duration": 5
       },
@@ -388,7 +395,8 @@ final List<Map<String, dynamic>> bulgyEyeTherapies = [
       },
       {
         "step": 19,
-        "instruction": "Squint your eyes gently as if you are trying to focus on a distant object.",
+        "instruction":
+            "Squint your eyes gently as if you are trying to focus on a distant object.",
         "svgPath": "assets/images/bulgy_eyes/squint/close_eyes.png",
         "duration": 5
       },
@@ -406,7 +414,8 @@ final List<Map<String, dynamic>> bulgyEyeTherapies = [
       },
       {
         "step": 22,
-        "instruction": "Squint your eyes gently as if you are trying to focus on a distant object.",
+        "instruction":
+            "Squint your eyes gently as if you are trying to focus on a distant object.",
         "svgPath": "assets/images/bulgy_eyes/squint/close_eyes.png",
         "duration": 5
       },
@@ -424,7 +433,8 @@ final List<Map<String, dynamic>> bulgyEyeTherapies = [
       },
       {
         "step": 25,
-        "instruction": "Squint your eyes gently as if you are trying to focus on a distant object.",
+        "instruction":
+            "Squint your eyes gently as if you are trying to focus on a distant object.",
         "svgPath": "assets/images/bulgy_eyes/squint/close_eyes.png",
         "duration": 5
       },
@@ -442,7 +452,6 @@ final List<Map<String, dynamic>> bulgyEyeTherapies = [
       },
     ]
   },
-
 
   // Eye Direction
   {
@@ -494,7 +503,7 @@ final List<Map<String, dynamic>> bulgyEyeTherapies = [
       {
         "step": 6,
         "instruction":
-        "Look up as far as you can while keeping your head still.",
+            "Look up as far as you can while keeping your head still.",
         "svgPath": "assets/images/bulgy_eyes/eye_direction/up.png",
         "duration": 10
       },
@@ -507,7 +516,7 @@ final List<Map<String, dynamic>> bulgyEyeTherapies = [
       {
         "step": 8,
         "instruction":
-        "Look to the left, trying to see as far as possible without moving your head.",
+            "Look to the left, trying to see as far as possible without moving your head.",
         "svgPath": "assets/images/bulgy_eyes/eye_direction/left.png",
         "duration": 10
       },
@@ -526,7 +535,7 @@ final List<Map<String, dynamic>> bulgyEyeTherapies = [
       {
         "step": 11,
         "instruction":
-        "Look up as far as you can while keeping your head still.",
+            "Look up as far as you can while keeping your head still.",
         "svgPath": "assets/images/bulgy_eyes/eye_direction/up.png",
         "duration": 10
       },
@@ -539,7 +548,7 @@ final List<Map<String, dynamic>> bulgyEyeTherapies = [
       {
         "step": 13,
         "instruction":
-        "Look to the left, trying to see as far as possible without moving your head.",
+            "Look to the left, trying to see as far as possible without moving your head.",
         "svgPath": "assets/images/bulgy_eyes/eye_direction/left.png",
         "duration": 10
       },
@@ -579,14 +588,14 @@ final List<Map<String, dynamic>> bulgyEyeTherapies = [
       {
         "step": 2,
         "instruction":
-        "Now slowly move your eyes in a counterclockwise motion.",
+            "Now slowly move your eyes in a counterclockwise motion.",
         "svgPath": "assets/images/bulgy_eyes/rotate/counter_clockwise.png",
         "duration": 10
       },
       {
         "step": 3,
         "instruction":
-        "Look straight ahead and slowly move your eyes in a circular motion clockwise.",
+            "Look straight ahead and slowly move your eyes in a circular motion clockwise.",
         "svgPath": "assets/images/bulgy_eyes/rotate/clockwise.png",
         "duration": 10
       },
@@ -612,28 +621,28 @@ final List<Map<String, dynamic>> bulgyEyeTherapies = [
       {
         "step": 1,
         "instruction":
-        "Look straight ahead and slowly move your eyes in a circular motion clockwise.",
+            "Look straight ahead and slowly move your eyes in a circular motion clockwise.",
         "svgPath": "assets/images/bulgy_eyes/rotate/clockwise.png",
         "duration": 10
       },
       {
         "step": 2,
         "instruction":
-        "Now slowly move your eyes in a counterclockwise motion.",
+            "Now slowly move your eyes in a counterclockwise motion.",
         "svgPath": "assets/images/bulgy_eyes/rotate/counter_clockwise.png",
         "duration": 10
       },
       {
         "step": 3,
         "instruction":
-        "Look straight ahead and slowly move your eyes in a circular motion clockwise.",
+            "Look straight ahead and slowly move your eyes in a circular motion clockwise.",
         "svgPath": "assets/images/bulgy_eyes/rotate/clockwise.png",
         "duration": 10
       },
       {
         "step": 4,
         "instruction":
-        "Now slowly move your eyes in a counterclockwise motion.",
+            "Now slowly move your eyes in a counterclockwise motion.",
         "svgPath": "assets/images/bulgy_eyes/rotate/counter_clockwise.png",
         "duration": 10
       },

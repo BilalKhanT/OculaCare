@@ -51,7 +51,6 @@ class TherapyHistoryTile extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 15.0),
-
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[

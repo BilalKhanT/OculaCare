@@ -1,7 +1,8 @@
-import 'package:OculaCare/configs/presentation/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+
+import '../../configs/presentation/constants/colors.dart';
 
 class ScaffoldWithNavBar extends StatelessWidget {
   /// Constructs an [ScaffoldWithNavBar].
@@ -16,6 +17,7 @@ class ScaffoldWithNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return PopScope(
       canPop: false,
+      // ignore: deprecated_member_use
       onPopInvoked: ((didPop) {
         _onTap(context, 0);
       }),
@@ -111,4 +113,3 @@ class ScaffoldWithNavBar extends StatelessWidget {
     );
   }
 }
-

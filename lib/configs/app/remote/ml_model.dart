@@ -1,6 +1,7 @@
 import 'dart:convert';
-import 'package:OculaCare/data/models/api_response/response_model.dart';
 import 'package:http/http.dart' as http;
+
+import '../../../data/models/api_response/response_model.dart';
 
 class MlModel {
   static const String baseUrl =
@@ -26,9 +27,7 @@ class MlModel {
     if (resp.statusCode == 200) {
       return ResponseModel.fromJson(jsonDecode(resp.body));
     } else {
-      print(resp.statusCode);
-      print(resp.body);
-      throw Exception('Failed to load data');
+      return ResponseModel(text: '');
     }
   }
 }

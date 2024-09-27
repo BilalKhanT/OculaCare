@@ -1,21 +1,21 @@
 import 'dart:io';
 import 'dart:ui';
-import 'package:OculaCare/presentation/widgets/btn_flat.dart';
-import 'package:OculaCare/presentation/widgets/cstm_loader.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:OculaCare/configs/presentation/constants/colors.dart';
-import 'package:OculaCare/configs/routes/route_names.dart';
-import 'package:OculaCare/logic/image_capture/img_capture_cubit.dart';
-import 'package:OculaCare/logic/image_capture/img_capture_state.dart';
-import 'package:OculaCare/presentation/sign_up/widgets/cstm_flat_btn.dart';
 import 'package:image_picker/image_picker.dart';
+import '../../configs/presentation/constants/colors.dart';
+import '../../configs/routes/route_names.dart';
 import '../../configs/utils/utils.dart';
+import '../../logic/image_capture/img_capture_cubit.dart';
+import '../../logic/image_capture/img_capture_state.dart';
+import '../sign_up/widgets/cstm_flat_btn.dart';
 import '../widgets/border_painter.dart';
+import '../widgets/btn_flat.dart';
+import '../widgets/cstm_loader.dart';
 
 class ImageCaptureScreen extends StatelessWidget {
   const ImageCaptureScreen({Key? key}) : super(key: key);
@@ -303,173 +303,176 @@ class ImageCaptureScreen extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(
                       horizontal: 20.0, vertical: 20.0),
                   child: SingleChildScrollView(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              height: height * 0.05,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: height * 0.05,
+                        ),
+                        Container(
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10.0),
                             ),
-                            Container(
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Row(
                                   children: <Widget>[
-                                    Row(
-                                      children: <Widget>[
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 10.0, bottom: 10.0, top: 10.0),
-                                          child: Image.file(
-                                            File(state.leftEye.path),
-                                            height: 150,
-                                          ),
-                                        ),
-                                        Expanded(
-                                          child: Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 20.0),
-                                            child: Column(
-                                              children: [
-                                                Text(
-                                                  'Left Eye',
-                                                  style: TextStyle(
-                                                    fontFamily: 'Poppins',
-                                                    fontSize: 20.sp,
-                                                    fontWeight: FontWeight.w400,
-                                                    color: Colors.black,
-                                                  ),
-                                                ),
-                                                CustomFlatButton(
-                                                  onTap: () async {
-                                                    bool flag = await context
-                                                        .read<ImageCaptureCubit>()
-                                                        .downloadFile(
-                                                            state.leftEye.path,
-                                                            'image');
-                                                    if (context.mounted) {
-                                                      AppUtils.showToast(
-                                                          context,
-                                                          flag
-                                                              ? 'Success'
-                                                              : 'Failed',
-                                                          flag
-                                                              ? 'File downloaded successfully'
-                                                              : 'Failed to download file',
-                                                          !flag);
-                                                    }
-                                                  },
-                                                  text: 'Download',
-                                                  btnColor: AppColors.appColor,
-                                                ),
-                                              ],
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 10.0, bottom: 10.0, top: 10.0),
+                                      child: Image.file(
+                                        File(state.leftEye.path),
+                                        height: 150,
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 20.0),
+                                        child: Column(
+                                          children: [
+                                            Text(
+                                              'Left Eye',
+                                              style: TextStyle(
+                                                fontFamily: 'Poppins',
+                                                fontSize: 20.sp,
+                                                fontWeight: FontWeight.w400,
+                                                color: Colors.black,
+                                              ),
                                             ),
-                                          ),
+                                            CustomFlatButton(
+                                              onTap: () async {
+                                                bool flag = await context
+                                                    .read<ImageCaptureCubit>()
+                                                    .downloadFile(
+                                                        state.leftEye.path,
+                                                        'image');
+                                                if (context.mounted) {
+                                                  AppUtils.showToast(
+                                                      context,
+                                                      flag
+                                                          ? 'Success'
+                                                          : 'Failed',
+                                                      flag
+                                                          ? 'File downloaded successfully'
+                                                          : 'Failed to download file',
+                                                      !flag);
+                                                }
+                                              },
+                                              text: 'Download',
+                                              btnColor: AppColors.appColor,
+                                            ),
+                                          ],
                                         ),
-                                      ],
+                                      ),
                                     ),
                                   ],
-                                )),
-                            SizedBox(
-                              height: height * 0.05,
-                            ),
-                            Container(
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10.0),
                                 ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    Row(
-                                      children: <Widget>[
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 10.0, bottom: 10.0, top: 10.0),
-                                          child: Image.file(
-                                            File(state.rightEye.path),
-                                            height: 150,
-                                          ),
-                                        ),
-                                        Expanded(
-                                          child: Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 20.0),
-                                            child: Column(
-                                              children: [
-                                                Text(
-                                                  'Right Eye',
-                                                  style: TextStyle(
-                                                    fontFamily: 'Poppins',
-                                                    fontSize: 20.sp,
-                                                    fontWeight: FontWeight.w400,
-                                                    color: Colors.black,
-                                                  ),
-                                                ),
-                                                CustomFlatButton(
-                                                  onTap: () async {
-                                                    bool flag = await context
-                                                        .read<ImageCaptureCubit>()
-                                                        .downloadFile(
-                                                            state.rightEye.path,
-                                                            'image');
-                                                    if (context.mounted) {
-                                                      AppUtils.showToast(
-                                                          context,
-                                                          flag
-                                                              ? 'Success'
-                                                              : 'Failed',
-                                                          flag
-                                                              ? 'File downloaded successfully'
-                                                              : 'Failed to download file',
-                                                          !flag);
-                                                    }
-                                                  },
-                                                  text: 'Download',
-                                                  btnColor: AppColors.appColor,
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    )
-                                  ],
-                                )),
-                            SizedBox(height: height * 0.1,),
-                            ButtonFlat(
-                                btnColor: AppColors.appColor,
-                                textColor: Colors.white,
-                                onPress: () {
-                                  context
-                                      .read<ImageCaptureCubit>()
-                                      .uploadImageToServer(
-                                      state.leftEye, state.rightEye);
-                                  AppUtils.showToast(
-                                      context,
-                                      'Upload Successful',
-                                      'Image uploaded to the server successfully please check results tab.',
-                                      false);
-                                },
-                                text: 'Upload to Server'),
-                            SizedBox(height: height * 0.02,),
-                            ButtonFlat(
-                                btnColor: AppColors.secondaryBtnColor,
-                                textColor: Colors.white,
-                                onPress: () {
-                                  context
-                                      .read<ImageCaptureCubit>()
-                                      .initializeCamera();
-                                },
-                                text: 'Recapture Image'),
-                          ],
+                              ],
+                            )),
+                        SizedBox(
+                          height: height * 0.05,
                         ),
-                      ),
-
+                        Container(
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Row(
+                                  children: <Widget>[
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 10.0, bottom: 10.0, top: 10.0),
+                                      child: Image.file(
+                                        File(state.rightEye.path),
+                                        height: 150,
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 20.0),
+                                        child: Column(
+                                          children: [
+                                            Text(
+                                              'Right Eye',
+                                              style: TextStyle(
+                                                fontFamily: 'Poppins',
+                                                fontSize: 20.sp,
+                                                fontWeight: FontWeight.w400,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                            CustomFlatButton(
+                                              onTap: () async {
+                                                bool flag = await context
+                                                    .read<ImageCaptureCubit>()
+                                                    .downloadFile(
+                                                        state.rightEye.path,
+                                                        'image');
+                                                if (context.mounted) {
+                                                  AppUtils.showToast(
+                                                      context,
+                                                      flag
+                                                          ? 'Success'
+                                                          : 'Failed',
+                                                      flag
+                                                          ? 'File downloaded successfully'
+                                                          : 'Failed to download file',
+                                                      !flag);
+                                                }
+                                              },
+                                              text: 'Download',
+                                              btnColor: AppColors.appColor,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            )),
+                        SizedBox(
+                          height: height * 0.1,
+                        ),
+                        ButtonFlat(
+                            btnColor: AppColors.appColor,
+                            textColor: Colors.white,
+                            onPress: () {
+                              context
+                                  .read<ImageCaptureCubit>()
+                                  .uploadImageToServer(
+                                      state.leftEye, state.rightEye);
+                              AppUtils.showToast(
+                                  context,
+                                  'Upload Successful',
+                                  'Image uploaded to the server successfully please check results tab.',
+                                  false);
+                            },
+                            text: 'Upload to Server'),
+                        SizedBox(
+                          height: height * 0.02,
+                        ),
+                        ButtonFlat(
+                            btnColor: AppColors.secondaryBtnColor,
+                            textColor: Colors.white,
+                            onPress: () {
+                              context
+                                  .read<ImageCaptureCubit>()
+                                  .initializeCamera();
+                            },
+                            text: 'Recapture Image'),
+                      ],
+                    ),
+                  ),
                 );
               } else {
                 return const SizedBox.shrink();

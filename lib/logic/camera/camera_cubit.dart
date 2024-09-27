@@ -76,14 +76,17 @@ class CameraCubit extends Cubit<CameraState> {
       bytesPerRow: planeData,
     );
     InputImage image =
-    InputImage.fromBytes(bytes: bytes, metadata: inputImageData);
+        InputImage.fromBytes(bytes: bytes, metadata: inputImageData);
 
     final faces = await faceDetector?.processImage(image);
 
     if (faces!.isNotEmpty) {
       final face = faces.first;
       final faceWidth = face.boundingBox.width;
-      calculateDistance(faceWidth, img.width,);
+      calculateDistance(
+        faceWidth,
+        img.width,
+      );
     }
     isProcessing = false;
   }
@@ -109,18 +112,17 @@ class CameraCubit extends Cubit<CameraState> {
     const double knownFaceWidthMm = 160.0;
 
     final double faceWidthRatio = faceWidthPx / imageWidthPx;
-    final double distanceMm = (knownFaceWidthMm * focalLengthMm) / (faceWidthRatio * sensorWidthMm);
+    final double distanceMm =
+        (knownFaceWidthMm * focalLengthMm) / (faceWidthRatio * sensorWidthMm);
 
     final double distanceMeters = distanceMm / 1000;
 
     if (distanceMeters >= 0.3 && distanceMeters <= 0.4) {
       emit(CameraSuccess());
-    }
-    else if (distanceMeters < 0.3) {
+    } else if (distanceMeters < 0.3) {
       emit(CameraInitial());
       emit(CameraLoaded(camera, 'Move phone away'));
-    }
-    else if (distanceMeters > 0.4) {
+    } else if (distanceMeters > 0.4) {
       emit(CameraInitial());
       emit(CameraLoaded(camera, 'Bring phone closer'));
     }

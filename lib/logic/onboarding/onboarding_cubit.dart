@@ -14,17 +14,17 @@ class OnBoardingCubit extends Cubit<OnBoardingState> {
         title: 'Timely Detection',
         image: 'assets/svgs/test_img.svg',
         discription:
-        "Timely identify eye diseases with our advanced detection tools."),
+            "Timely identify eye diseases with our advanced detection tools."),
     OnBoardingContent(
         title: 'Eye Therapies',
         image: 'assets/svgs/therapy_img.svg',
         discription:
-        "Access personalized therapy plans to improve your eye health."),
+            "Access personalized therapy plans to improve your eye health."),
     OnBoardingContent(
         title: 'Vision Tests',
         image: 'assets/svgs/disease_detect.svg',
         discription:
-        "Take comprehensive vision tests to monitor your eye health."),
+            "Take comprehensive vision tests to monitor your eye health."),
   ];
 
   void dispose() {

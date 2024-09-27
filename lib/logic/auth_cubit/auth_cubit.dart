@@ -12,7 +12,6 @@ class AuthCubit extends Cubit<AuthState> {
     listenToKeyboardFocus();
   }
 
-
   //focus nodes
   final FocusNode emailFocusNode = FocusNode();
   final FocusNode passwordFocusNode = FocusNode();
@@ -40,5 +39,4 @@ class AuthCubit extends Cubit<AuthState> {
 
     keyboardListenerCubit.emit(KeyboardClosed());
   }
-
 }

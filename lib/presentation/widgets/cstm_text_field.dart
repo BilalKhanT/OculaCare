@@ -1,4 +1,4 @@
-import 'package:OculaCare/configs/extension/extensions.dart';
+import 'package:cculacare/configs/extension/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../configs/presentation/constants/colors.dart';
@@ -16,15 +16,16 @@ class CustomTextField extends StatelessWidget {
   final bool editable;
   const CustomTextField(
       {super.key,
-        required this.hintText,
-        this.prefixIcon,
-        this.suffixIcon,
-        this.validator,
-        this.textInputType,
-        required this.focusNode,
-        required this.obscureText,
-        required this.controller,
-        required this.editable, required this.validatorFunction});
+      required this.hintText,
+      this.prefixIcon,
+      this.suffixIcon,
+      this.validator,
+      this.textInputType,
+      required this.focusNode,
+      required this.obscureText,
+      required this.controller,
+      required this.editable,
+      required this.validatorFunction});
 
   @override
   Widget build(BuildContext context) {

@@ -9,9 +9,6 @@ abstract class TherapyScheduleTabState extends Equatable {
 
 class TherapyScheduleTabInitial extends TherapyScheduleTabState {}
 
-
-
-
 class TherapyScheduleTabToggled extends TherapyScheduleTabState {
   final bool isGeneral;
   final bool isDiseaseSpecific;

@@ -1,8 +1,8 @@
-import 'package:OculaCare/configs/app/remote/ml_model.dart';
-import 'package:OculaCare/configs/global/app_globals.dart';
-import 'package:OculaCare/logic/tests/vision_tests/snellan_test_state.dart';
 import 'package:bloc/bloc.dart';
+import 'package:cculacare/logic/tests/vision_tests/snellan_test_state.dart';
 import 'package:intl/intl.dart';
+import '../../../configs/app/remote/ml_model.dart';
+import '../../../configs/global/app_globals.dart';
 import '../../../data/models/api_response/response_model.dart';
 import '../../../data/models/tests/test_result_model.dart';
 import '../../../data/repositories/local/preferences/shared_prefs.dart';
@@ -76,8 +76,7 @@ class SnellanTestCubit extends Cubit<SnellanTestState> {
   }
 
   Future<void> nextRow(List<String> check, String res) async {
-    String normalizedRecognizedText =
-        res.replaceAll(' ', '').toUpperCase();
+    String normalizedRecognizedText = res.replaceAll(' ', '').toUpperCase();
     if (check.contains(normalizedRecognizedText)) {
       score += 1;
       wrongGuesses = 0;

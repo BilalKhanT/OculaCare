@@ -189,7 +189,6 @@ class _AnalysingScreen extends StatelessWidget {
   }
 }
 
-
 class _GameOverScreen extends StatelessWidget {
   final int score;
 
@@ -230,7 +229,8 @@ class _GameOverScreen extends StatelessWidget {
                 color: Colors.black,
                 fontFamily: 'MontserratMedium',
                 fontWeight: FontWeight.w800,
-                fontSize: screenWidth * 0.04,),
+                fontSize: screenWidth * 0.04,
+              ),
             ),
             SizedBox(height: screenHeight * 0.05),
             Padding(
@@ -238,8 +238,7 @@ class _GameOverScreen extends StatelessWidget {
               child: ButtonFlat(
                   btnColor: AppColors.appColor,
                   textColor: Colors.white,
-                  onPress: () =>
-                      context.read<OddOutCubit>().restartGame(),
+                  onPress: () => context.read<OddOutCubit>().restartGame(),
                   text: 'Restart Test'),
             ),
             SizedBox(
@@ -281,7 +280,9 @@ class _GameInProgressScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(height: screenHeight * 0.05,),
+            SizedBox(
+              height: screenHeight * 0.05,
+            ),
             _LivesDisplay(livesLeft: state.livesLeft),
             _TimerDisplay(timeLeft: state.timeLeft),
             _GridBlocks(state: state),

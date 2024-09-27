@@ -1,5 +1,3 @@
-import 'package:OculaCare/presentation/widgets/btn_flat.dart';
-import 'package:OculaCare/presentation/widgets/cstm_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -13,6 +11,8 @@ import '../../../logic/keyboard_listener_cubit/keyboard_list_cubit.dart';
 import '../../../logic/keyboard_listener_cubit/keyboard_list_state.dart';
 import '../../../logic/therapy_cubit/therapy_feedback_cubit.dart';
 import '../../../logic/therapy_cubit/therapy_feedback_states.dart';
+import '../../widgets/btn_flat.dart';
+import '../../widgets/cstm_loader.dart';
 
 class TherapyFeedbackView extends StatelessWidget {
   final TherapyModel therapy;
@@ -22,7 +22,6 @@ class TherapyFeedbackView extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.sizeOf(context).height;
     double screenWidth = MediaQuery.sizeOf(context).width;
-
 
     return Scaffold(
       backgroundColor: AppColors.screenBackground,
@@ -111,7 +110,9 @@ class TherapyFeedbackView extends StatelessWidget {
                           context
                               .read<TherapyFeedbackCubit>()
                               .emitInitial(cubit: context.read<AuthCubit>());
-                          context.read<TherapyFeedbackCubit>().clearController();
+                          context
+                              .read<TherapyFeedbackCubit>()
+                              .clearController();
                         },
                         text: 'Back to Dashboard')),
               ],
@@ -131,8 +132,12 @@ class TherapyFeedbackView extends StatelessWidget {
                       children: [
                         InkWell(
                           onTap: () {
-                            context.read<TherapyFeedbackCubit>().likedFeedbackState();
-                            context.read<TherapyFeedbackCubit>().clearController();
+                            context
+                                .read<TherapyFeedbackCubit>()
+                                .likedFeedbackState();
+                            context
+                                .read<TherapyFeedbackCubit>()
+                                .clearController();
                           },
                           child: Container(
                             width: MediaQuery.sizeOf(context).width * 0.38,
@@ -158,9 +163,9 @@ class TherapyFeedbackView extends StatelessWidget {
                               children: [
                                 (state is TherapyFeedbackLiked)
                                     ? SvgPicture.asset(
-                                    'assets/svgs/liked_feedback_pressed.svg')
+                                        'assets/svgs/liked_feedback_pressed.svg')
                                     : SvgPicture.asset(
-                                    'assets/svgs/liked_experience.svg'),
+                                        'assets/svgs/liked_experience.svg'),
                                 Text(
                                   'Loved it',
                                   style: TextStyle(
@@ -179,7 +184,9 @@ class TherapyFeedbackView extends StatelessWidget {
                             context
                                 .read<TherapyFeedbackCubit>()
                                 .unlikedFeedbackState();
-                            context.read<TherapyFeedbackCubit>().clearController();
+                            context
+                                .read<TherapyFeedbackCubit>()
+                                .clearController();
                           },
                           child: Container(
                             width: MediaQuery.sizeOf(context).width * 0.38,
@@ -205,9 +212,9 @@ class TherapyFeedbackView extends StatelessWidget {
                               children: [
                                 (state is TherapyFeedbackUnLiked)
                                     ? SvgPicture.asset(
-                                    'assets/svgs/unliked_feedback_pressed.svg')
+                                        'assets/svgs/unliked_feedback_pressed.svg')
                                     : SvgPicture.asset(
-                                    'assets/svgs/unliked_experience.svg'),
+                                        'assets/svgs/unliked_experience.svg'),
                                 Text(
                                   'Not Great',
                                   style: TextStyle(
@@ -232,15 +239,16 @@ class TherapyFeedbackView extends StatelessWidget {
               BlocBuilder<KeyboardListenerCubit, KeyboardListenerState>(
                 builder: (context, state) {
                   if (state is KeyboardClosed) {
-                    return BlocBuilder<TherapyFeedbackCubit, TherapyFeedbackState>(
+                    return BlocBuilder<TherapyFeedbackCubit,
+                        TherapyFeedbackState>(
                       builder: (context, state) {
                         if (state is TherapyFeedbackLiked) {
                           return Column(
                             children:
-                            state.selectionStatus.keys.map((itemName) {
+                                state.selectionStatus.keys.map((itemName) {
                               return Padding(
                                 padding:
-                                const EdgeInsets.only(left: 30, right: 30),
+                                    const EdgeInsets.only(left: 30, right: 30),
                                 child: InkWell(
                                   onTap: () {
                                     context
@@ -253,7 +261,7 @@ class TherapyFeedbackView extends StatelessWidget {
                                     margin: const EdgeInsets.only(top: 10),
                                     decoration: BoxDecoration(
                                       color: state.selectionStatus[itemName] ??
-                                          false
+                                              false
                                           ? Colors.green[200]
                                           : Colors.grey,
                                       borderRadius: BorderRadius.circular(10),
@@ -263,10 +271,10 @@ class TherapyFeedbackView extends StatelessWidget {
                                         itemName,
                                         style: TextStyle(
                                           color:
-                                          state.selectionStatus[itemName] ??
-                                              false
-                                              ? Colors.black
-                                              : Colors.white,
+                                              state.selectionStatus[itemName] ??
+                                                      false
+                                                  ? Colors.black
+                                                  : Colors.white,
                                           fontFamily: 'MontserratMedium',
                                           fontWeight: FontWeight.w600,
                                           fontSize: screenWidth * 0.04,
@@ -282,10 +290,10 @@ class TherapyFeedbackView extends StatelessWidget {
                         if (state is TherapyFeedbackUnLiked) {
                           return Column(
                             children:
-                            state.selectionStatus.keys.map((itemName) {
+                                state.selectionStatus.keys.map((itemName) {
                               return Padding(
                                 padding:
-                                const EdgeInsets.only(left: 30, right: 30),
+                                    const EdgeInsets.only(left: 30, right: 30),
                                 child: InkWell(
                                   onTap: () {
                                     context
@@ -298,7 +306,7 @@ class TherapyFeedbackView extends StatelessWidget {
                                     margin: const EdgeInsets.only(top: 10),
                                     decoration: BoxDecoration(
                                       color: state.selectionStatus[itemName] ??
-                                          false
+                                              false
                                           ? Colors.red[200]
                                           : Colors.grey,
                                       borderRadius: BorderRadius.circular(10),
@@ -308,10 +316,10 @@ class TherapyFeedbackView extends StatelessWidget {
                                         itemName,
                                         style: TextStyle(
                                           color:
-                                          state.selectionStatus[itemName] ??
-                                              false
-                                              ? Colors.black
-                                              : Colors.white,
+                                              state.selectionStatus[itemName] ??
+                                                      false
+                                                  ? Colors.black
+                                                  : Colors.white,
                                           fontFamily: 'MontserratMedium',
                                           fontWeight: FontWeight.w600,
                                           fontSize: screenWidth * 0.04,
@@ -336,7 +344,8 @@ class TherapyFeedbackView extends StatelessWidget {
               ),
               BlocBuilder<TherapyFeedbackCubit, TherapyFeedbackState>(
                 builder: (context, state) {
-                  if (state is TherapyFeedbackLiked || state is TherapyFeedbackUnLiked) {
+                  if (state is TherapyFeedbackLiked ||
+                      state is TherapyFeedbackUnLiked) {
                     return Column(
                       children: [
                         Padding(
@@ -415,15 +424,18 @@ class TherapyFeedbackView extends StatelessWidget {
                               context
                                   .read<TherapyFeedbackCubit>()
                                   .toggleFeedbackCompleted();
-                              context.read<TherapyFeedbackCubit>().clearController();
+                              context
+                                  .read<TherapyFeedbackCubit>()
+                                  .clearController();
                             },
-                            child: BlocBuilder<TherapyFeedbackCubit, TherapyFeedbackState>(
+                            child: BlocBuilder<TherapyFeedbackCubit,
+                                TherapyFeedbackState>(
                               builder: (context, state) {
                                 return GestureDetector(
                                   onTap: () {
                                     if (state is TherapyFeedbackLiked) {
                                       if (state.selectionStatus.values.every(
-                                              (element) => element == false)) {
+                                          (element) => element == false)) {
                                         AppUtils.showToast(
                                             context,
                                             'Error',
@@ -441,15 +453,18 @@ class TherapyFeedbackView extends StatelessWidget {
                                         }
                                         return "";
                                       }).toList();
-                                      print(therapy.email);
                                       list.remove("");
-                                      context.read<TherapyFeedbackCubit>().submitFeedback(
-                                        'Unliked',
-                                        list,
-                                        context.read<TherapyFeedbackCubit>().textFeedbackController.text,
-                                        therapy,
-                                      );
-
+                                      context
+                                          .read<TherapyFeedbackCubit>()
+                                          .submitFeedback(
+                                            'Unliked',
+                                            list,
+                                            context
+                                                .read<TherapyFeedbackCubit>()
+                                                .textFeedbackController
+                                                .text,
+                                            therapy,
+                                          );
                                     }
                                     if (state is TherapyFeedbackUnLiked) {
                                       if (state.selectionStatus.values
@@ -474,14 +489,17 @@ class TherapyFeedbackView extends StatelessWidget {
                                         return "";
                                       }).toList();
                                       list.remove("");
-                                      print(therapy);
-                                      context.read<TherapyFeedbackCubit>().submitFeedback(
-                                        'liked',
-                                        list,
-                                        context.read<TherapyFeedbackCubit>().textFeedbackController.text,
-                                        therapy,
-                                      );
-
+                                      context
+                                          .read<TherapyFeedbackCubit>()
+                                          .submitFeedback(
+                                            'liked',
+                                            list,
+                                            context
+                                                .read<TherapyFeedbackCubit>()
+                                                .textFeedbackController
+                                                .text,
+                                            therapy,
+                                          );
                                     }
                                   },
                                   child: Container(

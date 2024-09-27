@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:OculaCare/configs/presentation/constants/colors.dart';
 
-class CustomTherapiesAppBar extends StatelessWidget implements PreferredSizeWidget {
+import '../../../configs/presentation/constants/colors.dart';
+
+class CustomTherapiesAppBar extends StatelessWidget
+    implements PreferredSizeWidget {
   final String title;
   final VoidCallback onBackPressed;
 
@@ -21,7 +23,8 @@ class CustomTherapiesAppBar extends StatelessWidget implements PreferredSizeWidg
       backgroundColor: AppColors.backgroundTherapy,
       elevation: 0,
       leading: IconButton(
-        icon: const Icon(Icons.arrow_back_ios_new, color: AppColors.textTherapy),
+        icon:
+            const Icon(Icons.arrow_back_ios_new, color: AppColors.textTherapy),
         onPressed: onBackPressed,
       ),
       title: Text(

@@ -27,7 +27,8 @@ class TherapyBarChart extends StatelessWidget {
               children: <Widget>[
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 40),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 40),
                     child: BarChart(
                       mainBarData(context),
                       swapAnimationDuration: const Duration(milliseconds: 250),
@@ -90,10 +91,12 @@ class TherapyBarChart extends StatelessWidget {
                 fontWeight: FontWeight.bold,
                 fontSize: 14,
               );
-              if (value.toInt() < 0 || value.toInt() >= categoryAbbreviations.length) {
+              if (value.toInt() < 0 ||
+                  value.toInt() >= categoryAbbreviations.length) {
                 return const SizedBox.shrink();
               }
-              String category = categoryAbbreviations.keys.toList()[value.toInt()];
+              String category =
+                  categoryAbbreviations.keys.toList()[value.toInt()];
               String abbreviation = categoryAbbreviations[category] ?? category;
               return SideTitleWidget(
                 axisSide: meta.axisSide,
@@ -125,21 +128,23 @@ class TherapyBarChart extends StatelessWidget {
   }
 
   List<BarChartGroupData> showingGroups() {
-    int maxTherapyCount = categoryAbbreviations.keys.fold<int>(
-        0,
-            (maxCount, category) {
-          int categoryTherapyCount = categoryDateTherapyCount[category]
+    int maxTherapyCount =
+        categoryAbbreviations.keys.fold<int>(0, (maxCount, category) {
+      int categoryTherapyCount = categoryDateTherapyCount[category]
               ?.values
-              .fold<int>(0, (sum, count) => sum + count) ?? 0;
-          return (categoryTherapyCount > maxCount) ? categoryTherapyCount : maxCount;
-        }
-    );
+              .fold<int>(0, (sum, count) => sum + count) ??
+          0;
+      return (categoryTherapyCount > maxCount)
+          ? categoryTherapyCount
+          : maxCount;
+    });
 
     return List.generate(categoryAbbreviations.length, (index) {
       String category = categoryAbbreviations.keys.toList()[index];
       int therapyCount = categoryDateTherapyCount[category]
-          ?.values
-          .fold<int?>(0, (int? sum, int count) => (sum ?? 0) + count) ?? 0;
+              ?.values
+              .fold<int?>(0, (int? sum, int count) => (sum ?? 0) + count) ??
+          0;
       double scaledHeight = (therapyCount > 0 && maxTherapyCount > 0)
           ? (therapyCount / maxTherapyCount) * 10
           : 0;
@@ -147,14 +152,13 @@ class TherapyBarChart extends StatelessWidget {
     });
   }
 
-
   BarChartGroupData makeGroupData(
-      int x,
-      double y, {
-        bool isTouched = false,
-        double width = 22,
-        Color barColor = AppColors.appColor,
-      }) {
+    int x,
+    double y, {
+    bool isTouched = false,
+    double width = 22,
+    Color barColor = AppColors.appColor,
+  }) {
     return BarChartGroupData(
       x: x,
       barRods: [

@@ -1,11 +1,10 @@
 import 'dart:convert';
 import 'dart:developer';
-
-import 'package:OculaCare/data/models/patient/patient_model.dart';
-import 'package:OculaCare/data/repositories/local/preferences/shared_prefs.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import '../../configs/global/app_globals.dart';
+import '../../data/models/patient/patient_model.dart';
+import '../../data/repositories/local/preferences/shared_prefs.dart';
 import 'login_cubit_state.dart';
 import 'package:http/http.dart' as http;
 

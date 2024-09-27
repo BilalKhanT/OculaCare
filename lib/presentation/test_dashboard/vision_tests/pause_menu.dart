@@ -1,5 +1,6 @@
-import 'package:OculaCare/configs/presentation/constants/colors.dart';
 import 'package:flutter/material.dart';
+
+import '../../../configs/presentation/constants/colors.dart';
 
 class PauseMenu extends StatelessWidget {
   final VoidCallback onResume;
@@ -42,15 +43,14 @@ class PauseMenu extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                        'Exit Game?',
-                        style: TextStyle(
-                          color: AppColors.appColor,
-                          fontFamily: 'MontserratMedium',
-                          fontWeight: FontWeight.w700,
-                          fontSize: screenWidth * 0.05,
-                        ),
+                      'Exit Game?',
+                      style: TextStyle(
+                        color: AppColors.appColor,
+                        fontFamily: 'MontserratMedium',
+                        fontWeight: FontWeight.w700,
+                        fontSize: screenWidth * 0.05,
                       ),
-
+                    ),
                   ],
                 ),
               ),
@@ -96,7 +96,7 @@ class PauseMenu extends StatelessWidget {
                     ElevatedButton(
                       style: ButtonStyle(
                         backgroundColor:
-                        WidgetStateProperty.all<Color>(AppColors.appColor),
+                            WidgetStateProperty.all<Color>(AppColors.appColor),
                       ),
                       onPressed: onResume,
                       child: Text(
@@ -113,7 +113,7 @@ class PauseMenu extends StatelessWidget {
                     ElevatedButton(
                       style: ButtonStyle(
                         backgroundColor:
-                        WidgetStateProperty.all<Color>(Colors.black),
+                            WidgetStateProperty.all<Color>(Colors.black),
                       ),
                       onPressed: onQuit,
                       child: Text(

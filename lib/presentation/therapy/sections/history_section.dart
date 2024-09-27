@@ -1,11 +1,12 @@
-import 'package:OculaCare/data/repositories/local/preferences/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../../configs/presentation/constants/colors.dart';
-import 'package:OculaCare/logic/therapy_cubit/therapy_cubit.dart';
-import 'package:OculaCare/logic/therapy_cubit/therapy_state.dart';
-import 'package:OculaCare/data/models/therapy/therapy_results_model.dart';
+
+import '../../../data/models/therapy/therapy_results_model.dart';
+import '../../../data/repositories/local/preferences/shared_prefs.dart';
+import '../../../logic/therapy_cubit/therapy_cubit.dart';
+import '../../../logic/therapy_cubit/therapy_state.dart';
 import '../widgets_therapy/history_args_model.dart';
 import '../widgets_therapy/therapy_history_tiles.dart';
 

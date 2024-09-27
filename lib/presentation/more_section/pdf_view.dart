@@ -1,10 +1,9 @@
-import 'package:OculaCare/configs/presentation/constants/colors.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import '../../configs/presentation/constants/colors.dart';
 import '../../logic/pdf_cubit/pdf_cubit_state.dart';
 
 // ignore: must_be_immutable
@@ -33,7 +32,10 @@ class PDFViewScreen extends StatelessWidget {
         ),
         leading: IconButton(
           onPressed: () => context.pop(),
-          icon: const Icon(Icons.arrow_back_ios_new_outlined, color: AppColors.appColor,),
+          icon: const Icon(
+            Icons.arrow_back_ios_new_outlined,
+            color: AppColors.appColor,
+          ),
         ),
       ),
       body: BlocBuilder<PDFCubit, PDFState>(builder: (context, state) {

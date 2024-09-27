@@ -1,11 +1,12 @@
 import 'dart:async';
 import 'dart:math';
 import 'dart:ui';
-import 'package:OculaCare/data/models/therapy/therapy_results_model.dart';
-import 'package:OculaCare/data/repositories/local/preferences/shared_prefs.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:bloc/bloc.dart';
 import 'package:intl/intl.dart';
 import '../../configs/global/app_globals.dart';
+import '../../data/models/therapy/therapy_results_model.dart';
+import '../../data/repositories/local/preferences/shared_prefs.dart';
 import '../../data/repositories/therapy/therapy_repo.dart';
 import '../../data/therapies_data/stories.dart';
 import 'therapy_state.dart';
@@ -40,7 +41,6 @@ class TherapyCubit extends Cubit<TherapyState> {
   }
 
   Future<void> mapTherapies(String patientName) async {
-
     emit(TherapyLoading());
     try {
       if (globalTherapies.isEmpty || sharedPrefs.therapyFetched == false) {
@@ -70,7 +70,7 @@ class TherapyCubit extends Cubit<TherapyState> {
             categoryDateTherapyCount[therapy.therapyType] = {date: 1};
           }
         } catch (e) {
-          print("Error parsing date: ${therapy.date}, Error: $e");
+          log("Error parsing date: ${therapy.date}, Error: $e");
         }
       }
       emit(TherapyProgressionLoaded(globalTherapyProgressData));
@@ -121,7 +121,7 @@ class TherapyCubit extends Cubit<TherapyState> {
   void _startBlinkingExerciseTherapy(
       String title, List<Map<String, dynamic>> steps, String category) {
     int stepIndex = 0;
-    Future<void> _playStep(int stepIndex) async {
+    Future<void> playStep(int stepIndex) async {
       if (steps[stepIndex]['svgPath'].endsWith('.json')) {
         emit(TherapyBlinkingAnimationInProgress(
           therapyTitle: title,
@@ -142,17 +142,17 @@ class TherapyCubit extends Cubit<TherapyState> {
       await Future.delayed(Duration(seconds: steps[stepIndex]['duration']));
     }
 
-    Future<void> _executeSteps() async {
+    Future<void> executeSteps() async {
       if (stepIndex >= steps.length) {
         _completeTherapy(title, category);
         return;
       }
-      await _playStep(stepIndex);
+      await playStep(stepIndex);
       stepIndex++;
-      await _executeSteps();
+      await executeSteps();
     }
 
-    _executeSteps();
+    executeSteps();
   }
 
   void _startYinYangTherapy(

@@ -1,11 +1,11 @@
-import 'package:OculaCare/configs/presentation/constants/colors.dart';
-import 'package:OculaCare/logic/patient_profile/patient_profile_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+import '../../../configs/presentation/constants/colors.dart';
 import '../../../logic/location_cubit/location_cubit.dart';
+import '../../../logic/patient_profile/patient_profile_cubit.dart';
 
 class LocationSetView extends StatelessWidget {
   final LatLng position;
@@ -96,7 +96,9 @@ class LocationSetView extends StatelessWidget {
                         await context
                             .read<PatientProfileCubit>()
                             .setCoordinates(lat, long);
-                        context.pop();
+                        if (context.mounted) {
+                          context.pop();
+                        }
                       },
                       child: Container(
                         decoration: BoxDecoration(

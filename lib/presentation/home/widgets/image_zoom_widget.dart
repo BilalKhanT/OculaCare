@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:lottie/lottie.dart';
 
 class ImageZoom extends StatelessWidget {
   const ImageZoom(
       {super.key,
-        this.showCloseButton = true,
-        this.showButton = true,
-        this.needToPop = true});
+      this.showCloseButton = true,
+      this.showButton = true,
+      this.needToPop = true});
   final bool showCloseButton;
   final bool showButton;
   final bool needToPop;
@@ -31,18 +29,17 @@ class ImageZoom extends StatelessWidget {
                 height: 30,
                 child: showCloseButton
                     ? GestureDetector(
-                  onTap: () {
-                    context.pop();
-                  },
-                  child: const Icon(
-                    Icons.cancel,
-                    color: Colors.black,
-                    size: 30,
-                  ),
-                )
+                        onTap: () {
+                          context.pop();
+                        },
+                        child: const Icon(
+                          Icons.cancel,
+                          color: Colors.black,
+                          size: 30,
+                        ),
+                      )
                     : null,
               ),
-
             ],
           );
         }),
