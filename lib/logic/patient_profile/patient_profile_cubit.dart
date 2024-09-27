@@ -9,7 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 
-import '../../configs/app/app_globals.dart';
+import '../../configs/global/app_globals.dart';
 import '../../data/models/patient/patient_model.dart';
 
 class PatientProfileCubit extends Cubit<PatientProfileState> {
