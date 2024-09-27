@@ -123,8 +123,8 @@ class PatientProfileScreen extends StatelessWidget {
                                 ),
                               ),
                               Positioned(
-                                bottom: 0,
-                                right: 0,
+                                bottom: 10,
+                                right: 10,
                                 child: Container(
                                   decoration: BoxDecoration(
                                     color: AppColors.appColor,
