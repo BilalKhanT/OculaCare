@@ -304,12 +304,12 @@ final router = GoRouter(
           return TestReport(test: test);
         }),
     GoRoute(
-      parentNavigatorKey: navigatorKey,
-      path: RouteNames.therapyFeedbackRoute,
-      builder: (context, state){
-        TherapyModel therapy = state.extra as TherapyModel;
-        return  TherapyFeedbackView( therapy : therapy );
-      }),
+        parentNavigatorKey: navigatorKey,
+        path: RouteNames.therapyFeedbackRoute,
+        builder: (context, state) {
+          TherapyModel therapy = state.extra as TherapyModel;
+          return TherapyFeedbackView(therapy: therapy);
+        }),
   ],
   initialLocation: sharedPrefs.isLoggedIn
       ? RouteNames.homeRoute
