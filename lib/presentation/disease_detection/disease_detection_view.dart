@@ -1,5 +1,4 @@
-import 'package:OculaCare/data/repositories/local/preferences/shared_prefs.dart';
-import 'package:OculaCare/logic/detection/detection_cubit.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,6 +9,8 @@ import 'package:lottie/lottie.dart';
 import '../../configs/presentation/constants/colors.dart';
 import '../../configs/routes/route_names.dart';
 import '../../configs/utils/utils.dart';
+import '../../data/repositories/local/preferences/shared_prefs.dart';
+import '../../logic/detection/detection_cubit.dart';
 import '../../logic/image_capture/img_capture_cubit.dart';
 import '../home/widgets/custom_widget.dart';
 import '../widgets/need_to_setup_profile_widget.dart';
