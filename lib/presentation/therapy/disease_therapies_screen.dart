@@ -20,12 +20,15 @@ class DiseaseTherapiesScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.screenBackground,
       appBar: AppBar(
-        title: Text("$disease Therapies", style: TextStyle(
-          fontFamily: 'MontserratMedium',
-          fontWeight: FontWeight.w800,
-          fontSize: screenWidth * 0.05,
-          color: AppColors.textPrimary,
-        ),),
+        title: Text(
+          "$disease Therapies",
+          style: TextStyle(
+            fontFamily: 'MontserratMedium',
+            fontWeight: FontWeight.w800,
+            fontSize: screenWidth * 0.05,
+            color: AppColors.textPrimary,
+          ),
+        ),
         backgroundColor: AppColors.screenBackground,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_new, color: Colors.black),
@@ -35,8 +38,7 @@ class DiseaseTherapiesScreen extends StatelessWidget {
         ),
         elevation: 0,
       ),
-      body:
-      Padding(
+      body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 5),
         child: ListView.builder(
           itemCount: therapies.length,
