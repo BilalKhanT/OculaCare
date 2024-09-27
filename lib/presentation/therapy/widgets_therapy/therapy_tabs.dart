@@ -9,7 +9,8 @@ class TherapyTabs extends StatelessWidget {
   final Function onSelectHistory;
   final Function onSelectProgression;
 
-  const TherapyTabs({super.key,
+  const TherapyTabs({
+    super.key,
     required this.therapySelected,
     required this.historySelected,
     required this.progressionSelected,
@@ -30,21 +31,25 @@ class TherapyTabs extends StatelessWidget {
             SizedBox(width: MediaQuery.of(context).size.width * 0.02),
             _buildTab(context, 'History', historySelected, onSelectHistory),
             SizedBox(width: MediaQuery.of(context).size.width * 0.02),
-            _buildTab(context, 'Progression', progressionSelected, onSelectProgression),
+            _buildTab(context, 'Progression', progressionSelected,
+                onSelectProgression),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildTab(BuildContext context, String title, bool isSelected, Function onTap) {
+  Widget _buildTab(
+      BuildContext context, String title, bool isSelected, Function onTap) {
     return Padding(
       padding: const EdgeInsets.only(left: 5.0),
       child: GestureDetector(
         onTap: () => onTap(),
         child: Container(
           decoration: BoxDecoration(
-            color: isSelected ? AppColors.appColor.withOpacity(0.85) : Colors.white,
+            color: isSelected
+                ? AppColors.appColor.withOpacity(0.85)
+                : Colors.white,
             borderRadius: BorderRadius.circular(25),
           ),
           padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 6.0),
