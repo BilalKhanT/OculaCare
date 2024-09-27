@@ -228,13 +228,15 @@ class HistorySection extends StatelessWidget {
                   SizedBox(height: screenHeight * 0.02),
                   SizedBox(
                     height: screenHeight * 0.27,
-                    child: Text(
-                      'No General Therapies',
-                      style: TextStyle(
-                        fontFamily: 'MontserratMedium',
-                        fontWeight: FontWeight.w800,
-                        fontSize: screenWidth * 0.045,
-                        color: Colors.black,
+                    child: Center(
+                      child: Text(
+                        'No General Therapies',
+                        style: TextStyle(
+                          fontFamily: 'MontserratMedium',
+                          fontWeight: FontWeight.w800,
+                          fontSize: screenWidth * 0.045,
+                          color: Colors.black,
+                        ),
                       ),
                     ),
                   ),
@@ -276,13 +278,15 @@ class HistorySection extends StatelessWidget {
                   SizedBox(height: screenHeight * 0.02),
                   SizedBox(
                     height: screenHeight * 0.27,
-                    child: Text(
-                      'No Disease Specific Therapies',
-                      style: TextStyle(
-                        fontFamily: 'MontserratMedium',
-                        fontWeight: FontWeight.w800,
-                        fontSize: screenWidth * 0.045,
-                        color: Colors.black,
+                    child: Center(
+                      child: Text(
+                        'No Disease Specific Therapies',
+                        style: TextStyle(
+                          fontFamily: 'MontserratMedium',
+                          fontWeight: FontWeight.w800,
+                          fontSize: screenWidth * 0.045,
+                          color: Colors.black,
+                        ),
                       ),
                     ),
                   ),
