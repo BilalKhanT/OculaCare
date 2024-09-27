@@ -1,11 +1,13 @@
-import 'package:OculaCare/configs/presentation/constants/colors.dart';
-import 'package:OculaCare/logic/detection/detection_cubit.dart';
-import 'package:OculaCare/logic/detection/detection_state.dart';
-import 'package:OculaCare/presentation/result/widgets/results_tile.dart';
+
+import 'package:cculacare/presentation/result/widgets/results_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shimmer/shimmer.dart';
+
+import '../../configs/presentation/constants/colors.dart';
+import '../../logic/detection/detection_cubit.dart';
+import '../../logic/detection/detection_state.dart';
 
 
 class DiseaseResultView extends StatelessWidget {
