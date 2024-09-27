@@ -33,8 +33,7 @@ class SignUpScreen extends StatelessWidget {
               context.read<SignUpCubit>().dispose();
               if (flow == 'login') {
                 context.go(RouteNames.loginRoute);
-              }
-              else if (flow == 'boarding') {
+              } else if (flow == 'boarding') {
                 context.go(RouteNames.onBoardingRoute);
               }
             },
@@ -49,151 +48,173 @@ class SignUpScreen extends StatelessWidget {
           width: screenWidth,
           child: SafeArea(
             child: BlocBuilder<SignUpCubit, SignUpState>(
-                  builder: (context, state) {
-                if (state is SignUpStateLoading) {
-                  return const Center(
-                    child: DotLoader(loaderColor: AppColors.appColor,),
-                  );
-                } else if (state is SignUpStateFailure) {
-                  return Center(
-                    child: Text(state.errorMsg),
-                  );
-                } else if (state is SignUpStateLoaded) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20.0, vertical: 10.0),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Register',
-                            style: TextStyle(
-                              fontFamily: 'MontserratMedium',
-                              fontSize: 32.sp,
-                              color: AppColors.appColor,
-                              fontWeight: FontWeight.bold,
-                              letterSpacing: 1.0,
-                            ),
+                builder: (context, state) {
+              if (state is SignUpStateLoading) {
+                return const Center(
+                  child: DotLoader(
+                    loaderColor: AppColors.appColor,
+                  ),
+                );
+              } else if (state is SignUpStateFailure) {
+                return Center(
+                  child: Text(state.errorMsg),
+                );
+              } else if (state is SignUpStateLoaded) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 20.0, vertical: 10.0),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Register',
+                          style: TextStyle(
+                            fontFamily: 'MontserratMedium',
+                            fontSize: 32.sp,
+                            color: AppColors.appColor,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 1.0,
                           ),
-                          Text(
-                            'Create Your New Account',
+                        ),
+                        Text(
+                          'Create Your New Account',
+                          style: TextStyle(
+                            fontFamily: 'MontserratMedium',
+                            fontSize: 16.sp,
+                            color: AppColors.textGrey,
+                          ),
+                        ),
+                        SizedBox(
+                          height: screenHeight * 0.01,
+                        ),
+                        const SignUpForm(),
+                        Center(
+                          child: Text(
+                            'or',
                             style: TextStyle(
                               fontFamily: 'MontserratMedium',
                               fontSize: 16.sp,
+                              fontWeight: FontWeight.w100,
                               color: AppColors.textGrey,
+                              letterSpacing: 1.0,
                             ),
                           ),
-                          SizedBox(
-                            height: screenHeight * 0.01,
+                        ),
+                        Center(
+                          child: Text(
+                            'signup with',
+                            style: TextStyle(
+                              fontFamily: 'MontserratMedium',
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w100,
+                              color: AppColors.textGrey,
+                              letterSpacing: 1.0,
+                            ),
                           ),
-                          const SignUpForm(
-                      
-                          ),
-                          Center(
-                            child: Text(
-                              'or',
+                        ),
+                        SizedBox(
+                          height: screenHeight * 0.03,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            CustomImageButton(
+                              onTap: () async {
+                                bool flag = await context
+                                    .read<SignUpCubit>()
+                                    .createUserWithGoogle();
+                                if (!flag && context.mounted) {
+                                  AppUtils.showToast(
+                                      context,
+                                      'Email Already Registered',
+                                      'Please use a different google account to register a new account',
+                                      true);
+                                } else {
+                                  if (context.mounted) {
+                                    AppUtils.showToast(
+                                        context,
+                                        'Update Password',
+                                        'Your account password has been set as \'******\', update it in profile',
+                                        false);
+                                    context.go(RouteNames.homeRoute);
+                                  }
+                                }
+                              },
+                              imagePath: 'assets/images/googleIcon.png',
+                            ),
+                            const SizedBox(
+                              width: 5.0,
+                            ),
+                            CustomImageButton(
+                              onTap: () async {
+                                bool flag = await context
+                                    .read<SignUpCubit>()
+                                    .createUserWithFacebook();
+                                if (!flag && context.mounted) {
+                                  AppUtils.showToast(
+                                      context,
+                                      'Email Already Registered',
+                                      'Please use a different google account to register a new account',
+                                      true);
+                                } else {
+                                  if (context.mounted) {
+                                    AppUtils.showToast(
+                                        context,
+                                        'Update Password',
+                                        'Your account password has been set as \'******\', update it in profile',
+                                        false);
+                                    context.go(RouteNames.homeRoute);
+                                  }
+                                }
+                              },
+                              imagePath: 'assets/images/fbIcon.png',
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          height: screenHeight * 0.03,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Already have an account.',
                               style: TextStyle(
                                 fontFamily: 'MontserratMedium',
                                 fontSize: 16.sp,
                                 fontWeight: FontWeight.w100,
                                 color: AppColors.textGrey,
-                                letterSpacing: 1.0,
                               ),
                             ),
-                          ),
-                          Center(
-                            child: Text(
-                              'signup with',
-                              style: TextStyle(
-                                fontFamily: 'MontserratMedium',
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.w100,
-                                color: AppColors.textGrey,
-                                letterSpacing: 1.0,
-                              ),
+                            const SizedBox(
+                              width: 5.0,
                             ),
-                          ),
-                          SizedBox(
-                            height: screenHeight * 0.03,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              CustomImageButton(
-                                onTap: () async{
-                                  bool flag = await context.read<SignUpCubit>().createUserWithGoogle();
-                                  if (!flag) {
-                                    AppUtils.showToast(context, 'Email Already Registered', 'Please use a different google account to register a new account', true);
-                                  }
-                                  else {
-                                    AppUtils.showToast(context, 'Update Password', 'Your account password has been set as \'******\', update it in profile', false);
-                                    context.go(RouteNames.homeRoute);
-                                  }
-                                },
-                                imagePath: 'assets/images/googleIcon.png',
-                              ),
-                              const SizedBox(
-                                width: 5.0,
-                              ),
-                              CustomImageButton(
-                                onTap: () async{
-                                  bool flag = await context.read<SignUpCubit>().createUserWithFacebook();
-                                  if (!flag) {
-                                    AppUtils.showToast(context, 'Email Already Registered', 'Please use a different google account to register a new account', true);
-                                  }
-                                  else {
-                                    AppUtils.showToast(context, 'Update Password', 'Your account password has been set as \'******\', update it in profile', false);
-                                    context.go(RouteNames.homeRoute);
-                                  }
-                                },
-                                imagePath: 'assets/images/fbIcon.png',
-                              )
-                            ],
-                          ),
-                          SizedBox(
-                            height: screenHeight * 0.03,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Already have an account.',
+                            InkWell(
+                              onTap: () {
+                                context.read<LoginCubit>().loadLoginScreen();
+                                context.push(RouteNames.loginRoute);
+                              },
+                              child: Text(
+                                'Login',
                                 style: TextStyle(
-                                  fontFamily: 'MontserratMedium',
+                                  fontFamily: 'Montserrat',
                                   fontSize: 16.sp,
-                                  fontWeight: FontWeight.w100,
-                                  color: AppColors.textGrey,
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColors.appColor,
                                 ),
                               ),
-                              const SizedBox(
-                                width: 5.0,
-                              ),
-                              InkWell(
-                                onTap: () {
-                                  context.read<LoginCubit>().loadLoginScreen();
-                                  context.push(RouteNames.loginRoute);
-                                },
-                                child: Text(
-                                  'Login',
-                                  style: TextStyle(
-                                    fontFamily: 'Montserrat',
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.bold,
-                                    color: AppColors.appColor,
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ],
-                      ),
+                            )
+                          ],
+                        ),
+                      ],
                     ),
-                  );
-                } else {
-                  return const SizedBox.shrink();
-                }
-              }),
+                  ),
+                );
+              } else {
+                return const SizedBox.shrink();
+              }
+            }),
           ),
         ),
       ),
