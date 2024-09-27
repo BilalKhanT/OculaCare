@@ -1,4 +1,3 @@
-
 import 'package:cculacare/presentation/test_dashboard/widgets/test_graph_progress.dart';
 import 'package:cculacare/presentation/test_dashboard/widgets/test_history_tile.dart';
 import 'package:cculacare/presentation/test_dashboard/widgets/test_progress_heatmap.dart';
@@ -97,11 +96,9 @@ class TestDashView extends StatelessWidget {
               },
               child: Row(
                 children: [
-                  SvgPicture.asset(
-                    'assets/svgs/schedule.svg',
-                    // ignore: deprecated_member_use
-                    color: AppColors.appColor
-                  ),
+                  SvgPicture.asset('assets/svgs/schedule.svg',
+                      // ignore: deprecated_member_use
+                      color: AppColors.appColor),
                   const SizedBox(
                     width: 6.0,
                   ),
@@ -427,7 +424,8 @@ class TestDashView extends StatelessWidget {
                                                   context: context,
                                                   builder: (context) {
                                                     return const Dialog(
-                                                        child: NeedToSetupProfileWidget());
+                                                        child:
+                                                            NeedToSetupProfileWidget());
                                                   },
                                                 );
                                                 return;
@@ -576,7 +574,8 @@ class TestDashView extends StatelessWidget {
                                                   context: context,
                                                   builder: (context) {
                                                     return const Dialog(
-                                                        child: NeedToSetupProfileWidget());
+                                                        child:
+                                                            NeedToSetupProfileWidget());
                                                   },
                                                 );
                                                 return;
