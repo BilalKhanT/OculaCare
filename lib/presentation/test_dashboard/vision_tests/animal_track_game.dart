@@ -1,4 +1,4 @@
-import 'package:OculaCare/configs/app/app_globals.dart';
+import 'package:OculaCare/configs/global/app_globals.dart';
 import 'package:OculaCare/data/models/tests/score_model.dart';
 import 'package:OculaCare/presentation/test_dashboard/vision_tests/pause_menu.dart';
 import 'package:flame/components.dart';
