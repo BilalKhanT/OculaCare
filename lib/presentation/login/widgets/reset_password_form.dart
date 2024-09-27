@@ -1,10 +1,11 @@
-import 'package:OculaCare/configs/utils/utils.dart';
-import 'package:OculaCare/logic/sign_up_cubit/sign_up_pass_cubit.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../configs/presentation/constants/colors.dart';
+import '../../../configs/utils/utils.dart';
 import '../../../logic/login_cubit/login_cubit.dart';
+import '../../../logic/sign_up_cubit/sign_up_pass_cubit.dart';
 import '../../sign_up/widgets/cstm_flat_btn.dart';
 
 class ResetPasswordForm extends StatelessWidget {
