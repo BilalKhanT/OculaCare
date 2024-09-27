@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -37,7 +36,10 @@ class GameOverScreen extends StatelessWidget {
                 context.read<AnimalTrackScoreCubit>().emitInitial();
                 context.go(RouteNames.trackInitialRoute);
               },
-              icon: const Icon(Icons.arrow_back_ios_new, color: AppColors.appColor,),
+              icon: const Icon(
+                Icons.arrow_back_ios_new,
+                color: AppColors.appColor,
+              ),
             ),
           ),
           body: BlocBuilder<AnimalTrackScoreCubit, AnimalTrackScoreState>(
