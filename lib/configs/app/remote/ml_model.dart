@@ -26,9 +26,7 @@ class MlModel {
     if (resp.statusCode == 200) {
       return ResponseModel.fromJson(jsonDecode(resp.body));
     } else {
-      print(resp.statusCode);
-      print(resp.body);
-      throw Exception('Failed to load data');
+      return ResponseModel(text: '');
     }
   }
 }
