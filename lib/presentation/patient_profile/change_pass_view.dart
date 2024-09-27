@@ -1,13 +1,14 @@
-import 'package:OculaCare/configs/utils/utils.dart';
-import 'package:OculaCare/logic/patient_profile/pass_cubit.dart';
-import 'package:OculaCare/logic/patient_profile/pass_state.dart';
-import 'package:OculaCare/presentation/widgets/btn_flat.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../configs/presentation/constants/colors.dart';
+import '../../configs/utils/utils.dart';
 import '../../data/repositories/local/preferences/shared_prefs.dart';
+import '../../logic/patient_profile/pass_cubit.dart';
+import '../../logic/patient_profile/pass_state.dart';
+import '../widgets/btn_flat.dart';
 import '../widgets/cstm_text_field.dart';
 
 class ChangePassView extends StatelessWidget {
