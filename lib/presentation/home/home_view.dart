@@ -108,7 +108,8 @@ class HomeScreen extends StatelessWidget {
                             ],
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(right: 25.0, left: 10.0),
+                            padding:
+                                const EdgeInsets.only(right: 25.0, left: 10.0),
                             child: Container(
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
@@ -274,7 +275,7 @@ class HomeScreen extends StatelessWidget {
                                     colorSecondary: const Color(0xFF6B4FA0),
                                   ),
                                 ),
-                                 SizedBox(
+                                SizedBox(
                                   width: screenHeight * 0.025,
                                 ),
                                 GridButtonWidget(
