@@ -1,8 +1,6 @@
 
 import 'dart:convert';
 
-import 'package:OculaCare/configs/global/app_globals.dart';
-import 'package:OculaCare/data/models/disease_result/disease_result_model.dart';
 import 'package:flutter_file_dialog/flutter_file_dialog.dart';
 import 'dart:io';
 import 'dart:math';
@@ -12,6 +10,8 @@ import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import '../../configs/global/app_globals.dart';
+import '../../data/models/disease_result/disease_result_model.dart';
 import 'img_capture_state.dart';
 import 'package:google_mlkit_face_detection/google_mlkit_face_detection.dart';
 
