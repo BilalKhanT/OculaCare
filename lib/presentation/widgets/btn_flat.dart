@@ -5,7 +5,12 @@ class ButtonFlat extends StatelessWidget {
   final Color textColor;
   final String text;
   final Function() onPress;
-  const ButtonFlat({super.key, required this.btnColor, required this.textColor, required this.onPress, required this.text});
+  const ButtonFlat(
+      {super.key,
+      required this.btnColor,
+      required this.textColor,
+      required this.onPress,
+      required this.text});
 
   @override
   Widget build(BuildContext context) {
@@ -22,13 +27,15 @@ class ButtonFlat extends StatelessWidget {
           child: Center(
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 15.0),
-              child: Text(text,
-              style: TextStyle(
-                fontFamily: 'Poppins',
-                fontWeight: FontWeight.w600,
-                fontSize: screenWidth * 0.045,
-                color: textColor,
-              ),),
+              child: Text(
+                text,
+                style: TextStyle(
+                  fontFamily: 'Poppins',
+                  fontWeight: FontWeight.w600,
+                  fontSize: screenWidth * 0.045,
+                  color: textColor,
+                ),
+              ),
             ),
           ),
         ),
