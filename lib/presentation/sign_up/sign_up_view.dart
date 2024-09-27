@@ -1,17 +1,19 @@
-import 'package:OculaCare/configs/utils/utils.dart';
-import 'package:OculaCare/presentation/widgets/cstm_loader.dart';
+
+import 'package:cculacare/presentation/sign_up/widgets/cstm_img_btn.dart';
+import 'package:cculacare/presentation/sign_up/widgets/sign_up_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:OculaCare/configs/routes/route_names.dart';
-import 'package:OculaCare/logic/login_cubit/login_cubit.dart';
-import 'package:OculaCare/logic/sign_up_cubit/sign_up_cubit.dart';
-import 'package:OculaCare/logic/sign_up_cubit/sign_up_state.dart';
-import 'package:OculaCare/presentation/sign_up/widgets/cstm_img_btn.dart';
-import 'package:OculaCare/presentation/sign_up/widgets/sign_up_form.dart';
+
 
 import '../../configs/presentation/constants/colors.dart';
+import '../../configs/routes/route_names.dart';
+import '../../configs/utils/utils.dart';
+import '../../logic/login_cubit/login_cubit.dart';
+import '../../logic/sign_up_cubit/sign_up_cubit.dart';
+import '../../logic/sign_up_cubit/sign_up_state.dart';
+import '../widgets/cstm_loader.dart';
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({Key? key, required this.flow}) : super(key: key);
