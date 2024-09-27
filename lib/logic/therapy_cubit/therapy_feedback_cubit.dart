@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:OculaCare/data/repositories/local/preferences/shared_prefs.dart';
 import 'package:OculaCare/logic/therapy_cubit/therapy_feedback_states.dart';
 import 'package:bloc/bloc.dart';
