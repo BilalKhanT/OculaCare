@@ -17,6 +17,7 @@ class PDFViewScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.sizeOf(context).width;
     return Scaffold(
       backgroundColor: AppColors.screenBackground,
       appBar: AppBar(
@@ -24,9 +25,10 @@ class PDFViewScreen extends StatelessWidget {
         title: Text(
           "Leaflets",
           style: TextStyle(
+            color: Colors.black,
             fontFamily: 'MontserratMedium',
             fontWeight: FontWeight.w800,
-            fontSize: 18.sp,
+            fontSize: screenWidth * 0.05,
           ),
         ),
         leading: IconButton(
