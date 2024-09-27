@@ -1,7 +1,5 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 
 import 'logic/auth_cubit/auth_cubit.dart';
 import 'logic/camera/camera_cubit.dart';
@@ -156,9 +154,10 @@ class ProvideMultiBloc extends StatelessWidget {
       BlocProvider(create: (context) => MusicCubit()),
       BlocProvider(create: (context) => TherapyScheduleCubit()),
       BlocProvider(create: (context) => TherapyScheduleTabCubit()),
-      BlocProvider(create: (context) => TherapyCubit(
-          BlocProvider.of<TimerCubit>(context),
-          BlocProvider.of<MusicCubit>(context))),
+      BlocProvider(
+          create: (context) => TherapyCubit(
+              BlocProvider.of<TimerCubit>(context),
+              BlocProvider.of<MusicCubit>(context))),
       BlocProvider(create: (context) => TherapyDashboardCubit()),
       BlocProvider(
         create: (context) => DetectionCubit(),
