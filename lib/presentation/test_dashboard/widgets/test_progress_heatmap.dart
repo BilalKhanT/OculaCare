@@ -35,8 +35,7 @@ class ProgressCalendarScreen extends StatelessWidget {
           borderRadius: 50,
           flexible: false,
           margin: const EdgeInsets.symmetric(horizontal: 7.0, vertical: 2.0),
-          onClick: (date) {
-          },
+          onClick: (date) {},
           showColorTip: false,
         ),
       ),
