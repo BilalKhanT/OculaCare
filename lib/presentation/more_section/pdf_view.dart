@@ -32,7 +32,10 @@ class PDFViewScreen extends StatelessWidget {
         ),
         leading: IconButton(
           onPressed: () => context.pop(),
-          icon: const Icon(Icons.arrow_back_ios_new_outlined, color: AppColors.appColor,),
+          icon: const Icon(
+            Icons.arrow_back_ios_new_outlined,
+            color: AppColors.appColor,
+          ),
         ),
       ),
       body: BlocBuilder<PDFCubit, PDFState>(builder: (context, state) {
