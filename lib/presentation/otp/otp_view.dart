@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -43,24 +42,28 @@ class OtpScreen extends StatelessWidget {
         child: BlocConsumer<OtpCubit, OtpState>(
           listener: (context, state) {
             if (state is OtpEmailExists) {
-              AppUtils.showToast(context, 'Email Already Registered', 'Please use a different email to register', true);
+              AppUtils.showToast(context, 'Email Already Registered',
+                  'Please use a different email to register', true);
               context.pop();
-            }
-            else if (state is InvalidEmail) {
-              AppUtils.showToast(context, 'Email Doesn\'t Exists', 'Please enter valid email to register', true);
+            } else if (state is InvalidEmail) {
+              AppUtils.showToast(context, 'Email Doesn\'t Exists',
+                  'Please enter valid email to register', true);
               context.pop();
-            }
-            else if (state is OtpEmailNotExists) {
-              AppUtils.showToast(context, 'Email Not Found', 'Please enter registered email to receive recovery OTP', true);
+            } else if (state is OtpEmailNotExists) {
+              AppUtils.showToast(
+                  context,
+                  'Email Not Found',
+                  'Please enter registered email to receive recovery OTP',
+                  true);
               context.pop();
-            }
-            else if (state is LoadChangePasswordState) {
-              AppUtils.showToast(context, 'OTP Verified', 'OTP has been successfully verified.', false);
+            } else if (state is LoadChangePasswordState) {
+              AppUtils.showToast(context, 'OTP Verified',
+                  'OTP has been successfully verified.', false);
               context.read<LoginCubit>().resetPassword();
               context.pushReplacement(RouteNames.loginRoute);
-            }
-            else if (state is Registered) {
-              AppUtils.showToast(context, 'Account Registered Successfully', 'Your account has been registered, please login.', false);
+            } else if (state is Registered) {
+              AppUtils.showToast(context, 'Account Registered Successfully',
+                  'Your account has been registered, please login.', false);
               context.read<LoginCubit>().loadLoginScreen();
               context.pushReplacement(RouteNames.loginRoute);
             }
@@ -129,7 +132,8 @@ class OtpScreen extends StatelessWidget {
                         onTap: () {
                           bool flag = context.read<OtpCubit>().verifyOtp();
                           if (!flag) {
-                            AppUtils.showToast(context, 'Invalid OTP', 'Please enter the correct OTP', true);
+                            AppUtils.showToast(context, 'Invalid OTP',
+                                'Please enter the correct OTP', true);
                             return;
                           }
                           context.read<OtpCubit>().registerUser(flow);
@@ -137,7 +141,9 @@ class OtpScreen extends StatelessWidget {
                         text: 'Verify',
                         btnColor: AppColors.appColor),
                   ),
-                  SizedBox(height: 40.h,),
+                  SizedBox(
+                    height: 40.h,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
@@ -148,10 +154,14 @@ class OtpScreen extends StatelessWidget {
                             fontSize: 16.sp,
                             color: Colors.grey.shade700),
                       ),
-                      SizedBox(width: 10.w,),
+                      SizedBox(
+                        width: 10.w,
+                      ),
                       GestureDetector(
                         onTap: () {
-                          context.read<OtpCubit>().resendOtp(flow, state.email, state.name);
+                          context
+                              .read<OtpCubit>()
+                              .resendOtp(flow, state.email, state.name);
                         },
                         child: Text(
                           'Resend OTP',
