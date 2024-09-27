@@ -3,6 +3,8 @@ import 'package:go_router/go_router.dart';
 
 import '../../../configs/presentation/constants/colors.dart';
 import '../../../configs/routes/route_names.dart';
+import '../../../data/repositories/local/preferences/shared_prefs.dart';
+import '../../widgets/need_to_setup_profile_widget.dart';
 
 class DiseaseCardList extends StatelessWidget {
   final List<Map<String, String>> diseases = [
@@ -29,6 +31,16 @@ class DiseaseCardList extends StatelessWidget {
 
           return GestureDetector(
             onTap: () {
+              if (!sharedPrefs.isProfileSetup) {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return const Dialog(
+                        child: NeedToSetupProfileWidget());
+                  },
+                );
+                return;
+              }
               context.push(RouteNames.diseaseTherapies, extra: disease['name']);
             },
             child: Padding(
