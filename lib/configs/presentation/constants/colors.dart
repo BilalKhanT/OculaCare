@@ -27,11 +27,11 @@ class AppColors {
   static const Color teal = Color(0xFF008080);
   static const Color graphBg = Color(0xFF372F2F);
 
-  static const Color contentColorGreen = Color(0xFF00C853);  // Added Green Color
+  static const Color contentColorGreen = Color(0xFF00C853); // Added Green Color
   static const Color contentColorPurple = Color(0xFF9C27B0); // Purple
   static const Color contentColorYellow = Color(0xFFFFEB3B); // Yellow
-  static const Color contentColorBlue = Color(0xFF2196F3);   // Blue
+  static const Color contentColorBlue = Color(0xFF2196F3); // Blue
   static const Color contentColorOrange = Color(0xFFFF9800); // Orange
-  static const Color contentColorPink = Color(0xFFE91E63);   // Pink
+  static const Color contentColorPink = Color(0xFFE91E63); // Pink
   static const Color contentColorRed = Color(0xFFF44336);
 }
