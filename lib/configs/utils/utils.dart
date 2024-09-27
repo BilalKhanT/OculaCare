@@ -1,6 +1,7 @@
-import 'package:OculaCare/configs/presentation/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:toastification/toastification.dart';
+
+import '../presentation/constants/colors.dart';
 
 abstract class AppUtils {
   static showToast(
