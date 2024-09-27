@@ -1,6 +1,7 @@
 import 'dart:convert';
-import 'package:OculaCare/data/models/api_response/response_model.dart';
 import 'package:http/http.dart' as http;
+
+import '../../../data/models/api_response/response_model.dart';
 
 class MlModel {
   static const String baseUrl =
