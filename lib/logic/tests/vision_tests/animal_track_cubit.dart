@@ -1,7 +1,9 @@
-import 'package:OculaCare/configs/global/app_globals.dart';
-import 'package:OculaCare/data/models/tests/score_model.dart';
+
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../configs/global/app_globals.dart';
+import '../../../data/models/tests/score_model.dart';
 
 class AnimalTrackState {
   final int score;
