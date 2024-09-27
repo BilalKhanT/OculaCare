@@ -40,19 +40,19 @@ class TestHistoryTile extends StatelessWidget {
                   width: screenHeight * 0.07,
                   color: avatarColor,
                   child: image == 'assets/images/isihara_test.png' ||
-                      image == 'assets/images/snellan_test.png' ||
-                      image == 'assets/images/drag_test.png'
+                          image == 'assets/images/snellan_test.png' ||
+                          image == 'assets/images/drag_test.png'
                       ? Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Image.asset(
-                      image,
-                      fit: BoxFit.cover,
-                    ),
-                  )
+                          padding: const EdgeInsets.all(8.0),
+                          child: Image.asset(
+                            image,
+                            fit: BoxFit.cover,
+                          ),
+                        )
                       : Image.asset(
-                    image,
-                    fit: BoxFit.cover,
-                  ),
+                          image,
+                          fit: BoxFit.cover,
+                        ),
                 ),
               ),
               const SizedBox(width: 15.0),
