@@ -1,6 +1,7 @@
-import 'package:OculaCare/configs/presentation/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+
+import '../../../configs/presentation/constants/colors.dart';
 
 class GridButtonWidget extends StatelessWidget {
   const GridButtonWidget(
