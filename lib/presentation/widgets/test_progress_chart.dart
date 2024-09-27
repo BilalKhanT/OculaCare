@@ -6,7 +6,8 @@ class ProgressChartScreen extends StatelessWidget {
   final String test;
   final Map<DateTime, double> testScores;
 
-  const ProgressChartScreen({super.key, required this.testScores, required this.test});
+  const ProgressChartScreen(
+      {super.key, required this.testScores, required this.test});
 
   LineChartData generateLineChartData(
       List<MapEntry<DateTime, double>> sortedEntries) {
@@ -40,7 +41,9 @@ class ProgressChartScreen extends StatelessWidget {
             reservedSize: 30,
             getTitlesWidget: (value, meta) {
               return Text(
-                test == 'Snellan Chart' ? '6/${value.toInt()}' : '${value.toInt()}',
+                test == 'Snellan Chart'
+                    ? '6/${value.toInt()}'
+                    : '${value.toInt()}',
                 style: TextStyle(
                   color: Colors.black.withOpacity(0.7),
                   fontSize: 9,
