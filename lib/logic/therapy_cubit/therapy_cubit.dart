@@ -41,7 +41,6 @@ class TherapyCubit extends Cubit<TherapyState> {
   }
 
   Future<void> mapTherapies(String patientName) async {
-
     emit(TherapyLoading());
     try {
       if (globalTherapies.isEmpty || sharedPrefs.therapyFetched == false) {
