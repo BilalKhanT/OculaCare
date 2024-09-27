@@ -186,12 +186,14 @@ class ScheduleBottomModal extends StatelessWidget {
                           context.pop();
                         }
                       } catch (e) {
-                        AppUtils.showToast(
-                            context,
-                            "Error",
-                            "Invalid date format. Please enter a valid date and time.",
-                            true
-                        );
+                        if (context.mounted) {
+                          AppUtils.showToast(
+                              context,
+                              "Error",
+                              "Invalid date format. Please enter a valid date and time.",
+                              true
+                          );
+                        }
                       }
                     },
                     text: 'Confirm',
@@ -235,7 +237,7 @@ class ScheduleBottomModal extends StatelessWidget {
     if (date == null) return null;
 
     final TimeOfDay? time = await showTimePicker(
-      context: context,
+      context: context.mounted == true ? context : context,
       initialTime: TimeOfDay.fromDateTime(now),
       builder: (BuildContext context, Widget? child) {
         return Theme(
