@@ -1,4 +1,3 @@
-
 import 'package:bloc/bloc.dart';
 import 'package:intl/intl.dart';
 
@@ -56,8 +55,7 @@ class AnimalTrackScoreCubit extends Cubit<AnimalTrackScoreState> {
       }
       emit(AnimalTrackScoreLoading());
       emit(AnimalTrackScoreLoaded());
-    }
-    catch (e) {
+    } catch (e) {
       api = false;
       emit(AnimalTrackScoreLoading());
       emit(AnimalTrackScoreLoaded());
