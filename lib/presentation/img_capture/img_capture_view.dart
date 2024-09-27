@@ -1,21 +1,21 @@
 import 'dart:io';
 import 'dart:ui';
-import 'package:OculaCare/presentation/widgets/btn_flat.dart';
-import 'package:OculaCare/presentation/widgets/cstm_loader.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:OculaCare/configs/presentation/constants/colors.dart';
-import 'package:OculaCare/configs/routes/route_names.dart';
-import 'package:OculaCare/logic/image_capture/img_capture_cubit.dart';
-import 'package:OculaCare/logic/image_capture/img_capture_state.dart';
-import 'package:OculaCare/presentation/sign_up/widgets/cstm_flat_btn.dart';
 import 'package:image_picker/image_picker.dart';
+import '../../configs/presentation/constants/colors.dart';
+import '../../configs/routes/route_names.dart';
 import '../../configs/utils/utils.dart';
+import '../../logic/image_capture/img_capture_cubit.dart';
+import '../../logic/image_capture/img_capture_state.dart';
+import '../sign_up/widgets/cstm_flat_btn.dart';
 import '../widgets/border_painter.dart';
+import '../widgets/btn_flat.dart';
+import '../widgets/cstm_loader.dart';
 
 class ImageCaptureScreen extends StatelessWidget {
   const ImageCaptureScreen({Key? key}) : super(key: key);
