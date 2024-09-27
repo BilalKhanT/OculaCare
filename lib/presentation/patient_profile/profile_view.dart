@@ -1,25 +1,26 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:OculaCare/configs/extension/extensions.dart';
-import 'package:OculaCare/configs/presentation/constants/colors.dart';
-import 'package:OculaCare/configs/routes/route_names.dart';
-import 'package:OculaCare/logic/patient_profile/patient_profile_cubit.dart';
-import 'package:OculaCare/logic/patient_profile/patient_profile_state.dart';
-import 'package:OculaCare/logic/patient_profile/upload_profile_photo_state.dart';
-import 'package:OculaCare/presentation/patient_profile/change_pass_view.dart';
-import 'package:OculaCare/presentation/patient_profile/widgets/gender_row.dart';
-import 'package:OculaCare/presentation/patient_profile/widgets/profile_list_tile.dart';
-import 'package:OculaCare/presentation/widgets/btn_flat.dart';
-import 'package:OculaCare/presentation/widgets/cstm_loader.dart';
-import 'package:OculaCare/presentation/widgets/cstm_text_field.dart';
+
+import 'package:cculacare/configs/extension/extensions.dart';
+import 'package:cculacare/presentation/patient_profile/widgets/gender_row.dart';
+import 'package:cculacare/presentation/patient_profile/widgets/profile_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import '../../configs/presentation/constants/colors.dart';
+import '../../configs/routes/route_names.dart';
 import '../../logic/location_cubit/location_cubit.dart';
 import '../../logic/patient_profile/gender_cubit.dart';
+import '../../logic/patient_profile/patient_profile_cubit.dart';
+import '../../logic/patient_profile/patient_profile_state.dart';
 import '../../logic/patient_profile/upload_profile_photo_cubit.dart';
+import '../../logic/patient_profile/upload_profile_photo_state.dart';
+import '../widgets/btn_flat.dart';
+import '../widgets/cstm_loader.dart';
+import '../widgets/cstm_text_field.dart';
+import 'change_pass_view.dart';
 
 class PatientProfileScreen extends StatelessWidget {
   const PatientProfileScreen({Key? key}) : super(key: key);
