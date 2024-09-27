@@ -1,4 +1,4 @@
-import 'package:OculaCare/configs/app/app_globals.dart';
+import 'package:OculaCare/configs/global/app_globals.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:nb_utils/nb_utils.dart';
