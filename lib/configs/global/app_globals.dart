@@ -1,7 +1,7 @@
-import 'package:OculaCare/data/models/therapy/therapy_results_model.dart';
 
 import '../../data/models/disease_result/disease_result_model.dart';
 import '../../data/models/tests/test_result_model.dart';
+import '../../data/models/therapy/therapy_results_model.dart';
 
 class AppGlobals {
 
