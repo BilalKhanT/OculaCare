@@ -2,11 +2,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:OculaCare/presentation/login/widgets/forgot_password_btn.dart';
 import '../../../configs/presentation/constants/colors.dart';
 import '../../../logic/login_cubit/login_cubit.dart';
 import '../../../logic/login_cubit/login_pass_cubit.dart';
 import '../../sign_up/widgets/cstm_flat_btn.dart';
+import 'forgot_password_btn.dart';
 
 class LoginForm extends StatelessWidget {
   const LoginForm({Key? key,}) : super(key: key);
