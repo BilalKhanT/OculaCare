@@ -90,13 +90,13 @@ class PatientProfileCubit extends Cubit<PatientProfileState> {
   }
 
   void emitEditProfile(BuildContext context, String age, gender, String address,
-      String contact, String img, double _lat, double _long) {
+      String contact, String img, double lat, double long) {
     updatePasswordController.text = sharedPrefs.password;
     updateContactController.text = contact;
     updateAddressController.text = address;
     updateAgeController.text = age;
-    lat = _lat;
-    long = _long;
+    lat = lat;
+    long = long;
     emit(PatientProfileStateEdit(img));
   }
 
