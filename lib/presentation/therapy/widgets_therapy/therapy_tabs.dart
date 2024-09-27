@@ -9,7 +9,7 @@ class TherapyTabs extends StatelessWidget {
   final Function onSelectHistory;
   final Function onSelectProgression;
 
-  TherapyTabs({
+  const TherapyTabs({super.key,
     required this.therapySelected,
     required this.historySelected,
     required this.progressionSelected,
