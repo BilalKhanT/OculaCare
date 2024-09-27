@@ -89,7 +89,7 @@ class IshiharaCubit extends Cubit<IshiharaState> {
             ResponseModel resp_ = await ml.getData(
                 'Additionally, mention any potential impacts of color blindness in daily activities without heading or subheadings and only 3 points, also generate text in such a way that youre talking to the patient directly');
             TestResultModel data = TestResultModel(
-              email: sharedPrefs.email,
+                email: sharedPrefs.email,
                 patientName: sharedPrefs.userName,
                 date: date,
                 testType: 'Color Perception Test',
