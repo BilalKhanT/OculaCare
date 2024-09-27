@@ -1,4 +1,3 @@
-
 import 'package:bloc/bloc.dart';
 import 'package:cculacare/logic/therapy_cubit/therapy_feedback_states.dart';
 import 'package:flutter/material.dart';
@@ -13,11 +12,13 @@ import '../keyboard_listener_cubit/keyboard_list_state.dart';
 
 class TherapyFeedbackCubit extends Cubit<TherapyFeedbackState> {
   final KeyboardListenerCubit keyboardListenerCubit;
-  TherapyFeedbackCubit(this.keyboardListenerCubit) : super(TherapyFeedbackInitial()) {
+  TherapyFeedbackCubit(this.keyboardListenerCubit)
+      : super(TherapyFeedbackInitial()) {
     listenToKeyboardFocus();
   }
 
-  final TherapyFeedbackRepository therapyFeedbackRepository = TherapyFeedbackRepository();
+  final TherapyFeedbackRepository therapyFeedbackRepository =
+      TherapyFeedbackRepository();
 
   Map<String, bool> likedItems = {
     "Therapy was easy to follow": false,
@@ -26,7 +27,6 @@ class TherapyFeedbackCubit extends Cubit<TherapyFeedbackState> {
     "Therapy reminders were helpful": false,
     "All of the above": false,
   };
-
 
   void likedFeedbackState() {
     emit(TherapyFeedbackLiked(likedItems));
@@ -58,7 +58,7 @@ class TherapyFeedbackCubit extends Cubit<TherapyFeedbackState> {
     if (state is TherapyFeedbackLiked) {
       final currentState = state as TherapyFeedbackLiked;
       final newStatus =
-      currentState.selectionStatus.map((key, value) => MapEntry(key, true));
+          currentState.selectionStatus.map((key, value) => MapEntry(key, true));
       emit(TherapyFeedbackLiked(newStatus));
     }
   }
@@ -97,7 +97,7 @@ class TherapyFeedbackCubit extends Cubit<TherapyFeedbackState> {
     if (state is TherapyFeedbackUnLiked) {
       final currentState = state as TherapyFeedbackUnLiked;
       final newStatus =
-      currentState.selectionStatus.map((key, value) => MapEntry(key, true));
+          currentState.selectionStatus.map((key, value) => MapEntry(key, true));
       emit(TherapyFeedbackUnLiked(newStatus));
     }
   }
@@ -113,8 +113,8 @@ class TherapyFeedbackCubit extends Cubit<TherapyFeedbackState> {
     cubit?.closeKeyboard();
   }
 
-  Future<void> submitFeedback(
-      String category, List<String> data, String customFeedback, TherapyModel therapy) async {
+  Future<void> submitFeedback(String category, List<String> data,
+      String customFeedback, TherapyModel therapy) async {
     emit(TherapyFeedbackLoading());
     try {
       TherapyFeedbackModel feedback = TherapyFeedbackModel(
@@ -125,11 +125,11 @@ class TherapyFeedbackCubit extends Cubit<TherapyFeedbackState> {
         customMessage: customFeedback,
       );
 
-      bool success = await therapyFeedbackRepository.submitTherapyFeedback(feedback);
-      if(success){
+      bool success =
+          await therapyFeedbackRepository.submitTherapyFeedback(feedback);
+      if (success) {
         emit(TherapyFeedbackCompleted());
-      }
-      else{
+      } else {
         emit(TherapyFeedbackServerError());
       }
     } catch (e) {
