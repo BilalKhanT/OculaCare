@@ -5,7 +5,7 @@ import 'package:OculaCare/data/models/therapy/therapy_results_model.dart';
 import 'package:OculaCare/data/repositories/local/preferences/shared_prefs.dart';
 import 'package:bloc/bloc.dart';
 import 'package:intl/intl.dart';
-import '../../configs/app/app_globals.dart';
+import '../../configs/global/app_globals.dart';
 import '../../data/repositories/therapy/therapy_repo.dart';
 import '../../data/therapies_data/stories.dart';
 import 'therapy_state.dart';
