@@ -441,7 +441,6 @@ class TherapyFeedbackView extends StatelessWidget {
                                         }
                                         return "";
                                       }).toList();
-                                      print(therapy.email);
                                       list.remove("");
                                       context.read<TherapyFeedbackCubit>().submitFeedback(
                                         'Unliked',
@@ -474,7 +473,6 @@ class TherapyFeedbackView extends StatelessWidget {
                                         return "";
                                       }).toList();
                                       list.remove("");
-                                      print(therapy);
                                       context.read<TherapyFeedbackCubit>().submitFeedback(
                                         'liked',
                                         list,
