@@ -14,9 +14,9 @@ final class ScheduleTabToggled extends ScheduleTabState {
   final bool isColor;
 
   const ScheduleTabToggled(
-      this.isVision,
-      this.isColor,
-      );
+    this.isVision,
+    this.isColor,
+  );
 
   @override
   List<Object> get props => [isVision, isColor];
