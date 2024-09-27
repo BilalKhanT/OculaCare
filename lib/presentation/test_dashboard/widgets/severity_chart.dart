@@ -12,49 +12,47 @@ class SeverityChart extends StatelessWidget {
     Color severityColor = _getSeverityColor(score);
     double screenWidth = MediaQuery.sizeOf(context).width;
     if (score < 0) {
-
-    }
-    else {
+    } else {
       finalScore = score;
     }
     return Column(
-        children: [
-          SizedBox(
-            height: 200,
-            child: PieChart(
-              PieChartData(
-                sections: [
-                  PieChartSectionData(
-                    value: finalScore.toDouble(),
-                    color: severityColor,
-                    radius: 40,
-                    title: '$finalScore',
-                    titleStyle: TextStyle(
-                      fontFamily: 'MontserratMedium',
-                      fontWeight: FontWeight.w800,
-                      fontSize: screenWidth * 0.04,
-                      color: Colors.white,
-                    ),
+      children: [
+        SizedBox(
+          height: 200,
+          child: PieChart(
+            PieChartData(
+              sections: [
+                PieChartSectionData(
+                  value: finalScore.toDouble(),
+                  color: severityColor,
+                  radius: 40,
+                  title: '$finalScore',
+                  titleStyle: TextStyle(
+                    fontFamily: 'MontserratMedium',
+                    fontWeight: FontWeight.w800,
+                    fontSize: screenWidth * 0.04,
+                    color: Colors.white,
                   ),
-                  PieChartSectionData(
-                    value: (10 - finalScore).toDouble(),
-                    color: Colors.grey.shade800,
-                    radius: 30,
-                    titleStyle: TextStyle(
-                      fontFamily: 'MontserratMedium',
-                      fontWeight: FontWeight.w800,
-                      fontSize: screenWidth * 0.035,
-                      color: Colors.white,
-                    ),
+                ),
+                PieChartSectionData(
+                  value: (10 - finalScore).toDouble(),
+                  color: Colors.grey.shade800,
+                  radius: 30,
+                  titleStyle: TextStyle(
+                    fontFamily: 'MontserratMedium',
+                    fontWeight: FontWeight.w800,
+                    fontSize: screenWidth * 0.035,
+                    color: Colors.white,
                   ),
-                ],
-                sectionsSpace: 5,
-                centerSpaceRadius: 30,
-              ),
+                ),
+              ],
+              sectionsSpace: 5,
+              centerSpaceRadius: 30,
             ),
           ),
-        ],
-      );
+        ),
+      ],
+    );
   }
 
   Color _getSeverityColor(int score) {
