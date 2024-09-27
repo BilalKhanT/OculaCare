@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:OculaCare/data/models/therapy/therapy_results_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:nb_utils/nb_utils.dart';
 
 import '../../../configs/global/app_globals.dart';
 
@@ -21,11 +22,11 @@ class TherapyRepository {
       if (response.statusCode == 201) {
         return true;
       } else {
-        print('Failed to save therapy: ${response.statusCode}');
+        log('Failed to save therapy: ${response.statusCode}');
         return false;
       }
     } catch (e) {
-      print('Error saving therapy: $e');
+      log('Error saving therapy: $e');
       return false;
     }
   }
@@ -33,7 +34,6 @@ class TherapyRepository {
   Future<void> getTherapyRecord(String patientName) async {
     try {
       final response = await http.get(Uri.parse('$getTherapyUrl/$patientName'));
-      print(response);
       if (response.statusCode == 200) {
         List<dynamic> jsonResponse = jsonDecode(response.body);
         List<TherapyModel> therapies = jsonResponse.map((data) {
@@ -42,10 +42,10 @@ class TherapyRepository {
 
         globalTherapies = therapies;
       } else {
-        throw Exception('Failed to load therapy records');
+        log('Failed to load therapy records: ${response.statusCode}');
       }
     } catch (e) {
-      throw Exception('Error fetching therapy records: $e');
+      log('Error fetching therapy records: $e');
     }
   }
 
