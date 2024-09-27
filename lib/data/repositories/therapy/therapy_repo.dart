@@ -48,6 +48,4 @@ class TherapyRepository {
       log('Error fetching therapy records: $e');
     }
   }
-
-
 }
