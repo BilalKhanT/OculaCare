@@ -10,8 +10,7 @@ class MusicCubit extends Cubit<void> {
     _audioPlayer.open(
       Audio(soundPath),
       autoStart: true,
-      loopMode:
-          LoopMode.single,
+      loopMode: LoopMode.single,
     );
   }
 
