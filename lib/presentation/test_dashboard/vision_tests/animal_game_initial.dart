@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -12,7 +11,6 @@ import '../../../logic/tests/test_schedule_cubit.dart';
 import '../../widgets/btn_flat.dart';
 import '../../widgets/schedule_bottom_modal.dart';
 
-
 class AnimalGameInitial extends StatelessWidget {
   const AnimalGameInitial({super.key});
 
@@ -23,7 +21,7 @@ class AnimalGameInitial extends StatelessWidget {
     return PopScope(
       canPop: false,
       child: Scaffold(
-          backgroundColor: AppColors.screenBackground,
+        backgroundColor: AppColors.screenBackground,
         appBar: AppBar(
           backgroundColor: AppColors.screenBackground,
           centerTitle: true,
@@ -53,8 +51,8 @@ class AnimalGameInitial extends StatelessWidget {
           width: screenWidth,
           color: AppColors.screenBackground,
           child: Padding(
-            padding: const EdgeInsets.symmetric(
-                horizontal: 20.0, vertical: 30.0),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 20.0, vertical: 30.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -119,8 +117,7 @@ class AnimalGameInitial extends StatelessWidget {
                       isDismissible: false,
                       builder: (BuildContext bc) {
                         return ScheduleBottomModal(
-                          controller:
-                          context.read<ScheduleCubit>().controller,
+                          controller: context.read<ScheduleCubit>().controller,
                           test: 'Animal Track Test',
                         );
                       },
