@@ -196,64 +196,64 @@ class MatchColorGameScreen extends StatelessWidget {
     double screenHeight = MediaQuery.sizeOf(context).height;
     double screenWidth = MediaQuery.sizeOf(context).width;
     return Container(
-        color: AppColors.screenBackground,
-        height: screenHeight,
-        width: screenWidth,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Image.asset(
-              'assets/images/result_test.png',
-              height: screenHeight * 0.3,
-            ),
-            SizedBox(
-              height: screenHeight * 0.02,
-            ),
-            Text('Test Completed !',
-                style: TextStyle(
-                  color: Colors.green,
-                  fontFamily: 'MontserratMedium',
-                  fontWeight: FontWeight.w800,
-                  fontSize: screenWidth * 0.05,
-                )),
-            SizedBox(height: screenHeight * 0.02),
-            SeverityChart(score: state.score),
-            Text(
-              'You got ${state.score} out of 10 correct.',
-              textAlign: TextAlign.center,
+      color: AppColors.screenBackground,
+      height: screenHeight,
+      width: screenWidth,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Image.asset(
+            'assets/images/result_test.png',
+            height: screenHeight * 0.3,
+          ),
+          SizedBox(
+            height: screenHeight * 0.02,
+          ),
+          Text('Test Completed !',
               style: TextStyle(
-                color: Colors.black,
+                color: Colors.green,
                 fontFamily: 'MontserratMedium',
                 fontWeight: FontWeight.w800,
-                fontSize: screenWidth * 0.04,),
+                fontSize: screenWidth * 0.05,
+              )),
+          SizedBox(height: screenHeight * 0.02),
+          SeverityChart(score: state.score),
+          Text(
+            'You got ${state.score} out of 10 correct.',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Colors.black,
+              fontFamily: 'MontserratMedium',
+              fontWeight: FontWeight.w800,
+              fontSize: screenWidth * 0.04,
             ),
-            SizedBox(height: screenHeight * 0.05),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30.0),
-              child: ButtonFlat(
-                  btnColor: AppColors.appColor,
-                  textColor: Colors.white,
-                  onPress: () =>
-                      context.read<MatchColorCubit>().restartGame(),
-                  text: 'Restart Test'),
-            ),
-            SizedBox(
-              height: screenHeight * 0.02,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30.0),
-              child: ButtonFlat(
-                  btnColor: Colors.black,
-                  textColor: Colors.white,
-                  onPress: () {
-                    context.read<MatchColorCubit>().closeCubit();
-                    context.pop();
-                  },
-                  text: 'Exit Test'),
-            )
-          ],
-        ),
-      );
+          ),
+          SizedBox(height: screenHeight * 0.05),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30.0),
+            child: ButtonFlat(
+                btnColor: AppColors.appColor,
+                textColor: Colors.white,
+                onPress: () => context.read<MatchColorCubit>().restartGame(),
+                text: 'Restart Test'),
+          ),
+          SizedBox(
+            height: screenHeight * 0.02,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30.0),
+            child: ButtonFlat(
+                btnColor: Colors.black,
+                textColor: Colors.white,
+                onPress: () {
+                  context.read<MatchColorCubit>().closeCubit();
+                  context.pop();
+                },
+                text: 'Exit Test'),
+          )
+        ],
+      ),
+    );
   }
 
   Widget _buildGameInProgress(
@@ -275,8 +275,9 @@ class MatchColorGameScreen extends StatelessWidget {
             ),
           ),
           _buildLivesLeft(state.livesLeft),
-
-          SizedBox(height: screenHeight * 0.01,),
+          SizedBox(
+            height: screenHeight * 0.01,
+          ),
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: Container(
@@ -299,7 +300,9 @@ class MatchColorGameScreen extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: screenHeight * 0.03,),
+          SizedBox(
+            height: screenHeight * 0.03,
+          ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 30.0),
             child: Row(
