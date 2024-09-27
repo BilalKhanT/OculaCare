@@ -170,7 +170,7 @@ class MoreView extends StatelessWidget {
                         text: "Explore Eye Hospitals",
                         icon: "assets/svgs/charm_search.svg",
                         onTap: () {
-                          if (!sharedPrefs.isLoggedIn) {
+                          if (!sharedPrefs.isProfileSetup) {
                             showDialog(
                               context: context,
                               builder: (context) {
@@ -342,6 +342,8 @@ class MoreView extends StatelessWidget {
                             sharedPrefs.isProfileSetup = false;
                             sharedPrefs.patientData = '';
                             sharedPrefs.userName = '';
+                            sharedPrefs.email = '';
+                            sharedPrefs.password = '';
                             context.read<LoginCubit>().loadLoginScreen();
                             context.go(RouteNames.loginRoute);
                           },
