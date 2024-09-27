@@ -1,5 +1,6 @@
-import 'package:OculaCare/configs/presentation/constants/colors.dart';
 import 'package:flutter/material.dart';
+
+import '../../../configs/presentation/constants/colors.dart';
 
 class PauseMenu extends StatelessWidget {
   final VoidCallback onResume;
