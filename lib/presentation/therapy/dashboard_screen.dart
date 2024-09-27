@@ -1,16 +1,17 @@
-import 'package:OculaCare/configs/presentation/constants/colors.dart';
-import 'package:OculaCare/logic/therapy_cubit/therapy_dashboard_cubit.dart';
-import 'package:OculaCare/logic/therapy_cubit/therapy_dashboard_states.dart';
-import 'package:OculaCare/presentation/therapy/sections/history_section.dart';
-import 'package:OculaCare/presentation/therapy/sections/progression_section.dart';
-import 'package:OculaCare/presentation/therapy/sections/therapy_section.dart';
-import 'package:OculaCare/presentation/therapy/widgets_therapy/therapy_tabs.dart';
+
+import 'package:cculacare/presentation/therapy/sections/history_section.dart';
+import 'package:cculacare/presentation/therapy/sections/progression_section.dart';
+import 'package:cculacare/presentation/therapy/sections/therapy_section.dart';
+import 'package:cculacare/presentation/therapy/widgets_therapy/therapy_tabs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import '../../configs/presentation/constants/colors.dart';
 import '../../configs/routes/route_names.dart';
 import '../../data/repositories/local/preferences/shared_prefs.dart';
+import '../../logic/therapy_cubit/therapy_dashboard_cubit.dart';
+import '../../logic/therapy_cubit/therapy_dashboard_states.dart';
 import '../../logic/therapy_cubit/therapy_schedule_tab_cubit.dart';
 import '../../logic/therapy_cubit/therapy_schedule_cubit.dart';
 
