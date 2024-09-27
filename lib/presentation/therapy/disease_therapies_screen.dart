@@ -1,6 +1,7 @@
+import 'package:cculacare/presentation/therapy/widgets_therapy/custom_therapy_tile.dart';
+import 'package:cculacare/presentation/therapy/widgets_therapy/therapy_model.dart';
 import 'package:flutter/material.dart';
-import 'package:OculaCare/presentation/therapy/widgets_therapy/custom_therapy_tile.dart';
-import 'package:OculaCare/presentation/therapy/widgets_therapy/therapy_model.dart';
+
 import '../../configs/presentation/constants/colors.dart';
 import '../../data/therapies_data/bulgy_eyes.dart';
 import '../../data/therapies_data/cataract_therapies.dart';
