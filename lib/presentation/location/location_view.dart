@@ -4,8 +4,6 @@ import 'package:OculaCare/presentation/widgets/cstm_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-
 import '../../logic/location_cubit/location_cubit.dart';
 import '../../logic/location_cubit/location_state.dart';
 
@@ -51,11 +49,6 @@ class LocationScreen extends StatelessWidget {
                 ),
               );
             } else if (state is LocationLoaded) {
-              final marker = Marker(
-                markerId: const MarkerId('currentLocation'),
-                position:
-                    LatLng(state.position.latitude, state.position.longitude),
-              );
               return const SizedBox.shrink();
             } else if (state is LocationSet) {
               return LocationSetView(
