@@ -1,4 +1,4 @@
-import 'package:OculaCare/logic/tests/vision_tests/snellan_initial_state.dart';
+import 'package:cculacare/logic/tests/vision_tests/snellan_initial_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:nb_utils/nb_utils.dart';
