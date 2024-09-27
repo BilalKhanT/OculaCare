@@ -50,6 +50,7 @@ class DashboardScreen extends StatelessWidget {
                 children: [
                   SvgPicture.asset(
                       'assets/svgs/schedule.svg',
+                      // ignore: deprecated_member_use
                       color: AppColors.appColor
                   ),
                   const SizedBox(
