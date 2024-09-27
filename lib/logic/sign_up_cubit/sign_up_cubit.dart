@@ -87,7 +87,6 @@ class SignUpCubit extends Cubit<SignUpState> {
         final AuthCredential credential = FacebookAuthProvider.credential(accessToken.token);
         final UserCredential authResult = await auth.signInWithCredential(credential);
         final User? user = authResult.user;
-        print(user);
         String? name = user?.displayName;
         final flag = await registerFacebookUser(name!);
         if (flag == true) {
@@ -126,7 +125,6 @@ class SignUpCubit extends Cubit<SignUpState> {
           'password': '******',
         }),
       );
-      print(response.statusCode);
       if (response.statusCode == 200) {
         sharedPrefs.isProfileSetup = false;
         sharedPrefs.email = email;
@@ -159,7 +157,6 @@ class SignUpCubit extends Cubit<SignUpState> {
           'password': '******',
         }),
       );
-      print(response.statusCode);
       if (response.statusCode == 200) {
         sharedPrefs.isProfileSetup = false;
         sharedPrefs.email = "awaisjarral37@gmail.com";
