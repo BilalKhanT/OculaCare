@@ -1,5 +1,6 @@
-import 'package:OculaCare/data/models/tests/test_result_model.dart';
 import 'package:equatable/equatable.dart';
+
+import '../../data/models/tests/test_result_model.dart';
 
 sealed class TestState extends Equatable {
   const TestState();
