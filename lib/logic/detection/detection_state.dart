@@ -1,5 +1,6 @@
-import 'package:OculaCare/data/models/disease_result/disease_result_model.dart';
 import 'package:equatable/equatable.dart';
+
+import '../../data/models/disease_result/disease_result_model.dart';
 
 abstract class DetectionState extends Equatable {
   const DetectionState();
