@@ -122,7 +122,7 @@ class LoginForm extends StatelessWidget {
             CustomFlatButton(
               onTap: () async {
                 bool flag = await loginCubit.submitForm(formKey);
-                if (flag == true) {
+                if (flag == true && context.mounted) {
                   await context.read<LoginCubit>().loginUser();
                 }
               },
