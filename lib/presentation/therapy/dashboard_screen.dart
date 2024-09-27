@@ -1,4 +1,3 @@
-
 import 'package:cculacare/presentation/therapy/sections/history_section.dart';
 import 'package:cculacare/presentation/therapy/sections/progression_section.dart';
 import 'package:cculacare/presentation/therapy/sections/therapy_section.dart';
@@ -49,11 +48,9 @@ class DashboardScreen extends StatelessWidget {
               },
               child: Row(
                 children: [
-                  SvgPicture.asset(
-                      'assets/svgs/schedule.svg',
+                  SvgPicture.asset('assets/svgs/schedule.svg',
                       // ignore: deprecated_member_use
-                      color: AppColors.appColor
-                  ),
+                      color: AppColors.appColor),
                   const SizedBox(
                     width: 6.0,
                   ),
@@ -82,15 +79,19 @@ class DashboardScreen extends StatelessWidget {
                 builder: (context, state) {
                   bool therapySelected = state is TherapyDashboardInitialState;
                   bool historySelected = state is TherapyDashboardHistoryState;
-                  bool progressionSelected = state is TherapyDashboardProgressionState;
+                  bool progressionSelected =
+                      state is TherapyDashboardProgressionState;
 
                   return TherapyTabs(
                     therapySelected: therapySelected,
                     historySelected: historySelected,
                     progressionSelected: progressionSelected,
-                    onSelectTherapy: () => context.read<TherapyDashboardCubit>().loadInitial(),
-                    onSelectHistory: () => context.read<TherapyDashboardCubit>().loadHistory(),
-                    onSelectProgression: () => context.read<TherapyDashboardCubit>().loadProgression(),
+                    onSelectTherapy: () =>
+                        context.read<TherapyDashboardCubit>().loadInitial(),
+                    onSelectHistory: () =>
+                        context.read<TherapyDashboardCubit>().loadHistory(),
+                    onSelectProgression: () =>
+                        context.read<TherapyDashboardCubit>().loadProgression(),
                   );
                 },
               ),
