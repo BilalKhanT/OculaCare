@@ -1,4 +1,3 @@
-
 import 'package:cculacare/presentation/login/widgets/forgot_password_form.dart';
 import 'package:cculacare/presentation/login/widgets/login_form.dart';
 import 'package:cculacare/presentation/login/widgets/reset_password_form.dart';
@@ -44,35 +43,114 @@ class LoginScreen extends StatelessWidget {
           width: screenWidth,
           child: SafeArea(
             child: BlocConsumer<LoginCubit, LoginState>(
-                  listener: (context, state) {
-                if (state is LoginFailure) {
-                  AppUtils.showToast(context, 'Invalid Login Credentials',
-                      'Please enter valid login credentials', true);
-                } else if (state is LoginSuccess) {
-                  context.go(RouteNames.homeRoute);
-                }
-              }, builder: (context, state) {
-                if (state is LoginStateLoading) {
-                  return const Center(
-                    child: DotLoader(loaderColor: AppColors.appColor,),
-                  );
-                } else if (state is LoginStateFailure) {
-                  return Center(
-                    child: Text(state.errorMsg),
-                  );
-                } else if (state is LoginStateForgotPassword) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20.0, vertical: 10.0),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            height: screenHeight * 0.3,
+                listener: (context, state) {
+              if (state is LoginFailure) {
+                AppUtils.showToast(context, 'Invalid Login Credentials',
+                    'Please enter valid login credentials', true);
+              } else if (state is LoginSuccess) {
+                context.go(RouteNames.homeRoute);
+              }
+            }, builder: (context, state) {
+              if (state is LoginStateLoading) {
+                return const Center(
+                  child: DotLoader(
+                    loaderColor: AppColors.appColor,
+                  ),
+                );
+              } else if (state is LoginStateFailure) {
+                return Center(
+                  child: Text(state.errorMsg),
+                );
+              } else if (state is LoginStateForgotPassword) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 20.0, vertical: 10.0),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          height: screenHeight * 0.3,
+                        ),
+                        Text(
+                          'Reset Password',
+                          style: TextStyle(
+                            fontFamily: 'MontserratMedium',
+                            fontSize: 32.sp,
+                            color: AppColors.appColor,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 1.0,
                           ),
-                          Text(
-                            'Reset Password',
+                        ),
+                        Text(
+                          'Enter Registered Email',
+                          style: TextStyle(
+                            fontFamily: 'MontserratMedium',
+                            fontSize: 16.sp,
+                            color: AppColors.textGrey,
+                          ),
+                        ),
+                        SizedBox(
+                          height: screenHeight * 0.03,
+                        ),
+                        const ForgotPasswordForm(),
+                      ],
+                    ),
+                  ),
+                );
+              } else if (state is LoginStateResetPassword) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 20.0, vertical: 10.0),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          height: screenHeight * 0.3,
+                        ),
+                        Text(
+                          'New Password',
+                          style: TextStyle(
+                            fontFamily: 'MontserratMedium',
+                            fontSize: 32.sp,
+                            color: AppColors.appColor,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 1.0,
+                          ),
+                        ),
+                        Text(
+                          'Enter New Password',
+                          style: TextStyle(
+                            fontFamily: 'MontserratMedium',
+                            fontSize: 16.sp,
+                            color: AppColors.textGrey,
+                          ),
+                        ),
+                        SizedBox(
+                          height: screenHeight * 0.03,
+                        ),
+                        const ResetPasswordForm(),
+                      ],
+                    ),
+                  ),
+                );
+              } else {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 20.0, vertical: 10.0),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Center(
+                            child: Image.asset(
+                          "assets/images/logo_ocula_login.png",
+                          height: screenHeight * 0.15,
+                        )),
+                        Center(
+                          child: Text(
+                            'OculaCare',
                             style: TextStyle(
                               fontFamily: 'MontserratMedium',
                               fontSize: 32.sp,
@@ -81,149 +159,74 @@ class LoginScreen extends StatelessWidget {
                               letterSpacing: 1.0,
                             ),
                           ),
-                          Text(
-                            'Enter Registered Email',
-                            style: TextStyle(
-                              fontFamily: 'MontserratMedium',
-                              fontSize: 16.sp,
-                              color: AppColors.textGrey,
-                            ),
+                        ),
+                        SizedBox(
+                          height: 30.h,
+                        ),
+                        Text(
+                          'Login',
+                          style: TextStyle(
+                            fontFamily: 'MontserratMedium',
+                            fontSize: 32.sp,
+                            color: AppColors.appColor,
+                            fontWeight: FontWeight.w800,
+                            letterSpacing: 1.0,
                           ),
-                          SizedBox(
-                            height: screenHeight * 0.03,
+                        ),
+                        Text(
+                          'Welcome Back!',
+                          style: TextStyle(
+                            fontFamily: 'MontserratMedium',
+                            fontSize: 16.sp,
+                            color: AppColors.textGrey,
                           ),
-                          const ForgotPasswordForm(),
-                        ],
-                      ),
-                    ),
-                  );
-                } else if (state is LoginStateResetPassword) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20.0, vertical: 10.0),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            height: screenHeight * 0.3,
-                          ),
-                          Text(
-                            'New Password',
-                            style: TextStyle(
-                              fontFamily: 'MontserratMedium',
-                              fontSize: 32.sp,
-                              color: AppColors.appColor,
-                              fontWeight: FontWeight.bold,
-                              letterSpacing: 1.0,
-                            ),
-                          ),
-                          Text(
-                            'Enter New Password',
-                            style: TextStyle(
-                              fontFamily: 'MontserratMedium',
-                              fontSize: 16.sp,
-                              color: AppColors.textGrey,
-                            ),
-                          ),
-                          SizedBox(
-                            height: screenHeight * 0.03,
-                          ),
-                          const ResetPasswordForm(),
-                        ],
-                      ),
-                    ),
-                  );
-                } else {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20.0, vertical: 10.0),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Center(
-                              child: Image.asset(
-                            "assets/images/logo_ocula_login.png",
-                            height: screenHeight * 0.15,
-                          )),
-                          Center(
-                            child: Text(
-                              'OculaCare',
+                        ),
+                        SizedBox(
+                          height: screenHeight * 0.03,
+                        ),
+                        const LoginForm(),
+                        SizedBox(
+                          height: screenHeight * 0.01,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Didn\'t have an account.',
                               style: TextStyle(
                                 fontFamily: 'MontserratMedium',
-                                fontSize: 32.sp,
-                                color: AppColors.appColor,
-                                fontWeight: FontWeight.bold,
-                                letterSpacing: 1.0,
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w100,
+                                color: AppColors.textGrey,
                               ),
                             ),
-                          ),
-                          SizedBox(
-                            height: 30.h,
-                          ),
-                          Text(
-                            'Login',
-                            style: TextStyle(
-                              fontFamily: 'MontserratMedium',
-                              fontSize: 32.sp,
-                              color: AppColors.appColor,
-                              fontWeight: FontWeight.w800,
-                              letterSpacing: 1.0,
+                            const SizedBox(
+                              width: 5.0,
                             ),
-                          ),
-                          Text(
-                            'Welcome Back!',
-                            style: TextStyle(
-                              fontFamily: 'MontserratMedium',
-                              fontSize: 16.sp,
-                              color: AppColors.textGrey,
-                            ),
-                          ),
-                          SizedBox(
-                            height: screenHeight * 0.03,
-                          ),
-                          const LoginForm(),
-                          SizedBox(
-                            height: screenHeight * 0.01,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Didn\'t have an account.',
+                            GestureDetector(
+                              onTap: () {
+                                context.read<SignUpCubit>().loadSignUpScreen();
+                                context.go(RouteNames.signUpRoute,
+                                    extra: 'login');
+                              },
+                              child: Text(
+                                'Signup',
                                 style: TextStyle(
-                                  fontFamily: 'MontserratMedium',
+                                  fontFamily: 'Montserrat',
                                   fontSize: 16.sp,
-                                  fontWeight: FontWeight.w100,
-                                  color: AppColors.textGrey,
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColors.appColor,
                                 ),
                               ),
-                              const SizedBox(
-                                width: 5.0,
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  context.read<SignUpCubit>().loadSignUpScreen();
-                                  context.go(RouteNames.signUpRoute, extra: 'login'); },
-                                child: Text(
-                                  'Signup',
-                                  style: TextStyle(
-                                    fontFamily: 'Montserrat',
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.bold,
-                                    color: AppColors.appColor,
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ],
-                      ),
+                            )
+                          ],
+                        ),
+                      ],
                     ),
-                  );
-                }
-              }),
+                  ),
+                );
+              }
+            }),
           ),
         ),
       ),
