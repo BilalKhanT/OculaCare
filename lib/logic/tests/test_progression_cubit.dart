@@ -25,8 +25,6 @@ class TestProgressionCubit extends Cubit<TestProgressionState> {
       ..sort((a, b) =>
           dateFormat.parse(a.date).compareTo(dateFormat.parse(b.date)));
 
-    print(filteredResults.length);
-
     for (var t in filteredResults) {
       DateTime testDate = dateFormat.parse(t.date);
       scores[testDate] = t.testScore.toDouble();
