@@ -6,7 +6,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-import '../../configs/routes/route_names.dart';
 import '../../logic/location_cubit/location_cubit.dart';
 import '../../logic/location_cubit/location_state.dart';
 
