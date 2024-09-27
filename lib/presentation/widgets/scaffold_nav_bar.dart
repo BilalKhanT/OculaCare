@@ -113,4 +113,3 @@ class ScaffoldWithNavBar extends StatelessWidget {
     );
   }
 }
-
