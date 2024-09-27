@@ -44,7 +44,7 @@ class LocationCubit extends Cubit<LocationState> {
       Position position = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.high);
       String address =
-      await fetchAddressFromLatLng(position.latitude, position.longitude);
+          await fetchAddressFromLatLng(position.latitude, position.longitude);
       emit(
         LocationLoaded(LatLng(position.latitude, position.longitude), address),
       );
@@ -64,7 +64,7 @@ class LocationCubit extends Cubit<LocationState> {
       Position position = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.high);
       String address =
-      await fetchAddressFromLatLng(position.latitude, position.longitude);
+          await fetchAddressFromLatLng(position.latitude, position.longitude);
       // Address addressObj = Address(
       //     userId: sharedPrefs.userId,
       //     latitude: position.latitude,
@@ -96,10 +96,10 @@ class LocationCubit extends Cubit<LocationState> {
       Position position = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.high);
       String address =
-      await fetchAddressFromLatLng(position.latitude, position.longitude);
+          await fetchAddressFromLatLng(position.latitude, position.longitude);
       toHome = false;
-      emit(LocationSet(
-          LatLng(position.latitude, position.longitude), markers, address, position.latitude, position.longitude));
+      emit(LocationSet(LatLng(position.latitude, position.longitude), markers,
+          address, position.latitude, position.longitude));
     } else {
       var permissionStatus = await Permission.location.request();
       if (permissionStatus.isGranted) {
@@ -119,9 +119,10 @@ class LocationCubit extends Cubit<LocationState> {
         .add(Marker(markerId: MarkerId(center.toString()), position: center));
 
     String address =
-    await fetchAddressFromLatLng(center.latitude, center.longitude);
+        await fetchAddressFromLatLng(center.latitude, center.longitude);
 
-    emit(LocationSet(center, markers, address, center.latitude, center.longitude));
+    emit(LocationSet(
+        center, markers, address, center.latitude, center.longitude));
   }
 
   // void initializeMapForEdit(Address address) {
