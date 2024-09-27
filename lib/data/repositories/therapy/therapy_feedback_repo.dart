@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:nb_utils/nb_utils.dart';
 import '../../models/therapy/therapy_feedback_model.dart';
 
 class TherapyFeedbackRepository {
@@ -19,8 +20,8 @@ class TherapyFeedbackRepository {
         return false;
       }
     } catch (e) {
-      print('Error submitting feedback: $e');
-      throw Exception('Error submitting feedback');
+      log('Error submitting feedback');
+      return false;
     }
   }
 }
