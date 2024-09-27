@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 import 'package:flutter_file_dialog/flutter_file_dialog.dart';
@@ -41,7 +40,7 @@ class ImageCaptureCubit extends Cubit<ImageCaptureState> {
     try {
       _cameras = await availableCameras();
       final frontCamera = _cameras.firstWhere(
-            (camera) => camera.lensDirection == CameraLensDirection.front,
+        (camera) => camera.lensDirection == CameraLensDirection.front,
         orElse: () => _cameras.first,
       );
       cameraController = CameraController(
@@ -53,7 +52,8 @@ class ImageCaptureCubit extends Cubit<ImageCaptureState> {
       await cameraController.initialize();
       await cameraController.setFlashMode(FlashMode.off);
       await cameraController.setFocusMode(FocusMode.auto);
-      faceDetector = FaceDetector(options: FaceDetectorOptions(
+      faceDetector = FaceDetector(
+          options: FaceDetectorOptions(
         performanceMode: FaceDetectorMode.accurate,
         enableLandmarks: true,
         enableClassification: true,
@@ -63,13 +63,12 @@ class ImageCaptureCubit extends Cubit<ImageCaptureState> {
       cameraController.startImageStream((image) {
         processImage(image, frontCamera.sensorOrientation);
       });
-    }
-    catch (e) {
+    } catch (e) {
       emit(ImageCaptureStateFailure('Camera not available'));
     }
   }
 
-  processImage (CameraImage img, int sensorOrientation) async {
+  processImage(CameraImage img, int sensorOrientation) async {
     if (isProcessing) return;
     isProcessing = true;
     final WriteBuffer allBytes = WriteBuffer();
@@ -87,7 +86,8 @@ class ImageCaptureCubit extends Cubit<ImageCaptureState> {
       format: inputImageFormat,
       bytesPerRow: planeData,
     );
-    InputImage image = InputImage.fromBytes(bytes: bytes, metadata: inputImageData);
+    InputImage image =
+        InputImage.fromBytes(bytes: bytes, metadata: inputImageData);
     detectEyePresence(image);
   }
 
@@ -97,14 +97,13 @@ class ImageCaptureCubit extends Cubit<ImageCaptureState> {
       if (faces!.isEmpty) {
         emit(ImageCaptureStateInitial());
         emit(ImageCaptureStateLoaded(true, 1));
-      }
-      else {
+      } else {
         emit(ImageCaptureStateInitial());
         for (Face face in faces) {
-          if (face.leftEyeOpenProbability! < 0.2 || face.rightEyeOpenProbability! < 0.2) {
+          if (face.leftEyeOpenProbability! < 0.2 ||
+              face.rightEyeOpenProbability! < 0.2) {
             emit(ImageCaptureStateLoaded(true, 0));
-          }
-          else {
+          } else {
             emit(ImageCaptureStateLoaded(false, 1));
           }
         }
@@ -135,7 +134,7 @@ class ImageCaptureCubit extends Cubit<ImageCaptureState> {
     await cameraController.dispose();
     _cameras = await availableCameras();
     final frontCamera = _cameras.firstWhere(
-          (camera) => camera.lensDirection == CameraLensDirection.front,
+      (camera) => camera.lensDirection == CameraLensDirection.front,
       orElse: () => _cameras.first,
     );
     cameraController = CameraController(
@@ -151,7 +150,7 @@ class ImageCaptureCubit extends Cubit<ImageCaptureState> {
     for (Face face in faces!) {
       final FaceLandmark? leftEye = face.landmarks[FaceLandmarkType.leftEye];
       final FaceLandmark? rightEye = face.landmarks[FaceLandmarkType.rightEye];
-       await cropImage(leftEye!.position, rightEye!.position, imageFile);
+      await cropImage(leftEye!.position, rightEye!.position, imageFile);
     }
   }
 
@@ -164,26 +163,27 @@ class ImageCaptureCubit extends Cubit<ImageCaptureState> {
       final List<Face>? faces = await faceDetector?.processImage(eyeImage);
       if (faces != null) {
         for (Face face in faces) {
-          final FaceLandmark? leftEye = face.landmarks[FaceLandmarkType.leftEye];
-          final FaceLandmark? rightEye = face.landmarks[FaceLandmarkType.rightEye];
+          final FaceLandmark? leftEye =
+              face.landmarks[FaceLandmarkType.leftEye];
+          final FaceLandmark? rightEye =
+              face.landmarks[FaceLandmarkType.rightEye];
           if (leftEye != null && rightEye != null) {
             await cropImage(leftEye.position, rightEye.position, image);
-          }
-          else {
+          } else {
             emit(ImageCaptureStateFailure('Error'));
           }
         }
-      }
-      else {
+      } else {
         emit(ImageCaptureStateFailure('Error'));
       }
-    }
-    catch (e) {
+    } catch (e) {
       emit(ImageCaptureStateFailure('Error'));
     }
   }
 
-  Future<void> cropImage(Point<int> leftEyePosition, Point<int> rightEyePosition, XFile faceImage, {int cropWidth = 250, int cropHeight = 250}) async {
+  Future<void> cropImage(
+      Point<int> leftEyePosition, Point<int> rightEyePosition, XFile faceImage,
+      {int cropWidth = 250, int cropHeight = 250}) async {
     Uint8List imageBytes = await File(faceImage.path).readAsBytes();
     img.Image? originalImage = img.decodeImage(imageBytes);
 
@@ -195,47 +195,57 @@ class ImageCaptureCubit extends Cubit<ImageCaptureState> {
     final int rightX = rightEyePosition.x.clamp(0, faceImageWidth - 1);
     final int rightY = rightEyePosition.y.clamp(0, faceImageHeight - 1);
 
-    final int leftCropX = (leftX - cropWidth ~/ 2).clamp(0, faceImageWidth - cropWidth);
-    final int leftCropY = (leftY - cropHeight ~/ 2).clamp(0, faceImageHeight - cropHeight);
-    final int rightCropX = (rightX - cropWidth ~/ 2).clamp(0, faceImageWidth - cropWidth);
-    final int rightCropY = (rightY - cropHeight ~/ 2).clamp(0, faceImageHeight - cropHeight);
+    final int leftCropX =
+        (leftX - cropWidth ~/ 2).clamp(0, faceImageWidth - cropWidth);
+    final int leftCropY =
+        (leftY - cropHeight ~/ 2).clamp(0, faceImageHeight - cropHeight);
+    final int rightCropX =
+        (rightX - cropWidth ~/ 2).clamp(0, faceImageWidth - cropWidth);
+    final int rightCropY =
+        (rightY - cropHeight ~/ 2).clamp(0, faceImageHeight - cropHeight);
 
-    img.Image leftCroppedImage = img.copyCrop(originalImage!, x: leftCropX, y: leftCropY, width: cropWidth, height: cropHeight);
-    img.Image rightCroppedImage = img.copyCrop(originalImage, x: rightCropX, y: rightCropY, width: cropWidth, height: cropHeight);
+    img.Image leftCroppedImage = img.copyCrop(originalImage!,
+        x: leftCropX, y: leftCropY, width: cropWidth, height: cropHeight);
+    img.Image rightCroppedImage = img.copyCrop(originalImage,
+        x: rightCropX, y: rightCropY, width: cropWidth, height: cropHeight);
 
     leftCroppedImage = img.adjustColor(leftCroppedImage, brightness: 1.0);
     rightCroppedImage = img.adjustColor(rightCroppedImage, brightness: 1.0);
 
     String newPathLeft = faceImage.path.replaceAll('.jpg', '_left_cropped.jpg');
-    String newPathRight = faceImage.path.replaceAll('.jpg', '_right_cropped.jpg');
+    String newPathRight =
+        faceImage.path.replaceAll('.jpg', '_right_cropped.jpg');
     File(newPathLeft).writeAsBytesSync(img.encodeJpg(leftCroppedImage));
     File(newPathRight).writeAsBytesSync(img.encodeJpg(rightCroppedImage));
     XFile leftEyeXFile = XFile(newPathLeft);
     XFile rightEyeXFile = XFile(newPathRight);
 
-    emit(ImagesCropped(leftEyeXFile, rightEyeXFile,));
+    emit(ImagesCropped(
+      leftEyeXFile,
+      rightEyeXFile,
+    ));
     isCapturing = false;
   }
 
   Future<bool> downloadFile(String path, String suggestedName) async {
-    final params = SaveFileDialogParams(sourceFilePath: path, fileName: suggestedName);
+    final params =
+        SaveFileDialogParams(sourceFilePath: path, fileName: suggestedName);
     final filePath = await FlutterFileDialog.saveFile(params: params);
     if (filePath != null) {
       return true;
-    }
-    else {
+    } else {
       return false;
     }
   }
 
-  Future<void> uploadImageToServer(XFile leftEye, XFile rightEye) async{
+  Future<void> uploadImageToServer(XFile leftEye, XFile rightEye) async {
     String leftEyeBase64 = await imageToBase64(leftEye);
     String rightEyeBase64 = await imageToBase64(rightEye);
     Map<String, dynamic> payload = {
       'left_eye': leftEyeBase64,
       'right_eye': rightEyeBase64,
     };
-    try{
+    try {
       var response = await http.post(
         Uri.parse('http://192.168.18.32:8000/predict'),
         headers: {"Content-Type": "application/json"},
@@ -245,12 +255,10 @@ class ImageCaptureCubit extends Cubit<ImageCaptureState> {
         var data = jsonDecode(response.body);
         DiseaseResultModel result = DiseaseResultModel.fromJson(data);
         globalResults.add(result);
-      }
-      else{
+      } else {
         debugPrint("Nothing ${response.statusCode}");
       }
-    }
-    catch(e) {
+    } catch (e) {
       debugPrint('error $e');
     }
   }
