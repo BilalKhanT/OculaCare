@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../../data/repositories/local/preferences/shared_prefs.dart';
+import '../../widgets/need_to_setup_profile_widget.dart';
 import 'custom_therapy_tile.dart';
 import 'therapy_model.dart';
 
@@ -28,6 +30,16 @@ class GeneralEyeExercises extends StatelessWidget {
             therapy: therapy,
             screenHeight: screenHeight,
             onTap: () {
+              if (!sharedPrefs.isProfileSetup) {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return const Dialog(
+                        child: NeedToSetupProfileWidget());
+                  },
+                );
+                return;
+              }
               showModalBottomSheet(
                 context: context,
                 isScrollControlled: true,
