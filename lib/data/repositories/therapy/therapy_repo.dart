@@ -1,9 +1,9 @@
 import 'dart:convert';
-import 'package:OculaCare/data/models/therapy/therapy_results_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:nb_utils/nb_utils.dart';
 
 import '../../../configs/global/app_globals.dart';
+import '../../models/therapy/therapy_results_model.dart';
 
 class TherapyRepository {
   final String addTherapyUrl = '$ipServer/api/therapy/save';
