@@ -9,5 +9,3 @@ class TestMoreCubit extends Cubit<TestMoreState> {
     emit(TestMoreToggled(flag));
   }
 }
-
-
