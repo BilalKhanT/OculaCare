@@ -1,12 +1,14 @@
-import 'package:OculaCare/logic/sign_up_cubit/sign_up_cubit.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:OculaCare/configs/presentation/constants/colors.dart';
-import 'package:OculaCare/configs/routes/route_names.dart';
+
+import '../../configs/presentation/constants/colors.dart';
+import '../../configs/routes/route_names.dart';
 import '../../logic/onboarding/onboarding_cubit.dart';
 import '../../logic/onboarding/onboarding_state.dart';
+import '../../logic/sign_up_cubit/sign_up_cubit.dart';
 
 class OnBoardingView extends StatelessWidget {
   const OnBoardingView({super.key});
