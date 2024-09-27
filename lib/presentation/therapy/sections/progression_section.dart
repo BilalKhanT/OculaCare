@@ -32,7 +32,8 @@ class ProgressionSection extends StatelessWidget {
           content = Column(
             children: [
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 60.0, vertical: 10.0),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 60.0, vertical: 10.0),
                 child: Shimmer.fromColors(
                   baseColor: Colors.grey[300]!,
                   highlightColor: Colors.grey[100]!,
@@ -45,7 +46,8 @@ class ProgressionSection extends StatelessWidget {
               ),
               SizedBox(height: screenHeight * 0.02),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 60.0, vertical: 10.0),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 60.0, vertical: 10.0),
                 child: Shimmer.fromColors(
                   baseColor: Colors.grey[300]!,
                   highlightColor: Colors.grey[100]!,
@@ -58,8 +60,7 @@ class ProgressionSection extends StatelessWidget {
               ),
             ],
           );
-        }
-        else if (state is TherapyProgressionLoaded) {
+        } else if (state is TherapyProgressionLoaded) {
           content = Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -77,12 +78,12 @@ class ProgressionSection extends StatelessWidget {
                   fontWeight: FontWeight.w800,
                   fontSize: screenWidth * 0.045,
                   color: AppColors.appColor,
-
                 ),
               ),
               SizedBox(height: screenHeight * 0.02),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 30.0, vertical: 10.0),
                 child: Container(
                   decoration: BoxDecoration(
                     color: AppColors.whiteColor,
@@ -93,8 +94,7 @@ class ProgressionSection extends StatelessWidget {
               ),
             ],
           );
-        }
-        else if (state is TherapyProgressError) {
+        } else if (state is TherapyProgressError) {
           content = Center(
             child: Text(
               state.therapyProgressErr,
@@ -104,8 +104,7 @@ class ProgressionSection extends StatelessWidget {
               ),
             ),
           );
-        }
-        else if (state is TherapyProgressionEmpty) {
+        } else if (state is TherapyProgressionEmpty) {
           content = const Center(
             child: Text(
               'No Data Available',
@@ -115,8 +114,7 @@ class ProgressionSection extends StatelessWidget {
               ),
             ),
           );
-        }
-        else {
+        } else {
           content = const Center(
             child: Text(
               'No Data Available',
