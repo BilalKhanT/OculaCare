@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -192,10 +191,10 @@ class SnellanChart extends StatelessWidget {
             } else if (state is SnellanTestNext) {
               return Center(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 40.0),
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
+                padding: const EdgeInsets.symmetric(vertical: 40.0),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
                       Text(
                         state.alphabets[state.index],
                         style: TextStyle(
@@ -226,7 +225,8 @@ class SnellanChart extends StatelessWidget {
                                         true);
                                   } else {
                                     if (context.mounted) {
-                                      await context.read<SnellanTestCubit>()
+                                      await context
+                                          .read<SnellanTestCubit>()
                                           .moveNext(result);
                                     }
                                   }
@@ -256,7 +256,7 @@ class SnellanChart extends StatelessWidget {
                                     color: AppColors.appColor,
                                   ),
                                   child: Center(
-                                    child:  SvgPicture.asset(
+                                    child: SvgPicture.asset(
                                       "assets/svgs/mic.svg",
                                       // ignore: deprecated_member_use
                                       color: Colors.white,
@@ -271,7 +271,7 @@ class SnellanChart extends StatelessWidget {
                         },
                       )
                     ]),
-                  ));
+              ));
             } else if (state is SnellanTestCompleted) {
               return Center(
                 child: Column(
