@@ -7,7 +7,6 @@ import 'package:OculaCare/logic/otp_cubit/otp_cubit.dart';
 import '../../../configs/presentation/constants/colors.dart';
 import '../../../logic/sign_up_cubit/sign_up_cubit.dart';
 import '../../../logic/sign_up_cubit/sign_up_pass_cubit.dart';
-import '../../../logic/sign_up_cubit/sign_up_state.dart';
 import 'cstm_flat_btn.dart';
 
 class SignUpForm extends StatelessWidget {
