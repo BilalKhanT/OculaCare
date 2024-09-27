@@ -15,6 +15,7 @@ import 'package:OculaCare/logic/sign_up_cubit/sign_up_pass_cubit.dart';
 import 'package:OculaCare/logic/tests/color_tests/radio_btn_cubit.dart';
 import 'package:OculaCare/logic/tests/test_progression_cubit.dart';
 import 'package:OculaCare/logic/tests/vision_tests/animal_track_score_cubit.dart';
+import 'package:OculaCare/logic/tests/vision_tests/stt_cubit.dart';
 import 'package:OculaCare/logic/therapy_cubit/therapy_feedback_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -165,6 +166,9 @@ class ProvideMultiBloc extends StatelessWidget {
       ),
       BlocProvider(
         create: (context) => OnBoardingCubit(),
+      ),
+      BlocProvider(
+        create: (context) => SttCubit(),
       ),
       BlocProvider(
         create: (context) =>
