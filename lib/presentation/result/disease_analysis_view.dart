@@ -1,10 +1,10 @@
-import 'package:OculaCare/data/models/disease_result/disease_result_model.dart';
-import 'package:OculaCare/presentation/result/widgets/probability_chart.dart';
+import 'package:cculacare/presentation/result/widgets/probability_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../configs/presentation/constants/colors.dart';
+import '../../data/models/disease_result/disease_result_model.dart';
 
 class DiseaseAnalysisView extends StatelessWidget {
   final DiseaseResultModel result;
