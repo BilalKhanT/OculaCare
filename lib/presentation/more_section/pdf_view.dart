@@ -1,5 +1,4 @@
 import 'package:OculaCare/configs/presentation/constants/colors.dart';
-import 'package:OculaCare/configs/routes/route_names.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,11 +18,13 @@ class PDFViewScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.screenBackground,
       appBar: AppBar(
+        backgroundColor: AppColors.screenBackground,
         title: Text(
-          "Document",
+          "Leaflets",
           style: TextStyle(
-            fontFamily: 'Poppins',
+            fontFamily: 'MontserratMedium',
             fontWeight: FontWeight.w800,
             fontSize: 18.sp,
           ),
