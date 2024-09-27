@@ -70,9 +70,11 @@ class ForgotPasswordForm extends StatelessWidget {
                 if (!check) {
                   return;
                 }
-                context.read<OtpCubit>().sendRecoveryOTP(loginCubit.recoveryEmailController.text.trim());
-                loginCubit.recoveryEmailController.clear();
-                context.push(RouteNames.otpRoute, extra: 'recover');
+                if (context.mounted) {
+                  context.read<OtpCubit>().sendRecoveryOTP(loginCubit.recoveryEmailController.text.trim());
+                  loginCubit.recoveryEmailController.clear();
+                  context.push(RouteNames.otpRoute, extra: 'recover');
+                }
               },
               text: 'Submit Email',
               btnColor: AppColors.appColor,
