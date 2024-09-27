@@ -1,10 +1,10 @@
-import 'package:OculaCare/logic/patient_profile/patient_profile_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 import '../../configs/routes/route_names.dart';
+import '../../logic/patient_profile/patient_profile_cubit.dart';
 
 class NeedToSetupProfileWidget extends StatelessWidget {
   const NeedToSetupProfileWidget(
