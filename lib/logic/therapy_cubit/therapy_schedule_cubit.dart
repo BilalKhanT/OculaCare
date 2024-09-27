@@ -13,19 +13,16 @@ class TherapyScheduleCubit extends Cubit<TherapyScheduleState> {
     controller.clear();
   }
 
-  Future<bool> scheduleTherapy(Map<String, dynamic> therapy, DateTime scheduledTime) async {
+  Future<bool> scheduleTherapy(
+      Map<String, dynamic> therapy, DateTime scheduledTime) async {
     emit(TherapyScheduleLoading());
 
     String category = therapy['category'] ?? 'Disease Specific';
     String therapyName = therapy['title'] ?? 'Unknown Therapy';
 
     await Future.delayed(const Duration(seconds: 1));
-    await NotificationService.scheduleTherapyNotification(
-        therapyName,
-        'You need to attend $therapyName therapy.',
-        scheduledTime,
-        category
-    );
+    await NotificationService.scheduleTherapyNotification(therapyName,
+        'You need to attend $therapyName therapy.', scheduledTime, category);
 
     clearController();
     emit(TherapyScheduledSuccessfully(therapyName, scheduledTime));
@@ -36,7 +33,8 @@ class TherapyScheduleCubit extends Cubit<TherapyScheduleState> {
     List<Map<String, String>> generalTherapies = [];
     emit(TherapyScheduleLoading());
 
-    final List<Map<String, String>> therapyNotifications = await NotificationService.getScheduledTherapyNotifications();
+    final List<Map<String, String>> therapyNotifications =
+        await NotificationService.getScheduledTherapyNotifications();
 
     if (therapyNotifications.isNotEmpty) {
       for (var scheduled in therapyNotifications) {
@@ -45,7 +43,8 @@ class TherapyScheduleCubit extends Cubit<TherapyScheduleState> {
           if (DateTime.now().isBefore(scheduledTime)) {
             generalTherapies.add(scheduled);
           } else {
-            await NotificationService.removeScheduledTherapyNotification(int.parse(scheduled['id']!));
+            await NotificationService.removeScheduledTherapyNotification(
+                int.parse(scheduled['id']!));
           }
         }
       }
@@ -59,7 +58,8 @@ class TherapyScheduleCubit extends Cubit<TherapyScheduleState> {
     List<Map<String, String>> diseaseTherapies = [];
     emit(TherapyScheduleLoading());
 
-    final List<Map<String, String>> therapyNotifications = await NotificationService.getScheduledTherapyNotifications();
+    final List<Map<String, String>> therapyNotifications =
+        await NotificationService.getScheduledTherapyNotifications();
 
     if (therapyNotifications.isNotEmpty) {
       for (var scheduled in therapyNotifications) {
@@ -68,7 +68,8 @@ class TherapyScheduleCubit extends Cubit<TherapyScheduleState> {
           if (DateTime.now().isBefore(scheduledTime)) {
             diseaseTherapies.add(scheduled);
           } else {
-            await NotificationService.removeScheduledTherapyNotification(int.parse(scheduled['id']!));
+            await NotificationService.removeScheduledTherapyNotification(
+                int.parse(scheduled['id']!));
           }
         }
       }
@@ -83,17 +84,16 @@ class TherapyScheduleCubit extends Cubit<TherapyScheduleState> {
     await NotificationService.cancelTherapyNotification(int.parse(id));
     if (flag) {
       loadGeneralTherapies();
-    }
-    else {
+    } else {
       loadDiseaseSpecificTherapies();
     }
   }
 
-
   Future<void> loadScheduledTherapies() async {
     List<Map<String, String>> result = [];
     emit(TherapyScheduleLoading());
-    final List<Map<String, String>> therapyNotifications = await NotificationService.getScheduledTherapyNotifications();
+    final List<Map<String, String>> therapyNotifications =
+        await NotificationService.getScheduledTherapyNotifications();
 
     if (therapyNotifications.isNotEmpty) {
       for (var scheduled in therapyNotifications) {
@@ -102,7 +102,8 @@ class TherapyScheduleCubit extends Cubit<TherapyScheduleState> {
           if (DateTime.now().isBefore(scheduledTime)) {
             result.add(scheduled);
           } else {
-            await NotificationService.removeScheduledTherapyNotification(int.parse(scheduled['id']!));
+            await NotificationService.removeScheduledTherapyNotification(
+                int.parse(scheduled['id']!));
           }
         }
       }
