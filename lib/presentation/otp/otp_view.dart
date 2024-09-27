@@ -1,16 +1,18 @@
-import 'package:OculaCare/configs/routes/route_names.dart';
-import 'package:OculaCare/configs/utils/utils.dart';
-import 'package:OculaCare/presentation/sign_up/widgets/cstm_flat_btn.dart';
-import 'package:OculaCare/presentation/widgets/cstm_loader.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:OculaCare/logic/otp_cubit/otp_cubit.dart';
-import 'package:OculaCare/logic/otp_cubit/otp_state.dart';
+
 import 'package:pinput/pinput.dart';
 import '../../configs/presentation/constants/colors.dart';
+import '../../configs/routes/route_names.dart';
+import '../../configs/utils/utils.dart';
 import '../../logic/login_cubit/login_cubit.dart';
+import '../../logic/otp_cubit/otp_cubit.dart';
+import '../../logic/otp_cubit/otp_state.dart';
+import '../sign_up/widgets/cstm_flat_btn.dart';
+import '../widgets/cstm_loader.dart';
 
 class OtpScreen extends StatelessWidget {
   const OtpScreen({Key? key, required this.flow}) : super(key: key);
