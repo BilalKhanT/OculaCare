@@ -1,9 +1,9 @@
-import 'package:OculaCare/configs/presentation/constants/colors.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:go_router/go_router.dart';
+import '../../configs/presentation/constants/colors.dart';
 import '../../logic/pdf_cubit/pdf_cubit_state.dart';
 
 // ignore: must_be_immutable
