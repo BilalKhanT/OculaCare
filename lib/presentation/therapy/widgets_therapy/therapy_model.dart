@@ -132,7 +132,7 @@ class TherapyModel extends StatelessWidget {
                             textColor: Colors.black,
                             onPress: () async {
                               DateTime? selectedDateTime = await _selectDateTime(context);
-                              if (selectedDateTime != null) {
+                              if (selectedDateTime != null && context.mounted) {
                                 context.read<TherapyScheduleCubit>().scheduleTherapy(
                                   therapy,
                                   selectedDateTime,
@@ -184,7 +184,7 @@ class TherapyModel extends StatelessWidget {
     if (date == null) return null;
 
     final TimeOfDay? time = await showTimePicker(
-      context: context,
+      context: context.mounted == true ? context : context,
       initialTime: TimeOfDay.fromDateTime(now),
       builder: (BuildContext context, Widget? child) {
         return Theme(
