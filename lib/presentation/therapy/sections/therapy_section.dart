@@ -9,7 +9,8 @@ class TherapySection extends StatelessWidget {
   final double screenHeight;
   final double screenWidth;
 
-  const TherapySection({super.key,
+  const TherapySection({
+    super.key,
     required this.selectedTherapyType,
     required this.screenHeight,
     required this.screenWidth,
@@ -38,9 +39,7 @@ class TherapySection extends StatelessWidget {
             screenHeight: screenHeight,
             screenWidth: screenWidth,
           ),
-
           SizedBox(height: screenHeight * 0.02),
-
           Padding(
             padding: const EdgeInsets.only(left: 5.0),
             child: Text(
