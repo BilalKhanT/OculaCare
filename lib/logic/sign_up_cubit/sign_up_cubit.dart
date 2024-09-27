@@ -41,7 +41,7 @@ class SignUpCubit extends Cubit<SignUpState> {
     }
   }
 
-  Future<bool> createUserWithGoogle() async{
+  Future<bool> createUserWithGoogle() async {
     emit(SignUpStateLoading());
     try {
       await googleSignIn.signOut();
@@ -54,7 +54,8 @@ class SignUpCubit extends Cubit<SignUpState> {
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
-      final UserCredential authResult = await auth.signInWithCredential(credential);
+      final UserCredential authResult =
+          await auth.signInWithCredential(credential);
       final User? user = authResult.user;
       String? email = user?.email;
       String? name = user?.displayName;
@@ -62,13 +63,11 @@ class SignUpCubit extends Cubit<SignUpState> {
       if (flag == true) {
         emit(SignUpStateLoaded());
         return true;
-      }
-      else {
+      } else {
         emit(SignUpStateLoaded());
         return false;
       }
-    }
-    catch(e) {
+    } catch (e) {
       emit(SignUpStateLoaded());
       log(e.toString());
       return false;
@@ -84,8 +83,10 @@ class SignUpCubit extends Cubit<SignUpState> {
 
       if (result.status == LoginStatus.success) {
         final AccessToken accessToken = result.accessToken!;
-        final AuthCredential credential = FacebookAuthProvider.credential(accessToken.token);
-        final UserCredential authResult = await auth.signInWithCredential(credential);
+        final AuthCredential credential =
+            FacebookAuthProvider.credential(accessToken.token);
+        final UserCredential authResult =
+            await auth.signInWithCredential(credential);
         final User? user = authResult.user;
         String? name = user?.displayName;
         final flag = await registerFacebookUser(name!);
@@ -110,9 +111,6 @@ class SignUpCubit extends Cubit<SignUpState> {
     }
   }
 
-
-
-
   Future<bool> registerGoogleUser(String email, String userName) async {
     try {
       var url = Uri.parse('$ipServer/api/patients/register-google');
@@ -131,11 +129,9 @@ class SignUpCubit extends Cubit<SignUpState> {
         sharedPrefs.userName = userName;
         sharedPrefs.password = '******';
         return true;
-      }
-      else if (response.statusCode == 409) {
+      } else if (response.statusCode == 409) {
         return false;
-      }
-      else {
+      } else {
         log('Server error with status code: ${response.statusCode}');
         return false;
       }
@@ -163,11 +159,9 @@ class SignUpCubit extends Cubit<SignUpState> {
         sharedPrefs.userName = userName;
         sharedPrefs.password = '******';
         return true;
-      }
-      else if (response.statusCode == 409) {
+      } else if (response.statusCode == 409) {
         return false;
-      }
-      else {
+      } else {
         log('Server error with status code: ${response.statusCode}');
         return false;
       }
@@ -176,5 +170,4 @@ class SignUpCubit extends Cubit<SignUpState> {
       return false;
     }
   }
-
 }
