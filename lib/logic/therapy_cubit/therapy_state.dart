@@ -1,6 +1,7 @@
 import 'dart:ui';
-import 'package:OculaCare/data/models/therapy/therapy_results_model.dart';
 import 'package:equatable/equatable.dart';
+
+import '../../data/models/therapy/therapy_results_model.dart';
 
 abstract class TherapyState extends Equatable {
   const TherapyState();
