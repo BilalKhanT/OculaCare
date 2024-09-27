@@ -1,4 +1,4 @@
-import 'package:OculaCare/configs/app/app_globals.dart';
+import 'package:OculaCare/configs/global/app_globals.dart';
 import 'package:OculaCare/data/models/disease_result/disease_result_model.dart';
 import 'package:OculaCare/logic/detection/detection_state.dart';
 import 'package:bloc/bloc.dart';
