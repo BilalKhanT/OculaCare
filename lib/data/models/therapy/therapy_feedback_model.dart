@@ -1,4 +1,4 @@
-import 'package:OculaCare/data/models/therapy/therapy_results_model.dart';
+import 'package:cculacare/data/models/therapy/therapy_results_model.dart';
 
 class TherapyFeedbackModel {
   final String email;
