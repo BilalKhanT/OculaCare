@@ -57,16 +57,19 @@ class ScheduledTests extends StatelessWidget {
                 return SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 5.0),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10.0, horizontal: 5.0),
                     child: Row(
                       children: [
                         _buildScheduleTab(
                           context,
                           'Vision Tests',
                           visionSelected,
-                              () {
+                          () {
                             context.read<ScheduleTabCubit>().toggleTab(0);
-                            context.read<ScheduleCubit>().loadVisionNotifications();
+                            context
+                                .read<ScheduleCubit>()
+                                .loadVisionNotifications();
                           },
                         ),
                         SizedBox(width: screenWidth * 0.02),
@@ -74,9 +77,11 @@ class ScheduledTests extends StatelessWidget {
                           context,
                           'Color Tests',
                           colorSelected,
-                              () {
+                          () {
                             context.read<ScheduleTabCubit>().toggleTab(1);
-                            context.read<ScheduleCubit>().loadColorNotifications();
+                            context
+                                .read<ScheduleCubit>()
+                                .loadColorNotifications();
                           },
                         ),
                       ],
@@ -223,21 +228,28 @@ class ScheduledTests extends StatelessWidget {
                                                   ),
                                                 ),
                                                 Padding(
-                                                  padding: const EdgeInsets.only(right: 10.0),
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          right: 10.0),
                                                   child: Container(
                                                     decoration: BoxDecoration(
-                                                      borderRadius: BorderRadius.circular(100.0),
-                                                      color: Colors.red.withOpacity(0.2),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              100.0),
+                                                      color: Colors.red
+                                                          .withOpacity(0.2),
                                                     ),
                                                     child: Padding(
-                                                      padding: const EdgeInsets.all(1.0),
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              1.0),
                                                       child: IconButton(
                                                         onPressed: () {
-                                                          Slidable.of(context)?.openEndActionPane();
+                                                          Slidable.of(context)
+                                                              ?.openEndActionPane();
                                                         },
-                                                        icon: const Icon(
-                                                            Icons
-                                                                .delete_outlined),
+                                                        icon: const Icon(Icons
+                                                            .delete_outlined),
                                                         color: Colors.red,
                                                         iconSize: 26,
                                                       ),
@@ -345,7 +357,8 @@ class ScheduledTests extends StatelessWidget {
                                                                     0.04,
                                                           ),
                                                         ),
-                                                        const SizedBox(height: 5),
+                                                        const SizedBox(
+                                                            height: 5),
                                                         Text(
                                                           'Time:',
                                                           style: TextStyle(
@@ -378,21 +391,28 @@ class ScheduledTests extends StatelessWidget {
                                                   ),
                                                 ),
                                                 Padding(
-                                                  padding: const EdgeInsets.only(right: 10.0),
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          right: 10.0),
                                                   child: Container(
                                                     decoration: BoxDecoration(
-                                                      borderRadius: BorderRadius.circular(100.0),
-                                                      color: Colors.red.withOpacity(0.2),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              100.0),
+                                                      color: Colors.red
+                                                          .withOpacity(0.2),
                                                     ),
                                                     child: Padding(
-                                                      padding: const EdgeInsets.all(5.0),
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              5.0),
                                                       child: IconButton(
                                                         onPressed: () {
-                                                          Slidable.of(context)?.openEndActionPane();
+                                                          Slidable.of(context)
+                                                              ?.openEndActionPane();
                                                         },
-                                                        icon: const Icon(
-                                                            Icons
-                                                                .delete_outlined),
+                                                        icon: const Icon(Icons
+                                                            .delete_outlined),
                                                         color: Colors.red,
                                                         iconSize: 32,
                                                       ),
@@ -421,13 +441,15 @@ class ScheduledTests extends StatelessWidget {
       ),
     );
   }
+
   Widget _buildScheduleTab(
       BuildContext context, String title, bool isSelected, Function onTap) {
     return GestureDetector(
       onTap: () => onTap(),
       child: Container(
         decoration: BoxDecoration(
-          color: isSelected ? AppColors.appColor.withOpacity(0.85) : Colors.white,
+          color:
+              isSelected ? AppColors.appColor.withOpacity(0.85) : Colors.white,
           borderRadius: BorderRadius.circular(25),
         ),
         padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 6.0),
