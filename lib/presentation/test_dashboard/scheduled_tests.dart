@@ -127,7 +127,7 @@ class ScheduledTests extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              SizedBox(height: screenHeight * 0.05),
+                              SizedBox(height: screenHeight * 0.02),
                               SizedBox(
                                 height: screenHeight * 0.7,
                                 child: ListView.builder(
@@ -230,7 +230,7 @@ class ScheduledTests extends StatelessWidget {
                                                       color: Colors.red.withOpacity(0.2),
                                                     ),
                                                     child: Padding(
-                                                      padding: const EdgeInsets.all(5.0),
+                                                      padding: const EdgeInsets.all(1.0),
                                                       child: IconButton(
                                                         onPressed: () {
                                                           Slidable.of(context)?.openEndActionPane();
@@ -239,7 +239,7 @@ class ScheduledTests extends StatelessWidget {
                                                             Icons
                                                                 .delete_outlined),
                                                         color: Colors.red,
-                                                        iconSize: 32,
+                                                        iconSize: 26,
                                                       ),
                                                     ),
                                                   ),

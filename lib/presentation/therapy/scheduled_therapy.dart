@@ -192,14 +192,14 @@ class ScheduledTherapies extends StatelessWidget {
                                                   color: Colors.red.withOpacity(0.2),
                                                 ),
                                                 child: Padding(
-                                                  padding: const EdgeInsets.all(5.0),
+                                                  padding: const EdgeInsets.all(2.0),
                                                   child: IconButton(
                                                     onPressed: () {
                                                       Slidable.of(context)?.openEndActionPane();
                                                     },
                                                     icon: const Icon(Icons.delete_outlined),
                                                     color: Colors.red,
-                                                    iconSize: 32,
+                                                    iconSize: 26,
                                                   ),
                                                 ),
                                               ),
