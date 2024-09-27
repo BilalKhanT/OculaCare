@@ -1,5 +1,4 @@
-import 'package:OculaCare/presentation/widgets/btn_flat.dart';
-import 'package:OculaCare/presentation/widgets/cstm_loader.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -13,6 +12,8 @@ import '../../../logic/keyboard_listener_cubit/keyboard_list_cubit.dart';
 import '../../../logic/keyboard_listener_cubit/keyboard_list_state.dart';
 import '../../../logic/therapy_cubit/therapy_feedback_cubit.dart';
 import '../../../logic/therapy_cubit/therapy_feedback_states.dart';
+import '../../widgets/btn_flat.dart';
+import '../../widgets/cstm_loader.dart';
 
 class TherapyFeedbackView extends StatelessWidget {
   final TherapyModel therapy;
