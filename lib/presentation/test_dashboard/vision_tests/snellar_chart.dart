@@ -217,14 +217,17 @@ class SnellanChart extends StatelessWidget {
                                   String result = await context
                                       .read<SttCubit>()
                                       .stopSpeaking();
-                                  if (result == '') {
+                                  if (result == '' && context.mounted) {
                                     AppUtils.showToast(
                                         context,
                                         'Speak Again',
                                         'An error occurred, please try again.',
                                         true);
                                   } else {
-                                    await context.read<SnellanTestCubit>().moveNext(result);
+                                    if (context.mounted) {
+                                      await context.read<SnellanTestCubit>()
+                                          .moveNext(result);
+                                    }
                                   }
                                 },
                                 child: Center(
