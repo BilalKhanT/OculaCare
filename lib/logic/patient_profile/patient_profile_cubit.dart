@@ -1,16 +1,16 @@
 import 'dart:convert';
 import 'dart:developer';
-import 'package:OculaCare/configs/utils/utils.dart';
-import 'package:OculaCare/data/models/address/address_model.dart';
-import 'package:OculaCare/data/repositories/local/preferences/shared_prefs.dart';
-import 'package:OculaCare/logic/patient_profile/patient_profile_state.dart';
 import 'package:bloc/bloc.dart';
+import 'package:cculacare/logic/patient_profile/patient_profile_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 
 import '../../configs/global/app_globals.dart';
+import '../../configs/utils/utils.dart';
+import '../../data/models/address/address_model.dart';
 import '../../data/models/patient/patient_model.dart';
+import '../../data/repositories/local/preferences/shared_prefs.dart';
 
 class PatientProfileCubit extends Cubit<PatientProfileState> {
   PatientProfileCubit() : super(PatientProfileStateInitial());
