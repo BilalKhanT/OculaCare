@@ -1,7 +1,7 @@
 
 import 'dart:convert';
 
-import 'package:OculaCare/configs/app/app_globals.dart';
+import 'package:OculaCare/configs/global/app_globals.dart';
 import 'package:OculaCare/data/models/disease_result/disease_result_model.dart';
 import 'package:flutter_file_dialog/flutter_file_dialog.dart';
 import 'dart:io';
