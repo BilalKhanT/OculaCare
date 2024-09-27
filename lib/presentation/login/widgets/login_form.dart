@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,7 +8,9 @@ import '../../sign_up/widgets/cstm_flat_btn.dart';
 import 'forgot_password_btn.dart';
 
 class LoginForm extends StatelessWidget {
-  const LoginForm({Key? key,}) : super(key: key);
+  const LoginForm({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -60,53 +61,55 @@ class LoginForm extends StatelessWidget {
             ),
             BlocBuilder<LoginPassCubit, LoginPassState>(
                 builder: (context, state) {
-                  return TextFormField(
-                    controller: loginCubit.passwordController,
-                    decoration: InputDecoration(
-                      prefixIcon: const Icon(
-                        Icons.lock_outline,
-                        color: AppColors.appColor,
-                      ),
-                      suffixIcon: IconButton(
-                        onPressed: () {
-                          context.read<LoginPassCubit>().togglePasswordVisibility();
-                        },
-                        icon: Icon(
-                          context.read<LoginPassCubit>().passwordToggle ? Icons.visibility_off : Icons.visibility,
-                          color: AppColors.appColor,
-                        ),
-                      ),
-                      hintText: 'Password',
-                      hintStyle: TextStyle(
-                        fontFamily: 'Montserrat',
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w100,
-                        color: AppColors.textGrey,
-                        letterSpacing: 1.0,
-                      ),
-                      focusedBorder: const UnderlineInputBorder(
-                        borderSide: BorderSide(color: AppColors.appColor),
-                      ),
-                    ),
-                    style: TextStyle(
-                      fontFamily: 'MontserratMedium',
-                      fontSize: 16.sp,
-                      color: Colors.black,
-                      letterSpacing: 1.0,
-                    ),
-                    obscureText: !context.read<LoginPassCubit>().passwordToggle,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter a password';
-                      }
-                      if (value.length < 6) {
-                        return 'Password must be at least 6 characters long';
-                      }
-                      loginCubit.passwordController.text = value;
-                      return null;
+              return TextFormField(
+                controller: loginCubit.passwordController,
+                decoration: InputDecoration(
+                  prefixIcon: const Icon(
+                    Icons.lock_outline,
+                    color: AppColors.appColor,
+                  ),
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      context.read<LoginPassCubit>().togglePasswordVisibility();
                     },
-                  );
-                }),
+                    icon: Icon(
+                      context.read<LoginPassCubit>().passwordToggle
+                          ? Icons.visibility_off
+                          : Icons.visibility,
+                      color: AppColors.appColor,
+                    ),
+                  ),
+                  hintText: 'Password',
+                  hintStyle: TextStyle(
+                    fontFamily: 'Montserrat',
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w100,
+                    color: AppColors.textGrey,
+                    letterSpacing: 1.0,
+                  ),
+                  focusedBorder: const UnderlineInputBorder(
+                    borderSide: BorderSide(color: AppColors.appColor),
+                  ),
+                ),
+                style: TextStyle(
+                  fontFamily: 'MontserratMedium',
+                  fontSize: 16.sp,
+                  color: Colors.black,
+                  letterSpacing: 1.0,
+                ),
+                obscureText: !context.read<LoginPassCubit>().passwordToggle,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter a password';
+                  }
+                  if (value.length < 6) {
+                    return 'Password must be at least 6 characters long';
+                  }
+                  loginCubit.passwordController.text = value;
+                  return null;
+                },
+              );
+            }),
             SizedBox(
               height: screenHeight * 0.03,
             ),
