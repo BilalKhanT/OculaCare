@@ -147,11 +147,15 @@ class ResetPasswordForm extends StatelessWidget {
                   return;
                 }
                 bool flag = await loginCubit.changePassword();
-                if (flag) {
+                if (flag && context.mounted) {
                   AppUtils.showToast(context, 'Password Changed Successfully', 'Your password has been changed successfully.', false);
                   context.read<LoginCubit>().loadLoginScreen();
                 } else {
-                  AppUtils.showToast(context, 'Server Error', 'Please try again later.', true);
+                  if (context.mounted) {
+                    AppUtils.showToast(
+                        context, 'Server Error', 'Please try again later.',
+                        true);
+                  }
                 }
               },
               text: 'Submit Password',
