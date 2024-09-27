@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:OculaCare/configs/presentation/constants/colors.dart';
+
+import '../../../configs/presentation/constants/colors.dart';
 
 class CustomTherapiesAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
