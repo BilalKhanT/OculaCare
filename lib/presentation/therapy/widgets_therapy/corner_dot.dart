@@ -15,10 +15,8 @@ class CornerDot extends StatelessWidget {
     return Stack(
       children: dotPositions.map((position) {
         return Positioned(
-          left: position.dx *
-              MediaQuery.of(context).size.width,
-          top: position.dy *
-              MediaQuery.of(context).size.height,
+          left: position.dx * MediaQuery.of(context).size.width,
+          top: position.dy * MediaQuery.of(context).size.height,
           child: AnimatedOpacity(
             opacity: dotOpacity,
             duration: const Duration(milliseconds: 500),
