@@ -3,26 +3,19 @@ import 'package:OculaCare/configs/global/app_globals.dart';
 import 'package:OculaCare/logic/tests/vision_tests/snellan_test_state.dart';
 import 'package:bloc/bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:nb_utils/nb_utils.dart';
-import 'package:speech_to_text/speech_to_text.dart' as stt;
-
 import '../../../data/models/api_response/response_model.dart';
 import '../../../data/models/tests/test_result_model.dart';
 import '../../../data/repositories/local/preferences/shared_prefs.dart';
 import '../../../data/repositories/tests/test_repo.dart';
 
 class SnellanTestCubit extends Cubit<SnellanTestState> {
-  SnellanTestCubit() : super(SnellanTestInitial()) {
-    _speech = stt.SpeechToText();
-  }
+  SnellanTestCubit() : super(SnellanTestInitial());
 
   final TestRepository testRepo = TestRepository();
   int initialIndex = 0;
   int subIndex = 0;
   int score = 0;
   int wrongGuesses = 0;
-  String recognizedText = "";
-  late stt.SpeechToText _speech;
   MlModel ml = MlModel();
   bool api = false;
 
@@ -42,12 +35,12 @@ class SnellanTestCubit extends Cubit<SnellanTestState> {
   List<List<String>> snellanList = [
     ['PR'],
     ['BK', 'LW'],
-    ['GF', 'OP', 'NL'],
+    ['AF', 'OP', 'GM'],
     ['FP', 'CN', 'LO', 'GR'],
-    ['DE', 'GC', 'AS', 'OP', 'ZY'],
+    ['AN', 'GC', 'AB', 'OP', 'ZY'],
     ['NX', 'ZS', 'PJ', 'VN', 'KP', 'AY'],
-    ['UK', 'MJ', 'EB', 'NJ', 'PR', 'LP', 'OC'],
-    ['IF', 'SV', 'MA', 'KX', 'ZM', 'PG', 'IK', 'OM'],
+    ['UK', 'MJ', 'PB', 'NJ', 'PR', 'LP', 'OC'],
+    ['IF', 'PV', 'MA', 'KM', 'ZM', 'PG', 'IB', 'OM'],
   ];
 
   Future<void> loadSnellanTest() async {
@@ -68,24 +61,7 @@ class SnellanTestCubit extends Cubit<SnellanTestState> {
     await Future.delayed(const Duration(seconds: 1));
     emit(SnellanTestNext(
         snellanList[initialIndex], subIndex, calculateFontSize()));
-    await initListening();
-  }
-
-  Future<void> initListening() async {
-    try {
-      bool available = await _speech.initialize(
-        onError: (val) => log("Error: $val"),
-        onStatus: (val) => log("Status: $val"),
-      );
-
-      if (available) {
-        startListening();
-      } else {
-        emit(SnellanTestError());
-      }
-    } catch (e) {
-      emit(SnellanTestError());
-    }
+    // await initListening();
   }
 
   String getCurrentDateString() {
@@ -95,27 +71,13 @@ class SnellanTestCubit extends Cubit<SnellanTestState> {
     return formattedDate;
   }
 
-  void startListening() {
-    _speech.listen(
-        onResult: (result) {
-          recognizedText = result.recognizedWords;
-        },
-        listenFor: const Duration(seconds: 6),
-        pauseFor: const Duration(seconds: 6),
-        listenOptions: stt.SpeechListenOptions(
-          partialResults: false,
-          cancelOnError: false,
-        ));
-
-    Future.delayed(const Duration(seconds: 6), () async {
-      await _speech.stop();
-      await nextRow(snellanList[initialIndex]);
-    });
+  Future<void> moveNext(String res) async {
+    await nextRow(snellanList[initialIndex], res);
   }
 
-  Future<void> nextRow(List<String> check) async {
+  Future<void> nextRow(List<String> check, String res) async {
     String normalizedRecognizedText =
-        recognizedText.replaceAll(' ', '').toUpperCase();
+        res.replaceAll(' ', '').toUpperCase();
     if (check.contains(normalizedRecognizedText)) {
       score += 1;
       wrongGuesses = 0;
@@ -141,7 +103,6 @@ class SnellanTestCubit extends Cubit<SnellanTestState> {
     if (subIndex < check.length) {
       emit(SnellanTestNext(
           snellanList[initialIndex], subIndex, calculateFontSize()));
-      await initListening();
     } else {
       initialIndex++;
       subIndex = 0;
@@ -149,7 +110,7 @@ class SnellanTestCubit extends Cubit<SnellanTestState> {
       if (initialIndex < snellanList.length) {
         emit(SnellanTestNext(
             snellanList[initialIndex], subIndex, calculateFontSize()));
-        await initListening();
+        // await initListening();
       } else {
         emit(SnellanTestAnalysing());
         String fraction = calculateVisionAcuity();
@@ -170,7 +131,6 @@ class SnellanTestCubit extends Cubit<SnellanTestState> {
   }
 
   Future<void> emitCompleted() async {
-    await _speech.stop();
     emit(const SnellanTestCompleted(0, ''));
   }
 
