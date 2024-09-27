@@ -34,7 +34,8 @@ class TherapyScreen extends StatelessWidget {
       child: BlocConsumer<TherapyCubit, TherapyState>(
         listener: (context, state) {
           if (state is TherapyCompleted) {
-            AppUtils.showToast(context, state.therapyTitle, "Therapy completed successfully!", false);
+            AppUtils.showToast(context, state.therapyTitle,
+                "Therapy completed successfully!", false);
           }
         },
         builder: (context, state) {
@@ -116,8 +117,7 @@ class TherapyScreen extends StatelessWidget {
               ),
             );
           } else if (state is TherapyDistanceGazingInProgress) {
-            return _buildDistanceGazingUI(
-                context, state);
+            return _buildDistanceGazingUI(context, state);
           } else if (state is TherapyYinYangAnimationInProgress) {
             return Scaffold(
               backgroundColor: AppColors.backgroundTherapy,
@@ -140,7 +140,8 @@ class TherapyScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  _buildInstructionsAndTimer(context, state.instructions, width),
+                  _buildInstructionsAndTimer(
+                      context, state.instructions, width),
                 ],
               ),
             );
@@ -245,7 +246,8 @@ class TherapyScreen extends StatelessWidget {
                             btnColor: AppColors.appColor,
                             textColor: AppColors.whiteColor,
                             onPress: () {
-                              context.push(RouteNames.therapyFeedbackRoute, extra: state.therapyModel);
+                              context.push(RouteNames.therapyFeedbackRoute,
+                                  extra: state.therapyModel);
                             },
                             text: "Submit Feedback"),
                       ),
