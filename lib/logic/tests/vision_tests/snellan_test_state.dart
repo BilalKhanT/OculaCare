@@ -36,5 +36,4 @@ class SnellanTestCompleted extends SnellanTestState {
   List<Object?> get props => [score, visionAcuity];
 }
 
-
 class SnellanTestError extends SnellanTestState {}
