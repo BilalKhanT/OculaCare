@@ -15,7 +15,6 @@ class TherapyFeedbackModel {
     this.customMessage,
   });
 
-
   factory TherapyFeedbackModel.fromJson(Map<String, dynamic> json) {
     return TherapyFeedbackModel(
       email: json['email'] ?? '',
@@ -25,7 +24,6 @@ class TherapyFeedbackModel {
       customMessage: json['customMessage'],
     );
   }
-
 
   Map<String, dynamic> toJson() {
     return {
