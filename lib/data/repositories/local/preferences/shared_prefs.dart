@@ -37,7 +37,6 @@ class SharedPrefs {
     _sharedPrefs?.setString('password', value);
   }
 
-
   String get userName => _sharedPrefs?.getString('userName') ?? '';
   set userName(String value) {
     _sharedPrefs?.setString('userName', value);
