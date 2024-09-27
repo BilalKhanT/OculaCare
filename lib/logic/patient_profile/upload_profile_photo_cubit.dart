@@ -22,7 +22,9 @@ class UploadProfilePhotoCubit extends Cubit<UploadProfilePhotoState> {
     if (pickedFile != null) {
       image = pickedFile;
       final base64Image = base64Encode(await File(pickedFile.path).readAsBytes());
-      context.read<PatientProfileCubit>().setImage(base64Image);
+      if (context.mounted) {
+        context.read<PatientProfileCubit>().setImage(base64Image);
+      }
       emit(UploadProfilePhotoStateLoaded(pickedFile));
     }
     else {
