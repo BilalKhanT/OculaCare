@@ -58,6 +58,7 @@ class LoginCubit extends Cubit<LoginState> {
             patient.profileImage != null) {
           sharedPrefs.isProfileSetup = true;
           sharedPrefs.userName = patient.username!;
+          sharedPrefs.email = patient.email!;
           String encodedPatient = jsonEncode(patient.toJson());
           sharedPrefs.patientData = encodedPatient;
         } else {
