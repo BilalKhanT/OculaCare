@@ -1,7 +1,6 @@
 import 'package:OculaCare/configs/utils/utils.dart';
 import 'package:OculaCare/logic/tests/vision_tests/stt_cubit.dart';
 import 'package:OculaCare/logic/tests/vision_tests/stt_state.dart';
-import 'package:OculaCare/presentation/test_dashboard/widgets/snellan_chart_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
