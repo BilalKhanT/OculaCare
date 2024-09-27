@@ -1,17 +1,17 @@
 import 'dart:convert';
 
-import 'package:OculaCare/configs/presentation/constants/colors.dart';
-import 'package:OculaCare/data/models/tests/test_result_model.dart';
-import 'package:OculaCare/presentation/test_dashboard/widgets/pdf_generator_test.dart';
-import 'package:OculaCare/presentation/test_dashboard/widgets/severity_chart.dart';
-import 'package:OculaCare/presentation/test_dashboard/widgets/snellan_chart_widget.dart';
+import 'package:cculacare/presentation/test_dashboard/widgets/pdf_generator_test.dart';
+import 'package:cculacare/presentation/test_dashboard/widgets/severity_chart.dart';
+import 'package:cculacare/presentation/test_dashboard/widgets/snellan_chart_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../configs/presentation/constants/colors.dart';
 import '../../../data/models/address/address_model.dart';
 import '../../../data/models/patient/patient_model.dart';
+import '../../../data/models/tests/test_result_model.dart';
 import '../../../data/repositories/local/preferences/shared_prefs.dart';
 import '../../../logic/tests/test_dash_tab_cubit.dart';
 
