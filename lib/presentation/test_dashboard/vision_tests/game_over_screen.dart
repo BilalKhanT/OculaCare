@@ -1,15 +1,16 @@
-import 'package:OculaCare/configs/presentation/constants/colors.dart';
-import 'package:OculaCare/presentation/test_dashboard/widgets/snellan_chart_widget.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../configs/presentation/constants/colors.dart';
 import '../../../configs/routes/route_names.dart';
 import '../../../logic/tests/test_cubit.dart';
 import '../../../logic/tests/vision_tests/animal_track_score_cubit.dart';
 import '../../../logic/tests/vision_tests/animal_track_score_state.dart';
 import '../../widgets/btn_flat.dart';
 import '../../widgets/cstm_loader.dart';
+import '../widgets/snellan_chart_widget.dart';
 
 class GameOverScreen extends StatelessWidget {
   final int score1;
