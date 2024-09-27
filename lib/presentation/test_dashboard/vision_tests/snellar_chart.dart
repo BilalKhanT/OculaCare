@@ -1,6 +1,4 @@
-import 'package:OculaCare/configs/utils/utils.dart';
-import 'package:OculaCare/logic/tests/vision_tests/stt_cubit.dart';
-import 'package:OculaCare/logic/tests/vision_tests/stt_state.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -8,11 +6,14 @@ import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 import '../../../configs/presentation/constants/colors.dart';
 import '../../../configs/routes/route_names.dart';
+import '../../../configs/utils/utils.dart';
 import '../../../logic/camera/camera_cubit.dart';
 import '../../../logic/tests/test_cubit.dart';
 import '../../../logic/tests/test_schedule_cubit.dart';
 import '../../../logic/tests/vision_tests/snellan_test_cubit.dart';
 import '../../../logic/tests/vision_tests/snellan_test_state.dart';
+import '../../../logic/tests/vision_tests/stt_cubit.dart';
+import '../../../logic/tests/vision_tests/stt_state.dart';
 import '../../widgets/btn_flat.dart';
 import '../../widgets/cstm_loader.dart';
 import '../../widgets/schedule_bottom_modal.dart';
