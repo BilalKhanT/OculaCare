@@ -1,4 +1,3 @@
-
 import 'package:audioplayers/audioplayers.dart';
 import 'package:bloc/bloc.dart';
 import 'package:intl/intl.dart';
@@ -131,8 +130,7 @@ class ContrastCubit extends Cubit<ContrastState> {
         api = false;
       }
       emit(ContrastGameOver(_score));
-    }
-    catch (e) {
+    } catch (e) {
       api = false;
       emit(ContrastGameOver(_score));
     }
@@ -159,5 +157,4 @@ class ContrastCubit extends Cubit<ContrastState> {
       return "Poor Contrast Sensitivity: You have difficulty distinguishing objects unless they are at very high contrast levels.";
     }
   }
-
 }
