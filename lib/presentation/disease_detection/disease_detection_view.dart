@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -61,7 +60,6 @@ class DiseaseDetectionScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-
                 SizedBox(
                   height: 10.h,
                 ),
@@ -84,11 +82,10 @@ class DiseaseDetectionScreen extends StatelessWidget {
                 Text(
                   'Detect Disease',
                   style: TextStyle(
-                    fontFamily: 'MontserratMedium',
-                    fontSize: 24.sp,
-                    color: AppColors.appColor,
-                    fontWeight: FontWeight.w800
-                  ),
+                      fontFamily: 'MontserratMedium',
+                      fontSize: 24.sp,
+                      color: AppColors.appColor,
+                      fontWeight: FontWeight.w800),
                 ),
                 const SizedBox(
                   height: 20,
