@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:OculaCare/logic/patient_profile/patient_profile_cubit.dart';
-import 'package:OculaCare/logic/patient_profile/upload_profile_photo_state.dart';
+import 'package:cculacare/logic/patient_profile/patient_profile_cubit.dart';
+import 'package:cculacare/logic/patient_profile/upload_profile_photo_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
