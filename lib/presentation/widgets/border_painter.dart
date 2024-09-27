@@ -7,8 +7,8 @@ class BorderPainter extends CustomPainter {
 
   BorderPainter(
       {this.color = Colors.white,
-        this.strokeWidth = 3,
-        this.strokeCap = StrokeCap.round});
+      this.strokeWidth = 3,
+      this.strokeCap = StrokeCap.round});
 
   @override
   void paint(Canvas canvas, Size size) {
