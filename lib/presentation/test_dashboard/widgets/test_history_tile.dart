@@ -70,8 +70,8 @@ class TestHistoryTile extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 5.0),
-                    Container(
-                      width: double.infinity, // Ensures the row takes full width
+                    SizedBox(
+                      width: double.infinity,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
