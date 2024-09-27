@@ -24,7 +24,6 @@ import 'package:OculaCare/presentation/home/home_view.dart';
 import 'package:OculaCare/presentation/img_capture/img_capture_view.dart';
 import 'package:OculaCare/presentation/onboarding/onboarding_view.dart';
 import 'package:OculaCare/presentation/sign_up/sign_up_view.dart';
-import '../../data/models/therapy/therapy_feedback_model.dart';
 import '../../data/models/therapy/therapy_results_model.dart';
 import '../../logic/tests/vision_tests/animal_track_cubit.dart';
 import '../../logic/tests/test_cubit.dart';
