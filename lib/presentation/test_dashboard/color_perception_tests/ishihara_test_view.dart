@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -102,7 +101,8 @@ class IshiharaScreen extends StatelessWidget {
                         color: Colors.black,
                         fontFamily: 'MontserratMedium',
                         fontWeight: FontWeight.w800,
-                        fontSize: screenWidth * 0.04,),
+                        fontSize: screenWidth * 0.04,
+                      ),
                     ),
                     SizedBox(height: screenHeight * 0.05),
                     Padding(
