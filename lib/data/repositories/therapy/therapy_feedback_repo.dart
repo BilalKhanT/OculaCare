@@ -4,7 +4,8 @@ import 'package:nb_utils/nb_utils.dart';
 import '../../models/therapy/therapy_feedback_model.dart';
 
 class TherapyFeedbackRepository {
-  final String apiUrl = 'https://oculacare-backend.onrender.com/api/therapyFeedback/submit';
+  final String apiUrl =
+      'https://oculacare-backend.onrender.com/api/therapyFeedback/submit';
 
   Future<bool> submitTherapyFeedback(TherapyFeedbackModel feedback) async {
     try {
@@ -15,7 +16,7 @@ class TherapyFeedbackRepository {
         body: jsonEncode(feedbackData),
       );
       if (response.statusCode == 201) {
-       return true;
+        return true;
       } else {
         return false;
       }
