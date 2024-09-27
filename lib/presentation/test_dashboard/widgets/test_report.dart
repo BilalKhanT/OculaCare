@@ -119,9 +119,11 @@ class TestReport extends StatelessWidget {
             ),
             child: SingleChildScrollView(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5.0),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 5, vertical: 5.0),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20.0),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 15, vertical: 20.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
@@ -131,8 +133,8 @@ class TestReport extends StatelessWidget {
                           Container(
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              border:
-                                  Border.all(color: AppColors.appColor, width: 1.5),
+                              border: Border.all(
+                                  color: AppColors.appColor, width: 1.5),
                             ),
                             child: ClipOval(
                               child: Container(
@@ -141,13 +143,13 @@ class TestReport extends StatelessWidget {
                                 color: Colors.white,
                                 child: patientData == ''
                                     ? Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: SvgPicture.asset(
-                                    "assets/svgs/account.svg",
-                                    // ignore: deprecated_member_use
-                                    color: Colors.grey.shade800,
-                                  ),
-                                )
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: SvgPicture.asset(
+                                          "assets/svgs/account.svg",
+                                          // ignore: deprecated_member_use
+                                          color: Colors.grey.shade800,
+                                        ),
+                                      )
                                     : Image.memory(
                                         base64Decode(patient.profileImage!),
                                         fit: BoxFit.cover,
@@ -173,7 +175,9 @@ class TestReport extends StatelessWidget {
                                   fontSize: screenWidth * 0.035,
                                 ),
                               ),
-                              SizedBox(height: screenHeight * 0.05,)
+                              SizedBox(
+                                height: screenHeight * 0.05,
+                              )
                             ],
                           ),
                         ],
@@ -250,7 +254,8 @@ class TestReport extends StatelessWidget {
                               ? Center(
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     children: [
                                       Image.asset(
                                         'assets/images/result_test.png',
