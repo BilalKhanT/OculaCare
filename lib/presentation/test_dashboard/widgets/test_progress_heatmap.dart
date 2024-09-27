@@ -1,6 +1,7 @@
-import 'package:OculaCare/configs/presentation/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
+
+import '../../../configs/presentation/constants/colors.dart';
 
 class ProgressCalendarScreen extends StatelessWidget {
   final Map<DateTime, int> data;
