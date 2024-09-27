@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'dart:developer';
-import 'package:OculaCare/configs/global/app_globals.dart';
-import 'package:OculaCare/data/repositories/local/preferences/shared_prefs.dart';
 import 'package:bloc/bloc.dart';
+import '../../configs/global/app_globals.dart';
+import '../../data/repositories/local/preferences/shared_prefs.dart';
 import 'otp_state.dart';
 import 'package:http/http.dart' as http;
 
