@@ -7,8 +7,7 @@ final List<Map<String, dynamic>> therapiesCataract = [
     "description": "Promotes circulation, reduces tension",
     "type": "instruction",
     "svgPath": "assets/images/cataracts/acupressure.png",
-    "sound":
-        "assets/audio/relaxing_breathing.mp3",
+    "sound": "assets/audio/relaxing_breathing.mp3",
     "benefits": [
       "Promotes circulation around the eyes",
       "Reduces eye tension",
@@ -49,7 +48,7 @@ final List<Map<String, dynamic>> therapiesCataract = [
       {
         "step": 2,
         "instruction":
-        "Find the point that is the width of 1 thumb behind that.",
+            "Find the point that is the width of 1 thumb behind that.",
         "svgPath": "assets/images/cataracts/step2.png",
         "duration": 10
       },
@@ -223,7 +222,8 @@ final List<Map<String, dynamic>> therapiesCataract = [
       },
       {
         "step": 4,
-        "instruction": "Now relax for 20 second and try this therapy 3 times a day.",
+        "instruction":
+            "Now relax for 20 second and try this therapy 3 times a day.",
         "svgPath": "assets/images/palming/palming.png",
         "duration": 20
       },
@@ -355,8 +355,7 @@ final List<Map<String, dynamic>> therapiesCataract = [
       {
         "step": 1,
         "instruction": "Roll your eyes in a circular motion.",
-        "svgPath":
-            "assets/images/eye_rolling/roll_eyes.png",
+        "svgPath": "assets/images/eye_rolling/roll_eyes.png",
         "duration": 10
       }
     ]
