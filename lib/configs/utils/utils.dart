@@ -17,15 +17,15 @@ abstract class AppUtils {
       direction: TextDirection.ltr,
       icon: isError
           ? const Icon(
-        Icons.cancel_outlined,
-        color: Colors.red,
-        size: 30,
-      )
+              Icons.cancel_outlined,
+              color: Colors.red,
+              size: 30,
+            )
           : const Icon(
-        Icons.check,
-        color: AppColors.appColor,
-        size: 30,
-      ),
+              Icons.check,
+              color: AppColors.appColor,
+              size: 30,
+            ),
       primaryColor: AppColors.appColor,
       backgroundColor: Colors.white,
       foregroundColor: AppColors.appColor,
