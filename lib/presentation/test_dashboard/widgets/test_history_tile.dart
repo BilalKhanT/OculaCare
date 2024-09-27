@@ -23,7 +23,7 @@ class TestHistoryTile extends StatelessWidget {
     double screenHeight = MediaQuery.sizeOf(context).height;
 
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10.0),
+      padding: const EdgeInsets.symmetric(vertical: 5.0),
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
