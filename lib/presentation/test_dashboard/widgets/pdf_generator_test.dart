@@ -66,30 +66,38 @@ class PdfReportGenerator {
             pw.SizedBox(height: 20),
             pw.Text('Name: $userName', style: const pw.TextStyle(fontSize: 16)),
             pw.Text('Date: $testDate', style: const pw.TextStyle(fontSize: 16)),
-            pw.Text('Test Type: $testType', style: const pw.TextStyle(fontSize: 16)),
+            pw.Text('Test Type: $testType',
+                style: const pw.TextStyle(fontSize: 16)),
             pw.SizedBox(height: 20),
-            pw.Text('Test Name: $testName', style: const pw.TextStyle(fontSize: 16)),
+            pw.Text('Test Name: $testName',
+                style: const pw.TextStyle(fontSize: 16)),
             pw.SizedBox(height: 20),
             _buildScoreWidget(testScore),
             pw.SizedBox(height: 20),
             pw.Text(
               'Analysis:',
               style: pw.TextStyle(
-                  fontSize: 18, fontWeight: pw.FontWeight.bold, color: PdfColors.blue),
+                  fontSize: 18,
+                  fontWeight: pw.FontWeight.bold,
+                  color: PdfColors.blue),
             ),
             pw.Text(analysis, style: const pw.TextStyle(fontSize: 14)),
             pw.SizedBox(height: 20),
             pw.Text(
               'Recommendations:',
               style: pw.TextStyle(
-                  fontSize: 18, fontWeight: pw.FontWeight.bold, color: PdfColors.blue),
+                  fontSize: 18,
+                  fontWeight: pw.FontWeight.bold,
+                  color: PdfColors.blue),
             ),
             pw.Text(recommendations, style: const pw.TextStyle(fontSize: 14)),
             pw.SizedBox(height: 20),
             pw.Text(
               'Impacts:',
               style: pw.TextStyle(
-                  fontSize: 18, fontWeight: pw.FontWeight.bold, color: PdfColors.blue),
+                  fontSize: 18,
+                  fontWeight: pw.FontWeight.bold,
+                  color: PdfColors.blue),
             ),
             pw.Text(impacts, style: const pw.TextStyle(fontSize: 14)),
           ];
@@ -118,7 +126,13 @@ class PdfReportGenerator {
               width: 120,
               decoration: pw.BoxDecoration(
                 shape: pw.BoxShape.circle,
-                color: score >= 8 ? PdfColors.green100 : score >= 6 ? PdfColors.yellow100 : score >= 3 ? PdfColors.orange100 : PdfColors.red100,
+                color: score >= 8
+                    ? PdfColors.green100
+                    : score >= 6
+                        ? PdfColors.yellow100
+                        : score >= 3
+                            ? PdfColors.orange100
+                            : PdfColors.red100,
               ),
             ),
             pw.Text(
@@ -126,7 +140,13 @@ class PdfReportGenerator {
               style: pw.TextStyle(
                 fontSize: 40,
                 fontWeight: pw.FontWeight.bold,
-                color: score >= 8 ? PdfColors.green900 : score >= 6 ? PdfColors.yellow900 : score >= 3 ? PdfColors.orange900 : PdfColors.red900,
+                color: score >= 8
+                    ? PdfColors.green900
+                    : score >= 6
+                        ? PdfColors.yellow900
+                        : score >= 3
+                            ? PdfColors.orange900
+                            : PdfColors.red900,
               ),
             ),
           ],
