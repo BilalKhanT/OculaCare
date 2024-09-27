@@ -9,7 +9,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
 import 'package:nb_utils/nb_utils.dart';
-import '../../configs/app/app_globals.dart';
+import '../../configs/global/app_globals.dart';
 import '../../data/repositories/local/preferences/shared_prefs.dart';
 
 class SignUpCubit extends Cubit<SignUpState> {
