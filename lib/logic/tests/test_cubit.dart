@@ -1,10 +1,12 @@
-import 'package:OculaCare/configs/global/app_globals.dart';
-import 'package:OculaCare/data/models/tests/test_result_model.dart';
-import 'package:OculaCare/data/repositories/local/preferences/shared_prefs.dart';
-import 'package:OculaCare/data/repositories/tests/test_repo.dart';
-import 'package:OculaCare/logic/tests/test_state.dart';
+
 import 'package:bloc/bloc.dart';
+import 'package:cculacare/logic/tests/test_state.dart';
 import 'package:intl/intl.dart';
+
+import '../../configs/global/app_globals.dart';
+import '../../data/models/tests/test_result_model.dart';
+import '../../data/repositories/local/preferences/shared_prefs.dart';
+import '../../data/repositories/tests/test_repo.dart';
 
 class TestCubit extends Cubit<TestState> {
   TestCubit() : super(TestInitial());
