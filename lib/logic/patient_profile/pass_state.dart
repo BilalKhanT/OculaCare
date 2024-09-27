@@ -1,7 +1,6 @@
 import 'package:equatable/equatable.dart';
 
 abstract class PassState extends Equatable {
-
   const PassState();
 
   @override
