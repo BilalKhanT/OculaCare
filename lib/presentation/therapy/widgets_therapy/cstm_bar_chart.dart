@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
-import '../../../configs/app/app_globals.dart';
+import '../../../configs/global/app_globals.dart';
 import '../../../configs/presentation/constants/colors.dart';
 
 class TherapyBarChart extends StatelessWidget {
