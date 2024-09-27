@@ -96,7 +96,9 @@ class LocationSetView extends StatelessWidget {
                         await context
                             .read<PatientProfileCubit>()
                             .setCoordinates(lat, long);
-                        context.pop();
+                        if (context.mounted) {
+                          context.pop();
+                        }
                       },
                       child: Container(
                         decoration: BoxDecoration(
