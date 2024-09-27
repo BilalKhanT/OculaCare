@@ -37,29 +37,27 @@ class TestTile extends StatelessWidget {
                 Row(
                   children: <Widget>[
                     ClipRRect(
-                            borderRadius: BorderRadius.circular(7.0),
-                            child: Container(
-                              height: screenHeight * 0.07,
-                              width: screenHeight * 0.07,
-                              color: avatarColor,
-                              child: image ==
-                                          'assets/images/isihara_test.png' ||
-                                      image ==
-                                          'assets/images/snellan_test.png' ||
-                                      image == 'assets/images/drag_test.png'
-                                  ? Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Image.asset(
-                                        image,
-                                        fit: BoxFit.cover,
-                                      ),
-                                    )
-                                  : Image.asset(
-                                      image,
-                                      fit: BoxFit.cover,
-                                    ),
-                            ),
-                          ),
+                      borderRadius: BorderRadius.circular(7.0),
+                      child: Container(
+                        height: screenHeight * 0.07,
+                        width: screenHeight * 0.07,
+                        color: avatarColor,
+                        child: image == 'assets/images/isihara_test.png' ||
+                                image == 'assets/images/snellan_test.png' ||
+                                image == 'assets/images/drag_test.png'
+                            ? Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Image.asset(
+                                  image,
+                                  fit: BoxFit.cover,
+                                ),
+                              )
+                            : Image.asset(
+                                image,
+                                fit: BoxFit.cover,
+                              ),
+                      ),
+                    ),
                     const SizedBox(
                       width: 15.0,
                     ),
