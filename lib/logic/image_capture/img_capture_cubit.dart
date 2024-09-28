@@ -194,6 +194,53 @@ class ImageCaptureCubit extends Cubit<ImageCaptureState> {
     }
   }
 
+  Future<void> cropImageWithBoundingBox(
+      Point<int> leftEyePosition, Point<int> rightEyePosition, XFile faceImage,
+      {int padding = 80, int extraPaddingSides = 20}) async {
+    Uint8List imageBytes = await File(faceImage.path).readAsBytes();
+    img.Image? originalImage = img.decodeImage(imageBytes);
+
+    if (originalImage == null) return;
+
+    final int faceImageWidth = originalImage.width;
+    final int faceImageHeight = originalImage.height;
+
+    final int leftX = leftEyePosition.x.clamp(0, faceImageWidth - 1);
+    final int leftY = leftEyePosition.y.clamp(0, faceImageHeight - 1);
+    final int rightX = rightEyePosition.x.clamp(0, faceImageWidth - 1);
+    final int rightY = rightEyePosition.y.clamp(0, faceImageHeight - 1);
+
+    final int boundingBoxX = (leftX - padding - extraPaddingSides).clamp(0, faceImageWidth - 1);
+    final int boundingBoxY = (min(leftY, rightY) - padding).clamp(0, faceImageHeight - 1);
+
+    final int boundingBoxWidth = (rightX - leftX + 2 * padding + 2 * extraPaddingSides).clamp(0, faceImageWidth - boundingBoxX);
+
+    final int boundingBoxHeight = ((max(leftY, rightY) as int) - (min(leftY, rightY) as int) + 2 * padding).clamp(0, faceImageHeight - boundingBoxY);
+
+    img.Image croppedImage = img.copyCrop(
+      originalImage,
+      x: boundingBoxX,
+      y: boundingBoxY,
+      width: boundingBoxWidth,
+      height: boundingBoxHeight,
+    );
+
+    croppedImage = img.adjustColor(croppedImage, brightness: 1.0);
+
+    String newPath = faceImage.path.replaceAll('.jpg', '_bounding_box_cropped.jpg');
+    File(newPath).writeAsBytesSync(img.encodeJpg(croppedImage));
+
+    XFile boundingBoxCroppedXFile = XFile(newPath);
+
+    emit(ImagesCropped(
+      boundingBoxCroppedXFile,
+      boundingBoxCroppedXFile,
+    ));
+    isCapturing = false;
+  }
+
+
+
 
   Future<void> cropImage(
       Point<int> leftEyePosition, Point<int> rightEyePosition, XFile faceImage,
