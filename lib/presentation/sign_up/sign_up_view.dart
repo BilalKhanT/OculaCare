@@ -218,7 +218,7 @@ class SignUpScreen extends StatelessWidget {
                                   context.push(RouteNames.loginRoute);
                                 },
                                 child: Text(
-                                  'Login',
+                                  'Signin',
                                   style: TextStyle(
                                     fontFamily: 'Montserrat',
                                     fontSize: 16.sp,
