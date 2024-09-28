@@ -1,10 +1,14 @@
-import 'package:equatable/equatable.dart';
+import 'package:bloc/bloc.dart';
+import 'package:cculacare/logic/home_cubit/home_state.dart';
 
-abstract class HomeState extends Equatable {
-  @override
-  List<Object> get props => [];
+class HomeCubit extends Cubit<HomeState> {
+  HomeCubit() : super(HomeStateInitial());
+
+  void emitHomeAnimation() {
+    emit(HomeStateAnimate());
+  }
+
+  void emitInitial() {
+    emit(HomeStateInitial());
+  }
 }
-
-class HomeStateInitial extends HomeState {}
-
-class HomeStateLoading extends HomeState {}

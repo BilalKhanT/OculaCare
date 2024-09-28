@@ -8,6 +8,10 @@ class TestDashTabCubit extends Cubit<TestDashTabState> {
   bool historySelected = false;
   bool progressionSelected = false;
 
+  void emitInitial() {
+    emit(TestDashTabInitial());
+  }
+
   void toggleTab(int id) {
     if (id == 0) {
       testSelected = true;

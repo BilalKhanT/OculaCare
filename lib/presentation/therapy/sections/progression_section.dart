@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shimmer/shimmer.dart';
@@ -65,31 +66,40 @@ class ProgressionSection extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Center(
-                child: ProgressCalendarScreen(
-                  data: globalTherapyProgressData,
+                child: FadeInDown(
+                  duration: const Duration(milliseconds: 600),
+                  child: ProgressCalendarScreen(
+                    data: globalTherapyProgressData,
+                  ),
                 ),
               ),
               SizedBox(height: screenHeight * 0.02),
-              Text(
-                'Therapy Categories',
-                textAlign: TextAlign.left,
-                style: TextStyle(
-                  fontFamily: 'MontserratMedium',
-                  fontWeight: FontWeight.w800,
-                  fontSize: screenWidth * 0.045,
-                  color: AppColors.appColor,
+              FadeInUp(
+                duration: const Duration(milliseconds: 600),
+                child: Text(
+                  'Therapy Categories',
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                    fontFamily: 'MontserratMedium',
+                    fontWeight: FontWeight.w800,
+                    fontSize: screenWidth * 0.045,
+                    color: AppColors.appColor,
+                  ),
                 ),
               ),
               SizedBox(height: screenHeight * 0.02),
               Padding(
                 padding: const EdgeInsets.symmetric(
                     horizontal: 30.0, vertical: 10.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: AppColors.whiteColor,
-                    borderRadius: BorderRadius.circular(15.0),
+                child: FadeInUp(
+                  duration: const Duration(milliseconds: 600),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: AppColors.whiteColor,
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                    child: const TherapyBarChart(),
                   ),
-                  child: const TherapyBarChart(),
                 ),
               ),
             ],
@@ -131,13 +141,16 @@ class ProgressionSection extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: screenHeight * 0.01),
-              Text(
-                'Therapy Progress',
-                style: TextStyle(
-                  fontFamily: 'MontserratMedium',
-                  fontWeight: FontWeight.w800,
-                  fontSize: screenWidth * 0.045,
-                  color: AppColors.appColor,
+              FadeInDown(
+                duration: const Duration(milliseconds: 600),
+                child: Text(
+                  'Therapy Progress',
+                  style: TextStyle(
+                    fontFamily: 'MontserratMedium',
+                    fontWeight: FontWeight.w800,
+                    fontSize: screenWidth * 0.045,
+                    color: AppColors.appColor,
+                  ),
                 ),
               ),
               SizedBox(height: screenHeight * 0.02),

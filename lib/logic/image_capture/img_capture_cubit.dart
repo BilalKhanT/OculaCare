@@ -56,7 +56,7 @@ class ImageCaptureCubit extends Cubit<ImageCaptureState> {
           options: FaceDetectorOptions(
         performanceMode: FaceDetectorMode.accurate,
         enableLandmarks: true,
-        enableClassification: true,
+            enableClassification: true,
       ));
       isInitializing = false;
       emit(ImageCaptureStateLoaded(true, 1));
@@ -100,11 +100,13 @@ class ImageCaptureCubit extends Cubit<ImageCaptureState> {
       } else {
         emit(ImageCaptureStateInitial());
         for (Face face in faces) {
-          if (face.leftEyeOpenProbability! < 0.2 ||
-              face.rightEyeOpenProbability! < 0.2) {
-            emit(ImageCaptureStateLoaded(true, 0));
-          } else {
-            emit(ImageCaptureStateLoaded(false, 1));
+          if (face.leftEyeOpenProbability != null && face.rightEyeOpenProbability != null) {
+            if (face.leftEyeOpenProbability! < 0.2 ||
+                face.rightEyeOpenProbability! < 0.2) {
+              emit(ImageCaptureStateLoaded(true, 0));
+            } else {
+              emit(ImageCaptureStateLoaded(false, 1));
+            }
           }
         }
       }
@@ -146,6 +148,7 @@ class ImageCaptureCubit extends Cubit<ImageCaptureState> {
     await cameraController.initialize();
     XFile imageFile = await cameraController.takePicture();
     InputImage eyeImage = InputImage.fromFilePath(imageFile.path);
+    faceImage = eyeImage;
     final List<Face>? faces = await faceDetector?.processImage(eyeImage);
     for (Face face in faces!) {
       final FaceLandmark? leftEye = face.landmarks[FaceLandmarkType.leftEye];
@@ -158,28 +161,39 @@ class ImageCaptureCubit extends Cubit<ImageCaptureState> {
     isCapturing = true;
     cameraController.stopImageStream();
     emit(ImageCaptureStateLoading());
+
     try {
       InputImage eyeImage = InputImage.fromFilePath(image.path);
+      faceImage = eyeImage;
+      bool faceDetected = false;
+       Future.delayed(const Duration(seconds: 10), () async {
+        if (!faceDetected) {
+          emit(ImageCaptureStateFailure('No face detected within 10 seconds.'));
+        }
+      });
+
       final List<Face>? faces = await faceDetector?.processImage(eyeImage);
-      if (faces != null) {
+
+      if (faces != null && faces.isNotEmpty) {
+        faceDetected = true;
         for (Face face in faces) {
-          final FaceLandmark? leftEye =
-              face.landmarks[FaceLandmarkType.leftEye];
-          final FaceLandmark? rightEye =
-              face.landmarks[FaceLandmarkType.rightEye];
+          final FaceLandmark? leftEye = face.landmarks[FaceLandmarkType.leftEye];
+          final FaceLandmark? rightEye = face.landmarks[FaceLandmarkType.rightEye];
+
           if (leftEye != null && rightEye != null) {
             await cropImage(leftEye.position, rightEye.position, image);
           } else {
-            emit(ImageCaptureStateFailure('Error'));
+            emit(ImageCaptureStateFailure('Could not detect both eyes.'));
           }
         }
       } else {
-        emit(ImageCaptureStateFailure('Error'));
+        emit(ImageCaptureStateFailure('No face detected.'));
       }
     } catch (e) {
-      emit(ImageCaptureStateFailure('Error'));
+      emit(ImageCaptureStateFailure('Error processing image.'));
     }
   }
+
 
   Future<void> cropImage(
       Point<int> leftEyePosition, Point<int> rightEyePosition, XFile faceImage,
@@ -261,6 +275,44 @@ class ImageCaptureCubit extends Cubit<ImageCaptureState> {
     } catch (e) {
       debugPrint('error $e');
     }
+  }
+
+  Future<bool> detectStrabismusPresence(InputImage inputImage) async {
+    final List<Face> faces = await faceDetector!.processImage(inputImage);
+    if (faces.isNotEmpty) {
+      final face = faces.first;
+      final leftEye = face.landmarks[FaceLandmarkType.leftEye];
+      final rightEye = face.landmarks[FaceLandmarkType.rightEye];
+      final noseBase = face.landmarks[FaceLandmarkType.noseBase];
+
+      if (leftEye != null && rightEye != null && noseBase != null) {
+        double leftEyeToNoseDistance = calculateDistance(
+          leftEye.position.x, leftEye.position.y,
+          noseBase.position.x, noseBase.position.y,
+        );
+
+        double rightEyeToNoseDistance = calculateDistance(
+          rightEye.position.x, rightEye.position.y,
+          noseBase.position.x, noseBase.position.y,
+        );
+
+        bool isStrabismus = detectCrossedEyes(leftEyeToNoseDistance, rightEyeToNoseDistance);
+
+        return isStrabismus;
+      }
+    }
+    return false;
+  }
+
+  double calculateDistance(int x1, int y1, int x2, int y2) {
+    return sqrt(pow((x2 - x1), 2) + pow((y2 - y1), 2));
+  }
+
+  bool detectCrossedEyes(double leftEyeToNose, double rightEyeToNose) {
+    const double threshold = 5.0;
+    double res = (leftEyeToNose - rightEyeToNose).abs();
+    print(res);
+    return res > threshold;
   }
 
   Future<String> imageToBase64(XFile file) async {

@@ -41,6 +41,58 @@ class DetectionCubit extends Cubit<DetectionState> {
       "left_eye": {"prediction": "Pterygium detected", "probability": "60%"},
       "right_eye": {"prediction": "No significant issues", "probability": "5%"}
     },
+    {
+      "patient_name": "Jane Smith",
+      "date": "2024-09-12",
+      "treatment": "Pterygium Surgery",
+      "causes": "Prolonged exposure to wind and dust",
+      "medicine_recommendations":
+      "Post-surgery: Steroid eye drops, artificial tears",
+      "impacts": "Reduced irritation, improved appearance",
+      "precautions":
+      "Avoid dusty areas, wear protective eyewear, use lubricating drops",
+      "left_eye": {"prediction": "Pterygium detected", "probability": "60%"},
+      "right_eye": {"prediction": "No significant issues", "probability": "5%"}
+    },
+    {
+      "patient_name": "Jane Smith",
+      "date": "2024-09-12",
+      "treatment": "Pterygium Surgery",
+      "causes": "Prolonged exposure to wind and dust",
+      "medicine_recommendations":
+      "Post-surgery: Steroid eye drops, artificial tears",
+      "impacts": "Reduced irritation, improved appearance",
+      "precautions":
+      "Avoid dusty areas, wear protective eyewear, use lubricating drops",
+      "left_eye": {"prediction": "Pterygium detected", "probability": "60%"},
+      "right_eye": {"prediction": "No significant issues", "probability": "5%"}
+    },
+    {
+      "patient_name": "Jane Smith",
+      "date": "2024-09-12",
+      "treatment": "Pterygium Surgery",
+      "causes": "Prolonged exposure to wind and dust",
+      "medicine_recommendations":
+      "Post-surgery: Steroid eye drops, artificial tears",
+      "impacts": "Reduced irritation, improved appearance",
+      "precautions":
+      "Avoid dusty areas, wear protective eyewear, use lubricating drops",
+      "left_eye": {"prediction": "Pterygium detected", "probability": "60%"},
+      "right_eye": {"prediction": "No significant issues", "probability": "5%"}
+    },
+    {
+      "patient_name": "Jane Smith",
+      "date": "2024-09-12",
+      "treatment": "Pterygium Surgery",
+      "causes": "Prolonged exposure to wind and dust",
+      "medicine_recommendations":
+      "Post-surgery: Steroid eye drops, artificial tears",
+      "impacts": "Reduced irritation, improved appearance",
+      "precautions":
+      "Avoid dusty areas, wear protective eyewear, use lubricating drops",
+      "left_eye": {"prediction": "Pterygium detected", "probability": "60%"},
+      "right_eye": {"prediction": "No significant issues", "probability": "5%"}
+    },
   ];
 
   Future<void> loadDiseaseResults() async {

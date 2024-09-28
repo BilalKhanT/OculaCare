@@ -1,6 +1,7 @@
+import 'package:cculacare/logic/detection_animation/detection_animation_cubit.dart';
+import 'package:cculacare/logic/home_cubit/home_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'logic/auth_cubit/auth_cubit.dart';
 import 'logic/camera/camera_cubit.dart';
 import 'logic/detection/detection_cubit.dart';
@@ -11,6 +12,7 @@ import 'logic/keyboard_listener_cubit/keyboard_list_cubit.dart';
 import 'logic/location_cubit/location_cubit.dart';
 import 'logic/login_cubit/login_cubit.dart';
 import 'logic/login_cubit/login_pass_cubit.dart';
+import 'logic/more_animate/more_cubit.dart';
 import 'logic/onboarding/onboarding_cubit.dart';
 import 'logic/otp_cubit/otp_cubit.dart';
 import 'logic/patient_profile/gender_cubit.dart';
@@ -55,6 +57,15 @@ class ProvideMultiBloc extends StatelessWidget {
     return MultiBlocProvider(providers: [
       BlocProvider(
         create: (context) => SignUpCubit(),
+      ),
+      BlocProvider(
+        create: (context) => HomeCubit(),
+      ),
+      BlocProvider(
+        create: (context) => MoreCubit(),
+      ),
+      BlocProvider(
+        create: (context) => DetectionAnimationCubit(),
       ),
       BlocProvider(
         create: (context) => GenderCubit(),

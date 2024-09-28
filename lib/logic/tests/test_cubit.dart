@@ -13,6 +13,10 @@ class TestCubit extends Cubit<TestState> {
   final TestRepository testRepository = TestRepository();
   final DateFormat dateFormat = DateFormat('dd-MM-yyyy');
 
+  void emitInitial() {
+    emit(TestInitial());
+  }
+
   Future<void> loadTests() async {
     emit(TestLoading());
     emit(TestLoaded());

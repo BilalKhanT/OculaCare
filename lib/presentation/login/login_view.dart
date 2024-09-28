@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:cculacare/presentation/login/widgets/forgot_password_form.dart';
 import 'package:cculacare/presentation/login/widgets/login_form.dart';
 import 'package:cculacare/presentation/login/widgets/reset_password_form.dart';
@@ -9,6 +10,7 @@ import 'package:go_router/go_router.dart';
 import '../../configs/presentation/constants/colors.dart';
 import '../../configs/routes/route_names.dart';
 import '../../configs/utils/utils.dart';
+import '../../logic/home_cubit/home_cubit.dart';
 import '../../logic/login_cubit/login_cubit.dart';
 import '../../logic/login_cubit/login_cubit_state.dart';
 import '../../logic/sign_up_cubit/sign_up_cubit.dart';
@@ -48,6 +50,7 @@ class LoginScreen extends StatelessWidget {
                 AppUtils.showToast(context, 'Invalid Login Credentials',
                     'Please enter valid login credentials', true);
               } else if (state is LoginSuccess) {
+                context.read<HomeCubit>().emitHomeAnimation();
                 context.go(RouteNames.homeRoute);
               }
             }, builder: (context, state) {
@@ -144,82 +147,99 @@ class LoginScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Center(
-                            child: Image.asset(
-                          "assets/images/logo_ocula_login.png",
-                          height: screenHeight * 0.15,
+                            child: FadeInDown(
+                          duration: const Duration(milliseconds: 600),
+                          child: Image.asset(
+                            "assets/images/logo_ocula_login.png",
+                            height: screenHeight * 0.15,
+                          ),
                         )),
                         Center(
-                          child: Text(
-                            'OculaCare',
-                            style: TextStyle(
-                              fontFamily: 'MontserratMedium',
-                              fontSize: 32.sp,
-                              color: AppColors.appColor,
-                              fontWeight: FontWeight.bold,
-                              letterSpacing: 1.0,
+                          child: FadeInDown(
+                            duration: const Duration(milliseconds: 600),
+                            child: Text(
+                              'OculaCare',
+                              style: TextStyle(
+                                fontFamily: 'MontserratMedium',
+                                fontSize: 32.sp,
+                                color: AppColors.appColor,
+                                fontWeight: FontWeight.bold,
+                                letterSpacing: 1.0,
+                              ),
                             ),
                           ),
                         ),
                         SizedBox(
                           height: 30.h,
                         ),
-                        Text(
-                          'Login',
-                          style: TextStyle(
-                            fontFamily: 'MontserratMedium',
-                            fontSize: 32.sp,
-                            color: AppColors.appColor,
-                            fontWeight: FontWeight.w800,
-                            letterSpacing: 1.0,
+                        FadeInLeft(
+                          duration: const Duration(milliseconds: 600),
+                          child: Text(
+                            'Login',
+                            style: TextStyle(
+                              fontFamily: 'MontserratMedium',
+                              fontSize: 32.sp,
+                              color: AppColors.appColor,
+                              fontWeight: FontWeight.w800,
+                              letterSpacing: 1.0,
+                            ),
                           ),
                         ),
-                        Text(
-                          'Welcome Back!',
-                          style: TextStyle(
-                            fontFamily: 'MontserratMedium',
-                            fontSize: 16.sp,
-                            color: AppColors.textGrey,
+                        FadeInLeft(
+                          duration: const Duration(milliseconds: 600),
+                          child: Text(
+                            'Welcome Back!',
+                            style: TextStyle(
+                              fontFamily: 'MontserratMedium',
+                              fontSize: 16.sp,
+                              color: AppColors.textGrey,
+                            ),
                           ),
                         ),
                         SizedBox(
                           height: screenHeight * 0.03,
                         ),
-                        const LoginForm(),
+                        FadeInUp(
+                            duration: const Duration(milliseconds: 600),
+                            child: const LoginForm()),
                         SizedBox(
                           height: screenHeight * 0.01,
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Didn\'t have an account.',
-                              style: TextStyle(
-                                fontFamily: 'MontserratMedium',
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.w100,
-                                color: AppColors.textGrey,
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 5.0,
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                context.read<SignUpCubit>().loadSignUpScreen();
-                                context.go(RouteNames.signUpRoute,
-                                    extra: 'login');
-                              },
-                              child: Text(
-                                'Signup',
+                        FadeInUp(
+                          duration: const Duration(milliseconds: 600),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Don\'t have an account.',
                                 style: TextStyle(
-                                  fontFamily: 'Montserrat',
+                                  fontFamily: 'MontserratMedium',
                                   fontSize: 16.sp,
-                                  fontWeight: FontWeight.bold,
-                                  color: AppColors.appColor,
+                                  fontWeight: FontWeight.w100,
+                                  color: AppColors.textGrey,
                                 ),
                               ),
-                            )
-                          ],
+                              const SizedBox(
+                                width: 5.0,
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  context.read<SignUpCubit>().loadSignUpScreen();
+                                  context.go(RouteNames.signUpRoute,
+                                      extra: 'login');
+                                },
+                                child: Text(
+                                  'Signup',
+                                  style: TextStyle(
+                                    fontFamily: 'Montserrat',
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColors.appColor,
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       ],
                     ),
