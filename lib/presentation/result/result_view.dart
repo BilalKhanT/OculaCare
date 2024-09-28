@@ -99,22 +99,25 @@ class DiseaseResultView extends StatelessWidget {
             return Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 15.0, vertical: 0.0),
-              child: SizedBox(
-                height: screenHeight,
-                child: ListView.builder(
-                  physics: const BouncingScrollPhysics(),
-                  itemCount: state.diseaseResults.length,
-                  itemBuilder: (context, index) {
-                    return FadeIn(
-                      duration: Duration(milliseconds: 1000 + (index * 100)),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 7.0),
-                        child: DiseaseResultTile(
-                          result: state.diseaseResults[index],
+              child: FadeInUp(
+                duration: const Duration(milliseconds: 600),
+                child: SizedBox(
+                  height: screenHeight,
+                  child: ListView.builder(
+                    physics: const BouncingScrollPhysics(),
+                    itemCount: state.diseaseResults.length,
+                    itemBuilder: (context, index) {
+                      return FadeIn(
+                        duration: Duration(milliseconds: 1000 + (index * 100)),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 7.0),
+                          child: DiseaseResultTile(
+                            result: state.diseaseResults[index],
+                          ),
                         ),
-                      ),
-                    );
-                  },
+                      );
+                    },
+                  ),
                 ),
               ),
             );
