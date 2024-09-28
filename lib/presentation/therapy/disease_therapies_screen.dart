@@ -1,6 +1,8 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:cculacare/presentation/therapy/widgets_therapy/custom_therapy_tile.dart';
 import 'package:cculacare/presentation/therapy/widgets_therapy/therapy_model.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../configs/presentation/constants/colors.dart';
 import '../../data/therapies_data/bulgy_eyes.dart';
@@ -31,35 +33,42 @@ class DiseaseTherapiesScreen extends StatelessWidget {
         ),
         backgroundColor: AppColors.screenBackground,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new, color: Colors.black),
+          icon: const Icon(Icons.arrow_back_ios_new, color: AppColors.appColor),
           onPressed: () {
-            Navigator.pop(context);
+            context.pop();
           },
         ),
         elevation: 0,
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 5),
-        child: ListView.builder(
-          itemCount: therapies.length,
-          itemBuilder: (context, index) {
-            final therapy = therapies[index];
-            return TherapyTile(
-              therapy: therapy,
-              screenHeight: MediaQuery.of(context).size.height,
-              onTap: () {
-                showModalBottomSheet(
-                  context: context,
-                  isScrollControlled: true,
-                  enableDrag: false,
-                  isDismissible: false,
-                  builder: (BuildContext bc) {
-                    return TherapyModel(therapy: therapy);
+        child: FadeInUp(
+          duration: const Duration(milliseconds: 600),
+          child: ListView.builder(
+            physics: const BouncingScrollPhysics(),
+            itemCount: therapies.length,
+            itemBuilder: (context, index) {
+              final therapy = therapies[index];
+              return FadeIn(
+                duration: Duration(milliseconds: 1000 + (index * 100)),
+                child: TherapyTile(
+                  therapy: therapy,
+                  screenHeight: MediaQuery.of(context).size.height,
+                  onTap: () {
+                    showModalBottomSheet(
+                      context: context,
+                      isScrollControlled: true,
+                      enableDrag: false,
+                      isDismissible: false,
+                      builder: (BuildContext bc) {
+                        return TherapyModel(therapy: therapy);
+                      },
+                    );
                   },
-                );
-              },
-            );
-          },
+                ),
+              );
+            },
+          ),
         ),
       ),
     );
