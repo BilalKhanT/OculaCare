@@ -84,7 +84,7 @@ class TherapyHistoryTile extends StatelessWidget {
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Text(
-                          '$duration min',
+                          '${(duration / 60).toStringAsFixed(1)} mins',
                           style: TextStyle(
                             color: AppColors.whiteColor,
                             fontFamily: 'MontserratMedium',
