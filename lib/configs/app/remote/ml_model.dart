@@ -1,12 +1,12 @@
 import 'dart:convert';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../data/models/api_response/response_model.dart';
 
 class MlModel {
-  static const String baseUrl =
-      "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=";
-  static const String apkiKey = 'AIzaSyAGZ3yz1YGR5_x_8M0z6HPoisUWL9nHp8A';
+  static String baseUrl = dotenv.env['BASE_URL_MODEL'] ?? '';
+  static String apkiKey = dotenv.env['API_KEY_MODEL'] ?? '';
 
   final url = baseUrl + apkiKey;
   final header = {'Content-Type': 'application/json'};
