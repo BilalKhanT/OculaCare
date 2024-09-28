@@ -328,7 +328,7 @@ class ImageCaptureScreen extends StatelessWidget {
                                           left: 10.0, bottom: 10.0, top: 10.0),
                                       child: Image.file(
                                         File(state.leftEye.path),
-                                        height: 150,
+                                        height: 50,
                                       ),
                                     ),
                                     Expanded(
@@ -395,7 +395,7 @@ class ImageCaptureScreen extends StatelessWidget {
                                           left: 10.0, bottom: 10.0, top: 10.0),
                                       child: Image.file(
                                         File(state.rightEye.path),
-                                        height: 150,
+                                        height: 50,
                                       ),
                                     ),
                                     Expanded(
