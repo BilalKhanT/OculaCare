@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:cculacare/presentation/result/widgets/probability_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -45,121 +46,126 @@ class DiseaseAnalysisView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Center(
-                child: Container(
-                  width: screenHeight * 0.22,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12.0),
-                    color: AppColors.graphBg,
-                    boxShadow: const [
-                      BoxShadow(
-                        color: AppColors.graphBg,
-                        spreadRadius: 1,
-                        blurRadius: 6,
-                        offset: Offset(0, 3),
-                      ),
-                    ],
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 10.0, vertical: 1.0),
-                    child: ProbabilityChart(
-                        score: double.parse(
-                            result.leftEye!.probability!.replaceAll('%', ''))),
-                  ),
+                child: FadeInDown(
+                  duration: const Duration(milliseconds: 600),
+                  child: ProbabilityChart(
+                      score: double.parse(
+                          result.leftEye!.probability!.replaceAll('%', ''))),
                 ),
               ),
               SizedBox(
                 height: screenHeight * 0.04,
               ),
-              Text(
-                result.leftEye!.prediction!,
-                style: TextStyle(
-                  color: Colors.black,
-                  fontFamily: 'MontserratMedium',
-                  fontWeight: FontWeight.w800,
-                  fontSize: screenWidth * 0.05,
+              FadeInLeft(
+                duration: const Duration(milliseconds: 600),
+                child: Text(
+                  result.leftEye!.prediction!,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontFamily: 'MontserratMedium',
+                    fontWeight: FontWeight.w800,
+                    fontSize: screenWidth * 0.05,
+                  ),
                 ),
               ),
               SizedBox(
                 height: screenHeight * 0.005,
               ),
               Center(
-                child: Text(
-                  'Note: This is is an AI guided diagnosis, seek medical expertise for professional guidance.',
-                  style: TextStyle(
-                    fontFamily: 'MontserratMedium',
-                    fontSize: screenWidth * 0.027,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.red,
+                child: FadeInLeft(
+                  duration: const Duration(milliseconds: 600),
+                  child: Text(
+                    'Note: This is is an AI guided diagnosis, seek medical expertise for professional guidance.',
+                    style: TextStyle(
+                      fontFamily: 'MontserratMedium',
+                      fontSize: screenWidth * 0.027,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.red,
+                    ),
+                    textAlign: TextAlign.justify,
                   ),
-                  textAlign: TextAlign.justify,
                 ),
               ),
               SizedBox(
                 height: screenHeight * 0.03,
               ),
-              Text(
-                'Description',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontFamily: 'MontserratMedium',
-                  fontWeight: FontWeight.w800,
-                  fontSize: screenWidth * 0.05,
+              FadeInRight(
+                duration: const Duration(milliseconds: 600),
+                child: Text(
+                  'Description',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontFamily: 'MontserratMedium',
+                    fontWeight: FontWeight.w800,
+                    fontSize: screenWidth * 0.05,
+                  ),
                 ),
               ),
               SizedBox(
                 height: screenHeight * 0.005,
               ),
-              Text(
-                'Cataracts are a clouding of the eye natural lens, causing blurred vision and, if untreated, eventual blindness. Common in aging, they can be surgically removed to restore clearvision.',
-                style: TextStyle(
-                  color: Colors.grey.shade900,
-                  fontFamily: 'Montserrat',
-                  fontWeight: FontWeight.w500,
-                  fontSize: screenWidth * 0.032,
+              FadeInRight(
+                duration: const Duration(milliseconds: 600),
+                child: Text(
+                  'Cataracts are a clouding of the eye natural lens, causing blurred vision and, if untreated, eventual blindness. Common in aging, they can be surgically removed to restore clearvision.',
+                  style: TextStyle(
+                    color: Colors.grey.shade900,
+                    fontFamily: 'Montserrat',
+                    fontWeight: FontWeight.w500,
+                    fontSize: screenWidth * 0.032,
+                  ),
                 ),
               ),
               SizedBox(
                 height: screenHeight * 0.03,
               ),
-              Text(
-                'Your Test Results',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontFamily: 'MontserratMedium',
-                  fontWeight: FontWeight.w800,
-                  fontSize: screenWidth * 0.045,
+              FadeInUp(
+                duration: const Duration(milliseconds: 600),
+                child: Text(
+                  'Your Test Results',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontFamily: 'MontserratMedium',
+                    fontWeight: FontWeight.w800,
+                    fontSize: screenWidth * 0.045,
+                  ),
                 ),
               ),
               SizedBox(
                 height: screenHeight * 0.015,
               ),
-              customTileWidget(
-                title: 'Generate Diagnosis Report',
-                icon: SvgPicture.asset(
-                  'assets/svgs/results.svg',
-                  // ignore: deprecated_member_use
-                  color: Colors.white,
+              FadeInUp(
+                duration: const Duration(milliseconds: 600),
+                child: customTileWidget(
+                  title: 'Generate Diagnosis Report',
+                  icon: SvgPicture.asset(
+                    'assets/svgs/results.svg',
+                    // ignore: deprecated_member_use
+                    color: Colors.white,
+                  ),
+                  text: "Ready",
+                  screenWidth: screenWidth,
+                  onTap: () {},
+                  screenHeight: screenHeight,
                 ),
-                text: "Ready",
-                screenWidth: screenWidth,
-                onTap: () {},
-                screenHeight: screenHeight,
               ),
               SizedBox(
                 height: screenHeight * 0.015,
               ),
-              customTileWidget(
-                title: 'Medicine Recommendations',
-                icon: SvgPicture.asset(
-                  'assets/svgs/dots.svg',
-                  // ignore: deprecated_member_use
-                  color: Colors.white,
+              FadeInUp(
+                duration: const Duration(milliseconds: 600),
+                child: customTileWidget(
+                  title: 'Medicine Recommendations',
+                  icon: SvgPicture.asset(
+                    'assets/svgs/dots.svg',
+                    // ignore: deprecated_member_use
+                    color: Colors.white,
+                  ),
+                  text: "Ready",
+                  screenWidth: screenWidth,
+                  onTap: () {},
+                  screenHeight: screenHeight,
                 ),
-                text: "Ready",
-                screenWidth: screenWidth,
-                onTap: () {},
-                screenHeight: screenHeight,
               ),
             ],
           ),
