@@ -107,7 +107,13 @@ class DiseaseAnalysisView extends StatelessWidget {
               FadeInRight(
                 duration: const Duration(milliseconds: 600),
                 child: Text(
-                  'Cataracts are a clouding of the eye natural lens, causing blurred vision and, if untreated, eventual blindness. Common in aging, they can be surgically removed to restore clearvision.',
+                  result.leftEye!.prediction! == 'Cataracts Detected'
+                      ? 'Cataracts are a clouding of the eye natural lens, causing blurred vision and, if untreated, eventual blindness. Common in aging, they can be surgically removed to restore clearvision.'
+                      : result.leftEye!.prediction! == 'Strabismus Detected'
+                          ? 'Strabismus is a misalignment of the eyes, where one or both eyes may turn inward, outward, upward, or downward. Early detection is crucial, and treatment options include glasses, eye exercises, or surgery to correct alignment.'
+                          : result.leftEye!.prediction! == 'Pterygium Detected'
+                              ? 'Pterygium is a growth of tissue on the white of the eye that can extend onto the cornea, often caused by UV exposure. It may cause irritation or blurred vision and can be surgically removed if necessary.'
+                              : 'Bulgy eyes refer to the abnormal protrusion of the eyeballs, often caused by thyroid conditions like Graves disease. This can affect vision and may require treatment to prevent further complications.',
                   style: TextStyle(
                     color: Colors.grey.shade900,
                     fontFamily: 'Montserrat',
