@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -61,28 +62,34 @@ class ScheduledTests extends StatelessWidget {
                         vertical: 10.0, horizontal: 5.0),
                     child: Row(
                       children: [
-                        _buildScheduleTab(
-                          context,
-                          'Vision Tests',
-                          visionSelected,
-                          () {
-                            context.read<ScheduleTabCubit>().toggleTab(0);
-                            context
-                                .read<ScheduleCubit>()
-                                .loadVisionNotifications();
-                          },
+                        FadeInDown(
+                          duration: const Duration(milliseconds: 600),
+                          child: _buildScheduleTab(
+                            context,
+                            'Vision Tests',
+                            visionSelected,
+                            () {
+                              context.read<ScheduleTabCubit>().toggleTab(0);
+                              context
+                                  .read<ScheduleCubit>()
+                                  .loadVisionNotifications();
+                            },
+                          ),
                         ),
                         SizedBox(width: screenWidth * 0.02),
-                        _buildScheduleTab(
-                          context,
-                          'Color Tests',
-                          colorSelected,
-                          () {
-                            context.read<ScheduleTabCubit>().toggleTab(1);
-                            context
-                                .read<ScheduleCubit>()
-                                .loadColorNotifications();
-                          },
+                        FadeInDown(
+                          duration: const Duration(milliseconds: 600),
+                          child: _buildScheduleTab(
+                            context,
+                            'Color Tests',
+                            colorSelected,
+                            () {
+                              context.read<ScheduleTabCubit>().toggleTab(1);
+                              context
+                                  .read<ScheduleCubit>()
+                                  .loadColorNotifications();
+                            },
+                          ),
                         ),
                       ],
                     ),
@@ -113,14 +120,17 @@ class ScheduledTests extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
                               SizedBox(height: screenHeight * 0.35),
-                              Text(
-                                'No Scheduled Vision Tests',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: AppColors.appColor,
-                                  fontFamily: 'MontserratMedium',
-                                  fontWeight: FontWeight.w900,
-                                  fontSize: screenWidth * 0.045,
+                              FadeInLeft(
+                                duration: const Duration(milliseconds: 600),
+                                child: Text(
+                                  'No Scheduled Vision Tests',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: AppColors.appColor,
+                                    fontFamily: 'MontserratMedium',
+                                    fontWeight: FontWeight.w900,
+                                    fontSize: screenWidth * 0.045,
+                                  ),
                                 ),
                               ),
                             ],
@@ -133,136 +143,143 @@ class ScheduledTests extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               SizedBox(height: screenHeight * 0.02),
-                              SizedBox(
-                                height: screenHeight * 0.7,
-                                child: ListView.builder(
-                                  itemCount:
-                                      state.scheduledNotifications.length,
-                                  itemBuilder: (context, index) {
-                                    return Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 10.0),
-                                      child: Slidable(
-                                        key: const ValueKey(0),
-                                        endActionPane: ActionPane(
-                                          motion: const StretchMotion(),
-                                          children: [
-                                            SlidableAction(
-                                              onPressed: (context) => context
-                                                  .read<ScheduleCubit>()
-                                                  .removeNotification(
-                                                      '${state.scheduledNotifications[index]['id']}',
-                                                      'vision'),
-                                              icon: Icons.delete,
-                                              backgroundColor:
-                                                  const Color(0xffB81736),
-                                            )
-                                          ],
-                                        ),
-                                        child: Builder(
-                                          builder: (context) => Container(
-                                            decoration: BoxDecoration(
-                                              color: Colors.white,
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                            ),
-                                            child: Row(
+                              FadeInUp(
+                                duration: const Duration(milliseconds: 600),
+                                child: SizedBox(
+                                  height: screenHeight * 0.7,
+                                  child: ListView.builder(
+                                    physics: const BouncingScrollPhysics(),
+                                    itemCount:
+                                        state.scheduledNotifications.length,
+                                    itemBuilder: (context, index) {
+                                      return Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 10.0),
+                                        child: FadeIn(
+                                          duration: const Duration(milliseconds: 600),
+                                          child: Slidable(
+                                            key: const ValueKey(0),
+                                            endActionPane: ActionPane(
+                                              motion: const StretchMotion(),
                                               children: [
-                                                Expanded(
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            left: 15.0,
-                                                            top: 10.0,
-                                                            bottom: 10.0),
-                                                    child: Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: <Widget>[
-                                                        Text(
-                                                          '${state.scheduledNotifications[index]['title']}',
-                                                          style: TextStyle(
-                                                            color: AppColors
-                                                                .appColor,
-                                                            fontFamily:
-                                                                'MontserratMedium',
-                                                            fontWeight:
-                                                                FontWeight.w900,
-                                                            fontSize:
-                                                                screenWidth *
-                                                                    0.04,
-                                                          ),
-                                                        ),
-                                                        const SizedBox(
-                                                            height: 5),
-                                                        Text(
-                                                          'Time:',
-                                                          style: TextStyle(
-                                                            color: Colors.black,
-                                                            fontFamily:
-                                                                'MontserratMedium',
-                                                            fontWeight:
-                                                                FontWeight.w900,
-                                                            fontSize:
-                                                                screenWidth *
-                                                                    0.04,
-                                                          ),
-                                                        ),
-                                                        Text(
-                                                          '${state.scheduledNotifications[index]['time']}',
-                                                          style: TextStyle(
-                                                            color: Colors
-                                                                .grey.shade700,
-                                                            fontFamily:
-                                                                'MontserratMedium',
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                            fontSize:
-                                                                screenWidth *
-                                                                    0.035,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
+                                                SlidableAction(
+                                                  onPressed: (context) => context
+                                                      .read<ScheduleCubit>()
+                                                      .removeNotification(
+                                                          '${state.scheduledNotifications[index]['id']}',
+                                                          'vision'),
+                                                  icon: Icons.delete,
+                                                  backgroundColor:
+                                                      const Color(0xffB81736),
+                                                )
+                                              ],
+                                            ),
+                                            child: Builder(
+                                              builder: (context) => Container(
+                                                decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
                                                 ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          right: 10.0),
-                                                  child: Container(
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              100.0),
-                                                      color: Colors.red
-                                                          .withOpacity(0.2),
-                                                    ),
-                                                    child: Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              1.0),
-                                                      child: IconButton(
-                                                        onPressed: () {
-                                                          Slidable.of(context)
-                                                              ?.openEndActionPane();
-                                                        },
-                                                        icon: const Icon(Icons
-                                                            .delete_outlined),
-                                                        color: Colors.red,
-                                                        iconSize: 26,
+                                                child: Row(
+                                                  children: [
+                                                    Expanded(
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets.only(
+                                                                left: 15.0,
+                                                                top: 10.0,
+                                                                bottom: 10.0),
+                                                        child: Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: <Widget>[
+                                                            Text(
+                                                              '${state.scheduledNotifications[index]['title']}',
+                                                              style: TextStyle(
+                                                                color: AppColors
+                                                                    .appColor,
+                                                                fontFamily:
+                                                                    'MontserratMedium',
+                                                                fontWeight:
+                                                                    FontWeight.w900,
+                                                                fontSize:
+                                                                    screenWidth *
+                                                                        0.04,
+                                                              ),
+                                                            ),
+                                                            const SizedBox(
+                                                                height: 5),
+                                                            Text(
+                                                              'Time:',
+                                                              style: TextStyle(
+                                                                color: Colors.black,
+                                                                fontFamily:
+                                                                    'MontserratMedium',
+                                                                fontWeight:
+                                                                    FontWeight.w900,
+                                                                fontSize:
+                                                                    screenWidth *
+                                                                        0.04,
+                                                              ),
+                                                            ),
+                                                            Text(
+                                                              '${state.scheduledNotifications[index]['time']}',
+                                                              style: TextStyle(
+                                                                color: Colors
+                                                                    .grey.shade700,
+                                                                fontFamily:
+                                                                    'MontserratMedium',
+                                                                fontWeight:
+                                                                    FontWeight.w600,
+                                                                fontSize:
+                                                                    screenWidth *
+                                                                        0.035,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
                                                       ),
                                                     ),
-                                                  ),
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              right: 10.0),
+                                                      child: Container(
+                                                        decoration: BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius.circular(
+                                                                  100.0),
+                                                          color: Colors.red
+                                                              .withOpacity(0.2),
+                                                        ),
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsets.all(
+                                                                  1.0),
+                                                          child: IconButton(
+                                                            onPressed: () {
+                                                              Slidable.of(context)
+                                                                  ?.openEndActionPane();
+                                                            },
+                                                            icon: const Icon(Icons
+                                                                .delete_outlined),
+                                                            color: Colors.red,
+                                                            iconSize: 26,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
-                                              ],
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                    );
-                                  },
+                                      );
+                                    },
+                                  ),
                                 ),
                               ),
                             ],
@@ -276,14 +293,17 @@ class ScheduledTests extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
                               SizedBox(height: screenHeight * 0.35),
-                              Text(
-                                'No Scheduled Color Tests',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: AppColors.appColor,
-                                  fontFamily: 'MontserratMedium',
-                                  fontWeight: FontWeight.w900,
-                                  fontSize: screenWidth * 0.045,
+                              FadeInLeft(
+                                duration: const Duration(milliseconds: 600),
+                                child: Text(
+                                  'No Scheduled Color Tests',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: AppColors.appColor,
+                                    fontFamily: 'MontserratMedium',
+                                    fontWeight: FontWeight.w900,
+                                    fontSize: screenWidth * 0.045,
+                                  ),
                                 ),
                               ),
                             ],
@@ -295,137 +315,144 @@ class ScheduledTests extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              SizedBox(height: screenHeight * 0.05),
-                              SizedBox(
-                                height: screenHeight * 0.7,
-                                child: ListView.builder(
-                                  itemCount:
-                                      state.scheduledNotifications.length,
-                                  itemBuilder: (context, index) {
-                                    return Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 10.0),
-                                      child: Slidable(
-                                        key: const ValueKey(0),
-                                        endActionPane: ActionPane(
-                                          motion: const StretchMotion(),
-                                          children: [
-                                            SlidableAction(
-                                              onPressed: (context) => context
-                                                  .read<ScheduleCubit>()
-                                                  .removeNotification(
-                                                      '${state.scheduledNotifications[index]['id']}',
-                                                      'color'),
-                                              icon: Icons.delete,
-                                              backgroundColor:
-                                                  const Color(0xffB81736),
-                                            )
-                                          ],
-                                        ),
-                                        child: Builder(
-                                          builder: (context) => Container(
-                                            decoration: BoxDecoration(
-                                              color: Colors.white,
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                            ),
-                                            child: Row(
+                              SizedBox(height: screenHeight * 0.02),
+                              FadeInUp(
+                                duration: const Duration(milliseconds: 600),
+                                child: SizedBox(
+                                  height: screenHeight * 0.7,
+                                  child: ListView.builder(
+                                    physics: const BouncingScrollPhysics(),
+                                    itemCount:
+                                        state.scheduledNotifications.length,
+                                    itemBuilder: (context, index) {
+                                      return Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 10.0),
+                                        child: FadeIn(
+                                          duration: const Duration(milliseconds: 600),
+                                          child: Slidable(
+                                            key: const ValueKey(0),
+                                            endActionPane: ActionPane(
+                                              motion: const StretchMotion(),
                                               children: [
-                                                Expanded(
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            left: 15.0,
-                                                            top: 10.0,
-                                                            bottom: 10.0),
-                                                    child: Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: <Widget>[
-                                                        Text(
-                                                          '${state.scheduledNotifications[index]['title']}',
-                                                          style: TextStyle(
-                                                            color: AppColors
-                                                                .appColor,
-                                                            fontFamily:
-                                                                'MontserratMedium',
-                                                            fontWeight:
-                                                                FontWeight.w900,
-                                                            fontSize:
-                                                                screenWidth *
-                                                                    0.04,
-                                                          ),
-                                                        ),
-                                                        const SizedBox(
-                                                            height: 5),
-                                                        Text(
-                                                          'Time:',
-                                                          style: TextStyle(
-                                                            color: Colors.black,
-                                                            fontFamily:
-                                                                'MontserratMedium',
-                                                            fontWeight:
-                                                                FontWeight.w900,
-                                                            fontSize:
-                                                                screenWidth *
-                                                                    0.04,
-                                                          ),
-                                                        ),
-                                                        Text(
-                                                          '${state.scheduledNotifications[index]['time']}',
-                                                          style: TextStyle(
-                                                            color: Colors
-                                                                .grey.shade700,
-                                                            fontFamily:
-                                                                'MontserratMedium',
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                            fontSize:
-                                                                screenWidth *
-                                                                    0.035,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
+                                                SlidableAction(
+                                                  onPressed: (context) => context
+                                                      .read<ScheduleCubit>()
+                                                      .removeNotification(
+                                                          '${state.scheduledNotifications[index]['id']}',
+                                                          'color'),
+                                                  icon: Icons.delete,
+                                                  backgroundColor:
+                                                      const Color(0xffB81736),
+                                                )
+                                              ],
+                                            ),
+                                            child: Builder(
+                                              builder: (context) => Container(
+                                                decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
                                                 ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          right: 10.0),
-                                                  child: Container(
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              100.0),
-                                                      color: Colors.red
-                                                          .withOpacity(0.2),
-                                                    ),
-                                                    child: Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              5.0),
-                                                      child: IconButton(
-                                                        onPressed: () {
-                                                          Slidable.of(context)
-                                                              ?.openEndActionPane();
-                                                        },
-                                                        icon: const Icon(Icons
-                                                            .delete_outlined),
-                                                        color: Colors.red,
-                                                        iconSize: 32,
+                                                child: Row(
+                                                  children: [
+                                                    Expanded(
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets.only(
+                                                                left: 15.0,
+                                                                top: 10.0,
+                                                                bottom: 10.0),
+                                                        child: Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: <Widget>[
+                                                            Text(
+                                                              '${state.scheduledNotifications[index]['title']}',
+                                                              style: TextStyle(
+                                                                color: AppColors
+                                                                    .appColor,
+                                                                fontFamily:
+                                                                    'MontserratMedium',
+                                                                fontWeight:
+                                                                    FontWeight.w900,
+                                                                fontSize:
+                                                                    screenWidth *
+                                                                        0.04,
+                                                              ),
+                                                            ),
+                                                            const SizedBox(
+                                                                height: 5),
+                                                            Text(
+                                                              'Time:',
+                                                              style: TextStyle(
+                                                                color: Colors.black,
+                                                                fontFamily:
+                                                                    'MontserratMedium',
+                                                                fontWeight:
+                                                                    FontWeight.w900,
+                                                                fontSize:
+                                                                    screenWidth *
+                                                                        0.04,
+                                                              ),
+                                                            ),
+                                                            Text(
+                                                              '${state.scheduledNotifications[index]['time']}',
+                                                              style: TextStyle(
+                                                                color: Colors
+                                                                    .grey.shade700,
+                                                                fontFamily:
+                                                                    'MontserratMedium',
+                                                                fontWeight:
+                                                                    FontWeight.w600,
+                                                                fontSize:
+                                                                    screenWidth *
+                                                                        0.035,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
                                                       ),
                                                     ),
-                                                  ),
+                                                    Padding(
+                                                      padding:
+                                                      const EdgeInsets.only(
+                                                          right: 10.0),
+                                                      child: Container(
+                                                        decoration: BoxDecoration(
+                                                          borderRadius:
+                                                          BorderRadius.circular(
+                                                              100.0),
+                                                          color: Colors.red
+                                                              .withOpacity(0.2),
+                                                        ),
+                                                        child: Padding(
+                                                          padding:
+                                                          const EdgeInsets.all(
+                                                              1.0),
+                                                          child: IconButton(
+                                                            onPressed: () {
+                                                              Slidable.of(context)
+                                                                  ?.openEndActionPane();
+                                                            },
+                                                            icon: const Icon(Icons
+                                                                .delete_outlined),
+                                                            color: Colors.red,
+                                                            iconSize: 26,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
-                                              ],
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                    );
-                                  },
+                                      );
+                                    },
+                                  ),
                                 ),
                               ),
                             ],
