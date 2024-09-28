@@ -1,3 +1,4 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_mlkit_face_detection/google_mlkit_face_detection.dart';
 
 import '../../data/models/disease_result/disease_result_model.dart';
@@ -5,9 +6,7 @@ import '../../data/models/tests/test_result_model.dart';
 import '../../data/models/therapy/therapy_results_model.dart';
 
 class AppGlobals {}
-
-String ipAddress = 'http://192.168.0.105:8080';
-String ipServer = 'https://oculacare-backend.onrender.com';
+String ipServer = dotenv.env['SERVER_IP'] ?? '';
 List<DiseaseResultModel> globalResults = [];
 List<TherapyModel> globalTherapies = [];
 Map<DateTime, int> globalTherapyProgressData = {};
