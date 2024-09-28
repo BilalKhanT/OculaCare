@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import '../../../data/repositories/local/preferences/shared_prefs.dart';
 import '../../widgets/need_to_setup_profile_widget.dart';
@@ -19,36 +20,40 @@ class GeneralEyeExercises extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      physics: const NeverScrollableScrollPhysics(),
+      physics: const BouncingScrollPhysics(),
       shrinkWrap: true,
       itemCount: exercisesList.length,
       itemBuilder: (context, index) {
         final therapy = exercisesList[index];
-        return Padding(
-          padding: const EdgeInsets.symmetric(vertical: 2.0),
-          child: TherapyTile(
-            therapy: therapy,
-            screenHeight: screenHeight,
-            onTap: () {
-              if (!sharedPrefs.isProfileSetup) {
-                showDialog(
+        return FadeIn(
+          duration: Duration(
+              milliseconds: 1000 + (index * 100)),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 2.0),
+            child: TherapyTile(
+              therapy: therapy,
+              screenHeight: screenHeight,
+              onTap: () {
+                if (!sharedPrefs.isProfileSetup) {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return const Dialog(child: NeedToSetupProfileWidget());
+                    },
+                  );
+                  return;
+                }
+                showModalBottomSheet(
                   context: context,
-                  builder: (context) {
-                    return const Dialog(child: NeedToSetupProfileWidget());
+                  isScrollControlled: true,
+                  enableDrag: false,
+                  isDismissible: false,
+                  builder: (BuildContext bc) {
+                    return TherapyModel(therapy: therapy);
                   },
                 );
-                return;
-              }
-              showModalBottomSheet(
-                context: context,
-                isScrollControlled: true,
-                enableDrag: false,
-                isDismissible: false,
-                builder: (BuildContext bc) {
-                  return TherapyModel(therapy: therapy);
-                },
-              );
-            },
+              },
+            ),
           ),
         );
       },
