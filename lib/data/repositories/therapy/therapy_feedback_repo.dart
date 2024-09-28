@@ -1,11 +1,12 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:nb_utils/nb_utils.dart';
+import '../../../configs/global/app_globals.dart';
 import '../../models/therapy/therapy_feedback_model.dart';
 
 class TherapyFeedbackRepository {
   final String apiUrl =
-      'https://oculacare-backend.onrender.com/api/therapyFeedback/submit';
+      '$ipServer/api/therapyFeedback/submit';
 
   Future<bool> submitTherapyFeedback(TherapyFeedbackModel feedback) async {
     try {

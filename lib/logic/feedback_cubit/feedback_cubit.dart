@@ -1,9 +1,7 @@
-import 'dart:convert';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:http/http.dart' as http;
-import '../../configs/global/app_globals.dart';
+import '../../data/repositories/feedback_repo/feedback_repo.dart';
 import '../../data/repositories/local/preferences/shared_prefs.dart';
 import '../auth_cubit/auth_cubit.dart';
 import '../keyboard_listener_cubit/keyboard_list_cubit.dart';
@@ -15,6 +13,8 @@ class FeedbackCubit extends Cubit<FeedbackState> {
   FeedbackCubit(this.keyboardListenerCubit) : super(FeedbackInitial()) {
     listenToKeyboardFocus();
   }
+
+  final FeedbackRepository feedbackRepository = FeedbackRepository();
 
   Map<String, bool> likedItems = {
     "Easy to capture image": false,
@@ -36,7 +36,6 @@ class FeedbackCubit extends Cubit<FeedbackState> {
         ...currentState.selectionStatus,
         itemName: newStatus
       };
-
       if (itemName == "All of the above" && newStatus) {
         newSelectionStatus.updateAll((key, value) => true);
       } else if (itemName == "All of the above" && !newStatus) {
@@ -45,7 +44,6 @@ class FeedbackCubit extends Cubit<FeedbackState> {
         newSelectionStatus["All of the above"] =
             newSelectionStatus.values.every((element) => element == true);
       }
-
       emit(FeedbackLiked(newSelectionStatus));
     }
   }
@@ -75,7 +73,6 @@ class FeedbackCubit extends Cubit<FeedbackState> {
         ...currentState.selectionStatus,
         itemName: newStatus
       };
-
       if (itemName == "All of the above" && newStatus) {
         newSelectionStatus.updateAll((key, value) => true);
       } else if (itemName == "All of the above" && !newStatus) {
@@ -84,7 +81,6 @@ class FeedbackCubit extends Cubit<FeedbackState> {
         newSelectionStatus["All of the above"] =
             newSelectionStatus.values.every((element) => element == true);
       }
-
       emit(FeedbackUnLiked(newSelectionStatus));
     }
   }
@@ -113,18 +109,13 @@ class FeedbackCubit extends Cubit<FeedbackState> {
       String category, List<String> data, String customFeedback) async {
     emit(FeedbackLoading());
     try {
-      var url = Uri.parse('$ipServer/api/feedback/submit');
-      var response = await http.post(
-        url,
-        headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({
-          'email': sharedPrefs.email,
-          'category': category,
-          'defaults': data,
-          'customMessage': customFeedback,
-        }),
+      bool isSuccess = await feedbackRepository.submitTherapyFeedback(
+        sharedPrefs.email,
+        category,
+        data,
+        customFeedback,
       );
-      if (response.statusCode == 200) {
+      if (isSuccess) {
         emit(FeedbackCompleted());
       } else {
         emit(FeedbackServerError());
