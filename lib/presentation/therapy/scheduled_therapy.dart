@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -65,33 +66,39 @@ class ScheduledTherapies extends StatelessWidget {
                           vertical: 10.0, horizontal: 5.0),
                       child: Row(
                         children: [
-                          _buildScheduleTab(
-                            context,
-                            'General',
-                            generalSelected,
-                            () {
-                              context
-                                  .read<TherapyScheduleTabCubit>()
-                                  .toggleTab(0);
-                              context
-                                  .read<TherapyScheduleCubit>()
-                                  .loadGeneralTherapies();
-                            },
+                          FadeInDown(
+                            duration: const Duration(milliseconds: 600),
+                            child: _buildScheduleTab(
+                              context,
+                              'General',
+                              generalSelected,
+                              () {
+                                context
+                                    .read<TherapyScheduleTabCubit>()
+                                    .toggleTab(0);
+                                context
+                                    .read<TherapyScheduleCubit>()
+                                    .loadGeneralTherapies();
+                              },
+                            ),
                           ),
                           SizedBox(
                               width: MediaQuery.of(context).size.width * 0.02),
-                          _buildScheduleTab(
-                            context,
-                            'Disease Specific',
-                            diseaseSpecificSelected,
-                            () {
-                              context
-                                  .read<TherapyScheduleTabCubit>()
-                                  .toggleTab(1);
-                              context
-                                  .read<TherapyScheduleCubit>()
-                                  .loadDiseaseSpecificTherapies();
-                            },
+                          FadeInDown(
+                            duration: const Duration(milliseconds: 600),
+                            child: _buildScheduleTab(
+                              context,
+                              'Disease Specific',
+                              diseaseSpecificSelected,
+                              () {
+                                context
+                                    .read<TherapyScheduleTabCubit>()
+                                    .toggleTab(1);
+                                context
+                                    .read<TherapyScheduleCubit>()
+                                    .loadDiseaseSpecificTherapies();
+                              },
+                            ),
                           ),
                         ],
                       ),
@@ -123,145 +130,152 @@ class ScheduledTherapies extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           SizedBox(height: screenHeight * 0.02),
-                          SizedBox(
-                            height: screenHeight * 0.7,
-                            child: ListView.builder(
-                              itemCount: state.scheduledTherapies.length,
-                              itemBuilder: (context, index) {
-                                return Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 10.0),
-                                  child: Slidable(
-                                    key: ValueKey(
-                                        state.scheduledTherapies[index]['id']),
-                                    endActionPane: ActionPane(
-                                      motion: const StretchMotion(),
-                                      children: [
-                                        SlidableAction(
-                                          onPressed: (context) => context
-                                              .read<TherapyScheduleCubit>()
-                                              .removeScheduledTherapy(
-                                                '${state.scheduledTherapies[index]['id']}',
-                                                context
-                                                            .read<
-                                                                TherapyScheduleTabCubit>()
-                                                            .state
-                                                        is TherapyScheduleTabToggled &&
-                                                    (context
+                          FadeInUp(
+                            duration: const Duration(milliseconds: 600),
+                            child: SizedBox(
+                              height: screenHeight * 0.7,
+                              child: ListView.builder(
+                                physics: const BouncingScrollPhysics(),
+                                itemCount: state.scheduledTherapies.length,
+                                itemBuilder: (context, index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 10.0),
+                                    child: FadeIn(
+                                      duration: const Duration(milliseconds: 600),
+                                      child: Slidable(
+                                        key: ValueKey(
+                                            state.scheduledTherapies[index]['id']),
+                                        endActionPane: ActionPane(
+                                          motion: const StretchMotion(),
+                                          children: [
+                                            SlidableAction(
+                                              onPressed: (context) => context
+                                                  .read<TherapyScheduleCubit>()
+                                                  .removeScheduledTherapy(
+                                                    '${state.scheduledTherapies[index]['id']}',
+                                                    context
                                                                 .read<
                                                                     TherapyScheduleTabCubit>()
                                                                 .state
-                                                            as TherapyScheduleTabToggled)
-                                                        .isGeneral,
-                                              ),
-                                          icon: Icons.delete,
-                                          backgroundColor:
-                                              const Color(0xffB81736),
-                                        )
-                                      ],
-                                    ),
-                                    child: Builder(
-                                      builder: (context) => Container(
-                                        decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius:
-                                              BorderRadius.circular(10),
+                                                            is TherapyScheduleTabToggled &&
+                                                        (context
+                                                                    .read<
+                                                                        TherapyScheduleTabCubit>()
+                                                                    .state
+                                                                as TherapyScheduleTabToggled)
+                                                            .isGeneral,
+                                                  ),
+                                              icon: Icons.delete,
+                                              backgroundColor:
+                                                  const Color(0xffB81736),
+                                            )
+                                          ],
                                         ),
-                                        child: Row(
-                                          children: [
-                                            Expanded(
-                                              child: Padding(
-                                                padding: const EdgeInsets.only(
-                                                    left: 15.0,
-                                                    top: 10.0,
-                                                    bottom: 10.0),
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: <Widget>[
-                                                    Text(
-                                                      '${state.scheduledTherapies[index]['title']}',
-                                                      style: TextStyle(
-                                                        color:
-                                                            AppColors.appColor,
-                                                        fontFamily:
-                                                            'MontserratMedium',
-                                                        fontWeight:
-                                                            FontWeight.w900,
-                                                        fontSize:
-                                                            screenWidth * 0.04,
-                                                      ),
-                                                    ),
-                                                    const SizedBox(height: 5),
-                                                    Text(
-                                                      'Time:',
-                                                      style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontFamily:
-                                                            'MontserratMedium',
-                                                        fontWeight:
-                                                            FontWeight.w900,
-                                                        fontSize:
-                                                            screenWidth * 0.04,
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      DateFormat(
-                                                              'dd MMM hh:mm a')
-                                                          .format(
-                                                        DateTime.parse(state
-                                                                .scheduledTherapies[
-                                                            index]['time']!),
-                                                      ),
-                                                      style: TextStyle(
-                                                        color: Colors
-                                                            .grey.shade700,
-                                                        fontFamily:
-                                                            'MontserratMedium',
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        fontSize:
-                                                            screenWidth * 0.035,
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
+                                        child: Builder(
+                                          builder: (context) => Container(
+                                            decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
                                             ),
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  right: 10.0),
-                                              child: Container(
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          100.0),
-                                                  color: Colors.red
-                                                      .withOpacity(0.2),
-                                                ),
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(2.0),
-                                                  child: IconButton(
-                                                    onPressed: () {
-                                                      Slidable.of(context)
-                                                          ?.openEndActionPane();
-                                                    },
-                                                    icon: const Icon(
-                                                        Icons.delete_outlined),
-                                                    color: Colors.red,
-                                                    iconSize: 26,
+                                            child: Row(
+                                              children: [
+                                                Expanded(
+                                                  child: Padding(
+                                                    padding: const EdgeInsets.only(
+                                                        left: 15.0,
+                                                        top: 10.0,
+                                                        bottom: 10.0),
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment.start,
+                                                      children: <Widget>[
+                                                        Text(
+                                                          '${state.scheduledTherapies[index]['title']}',
+                                                          style: TextStyle(
+                                                            color:
+                                                                AppColors.appColor,
+                                                            fontFamily:
+                                                                'MontserratMedium',
+                                                            fontWeight:
+                                                                FontWeight.w900,
+                                                            fontSize:
+                                                                screenWidth * 0.04,
+                                                          ),
+                                                        ),
+                                                        const SizedBox(height: 5),
+                                                        Text(
+                                                          'Time:',
+                                                          style: TextStyle(
+                                                            color: Colors.black,
+                                                            fontFamily:
+                                                                'MontserratMedium',
+                                                            fontWeight:
+                                                                FontWeight.w900,
+                                                            fontSize:
+                                                                screenWidth * 0.04,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          DateFormat(
+                                                                  'dd MMM hh:mm a')
+                                                              .format(
+                                                            DateTime.parse(state
+                                                                    .scheduledTherapies[
+                                                                index]['time']!),
+                                                          ),
+                                                          style: TextStyle(
+                                                            color: Colors
+                                                                .grey.shade700,
+                                                            fontFamily:
+                                                                'MontserratMedium',
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                            fontSize:
+                                                                screenWidth * 0.035,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
                                                   ),
                                                 ),
-                                              ),
+                                                Padding(
+                                                  padding: const EdgeInsets.only(
+                                                      right: 10.0),
+                                                  child: Container(
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              100.0),
+                                                      color: Colors.red
+                                                          .withOpacity(0.2),
+                                                    ),
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(2.0),
+                                                      child: IconButton(
+                                                        onPressed: () {
+                                                          Slidable.of(context)
+                                                              ?.openEndActionPane();
+                                                        },
+                                                        icon: const Icon(
+                                                            Icons.delete_outlined),
+                                                        color: Colors.red,
+                                                        iconSize: 26,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
-                                          ],
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                );
-                              },
+                                  );
+                                },
+                              ),
                             ),
                           ),
                         ],
@@ -274,14 +288,17 @@ class ScheduledTherapies extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
                           SizedBox(height: screenHeight * 0.35),
-                          Text(
-                            'No Scheduled Therapies',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: AppColors.appColor,
-                              fontFamily: 'MontserratMedium',
-                              fontWeight: FontWeight.w900,
-                              fontSize: screenWidth * 0.045,
+                          FadeInLeft(
+                            duration: const Duration(milliseconds: 600),
+                            child: Text(
+                              'No Scheduled Therapies',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: AppColors.appColor,
+                                fontFamily: 'MontserratMedium',
+                                fontWeight: FontWeight.w900,
+                                fontSize: screenWidth * 0.045,
+                              ),
                             ),
                           ),
                         ],
