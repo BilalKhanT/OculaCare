@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import '../../../configs/presentation/constants/colors.dart';
 import '../../../data/therapies_data/therapies_list.dart';
@@ -25,37 +26,49 @@ class TherapySection extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.only(left: 5.0),
-            child: Text(
-              'Recommended Therapies',
-              style: TextStyle(
-                  fontFamily: 'MontserratMedium',
-                  fontWeight: FontWeight.w800,
-                  fontSize: screenWidth * 0.045,
-                  color: AppColors.appColor),
+            child: FadeInLeft(
+              duration: const Duration(milliseconds: 600),
+              child: Text(
+                'Recommended Therapies',
+                style: TextStyle(
+                    fontFamily: 'MontserratMedium',
+                    fontWeight: FontWeight.w800,
+                    fontSize: screenWidth * 0.045,
+                    color: AppColors.appColor),
+              ),
             ),
           ),
           SizedBox(height: screenHeight * 0.008),
-          DiseaseCardList(
-            screenHeight: screenHeight,
-            screenWidth: screenWidth,
+          FadeInDown(
+            duration: const Duration(milliseconds: 600),
+            child: DiseaseCardList(
+              screenHeight: screenHeight,
+              screenWidth: screenWidth,
+            ),
           ),
           SizedBox(height: screenHeight * 0.02),
           Padding(
             padding: const EdgeInsets.only(left: 5.0),
-            child: Text(
-              'General Eye Exercises',
-              style: TextStyle(
-                  fontFamily: 'MontserratMedium',
-                  fontWeight: FontWeight.w800,
-                  fontSize: screenWidth * 0.045,
-                  color: AppColors.appColor),
+            child: FadeInLeft(
+              duration: const Duration(milliseconds: 600),
+              child: Text(
+                'General Eye Exercises',
+                style: TextStyle(
+                    fontFamily: 'MontserratMedium',
+                    fontWeight: FontWeight.w800,
+                    fontSize: screenWidth * 0.045,
+                    color: AppColors.appColor),
+              ),
             ),
           ),
           SizedBox(height: screenHeight * 0.008),
-          GeneralEyeExercises(
-            exercisesList: therapiesList,
-            screenWidth: screenWidth,
-            screenHeight: screenHeight,
+          FadeInUp(
+            duration: const Duration(milliseconds: 600),
+            child: GeneralEyeExercises(
+              exercisesList: therapiesList,
+              screenWidth: screenWidth,
+              screenHeight: screenHeight,
+            ),
           ),
         ],
       ),
