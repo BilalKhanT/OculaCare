@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:ui';
 import 'package:camera/camera.dart';
+import 'package:cculacare/configs/global/app_globals.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -31,17 +32,19 @@ class ImageCaptureScreen extends StatelessWidget {
         body: SizedBox(
           height: height,
           width: width,
-          child: BlocBuilder<ImageCaptureCubit, ImageCaptureState>(
+          child: BlocConsumer<ImageCaptureCubit, ImageCaptureState>(
+            listener: (context, state) {
+              if (state is ImageCaptureStateFailure) {
+                AppUtils.showToast(context, 'Image Quality Error', 'Please upload a high quality image', true);
+                context.pop();
+              }
+            },
             builder: (context, state) {
               if (state is ImageCaptureStateLoading) {
                 return const Center(
                   child: DotLoader(
                     loaderColor: AppColors.appColor,
                   ),
-                );
-              } else if (state is ImageCaptureStateFailure) {
-                return Center(
-                  child: Text(state.message),
                 );
               } else if (state is ImageCaptureStateLoaded) {
                 bool disable = state.disable;
@@ -446,16 +449,29 @@ class ImageCaptureScreen extends StatelessWidget {
                         ButtonFlat(
                             btnColor: AppColors.appColor,
                             textColor: Colors.white,
-                            onPress: () {
-                              context
+                            onPress: () async {
+                              if (faceImage == null) {
+                                AppUtils.showToast(context, 'Error', 'Something went wrong, please try again later.', true);
+                                return;
+                              }
+                              bool flag = await context
                                   .read<ImageCaptureCubit>()
-                                  .uploadImageToServer(
-                                      state.leftEye, state.rightEye);
-                              AppUtils.showToast(
-                                  context,
-                                  'Upload Successful',
-                                  'Image uploaded to the server successfully please check results tab.',
-                                  false);
+                                  .detectStrabismusPresence(faceImage!);
+                              if (flag) {
+                                AppUtils.showToast(context, 'STRABISMUS DETECTED', '', true);
+                              }
+                              else {
+                                AppUtils.showToast(context, 'STRABISMUS NOT DETECTED', '', false);
+                              }
+                              // context
+                              //     .read<ImageCaptureCubit>()
+                              //     .uploadImageToServer(
+                              //         state.leftEye, state.rightEye);
+                              // AppUtils.showToast(
+                              //     context,
+                              //     'Upload Successful',
+                              //     'Image uploaded to the server successfully please check results tab.',
+                              //     false);
                             },
                             text: 'Upload to Server'),
                         SizedBox(
