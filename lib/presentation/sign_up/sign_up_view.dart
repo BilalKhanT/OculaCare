@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:cculacare/presentation/sign_up/widgets/cstm_img_btn.dart';
 import 'package:cculacare/presentation/sign_up/widgets/sign_up_form.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,7 @@ import 'package:go_router/go_router.dart';
 import '../../configs/presentation/constants/colors.dart';
 import '../../configs/routes/route_names.dart';
 import '../../configs/utils/utils.dart';
+import '../../logic/home_cubit/home_cubit.dart';
 import '../../logic/login_cubit/login_cubit.dart';
 import '../../logic/sign_up_cubit/sign_up_cubit.dart';
 import '../../logic/sign_up_cubit/sign_up_state.dart';
@@ -67,145 +69,166 @@ class SignUpScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          'Register',
-                          style: TextStyle(
-                            fontFamily: 'MontserratMedium',
-                            fontSize: 32.sp,
-                            color: AppColors.appColor,
-                            fontWeight: FontWeight.bold,
-                            letterSpacing: 1.0,
+                        FadeInLeft(
+                          duration: const Duration(milliseconds: 600),
+                          child: Text(
+                            'Register',
+                            style: TextStyle(
+                              fontFamily: 'MontserratMedium',
+                              fontSize: 32.sp,
+                              color: AppColors.appColor,
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 1.0,
+                            ),
                           ),
                         ),
-                        Text(
-                          'Create Your New Account',
-                          style: TextStyle(
-                            fontFamily: 'MontserratMedium',
-                            fontSize: 16.sp,
-                            color: AppColors.textGrey,
+                        FadeInLeft(
+                          duration: const Duration(milliseconds: 600),
+                          child: Text(
+                            'Create Your New Account',
+                            style: TextStyle(
+                              fontFamily: 'MontserratMedium',
+                              fontSize: 16.sp,
+                              color: AppColors.textGrey,
+                            ),
                           ),
                         ),
                         SizedBox(
                           height: screenHeight * 0.01,
                         ),
-                        const SignUpForm(),
+                        FadeInDown(
+                            duration: const Duration(milliseconds: 600),child: const SignUpForm()),
                         Center(
-                          child: Text(
-                            'or',
-                            style: TextStyle(
-                              fontFamily: 'MontserratMedium',
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w100,
-                              color: AppColors.textGrey,
-                              letterSpacing: 1.0,
-                            ),
-                          ),
-                        ),
-                        Center(
-                          child: Text(
-                            'signup with',
-                            style: TextStyle(
-                              fontFamily: 'MontserratMedium',
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w100,
-                              color: AppColors.textGrey,
-                              letterSpacing: 1.0,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: screenHeight * 0.03,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            CustomImageButton(
-                              onTap: () async {
-                                bool flag = await context
-                                    .read<SignUpCubit>()
-                                    .createUserWithGoogle();
-                                if (!flag && context.mounted) {
-                                  AppUtils.showToast(
-                                      context,
-                                      'Email Already Registered',
-                                      'Please use a different google account to register a new account',
-                                      true);
-                                } else {
-                                  if (context.mounted) {
-                                    AppUtils.showToast(
-                                        context,
-                                        'Update Password',
-                                        'Your account password has been set as \'******\', update it in profile',
-                                        false);
-                                    context.go(RouteNames.homeRoute);
-                                  }
-                                }
-                              },
-                              imagePath: 'assets/images/googleIcon.png',
-                            ),
-                            const SizedBox(
-                              width: 5.0,
-                            ),
-                            CustomImageButton(
-                              onTap: () async {
-                                bool flag = await context
-                                    .read<SignUpCubit>()
-                                    .createUserWithFacebook();
-                                if (!flag && context.mounted) {
-                                  AppUtils.showToast(
-                                      context,
-                                      'Email Already Registered',
-                                      'Please use a different google account to register a new account',
-                                      true);
-                                } else {
-                                  if (context.mounted) {
-                                    AppUtils.showToast(
-                                        context,
-                                        'Update Password',
-                                        'Your account password has been set as \'******\', update it in profile',
-                                        false);
-                                    context.go(RouteNames.homeRoute);
-                                  }
-                                }
-                              },
-                              imagePath: 'assets/images/fbIcon.png',
-                            )
-                          ],
-                        ),
-                        SizedBox(
-                          height: screenHeight * 0.03,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Already have an account.',
+                          child: FadeInLeft(
+                            duration: const Duration(milliseconds: 600),
+                            child: Text(
+                              'or',
                               style: TextStyle(
                                 fontFamily: 'MontserratMedium',
                                 fontSize: 16.sp,
                                 fontWeight: FontWeight.w100,
                                 color: AppColors.textGrey,
+                                letterSpacing: 1.0,
                               ),
                             ),
-                            const SizedBox(
-                              width: 5.0,
+                          ),
+                        ),
+                        Center(
+                          child: FadeInLeft(
+                            duration: const Duration(milliseconds: 600),
+                            child: Text(
+                              'signup with',
+                              style: TextStyle(
+                                fontFamily: 'MontserratMedium',
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w100,
+                                color: AppColors.textGrey,
+                                letterSpacing: 1.0,
+                              ),
                             ),
-                            InkWell(
-                              onTap: () {
-                                context.read<LoginCubit>().loadLoginScreen();
-                                context.push(RouteNames.loginRoute);
-                              },
-                              child: Text(
-                                'Login',
+                          ),
+                        ),
+                        SizedBox(
+                          height: screenHeight * 0.03,
+                        ),
+                        FadeInRight(
+                          duration: const Duration(milliseconds: 600),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              CustomImageButton(
+                                onTap: () async {
+                                  bool flag = await context
+                                      .read<SignUpCubit>()
+                                      .createUserWithGoogle();
+                                  if (!flag && context.mounted) {
+                                    AppUtils.showToast(
+                                        context,
+                                        'Email Already Registered',
+                                        'Please use a different google account to register a new account',
+                                        true);
+                                  } else {
+                                    if (context.mounted) {
+                                      AppUtils.showToast(
+                                          context,
+                                          'Update Password',
+                                          'Your account password has been set as \'******\', update it in profile',
+                                          false);
+                                      context.read<HomeCubit>().emitHomeAnimation();
+                                      context.go(RouteNames.homeRoute);
+                                    }
+                                  }
+                                },
+                                imagePath: 'assets/images/googleIcon.png',
+                              ),
+                              const SizedBox(
+                                width: 5.0,
+                              ),
+                              CustomImageButton(
+                                onTap: () async {
+                                  bool flag = await context
+                                      .read<SignUpCubit>()
+                                      .createUserWithFacebook();
+                                  if (!flag && context.mounted) {
+                                    AppUtils.showToast(
+                                        context,
+                                        'Email Already Registered',
+                                        'Please use a different google account to register a new account',
+                                        true);
+                                  } else {
+                                    if (context.mounted) {
+                                      AppUtils.showToast(
+                                          context,
+                                          'Update Password',
+                                          'Your account password has been set as \'******\', update it in profile',
+                                          false);
+                                      context.read<HomeCubit>().emitHomeAnimation();
+                                      context.go(RouteNames.homeRoute);
+                                    }
+                                  }
+                                },
+                                imagePath: 'assets/images/fbIcon.png',
+                              )
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: screenHeight * 0.03,
+                        ),
+                        FadeInUp(
+                          duration: const Duration(milliseconds: 600),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Already have an account.',
                                 style: TextStyle(
-                                  fontFamily: 'Montserrat',
+                                  fontFamily: 'MontserratMedium',
                                   fontSize: 16.sp,
-                                  fontWeight: FontWeight.bold,
-                                  color: AppColors.appColor,
+                                  fontWeight: FontWeight.w100,
+                                  color: AppColors.textGrey,
                                 ),
                               ),
-                            )
-                          ],
+                              const SizedBox(
+                                width: 5.0,
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  context.read<LoginCubit>().loadLoginScreen();
+                                  context.push(RouteNames.loginRoute);
+                                },
+                                child: Text(
+                                  'Login',
+                                  style: TextStyle(
+                                    fontFamily: 'Montserrat',
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColors.appColor,
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       ],
                     ),
