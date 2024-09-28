@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shimmer/shimmer.dart';
@@ -196,33 +197,42 @@ class HistorySection extends StatelessWidget {
                 if (generalTherapies.isNotEmpty) ...[
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                    child: Text(
-                      'General Exercises',
-                      style: TextStyle(
-                        fontFamily: 'MontserratMedium',
-                        fontWeight: FontWeight.w800,
-                        fontSize: screenWidth * 0.045,
-                        color: AppColors.appColor,
+                    child: FadeInLeft(
+                      duration: const Duration(milliseconds: 600),
+                      child: Text(
+                        'General Exercises',
+                        style: TextStyle(
+                          fontFamily: 'MontserratMedium',
+                          fontWeight: FontWeight.w800,
+                          fontSize: screenWidth * 0.045,
+                          color: AppColors.appColor,
+                        ),
                       ),
                     ),
                   ),
                   SizedBox(height: screenHeight * 0.02),
                   SizedBox(
                     height: screenHeight * 0.27,
-                    child: _buildTherapyList(
-                        generalTherapies, screenHeight, screenWidth),
+                    child: FadeInRight(
+                      duration: const Duration(milliseconds: 600),
+                      child: _buildTherapyList(
+                          generalTherapies, screenHeight, screenWidth),
+                    ),
                   ),
                 ],
                 if (generalTherapies.isEmpty) ...[
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                    child: Text(
-                      'General Exercises',
-                      style: TextStyle(
-                        fontFamily: 'MontserratMedium',
-                        fontWeight: FontWeight.w800,
-                        fontSize: screenWidth * 0.045,
-                        color: AppColors.appColor,
+                    child: FadeInLeft(
+                      duration: const Duration(milliseconds: 600),
+                      child: Text(
+                        'General Exercises',
+                        style: TextStyle(
+                          fontFamily: 'MontserratMedium',
+                          fontWeight: FontWeight.w800,
+                          fontSize: screenWidth * 0.045,
+                          color: AppColors.appColor,
+                        ),
                       ),
                     ),
                   ),
@@ -230,13 +240,16 @@ class HistorySection extends StatelessWidget {
                   SizedBox(
                     height: screenHeight * 0.27,
                     child: Center(
-                      child: Text(
-                        'No General Therapies',
-                        style: TextStyle(
-                          fontFamily: 'MontserratMedium',
-                          fontWeight: FontWeight.w800,
-                          fontSize: screenWidth * 0.045,
-                          color: Colors.black,
+                      child: FadeInRight(
+                        duration: const Duration(milliseconds: 600),
+                        child: Text(
+                          'No General Therapies',
+                          style: TextStyle(
+                            fontFamily: 'MontserratMedium',
+                            fontWeight: FontWeight.w800,
+                            fontSize: screenWidth * 0.045,
+                            color: Colors.black,
+                          ),
                         ),
                       ),
                     ),
@@ -246,33 +259,42 @@ class HistorySection extends StatelessWidget {
                   SizedBox(height: screenHeight * 0.02),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                    child: Text(
-                      'Disease-Specific Therapies',
-                      style: TextStyle(
-                        fontFamily: 'MontserratMedium',
-                        fontWeight: FontWeight.w800,
-                        fontSize: screenWidth * 0.045,
-                        color: AppColors.appColor,
+                    child: FadeInLeft(
+                      duration: const Duration(milliseconds: 600),
+                      child: Text(
+                        'Disease-Specific Therapies',
+                        style: TextStyle(
+                          fontFamily: 'MontserratMedium',
+                          fontWeight: FontWeight.w800,
+                          fontSize: screenWidth * 0.045,
+                          color: AppColors.appColor,
+                        ),
                       ),
                     ),
                   ),
                   SizedBox(height: screenHeight * 0.02),
                   SizedBox(
                     height: screenHeight * 0.27,
-                    child: _buildTherapyList(
-                        diseaseTherapies, screenHeight, screenWidth),
+                    child: FadeInRight(
+                      duration: const Duration(milliseconds: 600),
+                      child: _buildTherapyList(
+                          diseaseTherapies, screenHeight, screenWidth),
+                    ),
                   ),
                 ],
                 if (diseaseTherapies.isEmpty) ...[
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                    child: Text(
-                      'General Exercises',
-                      style: TextStyle(
-                        fontFamily: 'MontserratMedium',
-                        fontWeight: FontWeight.w800,
-                        fontSize: screenWidth * 0.045,
-                        color: AppColors.appColor,
+                    child: FadeInLeft(
+                      duration: const Duration(milliseconds: 600),
+                      child: Text(
+                        'General Exercises',
+                        style: TextStyle(
+                          fontFamily: 'MontserratMedium',
+                          fontWeight: FontWeight.w800,
+                          fontSize: screenWidth * 0.045,
+                          color: AppColors.appColor,
+                        ),
                       ),
                     ),
                   ),
@@ -280,13 +302,16 @@ class HistorySection extends StatelessWidget {
                   SizedBox(
                     height: screenHeight * 0.27,
                     child: Center(
-                      child: Text(
-                        'No Disease Specific Therapies',
-                        style: TextStyle(
-                          fontFamily: 'MontserratMedium',
-                          fontWeight: FontWeight.w800,
-                          fontSize: screenWidth * 0.045,
-                          color: Colors.black,
+                      child: FadeInRight(
+                        duration: const Duration(milliseconds: 600),
+                        child: Text(
+                          'No Disease Specific Therapies',
+                          style: TextStyle(
+                            fontFamily: 'MontserratMedium',
+                            fontWeight: FontWeight.w800,
+                            fontSize: screenWidth * 0.045,
+                            color: Colors.black,
+                          ),
                         ),
                       ),
                     ),
@@ -307,6 +332,7 @@ class HistorySection extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 5.0),
       child: ListView.builder(
+        physics: const BouncingScrollPhysics(),
         shrinkWrap: true,
         scrollDirection: Axis.vertical,
         itemCount: therapies.length,
@@ -314,13 +340,16 @@ class HistorySection extends StatelessWidget {
           final TherapyModel therapy = therapies[index];
           final HistoryArgsModel assetData =
               getTherapyAsset(therapy.therapyName);
-          return TherapyHistoryTile(
-            title: therapy.therapyName,
-            date: therapy.date,
-            type: therapy.therapyType,
-            duration: therapy.duration,
-            image: assetData.imagePath,
-            avatarColor: assetData.avatarColor,
+          return FadeIn(
+            duration: Duration(milliseconds: 1000 + (index * 100)),
+            child: TherapyHistoryTile(
+              title: therapy.therapyName,
+              date: therapy.date,
+              type: therapy.therapyType,
+              duration: therapy.duration,
+              image: assetData.imagePath,
+              avatarColor: assetData.avatarColor,
+            ),
           );
         },
       ),
