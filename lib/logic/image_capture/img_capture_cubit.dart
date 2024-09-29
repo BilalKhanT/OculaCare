@@ -9,6 +9,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import '../../configs/app/notification/notification_service.dart';
 import '../../configs/global/app_globals.dart';
 import '../../data/models/disease_result/disease_result_model.dart';
 import 'img_capture_state.dart';
@@ -300,29 +301,87 @@ class ImageCaptureCubit extends Cubit<ImageCaptureState> {
   }
 
   Future<void> uploadImageToServer(XFile leftEye, XFile rightEye) async {
-    String leftEyeBase64 = await imageToBase64(leftEye);
-    String rightEyeBase64 = await imageToBase64(rightEye);
-    Map<String, dynamic> payload = {
-      'left_eye': leftEyeBase64,
-      'right_eye': rightEyeBase64,
-    };
-    try {
-      var response = await http.post(
-        Uri.parse('http://192.168.18.32:8000/predict'),
-        headers: {"Content-Type": "application/json"},
-        body: json.encode(payload),
-      );
-      if (response.statusCode == 200) {
-        var data = jsonDecode(response.body);
-        DiseaseResultModel result = DiseaseResultModel.fromJson(data);
-        globalResults.add(result);
-      } else {
-        debugPrint("Nothing ${response.statusCode}");
-      }
-    } catch (e) {
-      debugPrint('error $e');
-    }
+    await Future.delayed(Duration(seconds: 5));
+    NotificationService.resultReadyNotification(
+        'Disease Analysis Result',
+        'Disease analysis report is ready.',
+        DateTime.now().add(const Duration(seconds: 1))
+    );
+    // String leftEyeBase64 = await imageToBase64(leftEye);
+    // String rightEyeBase64 = await imageToBase64(rightEye);
+    // Map<String, dynamic> payload = {
+    //   'left_eye': leftEyeBase64,
+    //   'right_eye': rightEyeBase64,
+    // };
+    // try {
+    //   var response = await http.post(
+    //     Uri.parse('http://192.168.18.32:8000/predict'),
+    //     headers: {"Content-Type": "application/json"},
+    //     body: json.encode(payload),
+    //   );
+    //   if (response.statusCode == 200) {
+    //     var data = jsonDecode(response.body);
+    //     DiseaseResultModel result = DiseaseResultModel.fromJson(data);
+    //     globalResults.add(result);
+    //   } else {
+    //     debugPrint("Nothing ${response.statusCode}");
+    //   }
+    // } catch (e) {
+    //   debugPrint('error $e');
+    // }
   }
+
+  Future<bool> detectStrabismusWithFullAlignment(InputImage inputImage) async {
+    final List<Face> faces = await faceDetector!.processImage(inputImage);
+    if (faces.isNotEmpty) {
+      final face = faces.first;
+      final leftEye = face.landmarks[FaceLandmarkType.leftEye];
+      final rightEye = face.landmarks[FaceLandmarkType.rightEye];
+
+      if (leftEye != null && rightEye != null) {
+        // Get positions of the left and right eyes
+        final int leftEyeX = leftEye.position.x;
+        final int leftEyeY = leftEye.position.y;
+        final int rightEyeX = rightEye.position.x;
+        final int rightEyeY = rightEye.position.y;
+
+        // Calculate padding for top and bottom lines
+        const double padding = 20.0;
+
+        // Line through the center of both eyes (middle line)
+        final double midLineY = (leftEyeY + rightEyeY) / 2;
+
+        // Top and bottom lines
+        final double topLineY = midLineY - padding;
+        final double bottomLineY = midLineY + padding;
+
+        // Horizontal alignment check: difference in X-axis between eyes
+        final double horizontalThreshold = 50.0;  // You can adjust this threshold
+        final int eyeDistance = (rightEyeX - leftEyeX);
+
+        // Ideal eye distance based on facial structure (modify based on dataset)
+        final double idealEyeDistance = 50.0;  // You may adjust this value
+
+        // Check if eyes are aligned vertically and horizontally
+        bool isLeftEyeAlignedVertically = (leftEyeY >= topLineY) && (leftEyeY <= bottomLineY);
+        bool isRightEyeAlignedVertically = (rightEyeY >= topLineY) && (rightEyeY <= bottomLineY);
+
+        // Horizontal check: eye distance should be within the threshold
+        bool isEyesAlignedHorizontally = (eyeDistance >= idealEyeDistance - horizontalThreshold) &&
+            (eyeDistance <= idealEyeDistance + horizontalThreshold);
+
+        // Detect strabismus if either eye deviates vertically or horizontally
+        if (!isLeftEyeAlignedVertically || !isRightEyeAlignedVertically || !isEyesAlignedHorizontally) {
+          return true; // Strabismus detected
+        } else {
+          return false; // No Strabismus
+        }
+      }
+    }
+    return false; // Return false if no face or eye landmarks found
+  }
+
+
 
   Future<bool> detectStrabismusPresence(InputImage inputImage) async {
     final List<Face> faces = await faceDetector!.processImage(inputImage);
