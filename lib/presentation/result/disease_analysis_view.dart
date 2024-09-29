@@ -1,4 +1,5 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:cculacare/configs/routes/route_names.dart';
 import 'package:cculacare/presentation/result/widgets/probability_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -169,7 +170,9 @@ class DiseaseAnalysisView extends StatelessWidget {
                   ),
                   text: "Ready",
                   screenWidth: screenWidth,
-                  onTap: () {},
+                  onTap: () {
+                    context.push(RouteNames.medicineRoute);
+                  },
                   screenHeight: screenHeight,
                 ),
               ),
