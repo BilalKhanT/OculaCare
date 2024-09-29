@@ -32,4 +32,5 @@ class RouteNames {
   static const String testReportRoute = '/testReportRoute';
   static const String diseaseAnalysisRoute = '/diseaseAnalysisRoute';
   static const String therapyFeedbackRoute = '/therapyFeedbackRoute';
+  static const String medicineRoute = '/medicineRoute';
 }
