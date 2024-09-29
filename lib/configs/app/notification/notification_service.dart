@@ -39,6 +39,20 @@ class NotificationService {
         notificationDetails);
   }
 
+  static Future<void> resultReadyNotification(String title, String body, DateTime time) async {
+    const NotificationDetails notificationDetails = NotificationDetails(
+      android: AndroidNotificationDetails(
+          'test_channel_Id', 'test_channel_Name',
+          importance: Importance.high, priority: Priority.high),
+    );
+    final id = DateTime.now().millisecondsSinceEpoch ~/ 1000;
+    await localNotificationPlugin.zonedSchedule(id, title, body,
+        tz.TZDateTime.from(time, tz.local), notificationDetails,
+        uiLocalNotificationDateInterpretation:
+        UILocalNotificationDateInterpretation.absoluteTime,
+        matchDateTimeComponents: DateTimeComponents.dateAndTime);
+  }
+
   // General Notifications (Test-Related)
   static Future<void> scheduleNotification(
       String title, String body, DateTime time) async {
