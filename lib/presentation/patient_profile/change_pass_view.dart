@@ -82,14 +82,28 @@ class ChangePassView extends StatelessWidget {
                         if (value == sharedPrefs.password) {
                           return 'Please enter a new password';
                         }
-                        String pattern =
-                            r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s])[A-Za-z\d\W]{6,}$';
-                        RegExp regExp = RegExp(pattern);
-                        if (!regExp.hasMatch(value)) {
-                          return 'Password must include upper and lower case letters, digits, and . or _';
+
+                        bool hasUpperCase = value.contains(RegExp(r'[A-Z]'));
+                        bool hasLowerCase = value.contains(RegExp(r'[a-z]'));
+                        bool hasDigits = value.contains(RegExp(r'\d'));
+                        bool hasSpecialCharacters = value.contains(RegExp(r'[!@#\$&*~%^()_+=|<>?{}\[\]\/\\.,-]')); // Special character check
+
+                        if (!hasUpperCase) {
+                          return 'Password must include at least one uppercase letter';
                         }
+                        if (!hasLowerCase) {
+                          return 'Password must include at least one lowercase letter';
+                        }
+                        if (!hasDigits) {
+                          return 'Password must include at least one number';
+                        }
+                        if (!hasSpecialCharacters) {
+                          return 'Password must include at least one special character';
+                        }
+
+                        // If all checks pass, save the password
                         context.read<PassCubit>().passController.text = value;
-                        return null;
+                        return null; // No validation errors
                       },
                     ),
                     SizedBox(
