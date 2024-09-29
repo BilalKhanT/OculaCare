@@ -1,4 +1,5 @@
 import 'package:cculacare/configs/routes/route_names.dart';
+import 'package:cculacare/presentation/widgets/medicine_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -302,6 +303,12 @@ final router = GoRouter(
         builder: (context, state) {
           TestResultModel test = state.extra as TestResultModel;
           return TestReport(test: test);
+        }),
+    GoRoute(
+        parentNavigatorKey: navigatorKey,
+        path: RouteNames.medicineRoute,
+        builder: (context, state) {
+          return const MedicineView();
         }),
     GoRoute(
         parentNavigatorKey: navigatorKey,
