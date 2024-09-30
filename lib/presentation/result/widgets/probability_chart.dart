@@ -74,11 +74,11 @@ class ProbabilityChart extends StatelessWidget {
   Color _getSeverityColor(double score) {
     if (score >= 0.0 && score <= 30.0) {
       return Colors.red;
-    } else if (score >= 40.0 && score <= 60.0) {
+    } else if (score > 30.0 && score <= 50.0) {
       return Colors.orange;
-    } else if (score >= 70.0 && score <= 80.0) {
+    } else if (score > 50.0 && score <= 70.0) {
       return Colors.yellow;
-    } else if (score >= 90.0 && score <= 100.0) {
+    } else if (score > 70.0 && score <= 100.0) {
       return Colors.green;
     } else {
       return Colors.grey.shade700;
