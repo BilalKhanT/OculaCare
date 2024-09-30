@@ -1,6 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:cculacare/configs/routes/route_names.dart';
 import 'package:cculacare/configs/utils/utils.dart';
+import 'package:cculacare/data/models/disease_result/diagnosis_result_model.dart';
 import 'package:cculacare/logic/detection/med_cubit.dart';
 import 'package:cculacare/logic/treatment/treatment_cubit.dart';
 import 'package:cculacare/logic/treatment/treatment_state.dart';
@@ -284,7 +285,10 @@ class DiseaseAnalysisView extends StatelessWidget {
                                       ),
                                       text: "Ready",
                                       screenWidth: screenWidth,
-                                      onTap: () {},
+                                      onTap: () {
+                                        DiagnosisResultModel data = DiagnosisResultModel(result: result, flag: 'left');
+                                        context.push(RouteNames.diagnosisRoute, extra: data);
+                                      },
                                       screenHeight: screenHeight,
                                     ),
                                   ),
@@ -555,7 +559,10 @@ class DiseaseAnalysisView extends StatelessWidget {
                                       ),
                                       text: "Ready",
                                       screenWidth: screenWidth,
-                                      onTap: () {},
+                                      onTap: () {
+                                        DiagnosisResultModel data = DiagnosisResultModel(result: result, flag: 'right');
+                                        context.push(RouteNames.diagnosisRoute, extra: data);
+                                      },
                                       screenHeight: screenHeight,
                                     ),
                                   ),
@@ -803,7 +810,10 @@ class DiseaseAnalysisView extends StatelessWidget {
                                       ),
                                       text: "Ready",
                                       screenWidth: screenWidth,
-                                      onTap: () {},
+                                      onTap: () {
+                                        DiagnosisResultModel data = DiagnosisResultModel(result: result, flag: 'bulgy');
+                                        context.push(RouteNames.diagnosisRoute, extra: data);
+                                      },
                                       screenHeight: screenHeight,
                                     ),
                                   ),
@@ -822,7 +832,7 @@ class DiseaseAnalysisView extends StatelessWidget {
                                       text: "Ready",
                                       screenWidth: screenWidth,
                                       onTap: () {
-                                        context.push(RouteNames.medicineRoute);
+                                        // context.push(RouteNames.medicineRoute);
                                       },
                                       screenHeight: screenHeight,
                                     ),
