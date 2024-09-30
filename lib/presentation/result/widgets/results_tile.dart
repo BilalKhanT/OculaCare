@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:go_router/go_router.dart';
-
 import '../../../configs/presentation/constants/colors.dart';
 import '../../../configs/routes/route_names.dart';
 import '../../../data/models/disease_result/disease_result_model.dart';
+import '../../../logic/treatment/treatment_cubit.dart';
 
 class DiseaseResultTile extends StatelessWidget {
   final DiseaseResultModel result;
@@ -26,6 +27,7 @@ class DiseaseResultTile extends StatelessWidget {
         children: [
           SlidableAction(
             onPressed: (context) {
+              context.read<TreatmentCubit>().toggleOption('Left Eye', result);
               context.push(RouteNames.diseaseAnalysisRoute, extra: result);
             },
             icon: Icons.info_outline,
