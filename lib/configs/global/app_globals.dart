@@ -15,6 +15,8 @@ Map<String, Map<DateTime, int>> categoryDateTherapyCount = {};
 List<TestResultModel> testResults = [];
 int trackLevel = 0;
 InputImage? faceImage;
+bool isHome = true;
+bool isMore = false;
 
 void clearGlobalDataOnLogout() {
   testResults.clear();
