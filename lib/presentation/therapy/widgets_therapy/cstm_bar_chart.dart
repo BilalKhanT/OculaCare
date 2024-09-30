@@ -7,10 +7,10 @@ class TherapyBarChart extends StatelessWidget {
   const TherapyBarChart({super.key});
 
   Map<String, String> get categoryAbbreviations => {
-        'Crossed Eyes': 'Cr',
         'General': 'Ge',
-        'Pterygiuym': 'Pt',
+        'Uveitis': 'Uv',
         'Cataracts': 'Ca',
+        'Pterygiuym': 'Pt',
         'Bulgy Eyes': 'Bu',
       };
 
