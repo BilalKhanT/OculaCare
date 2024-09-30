@@ -2,7 +2,7 @@ final List<Map<String, dynamic>> crossedEyeTherapies = [
   // Brock String Exercise
   {
     "title": "Brock String Exercise",
-    "category": "Crossed Eyes",
+    "category": "Uveitis",
     "timeLimit": 10,
     "description": "Improves alignment, strengthens coordination",
     "type": "animation_string",
@@ -36,7 +36,7 @@ final List<Map<String, dynamic>> crossedEyeTherapies = [
   // Mirror Eye Stretch
   {
     "title": "Mirror Eye Stretch",
-    "category": "Crossed Eyes",
+    "category": "Uveitis",
     "timeLimit": 5,
     "description": "Strengthens muscles, improves coordination",
     "type": "instruction",
@@ -70,7 +70,7 @@ final List<Map<String, dynamic>> crossedEyeTherapies = [
   // Pencil Push-Up
   {
     "title": "Pencil Push-Up",
-    "category": "Crossed Eyes",
+    "category": "Uveitis",
     "timeLimit": 10,
     "description": "Improves focus, strengthens coordination",
     "type": "instruction",
@@ -164,7 +164,7 @@ final List<Map<String, dynamic>> crossedEyeTherapies = [
   // Barrel Card Exercise
   {
     "title": "Barrel Card Exercise",
-    "category": "Crossed Eyes",
+    "category": "Uveitis",
     "timeLimit": 5,
     "description": "Improves convergence, strengthens coordination",
     "type": "animation_barrel",
@@ -210,7 +210,7 @@ final List<Map<String, dynamic>> crossedEyeTherapies = [
   // Eye Patch Therapy
   {
     "title": "Eye Patch Therapy",
-    "category": "Crossed Eyes",
+    "category": "Uveitis",
     "timeLimit": 1,
     "description": "Strengthens weaker eye, coordination",
     "type": "instruction",
@@ -236,7 +236,7 @@ final List<Map<String, dynamic>> crossedEyeTherapies = [
   // Peripheral Awareness Exercise
   {
     "title": "Peripheral Awareness Exercise",
-    "category": "Crossed Eyes",
+    "category": "Uveitis",
     "timeLimit": 5,
     "description": "Strengthens peripheral vision, coordination",
     "type": "animation_peripheral",
