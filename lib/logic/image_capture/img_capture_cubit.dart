@@ -167,29 +167,33 @@ class ImageCaptureCubit extends Cubit<ImageCaptureState> {
       InputImage eyeImage = InputImage.fromFilePath(image.path);
       faceImage = eyeImage;
       bool faceDetected = false;
-       Future.delayed(const Duration(seconds: 10), () async {
-        if (!faceDetected) {
-          emit(ImageCaptureStateFailure('No face detected within 10 seconds.'));
-        }
-      });
+      //  Future.delayed(const Duration(seconds: 10), () async {
+      //   if (!faceDetected) {
+      //     emit(ImageCaptureStateFailure('No face detected within 10 seconds.'));
+      //   }
+      // });
+      emit(ImagesCropped(
+        image,
+        image,
+      ));
 
-      final List<Face>? faces = await faceDetector?.processImage(eyeImage);
-
-      if (faces != null && faces.isNotEmpty) {
-        faceDetected = true;
-        for (Face face in faces) {
-          final FaceLandmark? leftEye = face.landmarks[FaceLandmarkType.leftEye];
-          final FaceLandmark? rightEye = face.landmarks[FaceLandmarkType.rightEye];
-
-          if (leftEye != null && rightEye != null) {
-            await cropImage(leftEye.position, rightEye.position, image);
-          } else {
-            emit(ImageCaptureStateFailure('Could not detect both eyes.'));
-          }
-        }
-      } else {
-        emit(ImageCaptureStateFailure('No face detected.'));
-      }
+      // final List<Face>? faces = await faceDetector?.processImage(eyeImage);
+      //
+      // if (faces != null && faces.isNotEmpty) {
+      //   faceDetected = true;
+      //   for (Face face in faces) {
+      //     final FaceLandmark? leftEye = face.landmarks[FaceLandmarkType.leftEye];
+      //     final FaceLandmark? rightEye = face.landmarks[FaceLandmarkType.rightEye];
+      //
+      //     if (leftEye != null && rightEye != null) {
+      //       await cropImage(leftEye.position, rightEye.position, image);
+      //     } else {
+      //       emit(ImageCaptureStateFailure('Could not detect both eyes.'));
+      //     }
+      //   }
+      // } else {
+      //   emit(ImageCaptureStateFailure('No face detected.'));
+      // }
     } catch (e) {
       emit(ImageCaptureStateFailure('Error processing image.'));
     }
@@ -301,34 +305,34 @@ class ImageCaptureCubit extends Cubit<ImageCaptureState> {
   }
 
   Future<void> uploadImageToServer(XFile leftEye, XFile rightEye) async {
-    await Future.delayed(Duration(seconds: 5));
-    NotificationService.resultReadyNotification(
-        'Disease Analysis Result',
-        'Disease analysis report is ready.',
-        DateTime.now().add(const Duration(seconds: 1))
-    );
-    // String leftEyeBase64 = await imageToBase64(leftEye);
-    // String rightEyeBase64 = await imageToBase64(rightEye);
-    // Map<String, dynamic> payload = {
-    //   'left_eye': leftEyeBase64,
-    //   'right_eye': rightEyeBase64,
-    // };
-    // try {
-    //   var response = await http.post(
-    //     Uri.parse('http://192.168.18.32:8000/predict'),
-    //     headers: {"Content-Type": "application/json"},
-    //     body: json.encode(payload),
-    //   );
-    //   if (response.statusCode == 200) {
-    //     var data = jsonDecode(response.body);
-    //     DiseaseResultModel result = DiseaseResultModel.fromJson(data);
-    //     globalResults.add(result);
-    //   } else {
-    //     debugPrint("Nothing ${response.statusCode}");
-    //   }
-    // } catch (e) {
-    //   debugPrint('error $e');
-    // }
+    // await Future.delayed(Duration(seconds: 5));
+    // NotificationService.resultReadyNotification(
+    //     'Disease Analysis Result',
+    //     'Disease analysis report is ready.',
+    //     DateTime.now().add(const Duration(seconds: 1))
+    // );
+    String leftEyeBase64 = await imageToBase64(leftEye);
+    String rightEyeBase64 = await imageToBase64(rightEye);
+    Map<String, dynamic> payload = {
+      'left_eye': leftEyeBase64,
+      'right_eye': rightEyeBase64,
+    };
+    try {
+      var response = await http.post(
+        Uri.parse('http://192.168.18.18:8000/predict'),
+        headers: {"Content-Type": "application/json"},
+        body: json.encode(payload),
+      );
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+        DiseaseResultModel result = DiseaseResultModel.fromJson(data);
+        globalResults.add(result);
+      } else {
+        debugPrint("Nothing ${response.statusCode}");
+      }
+    } catch (e) {
+      debugPrint('error $e');
+    }
   }
 
   Future<bool> detectStrabismusWithFullAlignment(InputImage inputImage) async {
