@@ -42,6 +42,11 @@ class TherapyCubit extends Cubit<TherapyState> {
 
   Future<void> mapTherapies(String patientName) async {
     emit(TherapyLoading());
+
+    // Clear the data before mapping new therapies
+    globalTherapyProgressData.clear();
+    categoryDateTherapyCount.clear();
+
     try {
       if (globalTherapies.isEmpty || sharedPrefs.therapyFetched == false) {
         globalTherapies.clear();
@@ -57,13 +62,14 @@ class TherapyCubit extends Cubit<TherapyState> {
 
           globalTherapyProgressData.update(
             date,
-            (existingDuration) => existingDuration + therapy.duration,
+                (existingDuration) => existingDuration + therapy.duration,
             ifAbsent: () => therapy.duration,
           );
+
           if (categoryDateTherapyCount.containsKey(therapy.therapyType)) {
             categoryDateTherapyCount[therapy.therapyType]!.update(
               date,
-              (existingCount) => existingCount + 1,
+                  (existingCount) => existingCount + 1,
               ifAbsent: () => 1,
             );
           } else {
@@ -74,13 +80,54 @@ class TherapyCubit extends Cubit<TherapyState> {
         }
       }
       emit(TherapyProgressionLoaded(globalTherapyProgressData));
-
-      emit(const TherapyProgressionLoaded({}));
     } catch (e) {
       emit(TherapyProgressError(
           therapyProgressErr: 'Failed to load therapy history: $e'));
     }
   }
+
+
+  // Future<void> mapTherapies(String patientName) async {
+  //   emit(TherapyLoading());
+  //   try {
+  //     if (globalTherapies.isEmpty || sharedPrefs.therapyFetched == false) {
+  //       globalTherapies.clear();
+  //       sharedPrefs.therapyFetched = true;
+  //       await therapyRepository.getTherapyRecord(patientName);
+  //     }
+  //
+  //     final DateFormat dateFormat = DateFormat('dd-MM-yyyy');
+  //
+  //     for (var therapy in globalTherapies) {
+  //       try {
+  //         DateTime date = dateFormat.parse(therapy.date);
+  //
+  //         globalTherapyProgressData.update(
+  //           date,
+  //           (existingDuration) => existingDuration + therapy.duration,
+  //           ifAbsent: () => therapy.duration,
+  //         );
+  //         if (categoryDateTherapyCount.containsKey(therapy.therapyType)) {
+  //           categoryDateTherapyCount[therapy.therapyType]!.update(
+  //             date,
+  //             (existingCount) => existingCount + 1,
+  //             ifAbsent: () => 1,
+  //           );
+  //         } else {
+  //           categoryDateTherapyCount[therapy.therapyType] = {date: 1};
+  //         }
+  //       } catch (e) {
+  //         log("Error parsing date: ${therapy.date}, Error: $e");
+  //       }
+  //     }
+  //     emit(TherapyProgressionLoaded(globalTherapyProgressData));
+  //
+  //     emit(const TherapyProgressionLoaded({}));
+  //   } catch (e) {
+  //     emit(TherapyProgressError(
+  //         therapyProgressErr: 'Failed to load therapy history: $e'));
+  //   }
+  // }
 
   void startTherapy(String title, int timeLimit,
       List<Map<String, dynamic>> steps, String soundPath, String category) {
