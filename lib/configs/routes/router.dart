@@ -1,4 +1,5 @@
 import 'package:cculacare/configs/routes/route_names.dart';
+import 'package:cculacare/data/models/disease_result/diagnosis_result_model.dart';
 import 'package:cculacare/presentation/result/widgets/diagnosis_report.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -318,8 +319,8 @@ final router = GoRouter(
         parentNavigatorKey: navigatorKey,
         path: RouteNames.diagnosisRoute,
         builder: (context, state) {
-          final DiseaseResultModel data = state.extra as DiseaseResultModel;
-          return DiagnosisReport(result: data);
+          final DiagnosisResultModel data = state.extra as DiagnosisResultModel;
+          return DiagnosisReport(diagnosis: data);
         }),
     GoRoute(
         parentNavigatorKey: navigatorKey,
