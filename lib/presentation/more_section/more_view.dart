@@ -14,6 +14,7 @@ import '../../configs/routes/route_names.dart';
 import '../../configs/utils/utils.dart';
 import '../../data/repositories/local/preferences/shared_prefs.dart';
 import '../../logic/detection/detection_cubit.dart';
+import '../../logic/detection/question_cubit.dart';
 import '../../logic/image_capture/img_capture_cubit.dart';
 import '../../logic/login_cubit/login_cubit.dart';
 import '../../logic/patient_profile/patient_profile_cubit.dart';
@@ -91,8 +92,10 @@ class MoreView extends StatelessWidget {
                                 );
                                 return;
                               }
-                              context.read<ImageCaptureCubit>().initializeCamera();
-                              context.push(RouteNames.imgCaptureRoute);
+                              isHome = false;
+                              isMore = true;
+                              context.read<QuestionCubit>().startQuestionnaire();
+                              context.push(RouteNames.questionRoute);
                             },
                             child: Container(
                               padding: const EdgeInsets.all(15),
