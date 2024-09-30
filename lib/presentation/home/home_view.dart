@@ -11,12 +11,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+import '../../configs/global/app_globals.dart';
 import '../../configs/presentation/constants/colors.dart';
 import '../../configs/routes/route_names.dart';
 import '../../configs/utils/utils.dart';
 import '../../data/models/address/address_model.dart';
 import '../../data/models/patient/patient_model.dart';
 import '../../data/repositories/local/preferences/shared_prefs.dart';
+import '../../logic/detection/question_cubit.dart';
 import '../../logic/image_capture/img_capture_cubit.dart';
 import '../../logic/pdf_cubit/pdf_cubit_state.dart';
 import '../widgets/need_to_setup_profile_widget.dart';
@@ -279,11 +281,10 @@ class HomeScreen extends StatelessWidget {
                                                 );
                                                 return;
                                               }
-                                              context
-                                                  .read<ImageCaptureCubit>()
-                                                  .initializeCamera();
-                                              context
-                                                  .push(RouteNames.imgCaptureRoute);
+                                              isHome = true;
+                                              isMore = false;
+                                              context.read<QuestionCubit>().startQuestionnaire();
+                                              context.push(RouteNames.questionRoute);
                                             },
                                             iconData: "assets/svgs/eye_scan.svg",
                                             constraints: constraints,
