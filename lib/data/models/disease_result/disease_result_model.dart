@@ -8,6 +8,8 @@ class DiseaseResultModel {
   final String? precautions;
   final EyePrediction? leftEye;
   final EyePrediction? rightEye;
+  final EyePrediction? bulgy;
+  final EyePrediction? crossed;
 
   DiseaseResultModel({
     this.patientName,
@@ -19,6 +21,8 @@ class DiseaseResultModel {
     this.precautions,
     this.leftEye,
     this.rightEye,
+    this.bulgy,
+    this.crossed,
   });
 
   factory DiseaseResultModel.fromJson(Map<String, dynamic> json) {
@@ -35,6 +39,11 @@ class DiseaseResultModel {
           : null,
       rightEye: json['right_eye'] != null
           ? EyePrediction.fromJson(json['right_eye'])
+          : null,
+      bulgy:
+          json['bulgy'] != null ? EyePrediction.fromJson(json['bulgy']) : null,
+      crossed: json['crossed'] != null
+          ? EyePrediction.fromJson(json['crossed'])
           : null,
     );
   }
