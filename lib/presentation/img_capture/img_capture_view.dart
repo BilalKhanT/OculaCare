@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:animate_do/animate_do.dart';
 import 'package:camera/camera.dart';
 import 'package:cculacare/configs/global/app_globals.dart';
+import 'package:cculacare/configs/routes/route_names.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -82,7 +83,12 @@ class ImageCaptureScreen extends StatelessWidget {
                                               .read<ImageCaptureCubit>()
                                               .dispose();
                                           if (context.mounted) {
-                                            context.pop();
+                                            if (isHome) {
+                                              context.go(RouteNames.homeRoute);
+                                            }
+                                            else {
+                                              context.go(RouteNames.detectionRoute);
+                                            }
                                           }
                                         },
                                       ),
@@ -160,7 +166,15 @@ class ImageCaptureScreen extends StatelessWidget {
                                                       .read<ImageCaptureCubit>()
                                                       .dispose();
                                                   if (context.mounted) {
-                                                    context.pop();
+                                                    if (isHome) {
+                                                      context.go(RouteNames.homeRoute);
+                                                    }
+                                                    else if (isMore) {
+                                                      context.go(RouteNames.moreRoute);
+                                                    }
+                                                    else {
+                                                      context.go(RouteNames.detectionRoute);
+                                                    }
                                                   }
                                                 },
                                                 child: Container(
