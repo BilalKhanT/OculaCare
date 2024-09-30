@@ -1,5 +1,4 @@
 import 'package:cculacare/configs/routes/route_names.dart';
-import 'package:cculacare/presentation/widgets/medicine_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -27,6 +26,7 @@ import '../../presentation/otp/otp_view.dart';
 import '../../presentation/patient_profile/profile_view.dart';
 import '../../presentation/result/disease_analysis_view.dart';
 import '../../presentation/result/result_view.dart';
+import '../../presentation/result/widgets/med_view.dart';
 import '../../presentation/sign_up/sign_up_view.dart';
 import '../../presentation/test_dashboard/test_dash_view.dart';
 import '../../presentation/test_dashboard/vision_tests/animal_game_initial.dart';
@@ -308,7 +308,10 @@ final router = GoRouter(
         parentNavigatorKey: navigatorKey,
         path: RouteNames.medicineRoute,
         builder: (context, state) {
-          return const MedicineView();
+          final String data = state.extra as String;
+          return MedView(
+            disease: data,
+          );
         }),
     GoRoute(
         parentNavigatorKey: navigatorKey,
