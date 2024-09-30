@@ -8,11 +8,13 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 
+import '../../configs/global/app_globals.dart';
 import '../../configs/presentation/constants/colors.dart';
 import '../../configs/routes/route_names.dart';
 import '../../configs/utils/utils.dart';
 import '../../data/repositories/local/preferences/shared_prefs.dart';
 import '../../logic/detection/detection_cubit.dart';
+import '../../logic/detection/question_cubit.dart';
 import '../../logic/image_capture/img_capture_cubit.dart';
 import '../home/widgets/custom_widget.dart';
 import '../widgets/need_to_setup_profile_widget.dart';
@@ -115,8 +117,10 @@ class DiseaseDetectionScreen extends StatelessWidget {
                           screenWidth: screenWidth,
                           onTap: () {
                             if (sharedPrefs.isProfileSetup) {
-                              context.read<ImageCaptureCubit>().initializeCamera();
-                              context.push(RouteNames.imgCaptureRoute);
+                              isHome = false;
+                              isMore = false;
+                              context.read<QuestionCubit>().startQuestionnaire();
+                              context.push(RouteNames.questionRoute);
                             } else {
                               showDialog(
                                 context: context,
