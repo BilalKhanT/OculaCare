@@ -11,27 +11,24 @@ class DetectionCubit extends Cubit<DetectionState> {
   var data = [
     {
       "patient_name": "John Doe",
+      "email": 'hehe',
       "date": "2024-09-16",
-      "treatment": "Cataract Surgery",
-      "causes": "Aging, UV exposure, smoking",
-      "medicine_recommendations":
-          "Post-surgery: Antibiotic eye drops, Anti-inflammatory eye drops",
-      "impacts": "Improved vision, reduced eye strain, brighter colors",
-      "precautions":
+      "treatment1": "Cataract Surgery",
+      "precaution1":
           "Avoid direct sunlight, wear sunglasses, avoid strenuous activities",
       "left_eye": {"prediction": "Normal", "probability": "70%"},
       "right_eye": {"prediction": "Cataracts Detected", "probability": "85%"}
     },
     {
       "patient_name": "Jane Smith",
+      "email": 'hehe',
       "date": "2024-09-12",
-      "treatment": "Pterygium Surgery",
-      "causes": "Prolonged exposure to wind and dust",
-      "medicine_recommendations":
-          "Post-surgery: Steroid eye drops, artificial tears",
-      "impacts": "Reduced irritation, improved appearance",
-      "precautions":
+      "treatment1": "Pterygium Surgery",
+      "precaution1":
           "Avoid dusty areas, wear protective eyewear, use lubricating drops",
+      "treatment2": "Pterygium Surgery",
+      "precaution2":
+      "Avoid dusty areas, wear protective eyewear, use lubricating drops",
       "left_eye": {"prediction": "Pterygium Detected", "probability": "60%"},
       "right_eye": {"prediction": "Uveitis Detected", "probability": "5%"},
       "bulgy": {"prediction": "Bulgy Eyes Detected", "probability": "85%"},
