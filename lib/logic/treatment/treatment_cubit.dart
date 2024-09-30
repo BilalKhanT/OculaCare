@@ -15,8 +15,6 @@ class TreatmentCubit extends Cubit<TreatmentState> {
       loadRightEye(res);
     } else if (val == 'Bulgy Eyes') {
       loadBulgy(res);
-    } else if (val == 'Strabismus') {
-      loadCrossed(res);
     }
   }
 
@@ -35,8 +33,4 @@ class TreatmentCubit extends Cubit<TreatmentState> {
     emit(TreatmentBulgy(result));
   }
 
-  void loadCrossed(DiseaseResultModel result) {
-    emit(TreatmentInitial());
-    emit(TreatmentCrossed(result));
-  }
 }
