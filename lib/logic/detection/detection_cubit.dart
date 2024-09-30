@@ -19,14 +19,8 @@ class DetectionCubit extends Cubit<DetectionState> {
       "impacts": "Improved vision, reduced eye strain, brighter colors",
       "precautions":
           "Avoid direct sunlight, wear sunglasses, avoid strenuous activities",
-      "left_eye": {
-        "prediction": "Mild cataract detected",
-        "probability": "70%"
-      },
-      "right_eye": {
-        "prediction": "Moderate cataract detected",
-        "probability": "85%"
-      }
+      "left_eye": {"prediction": "Normal", "probability": "70%"},
+      "right_eye": {"prediction": "Cataracts Detected", "probability": "85%"}
     },
     {
       "patient_name": "Jane Smith",
@@ -38,66 +32,15 @@ class DetectionCubit extends Cubit<DetectionState> {
       "impacts": "Reduced irritation, improved appearance",
       "precautions":
           "Avoid dusty areas, wear protective eyewear, use lubricating drops",
-      "left_eye": {"prediction": "Pterygium detected", "probability": "60%"},
-      "right_eye": {"prediction": "No significant issues", "probability": "5%"}
-    },
-    {
-      "patient_name": "Jane Smith",
-      "date": "2024-09-12",
-      "treatment": "Pterygium Surgery",
-      "causes": "Prolonged exposure to wind and dust",
-      "medicine_recommendations":
-      "Post-surgery: Steroid eye drops, artificial tears",
-      "impacts": "Reduced irritation, improved appearance",
-      "precautions":
-      "Avoid dusty areas, wear protective eyewear, use lubricating drops",
-      "left_eye": {"prediction": "Pterygium detected", "probability": "60%"},
-      "right_eye": {"prediction": "No significant issues", "probability": "5%"}
-    },
-    {
-      "patient_name": "Jane Smith",
-      "date": "2024-09-12",
-      "treatment": "Pterygium Surgery",
-      "causes": "Prolonged exposure to wind and dust",
-      "medicine_recommendations":
-      "Post-surgery: Steroid eye drops, artificial tears",
-      "impacts": "Reduced irritation, improved appearance",
-      "precautions":
-      "Avoid dusty areas, wear protective eyewear, use lubricating drops",
-      "left_eye": {"prediction": "Pterygium detected", "probability": "60%"},
-      "right_eye": {"prediction": "No significant issues", "probability": "5%"}
-    },
-    {
-      "patient_name": "Jane Smith",
-      "date": "2024-09-12",
-      "treatment": "Pterygium Surgery",
-      "causes": "Prolonged exposure to wind and dust",
-      "medicine_recommendations":
-      "Post-surgery: Steroid eye drops, artificial tears",
-      "impacts": "Reduced irritation, improved appearance",
-      "precautions":
-      "Avoid dusty areas, wear protective eyewear, use lubricating drops",
-      "left_eye": {"prediction": "Pterygium detected", "probability": "60%"},
-      "right_eye": {"prediction": "No significant issues", "probability": "5%"}
-    },
-    {
-      "patient_name": "Jane Smith",
-      "date": "2024-09-12",
-      "treatment": "Pterygium Surgery",
-      "causes": "Prolonged exposure to wind and dust",
-      "medicine_recommendations":
-      "Post-surgery: Steroid eye drops, artificial tears",
-      "impacts": "Reduced irritation, improved appearance",
-      "precautions":
-      "Avoid dusty areas, wear protective eyewear, use lubricating drops",
-      "left_eye": {"prediction": "Pterygium detected", "probability": "60%"},
-      "right_eye": {"prediction": "No significant issues", "probability": "5%"}
+      "left_eye": {"prediction": "Pterygium Detected", "probability": "60%"},
+      "right_eye": {"prediction": "Uveitis Detected", "probability": "5%"},
+      "bulgy": {"prediction": "Bulgy Eyes Detected", "probability": "85%"},
     },
   ];
 
   Future<void> loadDiseaseResults() async {
     emit(DetectionLoading());
-    await Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 0));
     try {
       if (globalResults.isEmpty) {
         List<DiseaseResultModel> diseaseResults =
@@ -108,7 +51,7 @@ class DetectionCubit extends Cubit<DetectionState> {
           for (var res in diseaseResults) {
             globalResults.add(res);
           }
-          emit(DetectionLoaded(diseaseResults));
+          emit(DetectionLoaded(globalResults));
         }
       } else {
         emit(DetectionLoaded(globalResults));
