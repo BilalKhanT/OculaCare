@@ -24,9 +24,4 @@ class TreatmentBulgy extends TreatmentState {
   const TreatmentBulgy(this.result);
 }
 
-class TreatmentCrossed extends TreatmentState {
-  final DiseaseResultModel result;
-  const TreatmentCrossed(this.result);
-}
-
 class TreatmentError extends TreatmentState {}
