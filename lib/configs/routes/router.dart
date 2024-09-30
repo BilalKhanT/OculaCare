@@ -1,5 +1,6 @@
 import 'package:cculacare/configs/routes/route_names.dart';
 import 'package:cculacare/data/models/disease_result/diagnosis_result_model.dart';
+import 'package:cculacare/presentation/disease_detection/question_view.dart';
 import 'package:cculacare/presentation/result/widgets/diagnosis_report.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -297,6 +298,13 @@ final router = GoRouter(
       builder: (context, state) {
         final disease = state.extra as String;
         return DiseaseTherapiesScreen(disease: disease);
+      },
+    ),
+    GoRoute(
+      parentNavigatorKey: navigatorKey,
+      path: RouteNames.questionRoute,
+      builder: (context, state) {
+        return const QuestionScreen();
       },
     ),
     GoRoute(
