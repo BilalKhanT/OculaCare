@@ -95,7 +95,7 @@ class DiseaseAnalysisView extends StatelessWidget {
                                     ),
                                     onChanged: (String? newValue) {
                                       if (newValue == 'Bulgy Eyes') {
-                                        if (result.bulgy == null) {
+                                        if (result.bulgy!.prediction! == 'normal') {
                                           AppUtils.showToast(
                                               context,
                                               'No Disease Detected',
@@ -373,7 +373,7 @@ class DiseaseAnalysisView extends StatelessWidget {
                                     ),
                                     onChanged: (String? newValue) {
                                       if (newValue == 'Bulgy Eyes') {
-                                        if (result.bulgy == null) {
+                                        if (result.bulgy!.prediction! == 'normal') {
                                           AppUtils.showToast(
                                               context,
                                               'No Disease Detected',
@@ -653,7 +653,7 @@ class DiseaseAnalysisView extends StatelessWidget {
                                     ),
                                     onChanged: (String? newValue) {
                                       if (newValue == 'Bulgy Eyes') {
-                                        if (result.bulgy == null) {
+                                        if (result.bulgy!.prediction! == 'normal') {
                                           AppUtils.showToast(
                                               context,
                                               'No Disease Detected',
