@@ -77,7 +77,7 @@ class DiseaseTherapiesScreen extends StatelessWidget {
   List<Map<String, dynamic>> _getTherapiesForDisease(String disease) {
     if (disease == "Cataracts") return therapiesCataract;
     if (disease == "Bulgy Eyes") return bulgyEyeTherapies;
-    if (disease == "Crossed Eyes") return crossedEyeTherapies;
+    if (disease == "Uveitis") return crossedEyeTherapies;
     if (disease == "Pterygium") return pterygiumTherapies;
     return [];
   }

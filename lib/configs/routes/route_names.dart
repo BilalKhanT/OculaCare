@@ -33,4 +33,6 @@ class RouteNames {
   static const String diseaseAnalysisRoute = '/diseaseAnalysisRoute';
   static const String therapyFeedbackRoute = '/therapyFeedbackRoute';
   static const String medicineRoute = '/medicineRoute';
+  static const String diagnosisRoute = '/diagnosisRoute';
+  static const String questionRoute = '/questionRoute';
 }

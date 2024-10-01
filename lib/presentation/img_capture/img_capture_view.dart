@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:animate_do/animate_do.dart';
 import 'package:camera/camera.dart';
 import 'package:cculacare/configs/global/app_globals.dart';
+import 'package:cculacare/configs/routes/route_names.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -17,7 +18,9 @@ import '../widgets/btn_flat.dart';
 import '../widgets/cstm_loader.dart';
 
 class ImageCaptureScreen extends StatelessWidget {
-  const ImageCaptureScreen({Key? key}) : super(key: key);
+  final String modelFlag;
+  const ImageCaptureScreen({Key? key, required this.modelFlag})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,11 +34,20 @@ class ImageCaptureScreen extends StatelessWidget {
           height: height,
           width: width,
           child: BlocConsumer<ImageCaptureCubit, ImageCaptureState>(
-            listener: (context, state) {
+            listener: (context, state) async {
               if (state is ImageCaptureStateFailure) {
                 AppUtils.showToast(context, 'Image Quality Error',
                     'Please upload a high quality image', true);
-                context.pop();
+                await context.read<ImageCaptureCubit>().dispose();
+                if (context.mounted) {
+                  if (isHome) {
+                    context.go(RouteNames.homeRoute);
+                  } else if (isMore) {
+                    context.go(RouteNames.moreRoute);
+                  } else {
+                    context.go(RouteNames.detectionRoute);
+                  }
+                }
               }
             },
             builder: (context, state) {
@@ -82,7 +94,12 @@ class ImageCaptureScreen extends StatelessWidget {
                                               .read<ImageCaptureCubit>()
                                               .dispose();
                                           if (context.mounted) {
-                                            context.pop();
+                                            if (isHome) {
+                                              context.go(RouteNames.homeRoute);
+                                            } else {
+                                              context.go(
+                                                  RouteNames.detectionRoute);
+                                            }
                                           }
                                         },
                                       ),
@@ -160,7 +177,16 @@ class ImageCaptureScreen extends StatelessWidget {
                                                       .read<ImageCaptureCubit>()
                                                       .dispose();
                                                   if (context.mounted) {
-                                                    context.pop();
+                                                    if (isHome) {
+                                                      context.go(
+                                                          RouteNames.homeRoute);
+                                                    } else if (isMore) {
+                                                      context.go(
+                                                          RouteNames.moreRoute);
+                                                    } else {
+                                                      context.go(RouteNames
+                                                          .detectionRoute);
+                                                    }
                                                   }
                                                 },
                                                 child: Container(
@@ -307,7 +333,16 @@ class ImageCaptureScreen extends StatelessWidget {
                         children: <Widget>[
                           IconButton(
                             onPressed: () {
-                              context.pop();
+                              context.read<ImageCaptureCubit>().dispose();
+                              if (context.mounted) {
+                                if (isHome) {
+                                  context.go(RouteNames.homeRoute);
+                                } else if (isMore) {
+                                  context.go(RouteNames.moreRoute);
+                                } else {
+                                  context.go(RouteNames.detectionRoute);
+                                }
+                              }
                             },
                             icon: const Icon(
                               Icons.arrow_back_ios_new,
@@ -603,40 +638,13 @@ class ImageCaptureScreen extends StatelessWidget {
                                         btnColor: AppColors.appColor,
                                         textColor: Colors.white,
                                         onPress: () async {
-                                          // if (faceImage == null) {
-                                          //   AppUtils.showToast(
-                                          //       context,
-                                          //       'Error',
-                                          //       'Something went wrong, please try again later.',
-                                          //       true);
-                                          //   return;
-                                          // }
-                                          // bool flag = await context
-                                          //     .read<ImageCaptureCubit>()
-                                          //     .detectStrabismusWithFullAlignment(
-                                          //         faceImage!);
-                                          // if (flag) {
-                                          //   AppUtils.showToast(
-                                          //       context,
-                                          //       'STRABISMUS DETECTED',
-                                          //       '',
-                                          //       true);
-                                          // } else {
-                                          //   AppUtils.showToast(
-                                          //       context,
-                                          //       'STRABISMUS NOT DETECTED',
-                                          //       '',
-                                          //       false);
-                                          // }
                                           context
                                               .read<ImageCaptureCubit>()
                                               .uploadImageToServer(
-                                                  state.leftEye, state.rightEye);
-                                          // AppUtils.showToast(
-                                          //     context,
-                                          //     'Upload Successful',
-                                          //     'Image uploaded to the server successfully please check results tab.',
-                                          //     false);
+                                                  state.leftEye,
+                                                  state.rightEye,
+                                                  state.fullFace,
+                                                  modelFlag);
                                         },
                                         text: 'Upload to Server'),
                                   ),

@@ -29,8 +29,9 @@ class SnellanTestNext extends SnellanTestState {
 class SnellanTestCompleted extends SnellanTestState {
   final int score;
   final String visionAcuity;
+  final double diopter;
 
-  const SnellanTestCompleted(this.score, this.visionAcuity);
+  const SnellanTestCompleted(this.score, this.visionAcuity, this.diopter);
 
   @override
   List<Object?> get props => [score, visionAcuity];

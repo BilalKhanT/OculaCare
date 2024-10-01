@@ -11,7 +11,7 @@ class DiseaseCardList extends StatelessWidget {
   final List<Map<String, String>> diseases = [
     {"name": "Cataracts", "image": "assets/images/cataracts_bg.png"},
     {"name": "Bulgy Eyes", "image": "assets/images/bulgy_eyes_bg.png"},
-    {"name": "Crossed Eyes", "image": "assets/images/crossed_eyes_bg.png"},
+    {"name": "Uveitis", "image": "assets/images/crossed_eyes_bg.png"},
     {"name": "Pterygium", "image": "assets/images/pterygium_bg.png"},
   ];
 

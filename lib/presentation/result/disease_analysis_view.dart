@@ -1,6 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:cculacare/configs/routes/route_names.dart';
 import 'package:cculacare/configs/utils/utils.dart';
+import 'package:cculacare/data/models/disease_result/diagnosis_result_model.dart';
 import 'package:cculacare/logic/detection/med_cubit.dart';
 import 'package:cculacare/logic/treatment/treatment_cubit.dart';
 import 'package:cculacare/logic/treatment/treatment_state.dart';
@@ -94,7 +95,7 @@ class DiseaseAnalysisView extends StatelessWidget {
                                     ),
                                     onChanged: (String? newValue) {
                                       if (newValue == 'Bulgy Eyes') {
-                                        if (result.bulgy == null) {
+                                        if (result.bulgy!.prediction! == 'normal') {
                                           AppUtils.showToast(
                                               context,
                                               'No Disease Detected',
@@ -134,7 +135,7 @@ class DiseaseAnalysisView extends StatelessWidget {
                             ],
                           ),
                         ),
-                        result.leftEye!.prediction! == 'Normal'
+                        result.leftEye!.prediction! == 'normal'
                             ? Center(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -284,7 +285,13 @@ class DiseaseAnalysisView extends StatelessWidget {
                                       ),
                                       text: "Ready",
                                       screenWidth: screenWidth,
-                                      onTap: () {},
+                                      onTap: () {
+                                        DiagnosisResultModel data =
+                                            DiagnosisResultModel(
+                                                result: result, flag: 'left');
+                                        context.push(RouteNames.diagnosisRoute,
+                                            extra: data);
+                                      },
                                       screenHeight: screenHeight,
                                     ),
                                   ),
@@ -314,8 +321,9 @@ class DiseaseAnalysisView extends StatelessWidget {
                                                         'Uveitis Detected'
                                                     ? 3
                                                     : 2;
-                                        print(medIndex);
-                                        context.read<MedCubit>().emitToggled(medIndex, 0);
+                                        context
+                                            .read<MedCubit>()
+                                            .emitToggled(medIndex, 0);
                                         context.push(RouteNames.medicineRoute,
                                             extra: result.leftEye!.prediction!);
                                       },
@@ -365,7 +373,7 @@ class DiseaseAnalysisView extends StatelessWidget {
                                     ),
                                     onChanged: (String? newValue) {
                                       if (newValue == 'Bulgy Eyes') {
-                                        if (result.bulgy == null) {
+                                        if (result.bulgy!.prediction! == 'normal') {
                                           AppUtils.showToast(
                                               context,
                                               'No Disease Detected',
@@ -405,7 +413,7 @@ class DiseaseAnalysisView extends StatelessWidget {
                             ],
                           ),
                         ),
-                        result.rightEye!.prediction! == 'Normal'
+                        result.rightEye!.prediction! == 'normal'
                             ? Center(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -512,8 +520,8 @@ class DiseaseAnalysisView extends StatelessWidget {
                                               'Cataracts Detected'
                                           ? 'Cataracts are a clouding of the eye natural lens, causing blurred vision and, if untreated, eventual blindness. Common in aging, they can be surgically removed to restore clearvision.'
                                           : result.rightEye!.prediction! ==
-                                          'Uveitis Detected'
-                                          ? 'Uveitis is an inflammation of the middle layer of the eye, which can affect one or both eyes. It can cause redness, pain, and blurred vision. Early detection is essential to prevent potential complications.'
+                                                  'Uveitis Detected'
+                                              ? 'Uveitis is an inflammation of the middle layer of the eye, which can affect one or both eyes. It can cause redness, pain, and blurred vision. Early detection is essential to prevent potential complications.'
                                               : result.rightEye!.prediction! ==
                                                       'Pterygium Detected'
                                                   ? 'Pterygium is a growth of tissue on the white of the eye that can extend onto the cornea, often caused by UV exposure. It may cause irritation or blurred vision and can be surgically removed if necessary.'
@@ -555,7 +563,13 @@ class DiseaseAnalysisView extends StatelessWidget {
                                       ),
                                       text: "Ready",
                                       screenWidth: screenWidth,
-                                      onTap: () {},
+                                      onTap: () {
+                                        DiagnosisResultModel data =
+                                            DiagnosisResultModel(
+                                                result: result, flag: 'right');
+                                        context.push(RouteNames.diagnosisRoute,
+                                            extra: data);
+                                      },
                                       screenHeight: screenHeight,
                                     ),
                                   ),
@@ -574,7 +588,24 @@ class DiseaseAnalysisView extends StatelessWidget {
                                       text: "Ready",
                                       screenWidth: screenWidth,
                                       onTap: () {
-                                        // context.push(RouteNames.medicineRoute);
+                                        final int medIndex = result
+                                                    .rightEye!.prediction! ==
+                                                'Cataracts Detected'
+                                            ? 0
+                                            : result.rightEye!.prediction! ==
+                                                    'Pterygium Detected'
+                                                ? 1
+                                                : result.rightEye!
+                                                            .prediction! ==
+                                                        'Uveitis Detected'
+                                                    ? 3
+                                                    : 2;
+                                        context
+                                            .read<MedCubit>()
+                                            .emitToggled(medIndex, 0);
+                                        context.push(RouteNames.medicineRoute,
+                                            extra:
+                                                result.rightEye!.prediction!);
                                       },
                                       screenHeight: screenHeight,
                                     ),
@@ -622,7 +653,7 @@ class DiseaseAnalysisView extends StatelessWidget {
                                     ),
                                     onChanged: (String? newValue) {
                                       if (newValue == 'Bulgy Eyes') {
-                                        if (result.bulgy == null) {
+                                        if (result.bulgy!.prediction! == 'normal') {
                                           AppUtils.showToast(
                                               context,
                                               'No Disease Detected',
@@ -803,7 +834,13 @@ class DiseaseAnalysisView extends StatelessWidget {
                                       ),
                                       text: "Ready",
                                       screenWidth: screenWidth,
-                                      onTap: () {},
+                                      onTap: () {
+                                        DiagnosisResultModel data =
+                                            DiagnosisResultModel(
+                                                result: result, flag: 'bulgy');
+                                        context.push(RouteNames.diagnosisRoute,
+                                            extra: data);
+                                      },
                                       screenHeight: screenHeight,
                                     ),
                                   ),
@@ -822,7 +859,12 @@ class DiseaseAnalysisView extends StatelessWidget {
                                       text: "Ready",
                                       screenWidth: screenWidth,
                                       onTap: () {
-                                        context.push(RouteNames.medicineRoute);
+                                        const int medIndex = 2;
+                                        context
+                                            .read<MedCubit>()
+                                            .emitToggled(medIndex, 0);
+                                        context.push(RouteNames.medicineRoute,
+                                            extra: result.bulgy!.prediction!);
                                       },
                                       screenHeight: screenHeight,
                                     ),

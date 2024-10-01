@@ -7,6 +7,7 @@ import '../../data/models/therapy/therapy_results_model.dart';
 
 class AppGlobals {}
 String ipServer = dotenv.env['SERVER_IP'] ?? '';
+String flask = dotenv.env['FLASK'] ?? '';
 List<DiseaseResultModel> globalResults = [];
 List<TherapyModel> globalTherapies = [];
 Map<DateTime, int> globalTherapyProgressData = {};
@@ -15,6 +16,8 @@ Map<String, Map<DateTime, int>> categoryDateTherapyCount = {};
 List<TestResultModel> testResults = [];
 int trackLevel = 0;
 InputImage? faceImage;
+bool isHome = true;
+bool isMore = false;
 
 void clearGlobalDataOnLogout() {
   testResults.clear();

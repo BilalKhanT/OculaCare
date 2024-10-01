@@ -1,4 +1,7 @@
 import 'package:cculacare/configs/routes/route_names.dart';
+import 'package:cculacare/data/models/disease_result/diagnosis_result_model.dart';
+import 'package:cculacare/presentation/disease_detection/question_view.dart';
+import 'package:cculacare/presentation/result/widgets/diagnosis_report.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -161,10 +164,14 @@ final router = GoRouter(
       builder: (context, state) => const PatientProfileScreen(),
     ),
     GoRoute(
-      parentNavigatorKey: navigatorKey,
-      path: RouteNames.imgCaptureRoute,
-      builder: (context, state) => const ImageCaptureScreen(),
-    ),
+        parentNavigatorKey: navigatorKey,
+        path: RouteNames.imgCaptureRoute,
+        builder: (context, state) {
+          final String data = state.extra as String;
+          return ImageCaptureScreen(
+            modelFlag: data,
+          );
+        }),
     GoRoute(
       parentNavigatorKey: navigatorKey,
       path: RouteNames.resultRoute,
@@ -298,6 +305,13 @@ final router = GoRouter(
       },
     ),
     GoRoute(
+      parentNavigatorKey: navigatorKey,
+      path: RouteNames.questionRoute,
+      builder: (context, state) {
+        return const QuestionScreen();
+      },
+    ),
+    GoRoute(
         parentNavigatorKey: navigatorKey,
         path: RouteNames.testReportRoute,
         builder: (context, state) {
@@ -312,6 +326,13 @@ final router = GoRouter(
           return MedView(
             disease: data,
           );
+        }),
+    GoRoute(
+        parentNavigatorKey: navigatorKey,
+        path: RouteNames.diagnosisRoute,
+        builder: (context, state) {
+          final DiagnosisResultModel data = state.extra as DiagnosisResultModel;
+          return DiagnosisReport(diagnosis: data);
         }),
     GoRoute(
         parentNavigatorKey: navigatorKey,

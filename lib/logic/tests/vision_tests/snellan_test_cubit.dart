@@ -33,15 +33,27 @@ class SnellanTestCubit extends Cubit<SnellanTestState> {
   ];
 
   List<List<String>> snellanList = [
-    ['PR'],
-    ['BK', 'LW'],
-    ['AF', 'OP', 'GM'],
-    ['FP', 'CN', 'LO', 'GR'],
-    ['AN', 'GC', 'AB', 'OP', 'ZY'],
-    ['NX', 'ZS', 'PJ', 'VN', 'KP', 'AY'],
-    ['UK', 'MJ', 'PB', 'NJ', 'PR', 'LP', 'OC'],
-    ['IF', 'PV', 'MA', 'KM', 'ZM', 'PG', 'IB', 'OM'],
+    ['APPLE'],
+    ['LIGHT', 'DRINK'],
+    ['CLEAN', 'CLOUD', 'PLANT'],
+    ['BLOCK', 'DANCE', 'TRAIN', 'HOUSE'],
+    ['LIGHT', 'DRINK', 'FLASH', 'BEACH', 'GRASS'],
+    ['TRACK', 'FRUIT', 'BLOCK', 'BRUSH', 'CLOCK', 'SNACK'],
+    ['GRASS', 'CLIMB', 'BREAD', 'QUICK', 'STONE', 'MATCH', 'DRIVE'],
+    ['SCALE', 'CLEAN', 'CLOUD', 'FLASH', 'DRINK', 'PAINT', 'CLASS', 'POWER'],
   ];
+
+
+  // List<List<String>> snellanList = [
+  //   ['PR'],
+  //   ['BK', 'LW'],
+  //   ['AF', 'OP', 'GM'],
+  //   ['FP', 'CN', 'LO', 'GR'],
+  //   ['AN', 'GC', 'AB', 'OP', 'ZY'],
+  //   ['NX', 'ZS', 'PJ', 'VN', 'KP', 'AY'],
+  //   ['UK', 'MJ', 'PB', 'NJ', 'PR', 'LP', 'OC'],
+  //   ['IF', 'PV', 'MA', 'KM', 'ZM', 'PG', 'IB', 'OM'],
+  // ];
 
   Future<void> loadSnellanTest() async {
     emit(SnellanTestLoading());
@@ -84,8 +96,9 @@ class SnellanTestCubit extends Cubit<SnellanTestState> {
         'NOTVISIBLE') {
       emit(SnellanTestAnalysing());
       String fraction = calculateVisionAcuity();
+      double diopter = calculateDiopter();
       await endSnellenTest();
-      emit(SnellanTestCompleted(score, fraction));
+      emit(SnellanTestCompleted(score, fraction, diopter));
       return;
     } else {
       wrongGuesses++;
@@ -94,8 +107,9 @@ class SnellanTestCubit extends Cubit<SnellanTestState> {
     if (wrongGuesses >= maxWrongGuesses) {
       emit(SnellanTestAnalysing());
       String fraction = calculateVisionAcuity();
+      double diopter = calculateDiopter();
       await endSnellenTest();
-      emit(SnellanTestCompleted(score, fraction));
+      emit(SnellanTestCompleted(score, fraction, diopter));
       return;
     }
     subIndex++;
@@ -113,8 +127,9 @@ class SnellanTestCubit extends Cubit<SnellanTestState> {
       } else {
         emit(SnellanTestAnalysing());
         String fraction = calculateVisionAcuity();
+        double diopter = calculateDiopter();
         await endSnellenTest();
-        emit(SnellanTestCompleted(score, fraction));
+        emit(SnellanTestCompleted(score, fraction, diopter));
       }
     }
   }
@@ -130,7 +145,7 @@ class SnellanTestCubit extends Cubit<SnellanTestState> {
   }
 
   Future<void> emitCompleted() async {
-    emit(const SnellanTestCompleted(0, ''));
+    emit(const SnellanTestCompleted(0, '', 0.0));
   }
 
   Future<void> endSnellenTest() async {
@@ -196,5 +211,13 @@ class SnellanTestCubit extends Cubit<SnellanTestState> {
       default:
         return "6/6";
     }
+  }
+
+  double calculateDiopter() {
+    String visionAcuity = calculateVisionAcuity();
+    int acuityDenominator = int.parse(visionAcuity.split('/')[1]);
+    double diopter = -3 * (6 / acuityDenominator);
+    double roundedDiopter = (diopter * 2).round() / 2;
+    return roundedDiopter;
   }
 }

@@ -1,39 +1,37 @@
 class DiseaseResultModel {
   final String? patientName;
+  final String? email;
   final String? date;
-  final String? treatment;
-  final String? causes;
-  final String? medicineRecommendations;
-  final String? impacts;
-  final String? precautions;
+  final String? treatment1;
+  final String? treatment2;
+  final String? precaution1;
+  final String? precaution2;
   final EyePrediction? leftEye;
   final EyePrediction? rightEye;
   final EyePrediction? bulgy;
-  final EyePrediction? crossed;
 
   DiseaseResultModel({
     this.patientName,
+    this.email,
     this.date,
-    this.treatment,
-    this.causes,
-    this.medicineRecommendations,
-    this.impacts,
-    this.precautions,
+    this.treatment1,
+    this.precaution1,
+    this.treatment2,
+    this.precaution2,
     this.leftEye,
     this.rightEye,
     this.bulgy,
-    this.crossed,
   });
 
   factory DiseaseResultModel.fromJson(Map<String, dynamic> json) {
     return DiseaseResultModel(
       patientName: json['patient_name'] ?? '',
+      email: json['email'] ?? '',
       date: json['date'] ?? '',
-      treatment: json['treatment'] ?? '',
-      causes: json['causes'] ?? '',
-      medicineRecommendations: json['medicine_recommendations'] ?? '',
-      impacts: json['impacts'] ?? '',
-      precautions: json['precautions'] ?? '',
+      treatment1: json['treatment1'] ?? '',
+      precaution1: json['precaution1'] ?? '',
+      treatment2: json['treatment2'] ?? '',
+      precaution2: json['precaution2'] ?? '',
       leftEye: json['left_eye'] != null
           ? EyePrediction.fromJson(json['left_eye'])
           : null,
@@ -42,9 +40,6 @@ class DiseaseResultModel {
           : null,
       bulgy:
           json['bulgy'] != null ? EyePrediction.fromJson(json['bulgy']) : null,
-      crossed: json['crossed'] != null
-          ? EyePrediction.fromJson(json['crossed'])
-          : null,
     );
   }
 }
