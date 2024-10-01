@@ -1,3 +1,4 @@
+import 'package:cculacare/presentation/widgets/cstm_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -37,13 +38,7 @@ class QuestionScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: BlocConsumer<QuestionCubit, QuestionState>(
-        listener: (context, state) {
-          if (state is QuestionFinished) {
-            context.read<ImageCaptureCubit>().initializeCamera();
-            context.go(RouteNames.imgCaptureRoute, extra: state.result);
-          }
-        },
+      body: BlocBuilder<QuestionCubit, QuestionState>(
         builder: (context, state) {
           if (state is QuestionLoaded) {
             final question = state.questions[state.currentQuestionIndex];
@@ -107,7 +102,18 @@ class QuestionScreen extends StatelessWidget {
                 ],
               ),
             );
-          } else {
+          } else if (state is QuestionFinished) {
+            context.read<QuestionCubit>().startSpeaking(context, state.result);
+            return const Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  DotLoader(loaderColor: AppColors.appColor,)
+                ],
+              ),
+            );
+          }else {
             return const Center(child: Text('Something went wrong!'));
           }
         },
