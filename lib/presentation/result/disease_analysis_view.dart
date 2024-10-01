@@ -135,7 +135,7 @@ class DiseaseAnalysisView extends StatelessWidget {
                             ],
                           ),
                         ),
-                        result.leftEye!.prediction! == 'Normal'
+                        result.leftEye!.prediction! == 'normal'
                             ? Center(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -409,7 +409,7 @@ class DiseaseAnalysisView extends StatelessWidget {
                             ],
                           ),
                         ),
-                        result.rightEye!.prediction! == 'Normal'
+                        result.rightEye!.prediction! == 'normal'
                             ? Center(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,
