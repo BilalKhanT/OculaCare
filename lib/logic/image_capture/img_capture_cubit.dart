@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:cculacare/data/repositories/detection/detection_repo.dart';
 import 'package:cculacare/data/repositories/local/preferences/shared_prefs.dart';
 import 'package:flutter_file_dialog/flutter_file_dialog.dart';
 import 'dart:io';
@@ -9,17 +9,15 @@ import 'package:bloc/bloc.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
-import '../../configs/app/notification/notification_service.dart';
 import '../../configs/global/app_globals.dart';
-import '../../data/models/disease_result/disease_result_model.dart';
 import 'img_capture_state.dart';
 import 'package:google_mlkit_face_detection/google_mlkit_face_detection.dart';
 
 class ImageCaptureCubit extends Cubit<ImageCaptureState> {
   ImageCaptureCubit() : super(ImageCaptureStateInitial());
 
+  final DetectionRepo detectionRepo = DetectionRepo();
   late CameraController cameraController;
   XFile? imageFile;
   bool isInitializing = false;
@@ -330,23 +328,7 @@ class ImageCaptureCubit extends Cubit<ImageCaptureState> {
       'email': sharedPrefs.email,
       'flag': modelFlag,
     };
-    try {
-      var response = await http.post(
-        Uri.parse('http://192.168.18.74:8000/predict'),
-        headers: {"Content-Type": "application/json"},
-        body: json.encode(payload),
-      );
-      if (response.statusCode == 200) {
-        var data = jsonDecode(response.body);
-        DiseaseResultModel result = DiseaseResultModel.fromJson(data);
-        globalResults.add(result);
-        NotificationService.resultReadyNotification('Disease Analysis', 'Analysis report is ready', DateTime.now().add(const Duration(seconds: 2)));
-      } else {
-        debugPrint("Nothing ${response.body}");
-      }
-    } catch (e) {
-      debugPrint('error $e');
-    }
+    detectionRepo.predictDisease(payload);
   }
 
   Future<bool> detectStrabismusWithFullAlignment(InputImage inputImage) async {
