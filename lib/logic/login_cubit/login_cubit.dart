@@ -1,16 +1,17 @@
 import 'dart:convert';
-import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import '../../configs/global/app_globals.dart';
+import 'package:nb_utils/nb_utils.dart';
 import '../../data/models/patient/patient_model.dart';
 import '../../data/repositories/local/preferences/shared_prefs.dart';
+import '../../data/repositories/login/login_repo.dart';
 import 'login_cubit_state.dart';
-import 'package:http/http.dart' as http;
 
 class LoginCubit extends Cubit<LoginState> {
   LoginCubit() : super(LoginStateInitial());
 
+  final LoginRepository loginRepository = LoginRepository();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final recoveryEmailController = TextEditingController();
@@ -27,28 +28,20 @@ class LoginCubit extends Cubit<LoginState> {
   }
 
   Future<bool> submitForm(GlobalKey<FormState> formKey) async {
-    if (formKey.currentState!.validate()) {
-      return true;
-    } else {
-      return false;
-    }
+    return formKey.currentState!.validate();
   }
 
   Future<void> loginUser() async {
     emit(LoginStateLoading());
     try {
-      var url = Uri.parse('$ipServer/api/patients/login');
-      var response = await http.post(
-        url,
-        headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({
-          'email': emailController.text.trim(),
-          'password': passwordController.text.trim(),
-        }),
+      var response = await loginRepository.login(
+        emailController.text.trim(),
+        passwordController.text.trim(),
       );
       sharedPrefs.email = emailController.text.trim();
       sharedPrefs.password = passwordController.text.trim();
       dispose();
+
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
         Patient patient = Patient.fromJson(data);
@@ -58,11 +51,10 @@ class LoginCubit extends Cubit<LoginState> {
           sharedPrefs.isProfileSetup = true;
           sharedPrefs.userName = patient.username!;
           sharedPrefs.email = patient.email!;
-          String encodedPatient = jsonEncode(patient.toJson());
-          sharedPrefs.patientData = encodedPatient;
+          sharedPrefs.patientData = jsonEncode(patient.toJson());
         } else {
-          sharedPrefs.patientData = '';
           sharedPrefs.isProfileSetup = false;
+          sharedPrefs.patientData = '';
         }
         sharedPrefs.isLoggedIn = true;
         emit(LoginSuccess());
@@ -75,36 +67,24 @@ class LoginCubit extends Cubit<LoginState> {
     }
   }
 
-  Future forgetPassword() async {
-    emit(LoginStateForgotPassword());
-  }
-
-  Future<void> checkRecoveryEmail() async {}
-
   Future<bool> changePassword() async {
     try {
-      var url = Uri.parse('$ipServer/api/patients/update-password');
-      var response = await http.post(
-        url,
-        headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({
-          'email': sharedPrefs.email,
-          'newPassword': recoveryPassController.text.trim(),
-        }),
+      bool isUpdated = await loginRepository.updatePassword(
+        sharedPrefs.email,
+        recoveryPassController.text,
       );
-      if (response.statusCode == 200) {
-        return true;
-      } else {
-        log('${response.statusCode}');
-        return false;
-      }
+      return isUpdated;
     } catch (e) {
-      log('$e');
+      log('Error changing password: $e');
       return false;
     }
   }
 
-  Future resetPassword() async {
+  Future<void> forgetPassword() async {
+    emit(LoginStateForgotPassword());
+  }
+
+  Future<void> resetPassword() async {
     emit(LoginStateResetPassword());
   }
 }
