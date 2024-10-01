@@ -20,7 +20,7 @@ class SnellanInitialCubit extends Cubit<SnellanInitialState> {
 
     try {
       await flutterTts.speak(
-          'Cover your $eye eye with one of your hand. Read slowly and loud the sequence of letters you see on the screen. If you are unable to see the sequence say not visible');
+          'Cover your $eye eye with one of your hand. Read slowly and loud the words you see on the screen. If you are unable to see the sequence say not visible. Tap on the mic button to start speaking and tap on it again when done speaking.');
     } catch (error) {
       log("Error in TTS: $error");
     }
