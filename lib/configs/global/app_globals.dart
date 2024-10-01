@@ -7,6 +7,7 @@ import '../../data/models/therapy/therapy_results_model.dart';
 
 class AppGlobals {}
 String ipServer = dotenv.env['SERVER_IP'] ?? '';
+String flask = dotenv.env['FLASK'] ?? '';
 List<DiseaseResultModel> globalResults = [];
 List<TherapyModel> globalTherapies = [];
 Map<DateTime, int> globalTherapyProgressData = {};
