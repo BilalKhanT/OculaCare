@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:cculacare/data/repositories/local/preferences/shared_prefs.dart';
 import 'package:flutter_file_dialog/flutter_file_dialog.dart';
 import 'dart:io';
 import 'dart:math';
@@ -104,8 +105,10 @@ class ImageCaptureCubit extends Cubit<ImageCaptureState> {
           if (face.leftEyeOpenProbability != null && face.rightEyeOpenProbability != null) {
             if (face.leftEyeOpenProbability! < 0.2 ||
                 face.rightEyeOpenProbability! < 0.2) {
+              print('hhhhhhkkkkkkk');
               emit(ImageCaptureStateLoaded(true, 0));
             } else {
+              print('hhhhhh');
               emit(ImageCaptureStateLoaded(false, 1));
             }
           }
@@ -172,40 +175,39 @@ class ImageCaptureCubit extends Cubit<ImageCaptureState> {
       //     emit(ImageCaptureStateFailure('No face detected within 10 seconds.'));
       //   }
       // });
-      emit(ImagesCropped(
-        image,
-        image,
-      ));
 
-      // final List<Face>? faces = await faceDetector?.processImage(eyeImage);
-      //
-      // if (faces != null && faces.isNotEmpty) {
-      //   faceDetected = true;
-      //   for (Face face in faces) {
-      //     final FaceLandmark? leftEye = face.landmarks[FaceLandmarkType.leftEye];
-      //     final FaceLandmark? rightEye = face.landmarks[FaceLandmarkType.rightEye];
-      //
-      //     if (leftEye != null && rightEye != null) {
-      //       await cropImage(leftEye.position, rightEye.position, image);
-      //     } else {
-      //       emit(ImageCaptureStateFailure('Could not detect both eyes.'));
-      //     }
-      //   }
-      // } else {
-      //   emit(ImageCaptureStateFailure('No face detected.'));
-      // }
+      final List<Face>? faces = await faceDetector?.processImage(eyeImage);
+
+      if (faces != null && faces.isNotEmpty) {
+        faceDetected = true;
+        for (Face face in faces) {
+          final FaceLandmark? leftEye = face.landmarks[FaceLandmarkType.leftEye];
+          final FaceLandmark? rightEye = face.landmarks[FaceLandmarkType.rightEye];
+
+          if (leftEye != null && rightEye != null) {
+            await cropImage(leftEye.position, rightEye.position, image);
+          } else {
+            isCapturing = false;
+            emit(ImageCaptureStateFailure('Could not detect both eyes.'));
+          }
+        }
+      } else {
+        isCapturing = false;
+        emit(ImageCaptureStateFailure('No face detected.'));
+      }
     } catch (e) {
+      isCapturing = false;
       emit(ImageCaptureStateFailure('Error processing image.'));
     }
   }
 
-  Future<void> cropImageWithBoundingBox(
+  Future<XFile?> cropImageWithBoundingBox(
       Point<int> leftEyePosition, Point<int> rightEyePosition, XFile faceImage,
       {int padding = 80, int extraPaddingSides = 20}) async {
     Uint8List imageBytes = await File(faceImage.path).readAsBytes();
     img.Image? originalImage = img.decodeImage(imageBytes);
 
-    if (originalImage == null) return;
+    if (originalImage == null) return null;
 
     final int faceImageWidth = originalImage.width;
     final int faceImageHeight = originalImage.height;
@@ -236,12 +238,8 @@ class ImageCaptureCubit extends Cubit<ImageCaptureState> {
     File(newPath).writeAsBytesSync(img.encodeJpg(croppedImage));
 
     XFile boundingBoxCroppedXFile = XFile(newPath);
-
-    emit(ImagesCropped(
-      boundingBoxCroppedXFile,
-      boundingBoxCroppedXFile,
-    ));
     isCapturing = false;
+    return boundingBoxCroppedXFile;
   }
 
 
@@ -285,11 +283,17 @@ class ImageCaptureCubit extends Cubit<ImageCaptureState> {
     File(newPathRight).writeAsBytesSync(img.encodeJpg(rightCroppedImage));
     XFile leftEyeXFile = XFile(newPathLeft);
     XFile rightEyeXFile = XFile(newPathRight);
-
-    emit(ImagesCropped(
-      leftEyeXFile,
-      rightEyeXFile,
-    ));
+    XFile? fullFace = await cropImageWithBoundingBox(leftEyePosition, rightEyePosition, faceImage);
+    if (fullFace != null) {
+      emit(ImagesCropped(
+        leftEyeXFile,
+        rightEyeXFile,
+        fullFace,
+      ));
+    }
+    else {
+      emit(ImageCaptureStateFailure('Could not detect both eyes.'));
+    }
     isCapturing = false;
   }
 
@@ -304,22 +308,22 @@ class ImageCaptureCubit extends Cubit<ImageCaptureState> {
     }
   }
 
-  Future<void> uploadImageToServer(XFile leftEye, XFile rightEye) async {
-    // await Future.delayed(Duration(seconds: 5));
-    // NotificationService.resultReadyNotification(
-    //     'Disease Analysis Result',
-    //     'Disease analysis report is ready.',
-    //     DateTime.now().add(const Duration(seconds: 1))
-    // );
+  Future<void> uploadImageToServer(XFile leftEye, XFile rightEye, XFile fullFace) async {
     String leftEyeBase64 = await imageToBase64(leftEye);
     String rightEyeBase64 = await imageToBase64(rightEye);
+    String fullBase64 = await imageToBase64(fullFace);
     Map<String, dynamic> payload = {
       'left_eye': leftEyeBase64,
       'right_eye': rightEyeBase64,
+      'date': '21-8-2024',
+      'bulgy_eye': fullBase64,
+      'patient_name':  sharedPrefs.userName,
+      'email': sharedPrefs.email,
+      'flag': 'Pterygium',
     };
     try {
       var response = await http.post(
-        Uri.parse('http://192.168.18.18:8000/predict'),
+        Uri.parse('http://192.168.18.74:8000/predict'),
         headers: {"Content-Type": "application/json"},
         body: json.encode(payload),
       );
@@ -328,7 +332,7 @@ class ImageCaptureCubit extends Cubit<ImageCaptureState> {
         DiseaseResultModel result = DiseaseResultModel.fromJson(data);
         globalResults.add(result);
       } else {
-        debugPrint("Nothing ${response.statusCode}");
+        debugPrint("Nothing ${response.body}");
       }
     } catch (e) {
       debugPrint('error $e');
