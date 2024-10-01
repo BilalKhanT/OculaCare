@@ -1,4 +1,6 @@
 import 'package:bloc/bloc.dart';
+import 'package:cculacare/data/repositories/detection/detection_repo.dart';
+import 'package:cculacare/data/repositories/local/preferences/shared_prefs.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 import '../../configs/global/app_globals.dart';
@@ -7,6 +9,8 @@ import 'detection_state.dart';
 
 class DetectionCubit extends Cubit<DetectionState> {
   DetectionCubit() : super(DetectionInitial());
+
+  final DetectionRepo detectionRepo = DetectionRepo();
 
   var data = [
     {
@@ -39,7 +43,9 @@ class DetectionCubit extends Cubit<DetectionState> {
     emit(DetectionLoading());
     await Future.delayed(const Duration(seconds: 0));
     try {
-      if (globalResults.isEmpty) {
+      if (globalResults.isEmpty || sharedPrefs.resultsFetched == false) {
+        sharedPrefs.resultsFetched = true;
+        // List<DiseaseResultModel> diseaseResults = await detectionRepo.getPatientDiseaseResults();
         List<DiseaseResultModel> diseaseResults =
             data.map((data) => DiseaseResultModel.fromJson(data)).toList();
         if (diseaseResults.isEmpty) {
