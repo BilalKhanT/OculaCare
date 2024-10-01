@@ -164,10 +164,14 @@ final router = GoRouter(
       builder: (context, state) => const PatientProfileScreen(),
     ),
     GoRoute(
-      parentNavigatorKey: navigatorKey,
-      path: RouteNames.imgCaptureRoute,
-      builder: (context, state) => const ImageCaptureScreen(),
-    ),
+        parentNavigatorKey: navigatorKey,
+        path: RouteNames.imgCaptureRoute,
+        builder: (context, state) {
+          final String data = state.extra as String;
+          return ImageCaptureScreen(
+            modelFlag: data,
+          );
+        }),
     GoRoute(
       parentNavigatorKey: navigatorKey,
       path: RouteNames.resultRoute,
