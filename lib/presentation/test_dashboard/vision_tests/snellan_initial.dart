@@ -66,7 +66,7 @@ class SnellanInitialView extends StatelessWidget {
                     SizedBox(height: screenHeight * 0.01),
                     Flexible(
                       child: Text(
-                        '2. Read slowly and loud the sequence of letters you see on the screen.',
+                        '2. Read slowly and loud the words you see on the screen.',
                         style: TextStyle(
                           color: Colors.black,
                           fontFamily: 'MontserratMedium',
@@ -80,6 +80,19 @@ class SnellanInitialView extends StatelessWidget {
                     Flexible(
                       child: Text(
                         '3. If you are unable to see sequence say *Not Visible*.',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontFamily: 'MontserratMedium',
+                          fontSize: screenWidth * 0.04,
+                          letterSpacing: 0.5,
+                        ),
+                        textAlign: TextAlign.left,
+                      ),
+                    ),
+                    SizedBox(height: screenHeight * 0.01),
+                    Flexible(
+                      child: Text(
+                        '4. Tap on the mic button to start speaking and tap on it again when done speaking.',
                         style: TextStyle(
                           color: Colors.black,
                           fontFamily: 'MontserratMedium',
