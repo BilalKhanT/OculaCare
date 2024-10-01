@@ -10,6 +10,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import '../../configs/app/notification/notification_service.dart';
 import '../../configs/global/app_globals.dart';
 import '../../data/models/disease_result/disease_result_model.dart';
@@ -308,18 +309,26 @@ class ImageCaptureCubit extends Cubit<ImageCaptureState> {
     }
   }
 
-  Future<void> uploadImageToServer(XFile leftEye, XFile rightEye, XFile fullFace) async {
+  String getCurrentDateString() {
+    DateTime now = DateTime.now();
+    DateFormat formatter = DateFormat('dd-MM-yyyy');
+    String formattedDate = formatter.format(now);
+    return formattedDate;
+  }
+
+  Future<void> uploadImageToServer(XFile leftEye, XFile rightEye, XFile fullFace, String modelFlag) async {
     String leftEyeBase64 = await imageToBase64(leftEye);
     String rightEyeBase64 = await imageToBase64(rightEye);
     String fullBase64 = await imageToBase64(fullFace);
+    final date = getCurrentDateString();
     Map<String, dynamic> payload = {
       'left_eye': leftEyeBase64,
       'right_eye': rightEyeBase64,
-      'date': '21-8-2024',
+      'date': date,
       'bulgy_eye': fullBase64,
       'patient_name':  sharedPrefs.userName,
       'email': sharedPrefs.email,
-      'flag': 'Pterygium',
+      'flag': modelFlag,
     };
     try {
       var response = await http.post(
@@ -331,6 +340,7 @@ class ImageCaptureCubit extends Cubit<ImageCaptureState> {
         var data = jsonDecode(response.body);
         DiseaseResultModel result = DiseaseResultModel.fromJson(data);
         globalResults.add(result);
+        NotificationService.resultReadyNotification('Disease Analysis', 'Analysis report is ready', DateTime.now().add(const Duration(seconds: 2)));
       } else {
         debugPrint("Nothing ${response.body}");
       }
@@ -386,7 +396,7 @@ class ImageCaptureCubit extends Cubit<ImageCaptureState> {
         }
       }
     }
-    return false; // Return false if no face or eye landmarks found
+    return false;
   }
 
 
