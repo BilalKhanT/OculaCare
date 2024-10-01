@@ -1,26 +1,24 @@
-import 'dart:convert';
-
+import 'dart:developer';
 import 'package:bloc/bloc.dart';
-import 'package:cculacare/logic/sign_up_cubit/sign_up_state.dart';
+import 'package:cculacare/data/repositories/sign_up/signup_repo.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:http/http.dart' as http;
-import 'package:nb_utils/nb_utils.dart';
-import '../../configs/global/app_globals.dart';
 import '../../data/repositories/local/preferences/shared_prefs.dart';
+import 'sign_up_state.dart';
 
 class SignUpCubit extends Cubit<SignUpState> {
+  final SignUpRepository signUpRepository = SignUpRepository();
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  final GoogleSignIn googleSignIn = GoogleSignIn();
+
   SignUpCubit() : super(SignUpStateInitial());
 
   final userNameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPassController = TextEditingController();
-  final FirebaseAuth auth = FirebaseAuth.instance;
-  final GoogleSignIn googleSignIn = GoogleSignIn();
 
   dispose() {
     userNameController.clear();
@@ -34,11 +32,7 @@ class SignUpCubit extends Cubit<SignUpState> {
   }
 
   Future<bool> submitForm(GlobalKey<FormState> formKey) async {
-    if (formKey.currentState!.validate()) {
-      return true;
-    } else {
-      return false;
-    }
+    return formKey.currentState!.validate();
   }
 
   Future<bool> createUserWithGoogle() async {
@@ -55,18 +49,12 @@ class SignUpCubit extends Cubit<SignUpState> {
         idToken: googleAuth.idToken,
       );
       final UserCredential authResult =
-          await auth.signInWithCredential(credential);
+      await auth.signInWithCredential(credential);
       final User? user = authResult.user;
       String? email = user?.email;
       String? name = user?.displayName;
       final flag = await registerGoogleUser(email!, name!);
-      if (flag == true) {
-        emit(SignUpStateLoaded());
-        return true;
-      } else {
-        emit(SignUpStateLoaded());
-        return false;
-      }
+      return flag;
     } catch (e) {
       emit(SignUpStateLoaded());
       log(e.toString());
@@ -80,26 +68,16 @@ class SignUpCubit extends Cubit<SignUpState> {
       final LoginResult result = await FacebookAuth.instance.login(
         permissions: ['public_profile'],
       );
-
       if (result.status == LoginStatus.success) {
         final AccessToken accessToken = result.accessToken!;
         final AuthCredential credential =
-            FacebookAuthProvider.credential(accessToken.token);
+        FacebookAuthProvider.credential(accessToken.token);
         final UserCredential authResult =
-            await auth.signInWithCredential(credential);
+        await auth.signInWithCredential(credential);
         final User? user = authResult.user;
         String? name = user?.displayName;
         final flag = await registerFacebookUser(name!);
-        if (flag == true) {
-          emit(SignUpStateLoaded());
-          return true;
-        } else {
-          emit(SignUpStateLoaded());
-          return false;
-        }
-      } else if (result.status == LoginStatus.cancelled) {
-        emit(SignUpStateLoaded());
-        return false;
+        return flag;
       } else {
         emit(SignUpStateLoaded());
         return false;
@@ -113,60 +91,50 @@ class SignUpCubit extends Cubit<SignUpState> {
 
   Future<bool> registerGoogleUser(String email, String userName) async {
     try {
-      var url = Uri.parse('$ipServer/api/patients/register-google');
-      var response = await http.post(
-        url,
-        headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({
-          'email': email,
-          'username': userName,
-          'password': '******',
-        }),
-      );
+      var response = await signUpRepository.registerGoogleUser(email, userName);
       if (response.statusCode == 200) {
         sharedPrefs.isProfileSetup = false;
         sharedPrefs.email = email;
         sharedPrefs.userName = userName;
         sharedPrefs.password = '******';
+        emit(SignUpStateLoaded());
         return true;
       } else if (response.statusCode == 409) {
+        emit(SignUpStateLoaded());
         return false;
       } else {
         log('Server error with status code: ${response.statusCode}');
+        emit(SignUpStateLoaded());
         return false;
       }
     } catch (e) {
-      log('Network error: $e');
+      log('Error registering Google user: $e');
+      emit(SignUpStateLoaded());
       return false;
     }
   }
 
   Future<bool> registerFacebookUser(String userName) async {
     try {
-      var url = Uri.parse('$ipServer/api/patients/register-google');
-      var response = await http.post(
-        url,
-        headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({
-          'email': "awaisjarral37@gmail.com",
-          'username': userName,
-          'password': '******',
-        }),
-      );
+      var response = await signUpRepository.registerFacebookUser(userName);
       if (response.statusCode == 200) {
         sharedPrefs.isProfileSetup = false;
         sharedPrefs.email = "awaisjarral37@gmail.com";
         sharedPrefs.userName = userName;
         sharedPrefs.password = '******';
+        emit(SignUpStateLoaded());
         return true;
       } else if (response.statusCode == 409) {
+        emit(SignUpStateLoaded());
         return false;
       } else {
         log('Server error with status code: ${response.statusCode}');
+        emit(SignUpStateLoaded());
         return false;
       }
     } catch (e) {
-      log('Network error: $e');
+      log('Error registering Facebook user: $e');
+      emit(SignUpStateLoaded());
       return false;
     }
   }
