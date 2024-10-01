@@ -1,10 +1,18 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_tts/flutter_tts.dart';
+import 'package:go_router/go_router.dart';
+import 'package:nb_utils/nb_utils.dart';
+import '../../configs/routes/route_names.dart';
 import '../../data/models/disease_result/question_model.dart';
+import '../image_capture/img_capture_cubit.dart';
 import 'question_state.dart';
 
 class QuestionCubit extends Cubit<QuestionState> {
   QuestionCubit() : super(QuestionInitial());
 
+  FlutterTts flutterTts = FlutterTts();
   List<Question> questions = [
     Question(
       questionText: "Have you experienced any of the following vision changes?",
@@ -78,6 +86,27 @@ class QuestionCubit extends Cubit<QuestionState> {
     ),
   ];
 
+  Future<void> startSpeaking(BuildContext context, String res) async {
+    await flutterTts.setLanguage('en-US');
+    await flutterTts.setSpeechRate(0.3);
+    await flutterTts.setVolume(1.0);
+    await flutterTts.setPitch(1.0);
+    await flutterTts.awaitSpeakCompletion(true);
+
+    try {
+      await flutterTts.speak(
+          'Based on the provided symptoms you might have $res. Lets confirm it using our Machine Learning models');
+    } catch (error) {
+      log("Error in TTS: $error");
+    }
+    await Future.delayed(const Duration(seconds: 1));
+    if (context.mounted) {
+      context.read<ImageCaptureCubit>().initializeCamera();
+      context.go(RouteNames.imgCaptureRoute, extra: res);
+    }
+    await flutterTts.stop();
+  }
+
   void startQuestionnaire() {
     emit(QuestionLoaded(
       questions: questions,
@@ -126,9 +155,9 @@ class QuestionCubit extends Cubit<QuestionState> {
     final maxRelevance = relevanceCount.entries.reduce((a, b) => a.value > b.value ? a : b);
 
     if (maxRelevance.value == 0) {
-      return "No model needed";
+      return "No Significant Disease";
     }
 
-    return "Call ${maxRelevance.key} model";
+    return maxRelevance.key;
   }
 }
