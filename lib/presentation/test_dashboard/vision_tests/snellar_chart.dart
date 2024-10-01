@@ -202,7 +202,7 @@ class SnellanChart extends StatelessWidget {
                           fontWeight: FontWeight.w800,
                           color: Colors.black,
                           fontSize: state.fontSize,
-                          letterSpacing: 25.0,
+                          letterSpacing: 5.0,
                         ),
                       ),
                       SizedBox(
@@ -298,7 +298,7 @@ class SnellanChart extends StatelessWidget {
                     ),
                     SizedBox(height: screenHeight * 0.02),
                     Text(
-                      'Your vision acuity is ${state.visionAcuity}.',
+                      'Your vision acuity is ${state.visionAcuity}.\nDiopter: ${state.diopter}',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.black,
