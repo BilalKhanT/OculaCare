@@ -42,6 +42,7 @@ class MyApp extends StatelessWidget {
     double screenWidth = MediaQuery.sizeOf(context).width;
     sharedPrefs.therapyFetched = false;
     sharedPrefs.historyFetched = false;
+    sharedPrefs.resultsFetched = false;
     context.read<HomeCubit>().emitHomeAnimation();
     return ScreenUtilInit(
       builder: (context, child) {
