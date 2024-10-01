@@ -37,7 +37,13 @@ class QuestionScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: BlocBuilder<QuestionCubit, QuestionState>(
+      body: BlocConsumer<QuestionCubit, QuestionState>(
+        listener: (context, state) {
+          if (state is QuestionFinished) {
+            context.read<ImageCaptureCubit>().initializeCamera();
+            context.go(RouteNames.imgCaptureRoute, extra: state.result);
+          }
+        },
         builder: (context, state) {
           if (state is QuestionLoaded) {
             final question = state.questions[state.currentQuestionIndex];
@@ -97,27 +103,6 @@ class QuestionScreen extends StatelessWidget {
                         );
                       },
                     ),
-                  ),
-                ],
-              ),
-            );
-          } else if (state is QuestionFinished) {
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    state.result,
-                    style: const TextStyle(
-                        fontSize: 24, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 20),
-                  ElevatedButton(
-                    onPressed: () {
-                      context.read<ImageCaptureCubit>().initializeCamera();
-                      context.go(RouteNames.imgCaptureRoute);
-                    },
-                    child: const Text('Continue'),
                   ),
                 ],
               ),
