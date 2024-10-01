@@ -34,10 +34,10 @@ class SnellanTestCubit extends Cubit<SnellanTestState> {
 
   List<List<String>> snellanList = [
     ['APPLE'],
-    ['TABLE', 'WATER'],
-    ['CLEAN', 'BREAD', 'PLANT'],
+    ['LIGHT', 'DRINK'],
+    ['CLEAN', 'CLOUD', 'PLANT'],
     ['BLOCK', 'DANCE', 'TRAIN', 'HOUSE'],
-    ['LIGHT', 'WATER', 'FLASH', 'BEACH', 'GRASS'],
+    ['LIGHT', 'DRINK', 'FLASH', 'BEACH', 'GRASS'],
     ['TRACK', 'FRUIT', 'BLOCK', 'BRUSH', 'CLOCK', 'SNACK'],
     ['GRASS', 'CLIMB', 'BREAD', 'QUICK', 'STONE', 'MATCH', 'DRIVE'],
     ['SCALE', 'CLEAN', 'CLOUD', 'FLASH', 'DRINK', 'PAINT', 'CLASS', 'POWER'],
