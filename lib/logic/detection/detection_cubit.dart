@@ -12,42 +12,14 @@ class DetectionCubit extends Cubit<DetectionState> {
 
   final DetectionRepo detectionRepo = DetectionRepo();
 
-  var data = [
-    {
-      "patient_name": "John Doe",
-      "email": 'hehe',
-      "date": "2024-09-16",
-      "treatment1": "Cataract Surgery",
-      "precaution1":
-          "Avoid direct sunlight, wear sunglasses, avoid strenuous activities",
-      "left_eye": {"prediction": "Normal", "probability": "70%"},
-      "right_eye": {"prediction": "Cataracts Detected", "probability": "85%"}
-    },
-    {
-      "patient_name": "Jane Smith",
-      "email": 'hehe',
-      "date": "2024-09-12",
-      "treatment1": "Pterygium Surgery",
-      "precaution1":
-          "Avoid dusty areas, wear protective eyewear, use lubricating drops",
-      "treatment2": "Pterygium Surgery",
-      "precaution2":
-      "Avoid dusty areas, wear protective eyewear, use lubricating drops",
-      "left_eye": {"prediction": "Pterygium Detected", "probability": "60%"},
-      "right_eye": {"prediction": "Uveitis Detected", "probability": "5%"},
-      "bulgy": {"prediction": "Bulgy Eyes Detected", "probability": "85%"},
-    },
-  ];
-
   Future<void> loadDiseaseResults() async {
     emit(DetectionLoading());
     await Future.delayed(const Duration(seconds: 0));
     try {
       if (globalResults.isEmpty || sharedPrefs.resultsFetched == false) {
         sharedPrefs.resultsFetched = true;
-        // List<DiseaseResultModel> diseaseResults = await detectionRepo.getPatientDiseaseResults();
-        List<DiseaseResultModel> diseaseResults =
-            data.map((data) => DiseaseResultModel.fromJson(data)).toList();
+        globalResults.clear();
+        List<DiseaseResultModel> diseaseResults = await detectionRepo.getPatientDiseaseResults();
         if (diseaseResults.isEmpty) {
           emit(DetectionServerError());
         } else {
