@@ -22,6 +22,11 @@ class SharedPrefs {
     _sharedPrefs?.setBool('therapyFetched', value);
   }
 
+  bool get resultsFetched => _sharedPrefs?.getBool('resultsFetched') ?? false;
+  set resultsFetched(bool value) {
+    _sharedPrefs?.setBool('resultsFetched', value);
+  }
+
   bool get isProfileSetup => _sharedPrefs?.getBool('isProfileSetup') ?? false;
   set isProfileSetup(bool value) {
     _sharedPrefs?.setBool('isProfileSetup', value);
