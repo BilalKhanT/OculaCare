@@ -32,11 +32,24 @@ class ImageCaptureScreen extends StatelessWidget {
           height: height,
           width: width,
           child: BlocConsumer<ImageCaptureCubit, ImageCaptureState>(
-            listener: (context, state) {
+            listener: (context, state) async {
               if (state is ImageCaptureStateFailure) {
                 AppUtils.showToast(context, 'Image Quality Error',
                     'Please upload a high quality image', true);
-                context.pop();
+                await context
+                    .read<ImageCaptureCubit>()
+                    .dispose();
+                if (context.mounted) {
+                  if (isHome) {
+                    context.go(RouteNames.homeRoute);
+                  }
+                  else if (isMore) {
+                    context.go(RouteNames.moreRoute);
+                  }
+                  else {
+                    context.go(RouteNames.detectionRoute);
+                  }
+                }
               }
             },
             builder: (context, state) {
@@ -321,7 +334,20 @@ class ImageCaptureScreen extends StatelessWidget {
                         children: <Widget>[
                           IconButton(
                             onPressed: () {
-                              context.pop();
+                                context
+                                    .read<ImageCaptureCubit>()
+                                    .dispose();
+                                if (context.mounted) {
+                                  if (isHome) {
+                                    context.go(RouteNames.homeRoute);
+                                  }
+                                  else if (isMore) {
+                                    context.go(RouteNames.moreRoute);
+                                  }
+                                  else {
+                                    context.go(RouteNames.detectionRoute);
+                                  }
+                                }
                             },
                             icon: const Icon(
                               Icons.arrow_back_ios_new,
@@ -645,7 +671,7 @@ class ImageCaptureScreen extends StatelessWidget {
                                           context
                                               .read<ImageCaptureCubit>()
                                               .uploadImageToServer(
-                                                  state.leftEye, state.rightEye);
+                                                  state.leftEye, state.rightEye, state.fullFace);
                                           // AppUtils.showToast(
                                           //     context,
                                           //     'Upload Successful',
