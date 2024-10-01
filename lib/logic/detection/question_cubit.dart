@@ -12,41 +12,40 @@ class QuestionCubit extends Cubit<QuestionState> {
         "Blurred vision",
         "Double vision",
         "Light sensitivity",
-        "Eye floaters",
         "No vision issues"
       ],
       relevance: {
         "Cataracts": "Blurred vision",
         "Uveitis": "Light sensitivity",
-        // "Pterygium": "No vision issues"
+        "Pterygium": "Double vision",
       },
     ),
     Question(
       questionText: "Have you noticed any of the following in your eyes?",
       options: [
         "Eye redness",
-        "Eye pain or irritation",
         "Itching or a gritty sensation",
+        "Swelling of the conjunctiva",
         "No redness or irritation"
       ],
       relevance: {
         "Uveitis": "Eye redness",
         "Pterygium": "Itching or a gritty sensation",
-        // "Cataracts": "No redness or irritation"
+        "Cataracts": "Swelling of the conjunctiva",
       },
     ),
     Question(
       questionText: "Have you experienced any of the following?",
       options: [
-        "Excessive tearing",
         "Eye discharge",
         "Dry eyes",
+        "Halo around lights",
         "No tearing or discharge"
       ],
       relevance: {
         "Uveitis": "Eye discharge",
         "Pterygium": "Dry eyes",
-        // "Cataracts": "No tearing or discharge"
+        "Cataracts": "Halo around lights",
       },
     ),
     Question(
@@ -54,12 +53,13 @@ class QuestionCubit extends Cubit<QuestionState> {
       options: [
         "Mild eye pain",
         "Severe eye pain",
+        "Eye pressure or heaviness",
         "No pain or discomfort"
       ],
       relevance: {
         "Uveitis": "Severe eye pain",
         "Pterygium": "Mild eye pain",
-        // "Cataracts": "No pain or discomfort"
+        "Cataracts": "Eye pressure or heaviness",
       },
     ),
     Question(
@@ -67,12 +67,13 @@ class QuestionCubit extends Cubit<QuestionState> {
       options: [
         "Glare from lights",
         "Sensitivity to light",
+        "Difficulty adjusting to bright light",
         "No light issues"
       ],
       relevance: {
         "Cataracts": "Glare from lights",
         "Uveitis": "Sensitivity to light",
-        // "Pterygium": "No light issues"
+        "Pterygium": "Difficulty adjusting to bright light",
       },
     ),
   ];
