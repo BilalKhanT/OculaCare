@@ -9,6 +9,7 @@ import '../../configs/utils/utils.dart';
 import '../../logic/auth_cubit/auth_cubit.dart';
 import '../../logic/feedback_cubit/feedback_cubit.dart';
 import '../../logic/feedback_cubit/feedback_state.dart';
+import '../../logic/home_cubit/home_cubit.dart';
 import '../../logic/keyboard_listener_cubit/keyboard_list_cubit.dart';
 import '../../logic/keyboard_listener_cubit/keyboard_list_state.dart';
 import '../widgets/btn_flat.dart';
@@ -107,6 +108,7 @@ class FeedbackView extends StatelessWidget {
                         btnColor: AppColors.appColor,
                         textColor: Colors.white,
                         onPress: () {
+                          context.read<HomeCubit>().emitHomeAnimation();
                           context.go(RouteNames.homeRoute);
                           context
                               .read<FeedbackCubit>()
