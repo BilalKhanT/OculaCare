@@ -288,7 +288,7 @@ class HistorySection extends StatelessWidget {
                     child: FadeInLeft(
                       duration: const Duration(milliseconds: 600),
                       child: Text(
-                        'General Exercises',
+                        'Diseases Therapies',
                         style: TextStyle(
                           fontFamily: 'MontserratMedium',
                           fontWeight: FontWeight.w800,
