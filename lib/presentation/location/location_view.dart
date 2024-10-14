@@ -8,7 +8,8 @@ import '../../logic/location_cubit/location_state.dart';
 import '../widgets/cstm_loader.dart';
 
 class LocationScreen extends StatelessWidget {
-  const LocationScreen({Key? key}) : super(key: key);
+  final bool isBook;
+  const LocationScreen({Key? key, required this.isBook}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,6 +57,7 @@ class LocationScreen extends StatelessWidget {
                 userAddress: state.address,
                 lat: state.latitude,
                 long: state.longitude,
+                isBook: isBook,
               );
             }
             return const SizedBox.shrink();
