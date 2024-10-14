@@ -12,12 +12,14 @@ class LocationSetView extends StatelessWidget {
   final String userAddress;
   final double lat;
   final double long;
+  final bool isBook;
   const LocationSetView(
       {super.key,
       required this.position,
       required this.userAddress,
       required this.lat,
-      required this.long});
+      required this.long,
+      required this.isBook});
 
   @override
   Widget build(BuildContext context) {
@@ -42,8 +44,7 @@ class LocationSetView extends StatelessWidget {
           },
         ),
         const Center(
-          child: Icon(Icons.location_pin,
-              size: 40, color: AppColors.appColor), // Floating marker
+          child: Icon(Icons.location_pin, size: 40, color: AppColors.appColor),
         ),
         Positioned(
           bottom: 20,
@@ -85,19 +86,24 @@ class LocationSetView extends StatelessWidget {
                   Center(
                     child: GestureDetector(
                       onTap: () async {
-                        context
-                            .read<PatientProfileCubit>()
-                            .addressController
-                            .text = userAddress;
-                        context
-                            .read<PatientProfileCubit>()
-                            .updateAddressController
-                            .text = userAddress;
-                        await context
-                            .read<PatientProfileCubit>()
-                            .setCoordinates(lat, long);
-                        if (context.mounted) {
+                        if (isBook) {
                           context.pop();
+                        }
+                        else {
+                          context
+                              .read<PatientProfileCubit>()
+                              .addressController
+                              .text = userAddress;
+                          context
+                              .read<PatientProfileCubit>()
+                              .updateAddressController
+                              .text = userAddress;
+                          await context
+                              .read<PatientProfileCubit>()
+                              .setCoordinates(lat, long);
+                          if (context.mounted) {
+                            context.pop();
+                          }
                         }
                       },
                       child: Container(
