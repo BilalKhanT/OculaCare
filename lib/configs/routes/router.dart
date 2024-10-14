@@ -1,6 +1,7 @@
 import 'package:cculacare/configs/routes/route_names.dart';
 import 'package:cculacare/data/models/disease_result/diagnosis_result_model.dart';
 import 'package:cculacare/presentation/disease_detection/question_view.dart';
+import 'package:cculacare/presentation/patient_profile/widgets/address_book.dart';
 import 'package:cculacare/presentation/result/widgets/diagnosis_report.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -144,10 +145,14 @@ final router = GoRouter(
       builder: (context, state) => const LoginScreen(),
     ),
     GoRoute(
-      parentNavigatorKey: navigatorKey,
-      path: RouteNames.locationRoute,
-      builder: (context, state) => const LocationScreen(),
-    ),
+        parentNavigatorKey: navigatorKey,
+        path: RouteNames.locationRoute,
+        builder: (context, state) {
+          final bool flag = state.extra as bool;
+          return LocationScreen(
+            isBook: flag,
+          );
+        }),
     GoRoute(
       parentNavigatorKey: navigatorKey,
       path: RouteNames.otpRoute,
@@ -176,6 +181,11 @@ final router = GoRouter(
       parentNavigatorKey: navigatorKey,
       path: RouteNames.resultRoute,
       builder: (context, state) => const DiseaseResultView(),
+    ),
+    GoRoute(
+      parentNavigatorKey: navigatorKey,
+      path: RouteNames.addressBookRoute,
+      builder: (context, state) => const AddressBook(),
     ),
     GoRoute(
       parentNavigatorKey: navigatorKey,
