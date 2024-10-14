@@ -15,7 +15,6 @@ import '../../configs/utils/utils.dart';
 import '../../data/repositories/local/preferences/shared_prefs.dart';
 import '../../logic/detection/detection_cubit.dart';
 import '../../logic/detection/question_cubit.dart';
-import '../../logic/image_capture/img_capture_cubit.dart';
 import '../../logic/login_cubit/login_cubit.dart';
 import '../../logic/patient_profile/patient_profile_cubit.dart';
 import '../../logic/pdf_cubit/pdf_cubit_state.dart';
@@ -176,11 +175,17 @@ class MoreView extends StatelessWidget {
                                 text: "Address Book",
                                 icon: "assets/svgs/bookmark_hospital.svg",
                                 onTap: () {
-                                  AppUtils.showToast(
-                                      context,
-                                      'Feature Under Development',
-                                      'This feature will be available in next version',
-                                      false);
+                                  if (!sharedPrefs.isProfileSetup) {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return const Dialog(
+                                            child: NeedToSetupProfileWidget());
+                                      },
+                                    );
+                                    return;
+                                  }
+                                  context.push(RouteNames.addressBookRoute);
                                 },
                               ),
                               divider(),
