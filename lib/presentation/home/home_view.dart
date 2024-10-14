@@ -5,6 +5,7 @@ import 'package:cculacare/configs/extension/extensions.dart';
 import 'package:cculacare/logic/home_cubit/home_cubit.dart';
 import 'package:cculacare/logic/home_cubit/home_state.dart';
 import 'package:cculacare/presentation/home/widgets/grid_btn_widget.dart';
+import 'package:cculacare/presentation/widgets/btn_flat.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,15 +20,100 @@ import '../../data/models/address/address_model.dart';
 import '../../data/models/patient/patient_model.dart';
 import '../../data/repositories/local/preferences/shared_prefs.dart';
 import '../../logic/detection/question_cubit.dart';
-import '../../logic/image_capture/img_capture_cubit.dart';
 import '../../logic/pdf_cubit/pdf_cubit_state.dart';
 import '../widgets/need_to_setup_profile_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
+  Future<void> checkIfFirstTime(BuildContext context) async {
+    if (sharedPrefs.bottomFirst && sharedPrefs.isProfileSetup) {
+      showBottomModal(context);
+      sharedPrefs.bottomFirst = false;
+    }
+  }
+
+  void showBottomModal(BuildContext context) {
+    double screenHeight = MediaQuery.sizeOf(context).height;
+    double screenWidth = MediaQuery.sizeOf(context).width;
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return Container(
+          color: AppColors.screenBackground,
+          padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
+          height: screenHeight * 0.5,
+          width: screenWidth,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                child: Container(
+                  height: screenHeight * 0.005,
+                  width: 50,
+                  color: Colors.grey,
+                ),
+              ),
+              SizedBox(height: screenHeight * 0.009),
+              Text(
+                'Welcome back, ${sharedPrefs.userName}!',
+                style: TextStyle(
+                  fontFamily: 'MontserratMedium',
+                  fontSize: screenWidth * 0.045,
+                  fontWeight: FontWeight.w800,
+                  color: AppColors.appColor,
+                ),
+              ),
+              SizedBox(height: screenHeight * 0.005),
+              Text(
+                'Where should we locate nearby health facilities?',
+                style: TextStyle(
+                  fontFamily: 'MontserratMedium',
+                  fontSize: screenWidth * 0.038,
+                  fontWeight: FontWeight.w800,
+                  color: AppColors.textPrimary,
+                ),
+              ),
+              SizedBox(height: screenHeight * 0.009),
+              Row(
+                children: <Widget>[
+                  const Icon(
+                    Icons.location_on_outlined,
+                    color: AppColors.appColor,
+                  ),
+                  const SizedBox(
+                    width: 5.0,
+                  ),
+                  Text(
+                    'Use my current location',
+                    style: TextStyle(
+                      fontFamily: 'Montserrat',
+                      fontSize: screenWidth * 0.035,
+                      fontWeight: FontWeight.w800,
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
+                ],
+              ),
+              Expanded(child: Container()),
+              ButtonFlat(
+                  btnColor: AppColors.appColor,
+                  textColor: AppColors.whiteColor,
+                  onPress: () {},
+                  text: 'Confirm location'),
+            ],
+          ),
+        );
+      },
+      isScrollControlled: true,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      checkIfFirstTime(context);
+    });
     Patient patient = Patient(
         email: '',
         username: '',
@@ -55,15 +141,16 @@ class HomeScreen extends StatelessWidget {
               if (state is HomeStateAnimate) {
                 return SizedBox(
                   child: Padding(
-                    padding:
-                    const EdgeInsets.symmetric(horizontal: 0.0, vertical: 20.0),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 0.0, vertical: 20.0),
                     child: SingleChildScrollView(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
-                            padding: const EdgeInsets.only(left: 15.0, right: 10.0),
+                            padding:
+                                const EdgeInsets.only(left: 15.0, right: 10.0),
                             child: Text(
                               'Today, $date',
                               style: TextStyle(
@@ -79,14 +166,16 @@ class HomeScreen extends StatelessWidget {
                             height: screenHeight * 0.01,
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(left: 15.0, right: 10.0),
+                            padding:
+                                const EdgeInsets.only(left: 15.0, right: 10.0),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 FadeInLeft(
                                   duration: const Duration(milliseconds: 600),
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: <Widget>[
                                       Row(
                                         children: [
@@ -118,15 +207,16 @@ class HomeScreen extends StatelessWidget {
                                   ),
                                 ),
                                 Padding(
-                                  padding:
-                                  const EdgeInsets.only(right: 25.0, left: 10.0),
+                                  padding: const EdgeInsets.only(
+                                      right: 25.0, left: 10.0),
                                   child: FadeInRight(
                                     duration: const Duration(milliseconds: 600),
                                     child: Container(
                                       decoration: BoxDecoration(
                                         shape: BoxShape.circle,
                                         border: Border.all(
-                                            color: AppColors.whiteColor, width: 0.5),
+                                            color: AppColors.whiteColor,
+                                            width: 0.5),
                                         boxShadow: const [
                                           BoxShadow(
                                             color: Colors.grey,
@@ -143,17 +233,19 @@ class HomeScreen extends StatelessWidget {
                                           color: Colors.white,
                                           child: patient.profileImage == ''
                                               ? Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: SvgPicture.asset(
-                                              "assets/svgs/account.svg",
-                                              // ignore: deprecated_member_use
-                                              color: Colors.grey.shade800,
-                                            ),
-                                          )
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: SvgPicture.asset(
+                                                    "assets/svgs/account.svg",
+                                                    // ignore: deprecated_member_use
+                                                    color: Colors.grey.shade800,
+                                                  ),
+                                                )
                                               : Image.memory(
-                                            base64Decode(patient.profileImage!),
-                                            fit: BoxFit.cover,
-                                          ),
+                                                  base64Decode(
+                                                      patient.profileImage!),
+                                                  fit: BoxFit.cover,
+                                                ),
                                         ),
                                       ),
                                     ),
@@ -166,7 +258,8 @@ class HomeScreen extends StatelessWidget {
                             height: 30.h,
                           ),
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 20.0),
                             child: FadeInUp(
                               duration: const Duration(milliseconds: 600),
                               child: GestureDetector(
@@ -202,38 +295,42 @@ class HomeScreen extends StatelessWidget {
                                           ),
                                           Expanded(
                                               child: TextFormField(
-                                                readOnly: true,
-                                                decoration: InputDecoration(
-                                                  fillColor: Colors.white,
-                                                  filled: true,
-                                                  hintStyle: context
-                                                      .appTheme.textTheme.labelMedium
-                                                      ?.copyWith(
-                                                      fontFamily: 'MontserratMedium',
-                                                      color: Colors.grey.shade400,
+                                            readOnly: true,
+                                            decoration: InputDecoration(
+                                              fillColor: Colors.white,
+                                              filled: true,
+                                              hintStyle: context.appTheme
+                                                  .textTheme.labelMedium
+                                                  ?.copyWith(
+                                                      fontFamily:
+                                                          'MontserratMedium',
+                                                      color:
+                                                          Colors.grey.shade400,
                                                       fontSize:
-                                                      MediaQuery.sizeOf(context)
-                                                          .width *
-                                                          0.04),
-                                                  hintText: 'Search for hospital',
-                                                  border: InputBorder.none,
-                                                  contentPadding: EdgeInsets.only(
-                                                    top: MediaQuery.sizeOf(context)
+                                                          MediaQuery.sizeOf(
+                                                                      context)
+                                                                  .width *
+                                                              0.04),
+                                              hintText: 'Search for hospital',
+                                              border: InputBorder.none,
+                                              contentPadding: EdgeInsets.only(
+                                                top: MediaQuery.sizeOf(context)
                                                         .height *
+                                                    0.015,
+                                                left: 20.w,
+                                                bottom:
+                                                    MediaQuery.sizeOf(context)
+                                                            .height *
                                                         0.015,
-                                                    left: 20.w,
-                                                    bottom: MediaQuery.sizeOf(context)
-                                                        .height *
-                                                        0.015,
-                                                  ),
-                                                ),
-                                                style: TextStyle(
-                                                  fontFamily: 'MontserratMedium',
-                                                  fontSize: screenWidth * 0.035,
-                                                  fontWeight: FontWeight.w800,
-                                                  color: AppColors.appColor,
-                                                ),
-                                              )),
+                                              ),
+                                            ),
+                                            style: TextStyle(
+                                              fontFamily: 'MontserratMedium',
+                                              fontSize: screenWidth * 0.035,
+                                              fontWeight: FontWeight.w800,
+                                              color: AppColors.appColor,
+                                            ),
+                                          )),
                                           Padding(
                                             padding: EdgeInsets.all(15.h),
                                             child: SvgPicture.asset(
@@ -258,16 +355,20 @@ class HomeScreen extends StatelessWidget {
                             child: SizedBox(
                               height: screenHeight * 0.18,
                               width: MediaQuery.of(context).size.width,
-                              child: LayoutBuilder(builder: (context, constraints) {
+                              child: LayoutBuilder(
+                                  builder: (context, constraints) {
                                 return SingleChildScrollView(
                                   scrollDirection: Axis.horizontal,
                                   child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
                                     children: [
                                       Padding(
-                                        padding: const EdgeInsets.only(left: 15.0),
+                                        padding:
+                                            const EdgeInsets.only(left: 15.0),
                                         child: FadeInLeft(
-                                          duration: const Duration(milliseconds: 500),
+                                          duration:
+                                              const Duration(milliseconds: 500),
                                           child: GridButtonWidget(
                                             onTap: () {
                                               if (!sharedPrefs.isProfileSetup) {
@@ -276,22 +377,27 @@ class HomeScreen extends StatelessWidget {
                                                   builder: (context) {
                                                     return const Dialog(
                                                         child:
-                                                        NeedToSetupProfileWidget());
+                                                            NeedToSetupProfileWidget());
                                                   },
                                                 );
                                                 return;
                                               }
                                               isHome = true;
                                               isMore = false;
-                                              context.read<QuestionCubit>().startQuestionnaire();
-                                              context.push(RouteNames.questionRoute);
+                                              context
+                                                  .read<QuestionCubit>()
+                                                  .startQuestionnaire();
+                                              context.push(
+                                                  RouteNames.questionRoute);
                                             },
-                                            iconData: "assets/svgs/eye_scan.svg",
+                                            iconData:
+                                                "assets/svgs/eye_scan.svg",
                                             constraints: constraints,
                                             title: "Fast Way",
                                             subtitle: "To Detect",
                                             color: const Color(0xFF9673D4),
-                                            colorSecondary: const Color(0xFF6B4FA0),
+                                            colorSecondary:
+                                                const Color(0xFF6B4FA0),
                                           ),
                                         ),
                                       ),
@@ -299,7 +405,8 @@ class HomeScreen extends StatelessWidget {
                                         width: screenHeight * 0.025,
                                       ),
                                       FadeInUp(
-                                        duration: const Duration(milliseconds: 600),
+                                        duration:
+                                            const Duration(milliseconds: 600),
                                         child: GridButtonWidget(
                                           onTap: () {
                                             if (!sharedPrefs.isProfileSetup) {
@@ -308,7 +415,7 @@ class HomeScreen extends StatelessWidget {
                                                 builder: (context) {
                                                   return const Dialog(
                                                       child:
-                                                      NeedToSetupProfileWidget());
+                                                          NeedToSetupProfileWidget());
                                                 },
                                               );
                                               return;
@@ -320,14 +427,16 @@ class HomeScreen extends StatelessWidget {
                                           title: "Tests",
                                           subtitle: 'Vision-Color',
                                           color: const Color(0xFF59AFCC),
-                                          colorSecondary: const Color(0xFF357C92),
+                                          colorSecondary:
+                                              const Color(0xFF357C92),
                                         ),
                                       ),
                                       SizedBox(
                                         width: screenHeight * 0.025,
                                       ),
                                       FadeInRight(
-                                        duration: const Duration(milliseconds: 700),
+                                        duration:
+                                            const Duration(milliseconds: 700),
                                         child: GridButtonWidget(
                                           onTap: () {
                                             AppUtils.showToast(
@@ -341,30 +450,34 @@ class HomeScreen extends StatelessWidget {
                                           title: "Hospital",
                                           subtitle: "Explore",
                                           color: const Color(0xFFF683A2),
-                                          colorSecondary: const Color(0xFFCF617F),
+                                          colorSecondary:
+                                              const Color(0xFFCF617F),
                                         ),
                                       ),
                                       SizedBox(
                                         width: screenHeight * 0.025,
                                       ),
                                       Padding(
-                                        padding: const EdgeInsets.only(right: 15.0),
+                                        padding:
+                                            const EdgeInsets.only(right: 15.0),
                                         child: FadeInUp(
                                           duration:
-                                          const Duration(milliseconds: 800),
+                                              const Duration(milliseconds: 800),
                                           child: GridButtonWidget(
                                             onTap: () {
                                               context
                                                   .read<PDFCubit>()
                                                   .fetchAndInitializePDFList();
-                                              context.push(RouteNames.pdfViewRoute);
+                                              context.push(
+                                                  RouteNames.pdfViewRoute);
                                             },
                                             constraints: constraints,
                                             iconData: 'assets/svgs/leaflet.svg',
                                             title: "Explore",
                                             subtitle: "Leaflets",
                                             color: const Color(0xffbbbcbf),
-                                            colorSecondary: const Color(0xFF8D8D90),
+                                            colorSecondary:
+                                                const Color(0xFF8D8D90),
                                           ),
                                         ),
                                       ),
@@ -378,7 +491,8 @@ class HomeScreen extends StatelessWidget {
                             height: screenHeight * 0.03,
                           ),
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 15.0),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -400,7 +514,8 @@ class HomeScreen extends StatelessWidget {
                                   child: Container(
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(100),
-                                      color: AppColors.appColor.withOpacity(0.7),
+                                      color:
+                                          AppColors.appColor.withOpacity(0.7),
                                     ),
                                     child: Padding(
                                       padding: const EdgeInsets.all(10.0),
@@ -431,7 +546,8 @@ class HomeScreen extends StatelessWidget {
                                       builder: (context) {
                                         return Dialog(
                                           child: ClipRRect(
-                                            borderRadius: BorderRadius.circular(15.0),
+                                            borderRadius:
+                                                BorderRadius.circular(15.0),
                                             child: SizedBox(
                                               height: screenHeight * 0.5,
                                               child: Image.asset(
@@ -463,7 +579,8 @@ class HomeScreen extends StatelessWidget {
                                             color: Colors.transparent,
                                             boxShadow: [
                                               BoxShadow(
-                                                color: Colors.grey.withOpacity(0.5),
+                                                color: Colors.grey
+                                                    .withOpacity(0.5),
                                                 spreadRadius: 2,
                                                 blurRadius: 8,
                                                 offset: const Offset(0, 3),
@@ -485,7 +602,8 @@ class HomeScreen extends StatelessWidget {
                                       builder: (context) {
                                         return Dialog(
                                           child: ClipRRect(
-                                            borderRadius: BorderRadius.circular(15.0),
+                                            borderRadius:
+                                                BorderRadius.circular(15.0),
                                             child: SizedBox(
                                               height: screenHeight * 0.5,
                                               child: Image.asset(
@@ -516,7 +634,8 @@ class HomeScreen extends StatelessWidget {
                                           color: Colors.transparent,
                                           boxShadow: [
                                             BoxShadow(
-                                              color: Colors.grey.withOpacity(0.5),
+                                              color:
+                                                  Colors.grey.withOpacity(0.5),
                                               spreadRadius: 2,
                                               blurRadius: 8,
                                               offset: const Offset(0, 3),
@@ -539,7 +658,8 @@ class HomeScreen extends StatelessWidget {
                                       builder: (context) {
                                         return Dialog(
                                           child: ClipRRect(
-                                            borderRadius: BorderRadius.circular(15.0),
+                                            borderRadius:
+                                                BorderRadius.circular(15.0),
                                             child: SizedBox(
                                               height: screenHeight * 0.5,
                                               child: Image.asset(
@@ -570,7 +690,8 @@ class HomeScreen extends StatelessWidget {
                                           color: Colors.transparent,
                                           boxShadow: [
                                             BoxShadow(
-                                              color: Colors.grey.withOpacity(0.5),
+                                              color:
+                                                  Colors.grey.withOpacity(0.5),
                                               spreadRadius: 2,
                                               blurRadius: 8,
                                               offset: const Offset(0, 3),
@@ -593,7 +714,8 @@ class HomeScreen extends StatelessWidget {
                                       builder: (context) {
                                         return Dialog(
                                           child: ClipRRect(
-                                            borderRadius: BorderRadius.circular(15.0),
+                                            borderRadius:
+                                                BorderRadius.circular(15.0),
                                             child: SizedBox(
                                               height: screenHeight * 0.5,
                                               child: Image.asset(
@@ -625,7 +747,8 @@ class HomeScreen extends StatelessWidget {
                                           color: Colors.transparent,
                                           boxShadow: [
                                             BoxShadow(
-                                              color: Colors.blue.withOpacity(0.5),
+                                              color:
+                                                  Colors.blue.withOpacity(0.5),
                                               spreadRadius: 2,
                                               blurRadius: 8,
                                               offset: const Offset(0, 3),
@@ -668,4 +791,3 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
-
