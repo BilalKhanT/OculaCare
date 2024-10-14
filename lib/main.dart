@@ -43,6 +43,7 @@ class MyApp extends StatelessWidget {
     sharedPrefs.therapyFetched = false;
     sharedPrefs.historyFetched = false;
     sharedPrefs.resultsFetched = false;
+    sharedPrefs.bottomFirst = true;
     context.read<HomeCubit>().emitHomeAnimation();
     return ScreenUtilInit(
       builder: (context, child) {
