@@ -22,6 +22,11 @@ class SharedPrefs {
     _sharedPrefs?.setBool('therapyFetched', value);
   }
 
+  bool get bottomFirst => _sharedPrefs?.getBool('bottomFirst') ?? true;
+  set bottomFirst(bool value) {
+    _sharedPrefs?.setBool('bottomFirst', value);
+  }
+
   bool get resultsFetched => _sharedPrefs?.getBool('resultsFetched') ?? false;
   set resultsFetched(bool value) {
     _sharedPrefs?.setBool('resultsFetched', value);
