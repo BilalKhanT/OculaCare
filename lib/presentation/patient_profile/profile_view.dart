@@ -255,7 +255,7 @@ class PatientProfileScreen extends StatelessWidget {
                                         context
                                             .read<LocationCubit>()
                                             .setLocation();
-                                        context.push(RouteNames.locationRoute);
+                                        context.push(RouteNames.locationRoute, extra: false);
                                       },
                                       icon: const Icon(
                                         Icons.location_on_outlined,
