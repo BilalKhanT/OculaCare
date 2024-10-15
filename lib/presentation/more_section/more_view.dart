@@ -15,6 +15,7 @@ import '../../configs/utils/utils.dart';
 import '../../data/repositories/local/preferences/shared_prefs.dart';
 import '../../logic/detection/detection_cubit.dart';
 import '../../logic/detection/question_cubit.dart';
+import '../../logic/detection_animation/detection_animation_cubit.dart';
 import '../../logic/login_cubit/login_cubit.dart';
 import '../../logic/patient_profile/patient_profile_cubit.dart';
 import '../../logic/pdf_cubit/pdf_cubit_state.dart';
@@ -252,8 +253,9 @@ class MoreView extends StatelessWidget {
                                   );
                                   return;
                                 } else {
+                                  context.read<DetectionAnimationCubit>().emitHomeAnimation();
                                   context.read<DetectionCubit>().loadDiseaseResults();
-                                  context.push(RouteNames.resultRoute);
+                                  context.go(RouteNames.detectionRoute);
                                 }
                               },
                             ),
