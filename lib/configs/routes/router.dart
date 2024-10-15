@@ -179,11 +179,6 @@ final router = GoRouter(
         }),
     GoRoute(
       parentNavigatorKey: navigatorKey,
-      path: RouteNames.resultRoute,
-      builder: (context, state) => const DiseaseResultView(),
-    ),
-    GoRoute(
-      parentNavigatorKey: navigatorKey,
       path: RouteNames.addressBookRoute,
       builder: (context, state) => const AddressBook(),
     ),
