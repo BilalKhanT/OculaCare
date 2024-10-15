@@ -72,54 +72,74 @@ class TherapyHistoryTile extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 5.0),
-                      Text(
-                        type,
-                        style: TextStyle(
-                          fontFamily: 'Montserrat',
-                          fontWeight: FontWeight.w900,
-                          fontSize: screenWidth * 0.032,
-                          color: AppColors.textPrimary,
-                        ),
-                      ),
-                      const SizedBox(height: 5.0),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 12.0,
-                          vertical: 6.0,
-                        ),
-                        decoration: BoxDecoration(
-                          color: AppColors.appColor,
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: Text(
-                          '${(duration / 60).toStringAsFixed(1)} mins',
-                          style: TextStyle(
-                            color: AppColors.whiteColor,
-                            fontFamily: 'MontserratMedium',
-                            fontWeight: FontWeight.w700,
-                            fontSize: screenWidth * 0.03,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                type,
+                                style: TextStyle(
+                                  fontFamily: 'Montserrat',
+                                  fontWeight: FontWeight.w900,
+                                  fontSize: screenWidth * 0.032,
+                                  color: AppColors.textPrimary,
+                                ),
+                              ),
+                              const SizedBox(height: 5.0),
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 12.0,
+                                  vertical: 6.0,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: AppColors.appColor,
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: Text(
+                                  '${(duration / 60).toStringAsFixed(1)} mins',
+                                  style: TextStyle(
+                                    color: AppColors.whiteColor,
+                                    fontFamily: 'MontserratMedium',
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: screenWidth * 0.03,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
+                          SizedBox(width: screenWidth * 0.23,),
+                          Text(
+                            date,
+                            style: TextStyle(
+                              color: AppColors.textSecondary,
+                              fontFamily: 'MontserratMedium',
+                              fontWeight: FontWeight.w500,
+                              fontSize: screenWidth * 0.03,
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
                 ],
               ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(height: screenHeight * 0.05), // Spacing
-                  Text(
-                    date,
-                    style: TextStyle(
-                      color: AppColors.textSecondary,
-                      fontFamily: 'MontserratMedium',
-                      fontWeight: FontWeight.w500,
-                      fontSize: screenWidth * 0.03,
-                    ),
-                  ),
-                ],
-              ),
+              // Column(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: [
+              //     SizedBox(height: screenHeight * 0.05), // Spacing
+              //     Text(
+              //       date,
+              //       style: TextStyle(
+              //         color: AppColors.textSecondary,
+              //         fontFamily: 'MontserratMedium',
+              //         fontWeight: FontWeight.w500,
+              //         fontSize: screenWidth * 0.03,
+              //       ),
+              //     ),
+              //   ],
+              // ),
             ],
           ),
         ),
