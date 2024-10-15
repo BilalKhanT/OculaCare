@@ -136,8 +136,8 @@ class TherapyModel extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 20.0),
                           child: ButtonFlat(
-                            btnColor: AppColors.whiteColor,
-                            textColor: Colors.black,
+                            btnColor: AppColors.secondaryBtnColor,
+                            textColor: AppColors.whiteColor,
                             onPress: () async {
                               DateTime? selectedDateTime =
                                   await _selectDateTime(context);
