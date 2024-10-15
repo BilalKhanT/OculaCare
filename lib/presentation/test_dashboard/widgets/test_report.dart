@@ -78,10 +78,9 @@ class TestReport extends StatelessWidget {
               },
               child: Row(
                 children: [
-                  const Icon(
-                    Icons.upload_outlined,
-                    color: AppColors.appColor,
-                  ),
+                  SvgPicture.asset('assets/svgs/download.svg',
+                      // ignore: deprecated_member_use
+                      color: AppColors.appColor),
                   const SizedBox(
                     width: 5.0,
                   ),
@@ -89,7 +88,7 @@ class TestReport extends StatelessWidget {
                     'Download',
                     style: TextStyle(
                       color: AppColors.appColor,
-                      fontFamily: 'MontserratMedium',
+                      fontFamily: 'Montserrat',
                       fontWeight: FontWeight.w800,
                       fontSize: screenWidth * 0.04,
                     ),
@@ -100,101 +99,132 @@ class TestReport extends StatelessWidget {
           )
         ],
       ),
-      body: FadeInUp(
-        duration: const Duration(milliseconds: 600),
-        child: SingleChildScrollView(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding:
+              const EdgeInsets.symmetric(horizontal: 5, vertical: 5.0),
           child: Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 5, vertical: 5.0),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: 15, vertical: 20.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      FadeInLeft(
-                        duration: const Duration(milliseconds: 600),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                                color: AppColors.appColor, width: 1.5),
-                          ),
-                          child: ClipOval(
-                            child: Container(
-                              height: screenHeight * 0.13,
-                              width: screenHeight * 0.13,
-                              color: Colors.white,
-                              child: patientData == ''
-                                  ? Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: SvgPicture.asset(
-                                        "assets/svgs/account.svg",
-                                        // ignore: deprecated_member_use
-                                        color: Colors.grey.shade800,
-                                      ),
-                                    )
-                                  : Image.memory(
-                                      base64Decode(patient.profileImage!),
-                                      fit: BoxFit.cover,
+            padding: const EdgeInsets.symmetric(
+                horizontal: 15, vertical: 20.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    FadeInLeft(
+                      duration: const Duration(milliseconds: 600),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                              color: AppColors.appColor, width: 1.5),
+                        ),
+                        child: ClipOval(
+                          child: Container(
+                            height: screenHeight * 0.13,
+                            width: screenHeight * 0.13,
+                            color: Colors.white,
+                            child: patientData == ''
+                                ? Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: SvgPicture.asset(
+                                      "assets/svgs/account.svg",
+                                      // ignore: deprecated_member_use
+                                      color: Colors.grey.shade800,
                                     ),
-                            ),
+                                  )
+                                : Image.memory(
+                                    base64Decode(patient.profileImage!),
+                                    fit: BoxFit.cover,
+                                  ),
                           ),
                         ),
                       ),
-                      FadeInRight(
-                        duration: const Duration(milliseconds: 600),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Image.asset(
-                              'assets/images/logo_ocula_login.png',
-                              height: screenHeight * 0.04,
-                              width: screenHeight * 0.04,
+                    ),
+                    FadeInRight(
+                      duration: const Duration(milliseconds: 600),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Image.asset(
+                            'assets/images/logo_ocula_login.png',
+                            height: screenHeight * 0.04,
+                            width: screenHeight * 0.04,
+                          ),
+                          Text(
+                            'OculaCare',
+                            style: TextStyle(
+                              color: AppColors.appColor,
+                              fontFamily: 'MontserratMedium',
+                              fontWeight: FontWeight.w800,
+                              fontSize: screenWidth * 0.035,
                             ),
-                            Text(
-                              'OculaCare',
-                              style: TextStyle(
-                                color: AppColors.appColor,
-                                fontFamily: 'MontserratMedium',
-                                fontWeight: FontWeight.w800,
-                                fontSize: screenWidth * 0.035,
-                              ),
-                            ),
-                            SizedBox(
-                              height: screenHeight * 0.05,
-                            )
-                          ],
-                        ),
+                          ),
+                          SizedBox(
+                            height: screenHeight * 0.05,
+                          )
+                        ],
                       ),
-                    ],
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: screenHeight * 0.02,
+                ),
+                Text(
+                  'Name: ${test.patientName}',
+                  style: TextStyle(
+                    color: AppColors.textPrimary,
+                    fontFamily: 'Montserrat',
+                    fontWeight: FontWeight.bold,
+                    fontSize: screenWidth * 0.037,
                   ),
-                  SizedBox(
-                    height: screenHeight * 0.02,
+                ),
+                SizedBox(
+                  height: screenHeight * 0.003,
+                ),
+                Text(
+                  'Date: ${test.date}',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontFamily: 'Montserrat',
+                    fontWeight: FontWeight.bold,
+                    fontSize: screenWidth * 0.037,
                   ),
-                  FadeInDown(
-                    duration: const Duration(milliseconds: 600),
-                    child: Text(
-                      'Name: ${test.patientName}',
+                ),
+                SizedBox(
+                  height: screenHeight * 0.003,
+                ),
+                Text(
+                  'Test Type: ${test.testType}',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontFamily: 'Montserrat',
+                    fontWeight: FontWeight.bold,
+                    fontSize: screenWidth * 0.037,
+                  ),
+                ),
+                SizedBox(
+                  height: screenHeight * 0.003,
+                ),
+                Row(
+                  children: [
+                    Text(
+                      'Test Name:',
                       style: TextStyle(
-                        color: AppColors.textPrimary,
-                        fontFamily: 'Montserrat',
-                        fontWeight: FontWeight.bold,
+                        color: AppColors.appColor,
+                        fontFamily: 'MontserratMedium',
+                        fontWeight: FontWeight.w800,
                         fontSize: screenWidth * 0.037,
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: screenHeight * 0.003,
-                  ),
-                  FadeInDown(
-                    duration: const Duration(milliseconds: 600),
-                    child: Text(
-                      'Date: ${test.date}',
+                    const SizedBox(
+                      width: 10.0,
+                    ),
+                    Text(
+                      test.testName,
                       style: TextStyle(
                         color: Colors.black,
                         fontFamily: 'Montserrat',
@@ -202,192 +232,128 @@ class TestReport extends StatelessWidget {
                         fontSize: screenWidth * 0.037,
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: screenHeight * 0.003,
-                  ),
-                  FadeInDown(
-                    duration: const Duration(milliseconds: 600),
-                    child: Text(
-                      'Test Type: ${test.testType}',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontFamily: 'Montserrat',
-                        fontWeight: FontWeight.bold,
-                        fontSize: screenWidth * 0.037,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: screenHeight * 0.03,
-                  ),
-                  FadeInLeft(
-                    duration: const Duration(milliseconds: 600),
-                    child: Row(
-                      children: [
-                        Text(
-                          'Test Name:',
-                          style: TextStyle(
-                            color: AppColors.appColor,
-                            fontFamily: 'MontserratMedium',
-                            fontWeight: FontWeight.w800,
-                            fontSize: screenWidth * 0.037,
-                          ),
+                  ],
+                ),
+                test.testName == 'Animal Track'
+                    ? FadeIn(
+                  duration: const Duration(milliseconds: 600),
+                      child: TrackChart(
+                          score: test.testScore,
                         ),
-                        const SizedBox(
-                          width: 10.0,
-                        ),
-                        Text(
-                          test.testName,
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontFamily: 'Montserrat',
-                            fontWeight: FontWeight.bold,
-                            fontSize: screenWidth * 0.037,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  test.testName == 'Animal Track'
-                      ? FadeInUp(
-                    duration: const Duration(milliseconds: 600),
-                        child: TrackChart(
-                            score: test.testScore,
-                          ),
-                      )
-                      : test.testName == 'Snellan Chart'
-                          ? Center(
-                              child: FadeInUp(
-                                duration: const Duration(milliseconds: 600),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.center,
-                                  children: [
-                                    Image.asset(
-                                      'assets/images/result_test.png',
-                                      height: screenHeight * 0.15,
+                    )
+                    : test.testName == 'Snellan Chart'
+                        ? Center(
+                            child: FadeIn(
+                              duration: const Duration(milliseconds: 600),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment:
+                                    CrossAxisAlignment.center,
+                                children: [
+                                  Image.asset(
+                                    'assets/images/result_test.png',
+                                    height: screenHeight * 0.15,
+                                  ),
+                                  SizedBox(
+                                    height: screenHeight * 0.01,
+                                  ),
+                                  Text(
+                                    '6/${test.testScore}',
+                                    style: TextStyle(
+                                      color: AppColors.appColor,
+                                      fontFamily: 'MontserratMedium',
+                                      fontWeight: FontWeight.w800,
+                                      fontSize: screenWidth * 0.04,
+                                      letterSpacing: 0.5,
                                     ),
-                                    SizedBox(
-                                      height: screenHeight * 0.01,
-                                    ),
-                                    Text(
-                                      '6/${test.testScore}',
-                                      style: TextStyle(
-                                        color: AppColors.appColor,
-                                        fontFamily: 'MontserratMedium',
-                                        fontWeight: FontWeight.w800,
-                                        fontSize: screenWidth * 0.04,
-                                        letterSpacing: 0.5,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: screenHeight * 0.02,
-                                    ),
-                                  ],
-                                ),
+                                  ),
+                                  SizedBox(
+                                    height: screenHeight * 0.02,
+                                  ),
+                                ],
                               ),
-                            )
-                          : SeverityChart(score: test.testScore),
-                  FadeInUp(
-                    duration: const Duration(milliseconds: 600),
-                    child: Text(
-                      'Analysis:',
-                      style: TextStyle(
-                        color: AppColors.appColor,
-                        fontFamily: 'MontserratMedium',
-                        fontWeight: FontWeight.w800,
-                        fontSize: screenWidth * 0.04,
-                        letterSpacing: 0.5,
-                      ),
-                    ),
+                            ),
+                          )
+                        : SeverityChart(score: test.testScore),
+                Text(
+                  'Analysis:',
+                  style: TextStyle(
+                    color: AppColors.appColor,
+                    fontFamily: 'MontserratMedium',
+                    fontWeight: FontWeight.w800,
+                    fontSize: screenWidth * 0.04,
+                    letterSpacing: 0.5,
                   ),
-                  SizedBox(
-                    height: screenHeight * 0.003,
+                ),
+                SizedBox(
+                  height: screenHeight * 0.003,
+                ),
+                Text(
+                  test.resultDescription,
+                  textAlign: TextAlign.justify,
+                  style: TextStyle(
+                    color: Colors.grey.shade800,
+                    fontFamily: 'Montserrat',
+                    fontWeight: FontWeight.bold,
+                    fontSize: screenWidth * 0.034,
+                    letterSpacing: 0.5,
                   ),
-                  FadeInUp(
-                    duration: const Duration(milliseconds: 600),
-                    child: Text(
-                      test.resultDescription,
-                      textAlign: TextAlign.justify,
-                      style: TextStyle(
-                        color: Colors.grey.shade800,
-                        fontFamily: 'Montserrat',
-                        fontWeight: FontWeight.bold,
-                        fontSize: screenWidth * 0.034,
-                        letterSpacing: 0.5,
-                      ),
-                    ),
+                ),
+                SizedBox(
+                  height: screenHeight * 0.025,
+                ),
+                Text(
+                  'Recommendations:',
+                  style: TextStyle(
+                    color: AppColors.appColor,
+                    fontFamily: 'MontserratMedium',
+                    fontWeight: FontWeight.w800,
+                    fontSize: screenWidth * 0.04,
+                    letterSpacing: 0.5,
                   ),
-                  SizedBox(
-                    height: screenHeight * 0.025,
+                ),
+                SizedBox(
+                  height: screenHeight * 0.003,
+                ),
+                Text(
+                  test.recommendation,
+                  textAlign: TextAlign.justify,
+                  style: TextStyle(
+                    color: Colors.grey.shade800,
+                    fontFamily: 'Montserrat',
+                    fontWeight: FontWeight.bold,
+                    fontSize: screenWidth * 0.034,
+                    letterSpacing: 0.5,
                   ),
-                  FadeInUp(
-                    duration: const Duration(milliseconds: 600),
-                    child: Text(
-                      'Recommendations:',
-                      style: TextStyle(
-                        color: AppColors.appColor,
-                        fontFamily: 'MontserratMedium',
-                        fontWeight: FontWeight.w800,
-                        fontSize: screenWidth * 0.04,
-                        letterSpacing: 0.5,
-                      ),
-                    ),
+                ),
+                SizedBox(
+                  height: screenHeight * 0.025,
+                ),
+                Text(
+                  'Impacts:',
+                  style: TextStyle(
+                    color: AppColors.appColor,
+                    fontFamily: 'MontserratMedium',
+                    fontWeight: FontWeight.w800,
+                    fontSize: screenWidth * 0.04,
+                    letterSpacing: 0.5,
                   ),
-                  SizedBox(
-                    height: screenHeight * 0.003,
+                ),
+                SizedBox(
+                  height: screenHeight * 0.003,
+                ),
+                Text(
+                  test.precautions,
+                  textAlign: TextAlign.justify,
+                  style: TextStyle(
+                    color: Colors.grey.shade800,
+                    fontFamily: 'Montserrat',
+                    fontWeight: FontWeight.bold,
+                    fontSize: screenWidth * 0.034,
+                    letterSpacing: 0.5,
                   ),
-                  FadeInUp(
-                    duration: const Duration(milliseconds: 600),
-                    child: Text(
-                      test.recommendation,
-                      textAlign: TextAlign.justify,
-                      style: TextStyle(
-                        color: Colors.grey.shade800,
-                        fontFamily: 'Montserrat',
-                        fontWeight: FontWeight.bold,
-                        fontSize: screenWidth * 0.034,
-                        letterSpacing: 0.5,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: screenHeight * 0.025,
-                  ),
-                  FadeInUp(
-                    duration: const Duration(milliseconds: 600),
-                    child: Text(
-                      'Impacts:',
-                      style: TextStyle(
-                        color: AppColors.appColor,
-                        fontFamily: 'MontserratMedium',
-                        fontWeight: FontWeight.w800,
-                        fontSize: screenWidth * 0.04,
-                        letterSpacing: 0.5,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: screenHeight * 0.003,
-                  ),
-                  FadeInUp(
-                    duration: const Duration(milliseconds: 600),
-                    child: Text(
-                      test.precautions,
-                      textAlign: TextAlign.justify,
-                      style: TextStyle(
-                        color: Colors.grey.shade800,
-                        fontFamily: 'Montserrat',
-                        fontWeight: FontWeight.bold,
-                        fontSize: screenWidth * 0.034,
-                        letterSpacing: 0.5,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),
