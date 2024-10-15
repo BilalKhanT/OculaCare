@@ -38,44 +38,41 @@ class MoreView extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      FadeInLeft(
-                        duration: const Duration(milliseconds: 600),
-                        child: Container(
-                          padding: const EdgeInsets.all(10),
-                          child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Leaflets",
-                                  style: TextStyle(
-                                      fontFamily: "MontserratMedium",
-                                      color: AppColors.appColor,
-                                      fontWeight: FontWeight.w800,
-                                      letterSpacing: 1,
-                                      fontSize: 17.sp),
+                      Container(
+                        padding: const EdgeInsets.all(10),
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Leaflets",
+                                style: TextStyle(
+                                    fontFamily: "MontserratMedium",
+                                    color: AppColors.appColor,
+                                    fontWeight: FontWeight.w800,
+                                    letterSpacing: 1,
+                                    fontSize: 17.sp),
+                              ),
+                              const SizedBox(
+                                height: 7,
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  context
+                                      .read<PDFCubit>()
+                                      .fetchAndInitializePDFList();
+                                  context.push(RouteNames.pdfViewRoute);
+                                },
+                                child: Center(
+                                  child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(10),
+                                      child: Image.asset(
+                                          "assets/images/eye_leaflet.png")),
                                 ),
-                                const SizedBox(
-                                  height: 7,
-                                ),
-                                GestureDetector(
-                                  onTap: () {
-                                    context
-                                        .read<PDFCubit>()
-                                        .fetchAndInitializePDFList();
-                                    context.push(RouteNames.pdfViewRoute);
-                                  },
-                                  child: Center(
-                                    child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(10),
-                                        child: Image.asset(
-                                            "assets/images/eye_leaflet.png")),
-                                  ),
-                                )
-                              ]),
-                        ),
+                              )
+                            ]),
                       ),
-                      FadeInRight(
-                        duration: const Duration(milliseconds: 600),
+                      FadeInUp(
+                        duration: const Duration(milliseconds: 500),
                         child: Container(
                           color: AppColors.appColor.withOpacity(0.2),
                           padding: const EdgeInsets.all(15),
@@ -147,187 +144,197 @@ class MoreView extends StatelessWidget {
                       const SizedBox(
                         height: 20,
                       ),
-                      FadeInDown(
-                        duration: const Duration(milliseconds: 600),
-                        child: Container(
-                          margin: EdgeInsets.symmetric(
-                            horizontal: 20.h,
-                          ),
-                          padding:
-                          EdgeInsets.symmetric(vertical: 20.h, horizontal: 10.h),
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Column(
-                            children: [
-                              MoreTab(
-                                text: "Account",
-                                icon: "assets/svgs/account.svg",
-                                onTap: () {
-                                  context
-                                      .read<PatientProfileCubit>()
-                                      .loadPatientProfile(sharedPrefs.email);
-                                  context.push(RouteNames.profileRoute);
-                                },
-                              ),
-                              divider(),
-                              MoreTab(
-                                text: "Address Book",
-                                icon: "assets/svgs/bookmark_hospital.svg",
-                                onTap: () {
-                                  if (!sharedPrefs.isProfileSetup) {
-                                    showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return const Dialog(
-                                            child: NeedToSetupProfileWidget());
-                                      },
-                                    );
-                                    return;
-                                  }
-                                  context.push(RouteNames.addressBookRoute);
-                                },
-                              ),
-                              divider(),
-                              MoreTab(
-                                text: "Explore Eye Hospitals",
-                                icon: "assets/svgs/charm_search.svg",
-                                onTap: () {
-                                  if (!sharedPrefs.isProfileSetup) {
-                                    showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return const Dialog(
-                                            child: NeedToSetupProfileWidget());
-                                      },
-                                    );
-                                    return;
-                                  } else {
-                                    AppUtils.showToast(
-                                        context,
-                                        'Feature Under Development',
-                                        'This feature will be available in next version',
-                                        false);
-                                  }
-                                },
-                              ),
-                              divider(),
-                              MoreTab(
-                                text: "View Bookmarked Hospitals",
-                                icon: "assets/svgs/hospital.svg",
-                                onTap: () {
-                                  if (!sharedPrefs.isProfileSetup) {
-                                    showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return const Dialog(
-                                            child: NeedToSetupProfileWidget());
-                                      },
-                                    );
-                                    return;
-                                  } else {
-                                    AppUtils.showToast(
-                                        context,
-                                        'Feature Under Development',
-                                        'This feature will be available in next version',
-                                        false);
-                                  }
-                                },
-                              ),
-                              divider(),
-                              MoreTab(
-                                text: "View Detection Results",
-                                icon: "assets/svgs/detection_result.svg",
-                                onTap: () {
-                                  if (!sharedPrefs.isProfileSetup) {
-                                    showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return const Dialog(
-                                            child: NeedToSetupProfileWidget());
-                                      },
-                                    );
-                                    return;
-                                  } else {
-                                    context.read<DetectionCubit>().loadDiseaseResults();
-                                    context.push(RouteNames.resultRoute);
-                                  }
-                                },
-                              ),
-                            ],
-                          ),
+                      Container(
+                        margin: EdgeInsets.symmetric(
+                          horizontal: 20.h,
+                        ),
+                        padding:
+                        EdgeInsets.symmetric(vertical: 20.h, horizontal: 10.h),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                          boxShadow: [
+                            BoxShadow(
+                              color: AppColors.textPrimary.withOpacity(0.1),
+                              spreadRadius: 1,
+                              blurRadius: 0.5,
+                              offset: const Offset(0, 0),
+                            ),
+                          ],),
+                        child: Column(
+                          children: [
+                            MoreTab(
+                              text: "Account",
+                              icon: "assets/svgs/account.svg",
+                              onTap: () {
+                                context
+                                    .read<PatientProfileCubit>()
+                                    .loadPatientProfile(sharedPrefs.email);
+                                context.push(RouteNames.profileRoute);
+                              },
+                            ),
+                            divider(),
+                            MoreTab(
+                              text: "Address Book",
+                              icon: "assets/svgs/bookmark_hospital.svg",
+                              onTap: () {
+                                if (!sharedPrefs.isProfileSetup) {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return const Dialog(
+                                          child: NeedToSetupProfileWidget());
+                                    },
+                                  );
+                                  return;
+                                }
+                                context.push(RouteNames.addressBookRoute);
+                              },
+                            ),
+                            divider(),
+                            MoreTab(
+                              text: "Explore Eye Hospitals",
+                              icon: "assets/svgs/charm_search.svg",
+                              onTap: () {
+                                if (!sharedPrefs.isProfileSetup) {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return const Dialog(
+                                          child: NeedToSetupProfileWidget());
+                                    },
+                                  );
+                                  return;
+                                } else {
+                                  AppUtils.showToast(
+                                      context,
+                                      'Feature Under Development',
+                                      'This feature will be available in next version',
+                                      false);
+                                }
+                              },
+                            ),
+                            divider(),
+                            MoreTab(
+                              text: "View Bookmarked Hospitals",
+                              icon: "assets/svgs/hospital.svg",
+                              onTap: () {
+                                if (!sharedPrefs.isProfileSetup) {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return const Dialog(
+                                          child: NeedToSetupProfileWidget());
+                                    },
+                                  );
+                                  return;
+                                } else {
+                                  AppUtils.showToast(
+                                      context,
+                                      'Feature Under Development',
+                                      'This feature will be available in next version',
+                                      false);
+                                }
+                              },
+                            ),
+                            divider(),
+                            MoreTab(
+                              text: "View Detection Results",
+                              icon: "assets/svgs/detection_result.svg",
+                              onTap: () {
+                                if (!sharedPrefs.isProfileSetup) {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return const Dialog(
+                                          child: NeedToSetupProfileWidget());
+                                    },
+                                  );
+                                  return;
+                                } else {
+                                  context.read<DetectionCubit>().loadDiseaseResults();
+                                  context.push(RouteNames.resultRoute);
+                                }
+                              },
+                            ),
+                          ],
                         ),
                       ),
                       const SizedBox(
                         height: 20,
                       ),
-                      FadeInUp(
-                        duration: const Duration(milliseconds: 600),
-                        child: Container(
-                          margin: EdgeInsets.symmetric(
-                            horizontal: 20.h,
-                          ),
-                          padding:
-                          EdgeInsets.symmetric(vertical: 20.h, horizontal: 10.h),
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Column(
-                            children: [
-                              MoreTab(
-                                text: "Feedback",
-                                icon: "assets/svgs/feedback.svg",
-                                onTap: () {
-                                  context.push(RouteNames.feedbackRoute);
-                                },
-                              ),
-                              divider(),
-                              MoreTab(
-                                text: "Partners",
-                                icon: "assets/svgs/partners.svg",
-                                onTap: () async {
-                                  const url =
-                                      'https://oculastatic.web.app/partners.html';
-                                  Uri privacyPolicyLaunchUrl = Uri.parse(
-                                    url,
-                                  );
-                                  if (await canLaunchUrl(privacyPolicyLaunchUrl)) {
-                                    await launchUrl(privacyPolicyLaunchUrl);
-                                  }
-                                },
-                              ),
-                              divider(),
-                              MoreTab(
-                                text: "Terms and Conditions",
-                                icon: "assets/svgs/terms-and-conditions.svg",
-                                onTap: () async {
-                                  const url =
-                                      'https://oculastatic.web.app/terms_conditions.html';
-                                  Uri tcLaunchUrl = Uri.parse(
-                                    url,
-                                  );
-                                  if (await canLaunchUrl(tcLaunchUrl)) {
-                                    await launchUrl(tcLaunchUrl);
-                                  }
-                                },
-                              ),
-                              divider(),
-                              MoreTab(
-                                text: "Privacy Policy",
-                                icon: "assets/svgs/privacy-policy.svg",
-                                onTap: () async {
-                                  const url =
-                                      'https://oculastatic.web.app/privacy_policy.html';
-                                  Uri privacyPolicyLaunchUrl = Uri.parse(
-                                    url,
-                                  );
-                                  if (await canLaunchUrl(privacyPolicyLaunchUrl)) {
-                                    await launchUrl(privacyPolicyLaunchUrl);
-                                  }
-                                },
-                              ),
-                            ],
-                          ),
+                      Container(
+                        margin: EdgeInsets.symmetric(
+                          horizontal: 20.h,
+                        ),
+                        padding:
+                        EdgeInsets.symmetric(vertical: 20.h, horizontal: 10.h),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                          boxShadow: [
+                            BoxShadow(
+                              color: AppColors.textPrimary.withOpacity(0.1),
+                              spreadRadius: 1,
+                              blurRadius: 0.5,
+                              offset: const Offset(0, 0),
+                            ),
+                          ],),
+                        child: Column(
+                          children: [
+                            MoreTab(
+                              text: "Feedback",
+                              icon: "assets/svgs/feedback.svg",
+                              onTap: () {
+                                context.push(RouteNames.feedbackRoute);
+                              },
+                            ),
+                            divider(),
+                            MoreTab(
+                              text: "Partners",
+                              icon: "assets/svgs/partners.svg",
+                              onTap: () async {
+                                const url =
+                                    'https://oculastatic.web.app/partners.html';
+                                Uri privacyPolicyLaunchUrl = Uri.parse(
+                                  url,
+                                );
+                                if (await canLaunchUrl(privacyPolicyLaunchUrl)) {
+                                  await launchUrl(privacyPolicyLaunchUrl);
+                                }
+                              },
+                            ),
+                            divider(),
+                            MoreTab(
+                              text: "Terms and Conditions",
+                              icon: "assets/svgs/terms-and-conditions.svg",
+                              onTap: () async {
+                                const url =
+                                    'https://oculastatic.web.app/terms_conditions.html';
+                                Uri tcLaunchUrl = Uri.parse(
+                                  url,
+                                );
+                                if (await canLaunchUrl(tcLaunchUrl)) {
+                                  await launchUrl(tcLaunchUrl);
+                                }
+                              },
+                            ),
+                            divider(),
+                            MoreTab(
+                              text: "Privacy Policy",
+                              icon: "assets/svgs/privacy-policy.svg",
+                              onTap: () async {
+                                const url =
+                                    'https://oculastatic.web.app/privacy_policy.html';
+                                Uri privacyPolicyLaunchUrl = Uri.parse(
+                                  url,
+                                );
+                                if (await canLaunchUrl(privacyPolicyLaunchUrl)) {
+                                  await launchUrl(privacyPolicyLaunchUrl);
+                                }
+                              },
+                            ),
+                          ],
                         ),
                       ),
                       const SizedBox(
@@ -342,7 +349,15 @@ class MoreView extends StatelessWidget {
                             vertical: 20.h, horizontal: 10.h),
                         decoration: BoxDecoration(
                             color: Colors.white,
-                            borderRadius: BorderRadius.circular(10)),
+                            borderRadius: BorderRadius.circular(10),
+                          boxShadow: [
+                            BoxShadow(
+                              color: AppColors.textPrimary.withOpacity(0.1),
+                              spreadRadius: 1,
+                              blurRadius: 0.5,
+                              offset: const Offset(0, 0),
+                            ),
+                          ],),
                         child: MoreTab(
                           text: "Logout",
                           icon: "assets/svgs/log_out.svg",
@@ -469,7 +484,7 @@ class MoreTab extends StatelessWidget {
 
 Widget divider() {
   return Padding(
-    padding: EdgeInsets.symmetric(vertical: 15.h),
+    padding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 10),
     child: Divider(
       height: 0.2,
       color: Colors.grey.withOpacity(0.2),
