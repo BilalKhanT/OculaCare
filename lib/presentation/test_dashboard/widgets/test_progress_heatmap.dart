@@ -15,6 +15,14 @@ class ProgressCalendarScreen extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(8.0),
+        boxShadow: const [
+          BoxShadow(
+            color: AppColors.appColor,
+            spreadRadius: 1,
+            blurRadius: 0.5,
+            offset: Offset(0, 0),
+          ),
+        ],
       ),
       child: Padding(
         padding: const EdgeInsets.all(5.0),
