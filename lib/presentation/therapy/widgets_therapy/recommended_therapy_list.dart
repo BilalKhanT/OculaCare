@@ -32,60 +32,64 @@ class DiseaseCardList extends StatelessWidget {
         itemBuilder: (context, index) {
           final disease = diseases[index];
 
-          return FadeIn(
-            duration: Duration(
-                milliseconds: 1000 + (index * 100)),
-            child: GestureDetector(
-              onTap: () {
-                if (!sharedPrefs.isProfileSetup) {
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      return const Dialog(child: NeedToSetupProfileWidget());
-                    },
-                  );
-                  return;
-                }
-                context.push(RouteNames.diseaseTherapies, extra: disease['name']);
-              },
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 5.0, vertical: 20.0),
-                child: Container(
-                  width: screenWidth * 0.45,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(15.0),
-                    image: DecorationImage(
-                      image: AssetImage(disease['image']!),
-                      fit: BoxFit.scaleDown,
-                    ),
+          return GestureDetector(
+            onTap: () {
+              if (!sharedPrefs.isProfileSetup) {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return const Dialog(child: NeedToSetupProfileWidget());
+                  },
+                );
+                return;
+              }
+              context.push(RouteNames.diseaseTherapies, extra: disease['name']);
+            },
+            child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 5.0, vertical: 20.0),
+              child: Container(
+                width: screenWidth * 0.45,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(15.0),
+                  image: DecorationImage(
+                    image: AssetImage(disease['image']!),
+                    fit: BoxFit.scaleDown,
                   ),
-                  child: Stack(
-                    children: [
-                      Positioned(
-                        bottom: 10,
-                        right: 10,
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 12, vertical: 8),
-                          decoration: BoxDecoration(
-                            color: AppColors.appColor,
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: Text(
-                            disease['name']!,
-                            style: TextStyle(
-                              fontFamily: 'Montserrat',
-                              fontWeight: FontWeight.bold,
-                              fontSize: MediaQuery.of(context).size.width * 0.03,
-                              color: Colors.white,
-                            ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: AppColors.textPrimary.withOpacity(0.1),
+                      spreadRadius: 1,
+                      blurRadius: 0.5,
+                      offset: const Offset(0, 0),
+                    ),
+                  ],
+                ),
+                child: Stack(
+                  children: [
+                    Positioned(
+                      bottom: 10,
+                      right: 10,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 12, vertical: 8),
+                        decoration: BoxDecoration(
+                          color: AppColors.appColor,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Text(
+                          disease['name']!,
+                          style: TextStyle(
+                            fontFamily: 'Montserrat',
+                            fontWeight: FontWeight.bold,
+                            fontSize: MediaQuery.of(context).size.width * 0.03,
+                            color: Colors.white,
                           ),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),
