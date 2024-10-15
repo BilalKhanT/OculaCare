@@ -25,11 +25,19 @@ class TherapyHistoryTile extends StatelessWidget {
     double screenHeight = MediaQuery.sizeOf(context).height;
 
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10.0),
+      padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 3),
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.textPrimary.withOpacity(0.1),
+              spreadRadius: 1,
+              blurRadius: 0.5,
+              offset: const Offset(0, 0),
+            ),
+          ],
         ),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 8.0),
@@ -60,7 +68,7 @@ class TherapyHistoryTile extends StatelessWidget {
                           fontFamily: 'MontserratMedium',
                           fontWeight: FontWeight.w800,
                           fontSize: screenWidth * 0.035,
-                          color: Colors.black,
+                          color: AppColors.appColor,
                         ),
                       ),
                       const SizedBox(height: 5.0),
@@ -70,7 +78,7 @@ class TherapyHistoryTile extends StatelessWidget {
                           fontFamily: 'Montserrat',
                           fontWeight: FontWeight.w900,
                           fontSize: screenWidth * 0.032,
-                          color: AppColors.appColor,
+                          color: AppColors.textPrimary,
                         ),
                       ),
                       const SizedBox(height: 5.0),
