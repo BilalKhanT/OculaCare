@@ -28,15 +28,12 @@ class TherapyBarChart extends StatelessWidget {
                 Expanded(
                   child: Padding(
                     padding:
-                        const EdgeInsets.symmetric(horizontal: 8, vertical: 40),
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
                     child: BarChart(
                       mainBarData(context),
                       swapAnimationDuration: const Duration(milliseconds: 250),
                     ),
                   ),
-                ),
-                const SizedBox(
-                  height: 12,
                 ),
               ],
             ),
