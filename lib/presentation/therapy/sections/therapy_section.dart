@@ -26,49 +26,37 @@ class TherapySection extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.only(left: 5.0),
-            child: FadeInLeft(
-              duration: const Duration(milliseconds: 600),
-              child: Text(
-                'Recommended Therapies',
-                style: TextStyle(
-                    fontFamily: 'MontserratMedium',
-                    fontWeight: FontWeight.w800,
-                    fontSize: screenWidth * 0.045,
-                    color: AppColors.appColor),
-              ),
+            child: Text(
+              'Recommended Therapies',
+              style: TextStyle(
+                  fontFamily: 'MontserratMedium',
+                  fontWeight: FontWeight.w800,
+                  fontSize: screenWidth * 0.045,
+                  color: AppColors.appColor),
             ),
           ),
           SizedBox(height: screenHeight * 0.008),
-          FadeInDown(
-            duration: const Duration(milliseconds: 600),
-            child: DiseaseCardList(
-              screenHeight: screenHeight,
-              screenWidth: screenWidth,
-            ),
+          DiseaseCardList(
+            screenHeight: screenHeight,
+            screenWidth: screenWidth,
           ),
           SizedBox(height: screenHeight * 0.02),
           Padding(
             padding: const EdgeInsets.only(left: 5.0),
-            child: FadeInLeft(
-              duration: const Duration(milliseconds: 600),
-              child: Text(
-                'General Eye Exercises',
-                style: TextStyle(
-                    fontFamily: 'MontserratMedium',
-                    fontWeight: FontWeight.w800,
-                    fontSize: screenWidth * 0.045,
-                    color: AppColors.appColor),
-              ),
+            child: Text(
+              'General Eye Exercises',
+              style: TextStyle(
+                  fontFamily: 'MontserratMedium',
+                  fontWeight: FontWeight.w800,
+                  fontSize: screenWidth * 0.045,
+                  color: AppColors.appColor),
             ),
           ),
           SizedBox(height: screenHeight * 0.008),
-          FadeInUp(
-            duration: const Duration(milliseconds: 600),
-            child: GeneralEyeExercises(
-              exercisesList: therapiesList,
-              screenWidth: screenWidth,
-              screenHeight: screenHeight,
-            ),
+          GeneralEyeExercises(
+            exercisesList: therapiesList,
+            screenWidth: screenWidth,
+            screenHeight: screenHeight,
           ),
         ],
       ),
