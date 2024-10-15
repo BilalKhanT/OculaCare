@@ -1,4 +1,8 @@
+import 'dart:convert';
+
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../models/address/address_model.dart';
 
 class SharedPrefs {
   static SharedPreferences? _sharedPrefs;
@@ -20,6 +24,20 @@ class SharedPrefs {
   bool get therapyFetched => _sharedPrefs?.getBool('therapyFetched') ?? false;
   set therapyFetched(bool value) {
     _sharedPrefs?.setBool('therapyFetched', value);
+  }
+
+  Future<void> setAddress(Address address) async {
+    final jsonString = jsonEncode(address.toJson());
+    await _sharedPrefs?.setString('current_address', jsonString);
+  }
+  
+  Address? getAddress() {
+    final jsonString = _sharedPrefs?.getString('current_address');
+    if (jsonString == null) {
+      return null;
+    }
+    final jsonMap = jsonDecode(jsonString);
+    return Address.fromJson(jsonMap);
   }
 
   bool get bottomFirst => _sharedPrefs?.getBool('bottomFirst') ?? true;
