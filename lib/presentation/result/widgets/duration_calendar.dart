@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
+import '../../../configs/presentation/constants/colors.dart';
 import '../../../data/models/disease_result/medicine_model.dart';
 
 class DurationCalendar extends StatelessWidget {
@@ -19,6 +20,14 @@ class DurationCalendar extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(8.0),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.appColor.withOpacity(0.3),
+            spreadRadius: 1,
+            blurRadius: 0.5,
+            offset: const Offset(0, 0),
+          ),
+        ],
       ),
       child: Padding(
         padding: const EdgeInsets.all(5.0),
