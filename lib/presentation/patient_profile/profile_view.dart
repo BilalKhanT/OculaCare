@@ -33,16 +33,16 @@ class PatientProfileScreen extends StatelessWidget {
     double screenHeight = MediaQuery.sizeOf(context).height;
     double screenWidth = MediaQuery.sizeOf(context).width;
     return Scaffold(
-      backgroundColor: AppColors.screenBackground,
+      backgroundColor: AppColors.bg,
       appBar: AppBar(
-        backgroundColor: AppColors.screenBackground,
+        backgroundColor: AppColors.bg,
         title: Text(
-          'ACCOUNT DETAILS',
+          'Account Details',
           style: TextStyle(
+            color: Colors.black,
             fontFamily: 'MontserratMedium',
-            color: AppColors.appColor,
             fontWeight: FontWeight.w800,
-            fontSize: 18.sp,
+            fontSize: screenWidth * 0.05,
           ),
         ),
         leading: IconButton(
@@ -55,6 +55,7 @@ class PatientProfileScreen extends StatelessWidget {
           icon: const Icon(
             Icons.arrow_back_ios_new_outlined,
             color: AppColors.appColor,
+            size: 30.0,
           ),
         ),
       ),
