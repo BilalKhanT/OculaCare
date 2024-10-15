@@ -119,7 +119,7 @@ class TestDashView extends StatelessWidget {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
+        padding: const EdgeInsets.only(left: 20.0, top: 15.0, right: 20),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -131,37 +131,41 @@ class TestDashView extends StatelessWidget {
                     historySelected = state.isHistory;
                     progressionSelected = state.isProgression;
                   }
-
                   return Padding(
-                    padding: const EdgeInsets.only(top: 5.0),
+                    padding: const EdgeInsets.only(top: 5.0, left: 1.0),
                     child: Row(
                       children: [
-                        FadeInLeft(
-                          duration: const Duration(milliseconds: 600),
-                          child: GestureDetector(
-                            onTap: () {
-                              context.read<TestDashTabCubit>().toggleTab(0);
-                              context.read<TestCubit>().loadTests();
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
+                        GestureDetector(
+                          onTap: () {
+                            context.read<TestDashTabCubit>().toggleTab(0);
+                            context.read<TestCubit>().loadTests();
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: testSelected
+                                  ? const Color(0xFF04438D)
+                                  : Colors.white,
+                              borderRadius: BorderRadius.circular(25),
+                              boxShadow: const [
+                                BoxShadow(
+                                  color: AppColors.appColor,
+                                  spreadRadius: 1,
+                                  blurRadius: 0.5,
+                                  offset: Offset(0, 0),
+                                ),
+                              ],
+                            ),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 15.0, vertical: 8.0),
+                            child: Text(
+                              'Tests',
+                              style: TextStyle(
+                                fontFamily: 'Montserrat',
+                                fontWeight: FontWeight.bold,
+                                fontSize: screenWidth * 0.04,
                                 color: testSelected
-                                    ? AppColors.appColor.withOpacity(0.85)
-                                    : Colors.white,
-                                borderRadius: BorderRadius.circular(25),
-                              ),
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 15.0, vertical: 6.0),
-                              child: Text(
-                                'Tests',
-                                style: TextStyle(
-                                  fontFamily: 'Montserrat',
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: screenWidth * 0.04,
-                                  color: testSelected
-                                      ? AppColors.whiteColor
-                                      : Colors.black,
-                                ),
+                                    ? AppColors.whiteColor
+                                    : Colors.black,
                               ),
                             ),
                           ),
@@ -169,32 +173,37 @@ class TestDashView extends StatelessWidget {
                         SizedBox(
                           width: screenHeight * 0.02,
                         ),
-                        FadeInDown(
-                          duration: const Duration(milliseconds: 600),
-                          child: GestureDetector(
-                            onTap: () {
-                              context.read<TestDashTabCubit>().toggleTab(1);
-                              context.read<TestCubit>().loadTestHistory();
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
+                        GestureDetector(
+                          onTap: () {
+                            context.read<TestDashTabCubit>().toggleTab(1);
+                            context.read<TestCubit>().loadTestHistory();
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: historySelected
+                                  ? const Color(0xFF04438D)
+                                  : Colors.white,
+                              borderRadius: BorderRadius.circular(50),
+                              boxShadow: const [
+                                BoxShadow(
+                                  color: AppColors.appColor,
+                                  spreadRadius: 1,
+                                  blurRadius: 0.5,
+                                  offset: Offset(0, 0),
+                                ),
+                              ],
+                            ),
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 8.0, horizontal: 15.0),
+                            child: Text(
+                              'History',
+                              style: TextStyle(
+                                fontFamily: 'Montserrat',
+                                fontWeight: FontWeight.bold,
+                                fontSize: screenWidth * 0.04,
                                 color: historySelected
-                                    ? AppColors.appColor.withOpacity(0.85)
-                                    : Colors.white,
-                                borderRadius: BorderRadius.circular(25),
-                              ),
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 6.0, horizontal: 10.0),
-                              child: Text(
-                                'History',
-                                style: TextStyle(
-                                  fontFamily: 'Montserrat',
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: screenWidth * 0.04,
-                                  color: historySelected
-                                      ? AppColors.whiteColor
-                                      : Colors.black,
-                                ),
+                                    ? AppColors.whiteColor
+                                    : Colors.black,
                               ),
                             ),
                           ),
@@ -202,35 +211,40 @@ class TestDashView extends StatelessWidget {
                         SizedBox(
                           width: screenHeight * 0.02,
                         ),
-                        FadeInRight(
-                          duration: const Duration(milliseconds: 600),
-                          child: GestureDetector(
-                            onTap: () {
-                              context.read<TestDashTabCubit>().toggleTab(2);
-                              context.read<TestCubit>().loadTestProgression();
-                              context
-                                  .read<TestProgressionCubit>()
-                                  .toggleProgression('Snellan Chart');
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: progressionSelected
-                                    ? AppColors.appColor.withOpacity(0.85)
-                                    : Colors.white,
-                                borderRadius: BorderRadius.circular(50),
-                              ),
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 6.0, horizontal: 10.0),
-                              child: Text(
-                                'Progression',
-                                style: TextStyle(
-                                  fontFamily: 'Montserrat',
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: screenWidth * 0.04,
-                                  color: progressionSelected
-                                      ? AppColors.whiteColor
-                                      : Colors.black,
+                        GestureDetector(
+                          onTap: () {
+                            context.read<TestDashTabCubit>().toggleTab(2);
+                            context.read<TestCubit>().loadTestProgression();
+                            context
+                                .read<TestProgressionCubit>()
+                                .toggleProgression('Snellan Chart');
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: progressionSelected
+                                  ? const Color(0xFF04438D)
+                              : Colors.white,
+                              borderRadius: BorderRadius.circular(50),
+                              boxShadow: const [
+                                BoxShadow(
+                                  color: AppColors.appColor,
+                                  spreadRadius: 1,
+                                  blurRadius: 0.5,
+                                  offset: Offset(0, 0),
                                 ),
+                              ],
+                            ),
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 8.0, horizontal: 15.0),
+                            child: Text(
+                              'Progression',
+                              style: TextStyle(
+                                fontFamily: 'Montserrat',
+                                fontWeight: FontWeight.bold,
+                                fontSize: screenWidth * 0.04,
+                                color: progressionSelected
+                                    ? AppColors.whiteColor
+                                    : Colors.black,
                               ),
                             ),
                           ),
@@ -327,75 +341,64 @@ class TestDashView extends StatelessWidget {
                           SizedBox(
                             height: screenHeight * 0.02,
                           ),
-                          FadeInLeft(
-                            duration: const Duration(milliseconds: 600),
-                            child: Text(
-                              'Vision Acuity Tests',
-                              style: TextStyle(
-                                  fontFamily: 'MontserratMedium',
-                                  fontWeight: FontWeight.w800,
-                                  fontSize: screenWidth * 0.045,
-                                  color: AppColors.appColor),
-                            ),
+                          Text(
+                            'Vision Acuity Tests',
+                            style: TextStyle(
+                                fontFamily: 'MontserratMedium',
+                                fontWeight: FontWeight.w800,
+                                fontSize: screenWidth * 0.045,
+                                color: AppColors.appColor),
                           ),
                           SizedBox(
                             height: screenHeight * 0.008,
                           ),
-                          FadeIn(
-                            duration:
-                                const Duration(milliseconds: 1000 + (5 * 100)),
-                            child: TestTile(
-                                title: 'Snellan Chart',
-                                description:
-                                    'Test snellan chart test to\nmeasure your vision acuity.',
-                                image: 'assets/images/snellan_test.png',
-                                onPress: () {
-                                  if (!sharedPrefs.isProfileSetup) {
-                                    showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return const Dialog(
-                                            child: NeedToSetupProfileWidget());
-                                      },
-                                    );
-                                    return;
-                                  }
-                                  context
-                                      .read<SnellanTestCubit>()
-                                      .loadSnellanTest();
-                                  context.go(
-                                    RouteNames.snellanRoute,
+                          TestTile(
+                              title: 'Snellan Chart',
+                              description:
+                                  'Test snellan chart test to\nmeasure your vision acuity.',
+                              image: 'assets/images/snellan_test.png',
+                              onPress: () {
+                                if (!sharedPrefs.isProfileSetup) {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return const Dialog(
+                                          child: NeedToSetupProfileWidget());
+                                    },
                                   );
-                                },
-                                avatarColor:
-                                    AppColors.appColor.withOpacity(0.4)),
-                          ),
-                          FadeIn(
-                            duration:
-                                const Duration(milliseconds: 1000 + (5 * 100)),
-                            child: TestTile(
-                                title: 'Animal Tracking',
-                                description:
-                                    'Track animals and maintain\nfocus to test vision.',
-                                image: 'assets/images/drag_test.png',
-                                onPress: () {
-                                  if (!sharedPrefs.isProfileSetup) {
-                                    showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return const Dialog(
-                                            child: NeedToSetupProfileWidget());
-                                      },
-                                    );
-                                    return;
-                                  }
-                                  context.go(
-                                    RouteNames.trackInitialRoute,
+                                  return;
+                                }
+                                context
+                                    .read<SnellanTestCubit>()
+                                    .loadSnellanTest();
+                                context.go(
+                                  RouteNames.snellanRoute,
+                                );
+                              },
+                              avatarColor:
+                                  AppColors.appColor.withOpacity(0.4)),
+                          TestTile(
+                              title: 'Animal Tracking',
+                              description:
+                                  'Track animals and maintain\nfocus to test vision.',
+                              image: 'assets/images/drag_test.png',
+                              onPress: () {
+                                if (!sharedPrefs.isProfileSetup) {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return const Dialog(
+                                          child: NeedToSetupProfileWidget());
+                                    },
                                   );
-                                },
-                                avatarColor:
-                                    Colors.blueAccent.withOpacity(0.2)),
-                          ),
+                                  return;
+                                }
+                                context.go(
+                                  RouteNames.trackInitialRoute,
+                                );
+                              },
+                              avatarColor:
+                                  Colors.blueAccent.withOpacity(0.2)),
                           BlocBuilder<TestMoreCubit, TestMoreState>(
                             builder: (context, state) {
                               bool flag = false;
@@ -418,21 +421,17 @@ class TestDashView extends StatelessWidget {
                                                     .read<TestMoreCubit>()
                                                     .toggle(true);
                                               },
-                                              child: FadeInRight(
-                                                duration: const Duration(
-                                                    milliseconds: 600),
-                                                child: Text(
-                                                  'View more',
-                                                  style: TextStyle(
-                                                      fontFamily:
-                                                          'MontserratMedium',
-                                                      fontWeight:
-                                                          FontWeight.w800,
-                                                      fontSize:
-                                                          screenWidth * 0.035,
-                                                      color:
-                                                          AppColors.appColor),
-                                                ),
+                                              child: Text(
+                                                'View more',
+                                                style: TextStyle(
+                                                    fontFamily:
+                                                        'MontserratMedium',
+                                                    fontWeight:
+                                                        FontWeight.w800,
+                                                    fontSize:
+                                                        screenWidth * 0.035,
+                                                    color:
+                                                        AppColors.appColor),
                                               ),
                                             ),
                                           ],
@@ -486,21 +485,17 @@ class TestDashView extends StatelessWidget {
                                                     .read<TestMoreCubit>()
                                                     .toggle(false);
                                               },
-                                              child: FadeInRight(
-                                                duration: const Duration(
-                                                    milliseconds: 600),
-                                                child: Text(
-                                                  'View Less',
-                                                  style: TextStyle(
-                                                      fontFamily:
-                                                          'MontserratMedium',
-                                                      fontWeight:
-                                                          FontWeight.w800,
-                                                      fontSize:
-                                                          screenWidth * 0.035,
-                                                      color:
-                                                          AppColors.appColor),
-                                                ),
+                                              child: Text(
+                                                'View Less',
+                                                style: TextStyle(
+                                                    fontFamily:
+                                                        'MontserratMedium',
+                                                    fontWeight:
+                                                        FontWeight.w800,
+                                                    fontSize:
+                                                        screenWidth * 0.035,
+                                                    color:
+                                                        AppColors.appColor),
                                               ),
                                             ),
                                           ],
@@ -512,68 +507,57 @@ class TestDashView extends StatelessWidget {
                           SizedBox(
                             height: screenHeight * 0.01,
                           ),
-                          FadeInLeft(
-                            duration: const Duration(milliseconds: 600),
-                            child: Text(
-                              'Color Perception Tests',
-                              style: TextStyle(
-                                  fontFamily: 'MontserratMedium',
-                                  fontWeight: FontWeight.w800,
-                                  fontSize: screenWidth * 0.045,
-                                  color: AppColors.appColor),
-                            ),
+                          Text(
+                            'Color Perception Tests',
+                            style: TextStyle(
+                                fontFamily: 'MontserratMedium',
+                                fontWeight: FontWeight.w800,
+                                fontSize: screenWidth * 0.045,
+                                color: AppColors.appColor),
                           ),
                           SizedBox(
                             height: screenHeight * 0.008,
                           ),
-                          FadeIn(
-                            duration:
-                                const Duration(milliseconds: 1000 + (5 * 100)),
-                            child: TestTile(
-                                title: 'Isihara Plates',
-                                description:
-                                    'Identify digits and patterns\nin isihara plates.',
-                                image: 'assets/images/isihara_test.png',
-                                onPress: () {
-                                  if (!sharedPrefs.isProfileSetup) {
-                                    showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return const Dialog(
-                                            child: NeedToSetupProfileWidget());
-                                      },
-                                    );
-                                    return;
-                                  }
-                                  context.read<IshiharaCubit>().restartTest();
-                                  context.push(RouteNames.isiharaRoute);
-                                },
-                                avatarColor: Colors.black.withOpacity(0.6)),
-                          ),
-                          FadeIn(
-                            duration:
-                                const Duration(milliseconds: 1000 + (5 * 100)),
-                            child: TestTile(
-                                title: 'Odd Out',
-                                description:
-                                    'Identify and pick the tile\nwith odd color.',
-                                image: 'assets/images/odd_test.png',
-                                onPress: () {
-                                  if (!sharedPrefs.isProfileSetup) {
-                                    showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return const Dialog(
-                                            child: NeedToSetupProfileWidget());
-                                      },
-                                    );
-                                    return;
-                                  }
-                                  context.read<OddOutCubit>().emitInitial();
-                                  context.push(RouteNames.oddOutRoute);
-                                },
-                                avatarColor: Colors.green.withOpacity(0.3)),
-                          ),
+                          TestTile(
+                              title: 'Isihara Plates',
+                              description:
+                                  'Identify digits and patterns\nin isihara plates.',
+                              image: 'assets/images/isihara_test.png',
+                              onPress: () {
+                                if (!sharedPrefs.isProfileSetup) {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return const Dialog(
+                                          child: NeedToSetupProfileWidget());
+                                    },
+                                  );
+                                  return;
+                                }
+                                context.read<IshiharaCubit>().restartTest();
+                                context.push(RouteNames.isiharaRoute);
+                              },
+                              avatarColor: Colors.black.withOpacity(0.6)),
+                          TestTile(
+                              title: 'Odd Out',
+                              description:
+                                  'Identify and pick the tile\nwith odd color.',
+                              image: 'assets/images/odd_test.png',
+                              onPress: () {
+                                if (!sharedPrefs.isProfileSetup) {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return const Dialog(
+                                          child: NeedToSetupProfileWidget());
+                                    },
+                                  );
+                                  return;
+                                }
+                                context.read<OddOutCubit>().emitInitial();
+                                context.push(RouteNames.oddOutRoute);
+                              },
+                              avatarColor: Colors.green.withOpacity(0.3)),
                           BlocBuilder<ColorMoreCubit, ColorMoreState>(
                             builder: (context, state) {
                               bool flag2 = false;
@@ -596,21 +580,17 @@ class TestDashView extends StatelessWidget {
                                                     .read<ColorMoreCubit>()
                                                     .toggle(true);
                                               },
-                                              child: FadeInRight(
-                                                duration: const Duration(
-                                                    milliseconds: 600),
-                                                child: Text(
-                                                  'View more',
-                                                  style: TextStyle(
-                                                      fontFamily:
-                                                          'MontserratMedium',
-                                                      fontWeight:
-                                                          FontWeight.w800,
-                                                      fontSize:
-                                                          screenWidth * 0.035,
-                                                      color:
-                                                          AppColors.appColor),
-                                                ),
+                                              child: Text(
+                                                'View more',
+                                                style: TextStyle(
+                                                    fontFamily:
+                                                        'MontserratMedium',
+                                                    fontWeight:
+                                                        FontWeight.w800,
+                                                    fontSize:
+                                                        screenWidth * 0.035,
+                                                    color:
+                                                        AppColors.appColor),
                                               ),
                                             ),
                                           ],
@@ -663,21 +643,17 @@ class TestDashView extends StatelessWidget {
                                                     .read<ColorMoreCubit>()
                                                     .toggle(false);
                                               },
-                                              child: FadeInRight(
-                                                duration: const Duration(
-                                                    milliseconds: 600),
-                                                child: Text(
-                                                  'View Less',
-                                                  style: TextStyle(
-                                                      fontFamily:
-                                                          'MontserratMedium',
-                                                      fontWeight:
-                                                          FontWeight.w800,
-                                                      fontSize:
-                                                          screenWidth * 0.035,
-                                                      color:
-                                                          AppColors.appColor),
-                                                ),
+                                              child: Text(
+                                                'View Less',
+                                                style: TextStyle(
+                                                    fontFamily:
+                                                        'MontserratMedium',
+                                                    fontWeight:
+                                                        FontWeight.w800,
+                                                    fontSize:
+                                                        screenWidth * 0.035,
+                                                    color:
+                                                        AppColors.appColor),
                                               ),
                                             ),
                                           ],
@@ -698,21 +674,18 @@ class TestDashView extends StatelessWidget {
                           SizedBox(
                             height: screenHeight * 0.005,
                           ),
-                          FadeInDown(
-                            duration: const Duration(milliseconds: 600),
-                            child: Text(
-                              'Vision Acuity Tests',
-                              style: TextStyle(
-                                  fontFamily: 'MontserratMedium',
-                                  fontWeight: FontWeight.w800,
-                                  fontSize: screenWidth * 0.045,
-                                  color: AppColors.appColor),
-                            ),
+                          Text(
+                            'Vision Acuity Tests',
+                            style: TextStyle(
+                                fontFamily: 'MontserratMedium',
+                                fontWeight: FontWeight.w800,
+                                fontSize: screenWidth * 0.045,
+                                color: AppColors.appColor),
                           ),
                           SizedBox(
                             height: screenHeight * 0.005,
                           ),
-                          FadeInLeft(
+                          FadeIn(
                             duration: const Duration(milliseconds: 600),
                             child: SizedBox(
                               height: screenHeight * 0.35,
@@ -734,47 +707,40 @@ class TestDashView extends StatelessWidget {
                                       itemBuilder: (context, index) {
                                         final HistoryArgsModel data =
                                             getPath(state.data[index].testName);
-                                        return FadeIn(
-                                          duration: Duration(
-                                              milliseconds: 1000 + (index * 100)),
-                                          child: Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 8, vertical: 2.0),
-                                            child: TestHistoryTile(
-                                                title: state.data[index].testName,
-                                                description:
-                                                    state.data[index].date,
-                                                image: data.imagePath,
-                                                onPress: () {
-                                                  context.push(
-                                                      RouteNames.testReportRoute,
-                                                      extra: state.data[index]);
-                                                },
-                                                avatarColor: data.color),
-                                          ),
+                                        return Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 3, vertical: 2.0),
+                                          child: TestHistoryTile(
+                                              title: state.data[index].testName,
+                                              description:
+                                                  state.data[index].date,
+                                              image: data.imagePath,
+                                              onPress: () {
+                                                context.push(
+                                                    RouteNames.testReportRoute,
+                                                    extra: state.data[index]);
+                                              },
+                                              avatarColor: data.color),
                                         );
                                       },
                                     ),
                             ),
                           ),
                           SizedBox(
-                            height: screenHeight * 0.03,
+                            height: screenHeight * 0.015,
                           ),
-                          FadeInUp(
-                            duration: const Duration(milliseconds: 600),
-                            child: Text(
-                              'Color Perception Tests',
-                              style: TextStyle(
-                                  fontFamily: 'MontserratMedium',
-                                  fontWeight: FontWeight.w800,
-                                  fontSize: screenWidth * 0.045,
-                                  color: AppColors.appColor),
-                            ),
+                          Text(
+                            'Color Perception Tests',
+                            style: TextStyle(
+                                fontFamily: 'MontserratMedium',
+                                fontWeight: FontWeight.w800,
+                                fontSize: screenWidth * 0.045,
+                                color: AppColors.appColor),
                           ),
                           SizedBox(
                             height: screenHeight * 0.005,
                           ),
-                          FadeInRight(
+                          FadeIn(
                             duration: const Duration(milliseconds: 600),
                             child: SizedBox(
                               height: screenHeight * 0.35,
@@ -796,26 +762,22 @@ class TestDashView extends StatelessWidget {
                                       itemBuilder: (context, index) {
                                         final HistoryArgsModel data = getPath(
                                             state.dataColor[index].testName);
-                                        return FadeIn(
-                                          duration: Duration(
-                                              milliseconds: 1000 + (index * 100)),
-                                          child: Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 8, vertical: 2.0),
-                                            child: TestHistoryTile(
-                                                title: state
-                                                    .dataColor[index].testName,
-                                                description:
-                                                    state.dataColor[index].date,
-                                                image: data.imagePath,
-                                                onPress: () {
-                                                  context.push(
-                                                      RouteNames.testReportRoute,
-                                                      extra:
-                                                          state.dataColor[index]);
-                                                },
-                                                avatarColor: data.color),
-                                          ),
+                                        return Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 8, vertical: 2.0),
+                                          child: TestHistoryTile(
+                                              title: state
+                                                  .dataColor[index].testName,
+                                              description:
+                                                  state.dataColor[index].date,
+                                              image: data.imagePath,
+                                              onPress: () {
+                                                context.push(
+                                                    RouteNames.testReportRoute,
+                                                    extra:
+                                                        state.dataColor[index]);
+                                              },
+                                              avatarColor: data.color),
                                         );
                                       },
                                     ),
@@ -833,23 +795,20 @@ class TestDashView extends StatelessWidget {
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                          child: FadeInDown(
-                            duration: const Duration(milliseconds: 600),
-                            child: Text(
-                              'Tests Progress',
-                              style: TextStyle(
-                                  fontFamily: 'MontserratMedium',
-                                  fontWeight: FontWeight.w800,
-                                  fontSize: screenWidth * 0.045,
-                                  color: AppColors.appColor),
-                            ),
+                          child: Text(
+                            'Tests Progress',
+                            style: TextStyle(
+                                fontFamily: 'MontserratMedium',
+                                fontWeight: FontWeight.w800,
+                                fontSize: screenWidth * 0.045,
+                                color: AppColors.appColor),
                           ),
                         ),
                         SizedBox(
                           height: screenHeight * 0.03,
                         ),
                         Center(
-                            child: FadeInDown(
+                            child: FadeIn(
                               duration: const Duration(milliseconds: 600),
                               child: ProgressCalendarScreen(
                                   data: state.progressData),
@@ -857,9 +816,7 @@ class TestDashView extends StatelessWidget {
                         SizedBox(
                           height: screenHeight * 0.035,
                         ),
-                        FadeInUp(
-                            duration: const Duration(milliseconds: 600),
-                            child: const TestGraphProgress()),
+                        const TestGraphProgress(),
                       ],
                     );
                   } else {
