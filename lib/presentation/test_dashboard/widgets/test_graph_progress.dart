@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -33,59 +34,70 @@ class TestGraphProgress extends StatelessWidget {
                       fontSize: screenWidth * 0.045,
                       color: AppColors.appColor),
                 ),
-                Container(
-                  height: screenHeight * 0.05,
-                  width: screenWidth * 0.4,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(50.0),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(5.0),
-                    child: DropdownButton<String>(
-                      borderRadius: BorderRadius.circular(10.0),
-                      dropdownColor: Colors.white,
-                      padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                      value: context.read<TestProgressionCubit>().selectedTest,
-                      icon: const Icon(
-                        Icons.keyboard_arrow_down_outlined,
-                        color: Colors.black,
-                      ),
-                      iconSize: screenWidth * 0.05,
-                      elevation: 10,
-                      style: const TextStyle(color: Colors.deepPurple),
-                      underline: Container(
-                        height: 0,
-                        color: AppColors.appColor,
-                      ),
-                      onChanged: (String? newValue) {
-                        context
-                            .read<TestProgressionCubit>()
-                            .toggleProgression(newValue!);
-                      },
-                      items: <String>[
-                        'Snellan Chart',
-                        'Animal Track',
-                        'Contrast Test',
-                        'Isihara Plates',
-                        'Match Color',
-                        'Odd One Out',
-                      ].map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(
-                            value,
-                            style: TextStyle(
-                              fontFamily: 'MontserratMedium',
-                              fontWeight: FontWeight.bold,
-                              fontSize: screenWidth * 0.032,
-                              letterSpacing: 1,
-                              color: Colors.black,
+                Padding(
+                  padding: const EdgeInsets.only(right: 3.0),
+                  child: Container(
+                    height: screenHeight * 0.05,
+                    width: screenWidth * 0.4,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(50.0),
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppColors.appColor.withOpacity(0.3),
+                          spreadRadius: 1,
+                          blurRadius: 0.5,
+                          offset: const Offset(0, 0),
+                        ),
+                      ],
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: DropdownButton<String>(
+                        borderRadius: BorderRadius.circular(10.0),
+                        dropdownColor: Colors.white,
+                        padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                        value: context.read<TestProgressionCubit>().selectedTest,
+                        icon: const Icon(
+                          Icons.keyboard_arrow_down_outlined,
+                          color: Colors.black,
+                        ),
+                        iconSize: screenWidth * 0.05,
+                        elevation: 10,
+                        style: const TextStyle(color: Colors.deepPurple),
+                        underline: Container(
+                          height: 0,
+                          color: AppColors.appColor,
+                        ),
+                        onChanged: (String? newValue) {
+                          context
+                              .read<TestProgressionCubit>()
+                              .toggleProgression(newValue!);
+                        },
+                        items: <String>[
+                          'Snellan Chart',
+                          'Animal Track',
+                          'Contrast Test',
+                          'Isihara Plates',
+                          'Match Color',
+                          'Odd One Out',
+                        ].map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(
+                              value,
+                              style: TextStyle(
+                                fontFamily: 'MontserratMedium',
+                                fontWeight: FontWeight.bold,
+                                fontSize: screenWidth * 0.032,
+                                letterSpacing: 1,
+                                color: Colors.black,
+                              ),
+                              overflow: TextOverflow.ellipsis,
                             ),
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        );
-                      }).toList(),
+                          );
+                        }).toList(),
+                      ),
                     ),
                   ),
                 ),
@@ -94,9 +106,12 @@ class TestGraphProgress extends StatelessWidget {
             SizedBox(
               height: screenHeight * 0.03,
             ),
-            ProgressChartScreen(
-              test: context.read<TestProgressionCubit>().selectedTest,
-              testScores: score,
+            FadeIn(
+              duration: const Duration(milliseconds: 600),
+              child: ProgressChartScreen(
+                test: context.read<TestProgressionCubit>().selectedTest,
+                testScores: score,
+              ),
             )
           ],
         );
