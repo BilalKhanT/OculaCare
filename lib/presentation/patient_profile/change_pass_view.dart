@@ -24,7 +24,7 @@ class ChangePassView extends StatelessWidget {
         height: screenHeight * 0.55,
         width: screenWidth,
         decoration: const BoxDecoration(
-          color: AppColors.screenBackground,
+          color: AppColors.bg,
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20.0), topRight: Radius.circular(20.0)),
         ),
