@@ -21,6 +21,7 @@ class ScaffoldWithNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.sizeOf(context).height;
     return PopScope(
       canPop: false,
       // ignore: deprecated_member_use
@@ -29,8 +30,21 @@ class ScaffoldWithNavBar extends StatelessWidget {
       }),
       child: Scaffold(
         body: navigationShell,
-        bottomNavigationBar: NavigationBarTheme(
+        bottomNavigationBar: Container(
+      decoration: BoxDecoration(
+      color: Colors.white,
+        border: Border(
+          top: BorderSide(
+            color: Colors.grey.shade300,
+            width: 1.5,
+          ),
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.only(top: 3.0),
+        child: NavigationBarTheme(
           data: NavigationBarThemeData(
+            height: height * 0.067,
             labelTextStyle: WidgetStateProperty.resolveWith((states) {
               if (states.contains(WidgetState.selected)) {
                 return TextStyle(
@@ -43,13 +57,13 @@ class ScaffoldWithNavBar extends StatelessWidget {
               return TextStyle(
                 fontFamily: 'MontserratMedium',
                 color: Colors.black,
-                fontSize: MediaQuery.sizeOf(context).width * 0.028,
+                fontSize: MediaQuery.sizeOf(context).width * 0.025,
                 fontWeight: FontWeight.w700,
               );
             }),
-            indicatorColor: Colors.grey.shade200,
-            backgroundColor: Color(0xFFF5F7F8),
-            elevation: 5,
+            indicatorColor: AppColors.appColor.withOpacity(0.1),
+            backgroundColor: Colors.white,
+            elevation: 0, // Removing the default elevation
           ),
           child: NavigationBar(
             onDestinationSelected: (index) => _onTap(context, index),
@@ -62,6 +76,7 @@ class ScaffoldWithNavBar extends StatelessWidget {
                   color: navigationShell.currentIndex == 0
                       ? AppColors.appColor
                       : Colors.black,
+                  height: height * 0.025,
                 ),
                 label: 'Home',
               ),
@@ -72,6 +87,7 @@ class ScaffoldWithNavBar extends StatelessWidget {
                   color: navigationShell.currentIndex == 1
                       ? AppColors.appColor
                       : Colors.black,
+                  height: height * 0.025,
                 ),
                 label: 'Detect',
               ),
@@ -82,6 +98,7 @@ class ScaffoldWithNavBar extends StatelessWidget {
                   color: navigationShell.currentIndex == 2
                       ? AppColors.appColor
                       : Colors.black,
+                  height: height * 0.025,
                 ),
                 label: 'Test',
               ),
@@ -92,6 +109,7 @@ class ScaffoldWithNavBar extends StatelessWidget {
                   color: navigationShell.currentIndex == 3
                       ? AppColors.appColor
                       : Colors.black,
+                  height: height * 0.025,
                 ),
                 label: 'Therapy',
               ),
@@ -102,6 +120,7 @@ class ScaffoldWithNavBar extends StatelessWidget {
                   color: navigationShell.currentIndex == 4
                       ? AppColors.appColor
                       : Colors.black,
+                  height: height * 0.025,
                 ),
                 label: 'More',
               ),
@@ -109,6 +128,9 @@ class ScaffoldWithNavBar extends StatelessWidget {
           ),
         ),
       ),
+    ),
+
+    ),
     );
   }
 
