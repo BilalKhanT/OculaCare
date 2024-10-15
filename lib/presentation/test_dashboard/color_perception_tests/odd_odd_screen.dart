@@ -334,6 +334,14 @@ class _TimerDisplay extends StatelessWidget {
         decoration: BoxDecoration(
           color: AppColors.whiteColor,
           borderRadius: BorderRadius.circular(50.0),
+          boxShadow: const [
+            BoxShadow(
+              color: AppColors.appColor,
+              spreadRadius: 1,
+              blurRadius: 0.5,
+              offset: Offset(0, 0),
+            ),
+          ],
         ),
         child: Center(
           child: Text(

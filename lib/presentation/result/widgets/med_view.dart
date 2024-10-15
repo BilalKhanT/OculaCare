@@ -147,28 +147,22 @@ class MedView extends StatelessWidget {
                   SizedBox(height: screenHeight * 0.015,),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                    child: FadeInUp(
-                      duration: const Duration(milliseconds: 600),
-                      child: Container(
-                        width: screenWidth,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.0),
-                          color: AppColors.appColor.withOpacity(0.5),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
-                          child: FadeInDown(
-                            duration: const Duration(milliseconds: 600),
-                            child: Text(
-                              '${state.medicines.dosage}.',
-                              textAlign: TextAlign.left,
-                              style: TextStyle(
-                                color: Colors.grey.shade200,
-                                fontFamily: 'Montserrat',
-                                fontWeight: FontWeight.w800,
-                                fontSize: screenWidth * 0.035,
-                              ),
-                            ),
+                    child: Container(
+                      width: screenWidth,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.0),
+                        color: AppColors.appColor.withOpacity(0.5),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
+                        child: Text(
+                          '${state.medicines.dosage}.',
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                            color: Colors.grey.shade200,
+                            fontFamily: 'Montserrat',
+                            fontWeight: FontWeight.w800,
+                            fontSize: screenWidth * 0.035,
                           ),
                         ),
                       ),
@@ -190,7 +184,7 @@ class MedView extends StatelessWidget {
                   ),
                   SizedBox(height: screenHeight * 0.015,),
                   Center(
-                      child: FadeInUp(
+                      child: FadeIn(
                         duration: const Duration(milliseconds: 600),
                         child: DurationCalendar(medicine: state.medicines),
                       )),

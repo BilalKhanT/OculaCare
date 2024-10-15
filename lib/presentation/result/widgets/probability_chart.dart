@@ -28,9 +28,9 @@ class ProbabilityChart extends StatelessWidget {
             color: Colors.transparent,
             boxShadow:  [
               BoxShadow(
-                color: Colors.grey.shade300,
-                spreadRadius: 0.5,
-                blurRadius: 7,
+                color: Colors.grey.shade200,
+                spreadRadius: 0.1,
+                blurRadius: 9,
                 offset: const Offset(0, 1),
               ),
             ],

@@ -2,7 +2,6 @@ import 'package:animate_do/animate_do.dart';
 import 'package:cculacare/presentation/result/widgets/results_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../configs/presentation/constants/colors.dart';
@@ -18,34 +17,12 @@ class DiseaseResultView extends StatelessWidget {
     double screenWidth = MediaQuery.sizeOf(context).width;
     return Scaffold(
       backgroundColor: AppColors.screenBackground,
-      appBar: AppBar(
-        backgroundColor: AppColors.screenBackground,
-        leading: IconButton(
-          onPressed: () {
-            context.pop();
-          },
-          icon: const Icon(
-            Icons.arrow_back_ios_new,
-            color: AppColors.appColor,
-            size: 30.0,
-          ),
-        ),
-        title: Text(
-          'Disease Results',
-          style: TextStyle(
-            color: Colors.black,
-            fontFamily: 'MontserratMedium',
-            fontWeight: FontWeight.w800,
-            fontSize: screenWidth * 0.05,
-          ),
-        ),
-      ),
       body: BlocBuilder<DetectionCubit, DetectionState>(
         builder: (context, state) {
           if (state is DetectionLoading) {
             return Padding(
               padding:
-                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
+                  const EdgeInsets.symmetric(horizontal: 0, vertical: 15.0),
               child: SizedBox(
                 height: screenHeight * 0.8,
                 child: ListView.builder(
@@ -98,7 +75,7 @@ class DiseaseResultView extends StatelessWidget {
           } else if (state is DetectionLoaded) {
             return Padding(
               padding:
-                  const EdgeInsets.symmetric(horizontal: 15.0, vertical: 0.0),
+                  const EdgeInsets.symmetric(horizontal: 0.0, vertical: 0.0),
               child: FadeInUp(
                 duration: const Duration(milliseconds: 600),
                 child: SizedBox(
@@ -110,7 +87,7 @@ class DiseaseResultView extends StatelessWidget {
                       return FadeIn(
                         duration: Duration(milliseconds: 1000 + (index * 100)),
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 7.0),
+                          padding: const EdgeInsets.symmetric(vertical: 7.0, horizontal: 10),
                           child: DiseaseResultTile(
                             result: state.diseaseResults[index],
                           ),

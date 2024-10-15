@@ -146,144 +146,117 @@ class DiagnosisReport extends StatelessWidget {
               SizedBox(
                 height: screenHeight * 0.02,
               ),
-              FadeInDown(
-                duration: const Duration(milliseconds: 600),
-                child: Text(
-                  'Name:  ${diagnosis.result.patientName}',
-                  style: TextStyle(
-                    color: AppColors.textPrimary,
-                    fontFamily: 'Montserrat',
-                    fontWeight: FontWeight.bold,
-                    fontSize: screenWidth * 0.037,
-                  ),
+              Text(
+                'Name:  ${diagnosis.result.patientName}',
+                style: TextStyle(
+                  color: AppColors.textPrimary,
+                  fontFamily: 'Montserrat',
+                  fontWeight: FontWeight.bold,
+                  fontSize: screenWidth * 0.037,
                 ),
               ),
               SizedBox(
                 height: screenHeight * 0.003,
               ),
-              FadeInDown(
-                duration: const Duration(milliseconds: 600),
-                child: Text(
-                  'Date:  ${diagnosis.result.date}',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontFamily: 'Montserrat',
-                    fontWeight: FontWeight.bold,
-                    fontSize: screenWidth * 0.037,
-                  ),
+              Text(
+                'Date:  ${diagnosis.result.date}',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontFamily: 'Montserrat',
+                  fontWeight: FontWeight.bold,
+                  fontSize: screenWidth * 0.037,
                 ),
               ),
               SizedBox(
                 height: screenHeight * 0.02,
               ),
-              FadeInDown(
-                duration: const Duration(milliseconds: 600),
-                child: Text(
-                  diagnosis.flag == 'left'
-                      ? diagnosis.result.leftEye!.prediction!
-                      : diagnosis.flag == 'right'
-                          ? diagnosis.result.rightEye!.prediction!
-                          : diagnosis.result.bulgy!.prediction!,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontFamily: 'MontserratMedium',
-                    fontWeight: FontWeight.w800,
-                    fontSize: screenWidth * 0.05,
-                  ),
+              Text(
+                diagnosis.flag == 'left'
+                    ? diagnosis.result.leftEye!.prediction!
+                    : diagnosis.flag == 'right'
+                        ? diagnosis.result.rightEye!.prediction!
+                        : diagnosis.result.bulgy!.prediction!,
+                style: TextStyle(
+                  color: Colors.black,
+                  fontFamily: 'MontserratMedium',
+                  fontWeight: FontWeight.w800,
+                  fontSize: screenWidth * 0.05,
                 ),
               ),
               SizedBox(
                 height: screenHeight * 0.01,
               ),
-              FadeInDown(
-                duration: const Duration(milliseconds: 600),
-                child: Text(
-                  'Potential Causes',
-                  style: TextStyle(
-                    color: AppColors.appColor,
-                    fontFamily: 'MontserratMedium',
-                    fontWeight: FontWeight.w800,
-                    fontSize: screenWidth * 0.045,
-                  ),
+              Text(
+                'Potential Causes',
+                style: TextStyle(
+                  color: AppColors.appColor,
+                  fontFamily: 'MontserratMedium',
+                  fontWeight: FontWeight.w800,
+                  fontSize: screenWidth * 0.045,
                 ),
               ),
               SizedBox(
                 height: screenHeight * 0.005,
               ),
-              FadeInDown(
-                duration: const Duration(milliseconds: 600),
-                child: Text(
-                  decisionFlag == 'Cataracts Detected' ? cataractsCauses : decisionFlag == 'Pterygium Detected' ? pterygiumCauses : decisionFlag == 'Uveitis Detected' ? uveitisCauses : bulgyEyesCauses,
-                  style: TextStyle(
-                    color: AppColors.textPrimary,
-                    fontFamily: 'Montserrat',
-                    fontWeight: FontWeight.w800,
-                    fontSize: screenWidth * 0.035,
-                  ),
+              Text(
+                decisionFlag == 'Cataracts Detected' ? cataractsCauses : decisionFlag == 'Pterygium Detected' ? pterygiumCauses : decisionFlag == 'Uveitis Detected' ? uveitisCauses : bulgyEyesCauses,
+                style: TextStyle(
+                  color: AppColors.textPrimary,
+                  fontFamily: 'Montserrat',
+                  fontWeight: FontWeight.w800,
+                  fontSize: screenWidth * 0.035,
                 ),
               ),
               SizedBox(
                 height: screenHeight * 0.01,
               ),
-              FadeInUp(
-                duration: const Duration(milliseconds: 600),
-                child: Text(
-                  'Treatment Recommendations',
-                  style: TextStyle(
-                    color: AppColors.appColor,
-                    fontFamily: 'MontserratMedium',
-                    fontWeight: FontWeight.w800,
-                    fontSize: screenWidth * 0.045,
-                  ),
+              Text(
+                'Treatment Recommendations',
+                style: TextStyle(
+                  color: AppColors.appColor,
+                  fontFamily: 'MontserratMedium',
+                  fontWeight: FontWeight.w800,
+                  fontSize: screenWidth * 0.045,
                 ),
               ),
               SizedBox(
                 height: screenHeight * 0.005,
               ),
-              FadeInUp(
-                duration: const Duration(milliseconds: 600),
-                child: Text(
-                  decisionFlag == 'Bulgy Eyes Detected' ?
-                  '${diagnosis.result.treatment2}' : '${diagnosis.result.treatment1}',
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                    color: AppColors.textPrimary,
-                    fontFamily: 'Montserrat',
-                    fontWeight: FontWeight.w800,
-                    fontSize: screenWidth * 0.035,
-                  ),
+              Text(
+                decisionFlag == 'Bulgy Eyes Detected' ?
+                '${diagnosis.result.treatment2}' : '${diagnosis.result.treatment1}',
+                textAlign: TextAlign.left,
+                style: TextStyle(
+                  color: AppColors.textPrimary,
+                  fontFamily: 'Montserrat',
+                  fontWeight: FontWeight.w800,
+                  fontSize: screenWidth * 0.035,
                 ),
               ),
               SizedBox(
                 height: screenHeight * 0.01,
               ),
-              FadeInUp(
-                duration: const Duration(milliseconds: 600),
-                child: Text(
-                  'Precautions',
-                  style: TextStyle(
-                    color: AppColors.appColor,
-                    fontFamily: 'MontserratMedium',
-                    fontWeight: FontWeight.w800,
-                    fontSize: screenWidth * 0.045,
-                  ),
+              Text(
+                'Precautions',
+                style: TextStyle(
+                  color: AppColors.appColor,
+                  fontFamily: 'MontserratMedium',
+                  fontWeight: FontWeight.w800,
+                  fontSize: screenWidth * 0.045,
                 ),
               ),
               SizedBox(
                 height: screenHeight * 0.005,
               ),
-              FadeInUp(
-                duration: const Duration(milliseconds: 600),
-                child: Text(
-                  decisionFlag == 'Bulgy Eyes Detected' ?
-                  '${diagnosis.result.precaution2}' : '${diagnosis.result.precaution1}',
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                    color: AppColors.textPrimary,
-                    fontFamily: 'Montserrat',
-                    fontWeight: FontWeight.w800,
-                    fontSize: screenWidth * 0.035,
-                  ),
+              Text(
+                decisionFlag == 'Bulgy Eyes Detected' ?
+                '${diagnosis.result.precaution2}' : '${diagnosis.result.precaution1}',
+                textAlign: TextAlign.left,
+                style: TextStyle(
+                  color: AppColors.textPrimary,
+                  fontFamily: 'Montserrat',
+                  fontWeight: FontWeight.w800,
+                  fontSize: screenWidth * 0.035,
                 ),
               ),
             ],
