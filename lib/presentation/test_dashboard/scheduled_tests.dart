@@ -62,34 +62,28 @@ class ScheduledTests extends StatelessWidget {
                         vertical: 10.0, horizontal: 5.0),
                     child: Row(
                       children: [
-                        FadeInDown(
-                          duration: const Duration(milliseconds: 600),
-                          child: _buildScheduleTab(
-                            context,
-                            'Vision Tests',
-                            visionSelected,
-                            () {
-                              context.read<ScheduleTabCubit>().toggleTab(0);
-                              context
-                                  .read<ScheduleCubit>()
-                                  .loadVisionNotifications();
-                            },
-                          ),
+                        _buildScheduleTab(
+                          context,
+                          'Vision Tests',
+                          visionSelected,
+                          () {
+                            context.read<ScheduleTabCubit>().toggleTab(0);
+                            context
+                                .read<ScheduleCubit>()
+                                .loadVisionNotifications();
+                          },
                         ),
-                        SizedBox(width: screenWidth * 0.02),
-                        FadeInDown(
-                          duration: const Duration(milliseconds: 600),
-                          child: _buildScheduleTab(
-                            context,
-                            'Color Tests',
-                            colorSelected,
-                            () {
-                              context.read<ScheduleTabCubit>().toggleTab(1);
-                              context
-                                  .read<ScheduleCubit>()
-                                  .loadColorNotifications();
-                            },
-                          ),
+                        SizedBox(width: screenWidth * 0.03),
+                        _buildScheduleTab(
+                          context,
+                          'Color Tests',
+                          colorSelected,
+                          () {
+                            context.read<ScheduleTabCubit>().toggleTab(1);
+                            context
+                                .read<ScheduleCubit>()
+                                .loadColorNotifications();
+                          },
                         ),
                       ],
                     ),
@@ -156,7 +150,8 @@ class ScheduledTests extends StatelessWidget {
                                         padding: const EdgeInsets.symmetric(
                                             vertical: 10.0),
                                         child: FadeIn(
-                                          duration: const Duration(milliseconds: 600),
+                                          duration:
+                                              const Duration(milliseconds: 600),
                                           child: Slidable(
                                             key: const ValueKey(0),
                                             endActionPane: ActionPane(
@@ -180,13 +175,22 @@ class ScheduledTests extends StatelessWidget {
                                                   color: Colors.white,
                                                   borderRadius:
                                                       BorderRadius.circular(10),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color: AppColors.textPrimary.withOpacity(0.1),
+                                                      spreadRadius: 1,
+                                                      blurRadius: 0.5,
+                                                      offset: const Offset(0, 0),
+                                                    ),
+                                                  ],
                                                 ),
                                                 child: Row(
                                                   children: [
                                                     Expanded(
                                                       child: Padding(
                                                         padding:
-                                                            const EdgeInsets.only(
+                                                            const EdgeInsets
+                                                                .only(
                                                                 left: 15.0,
                                                                 top: 10.0,
                                                                 bottom: 10.0),
@@ -203,7 +207,8 @@ class ScheduledTests extends StatelessWidget {
                                                                 fontFamily:
                                                                     'MontserratMedium',
                                                                 fontWeight:
-                                                                    FontWeight.w900,
+                                                                    FontWeight
+                                                                        .w900,
                                                                 fontSize:
                                                                     screenWidth *
                                                                         0.04,
@@ -214,11 +219,13 @@ class ScheduledTests extends StatelessWidget {
                                                             Text(
                                                               'Time:',
                                                               style: TextStyle(
-                                                                color: Colors.black,
+                                                                color: Colors
+                                                                    .black,
                                                                 fontFamily:
                                                                     'MontserratMedium',
                                                                 fontWeight:
-                                                                    FontWeight.w900,
+                                                                    FontWeight
+                                                                        .w900,
                                                                 fontSize:
                                                                     screenWidth *
                                                                         0.04,
@@ -228,11 +235,13 @@ class ScheduledTests extends StatelessWidget {
                                                               '${state.scheduledNotifications[index]['time']}',
                                                               style: TextStyle(
                                                                 color: Colors
-                                                                    .grey.shade700,
+                                                                    .grey
+                                                                    .shade700,
                                                                 fontFamily:
                                                                     'MontserratMedium',
                                                                 fontWeight:
-                                                                    FontWeight.w600,
+                                                                    FontWeight
+                                                                        .w600,
                                                                 fontSize:
                                                                     screenWidth *
                                                                         0.035,
@@ -247,20 +256,23 @@ class ScheduledTests extends StatelessWidget {
                                                           const EdgeInsets.only(
                                                               right: 10.0),
                                                       child: Container(
-                                                        decoration: BoxDecoration(
+                                                        decoration:
+                                                            BoxDecoration(
                                                           borderRadius:
-                                                              BorderRadius.circular(
-                                                                  100.0),
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      100.0),
                                                           color: Colors.red
                                                               .withOpacity(0.2),
                                                         ),
                                                         child: Padding(
                                                           padding:
-                                                              const EdgeInsets.all(
-                                                                  1.0),
+                                                              const EdgeInsets
+                                                                  .all(1.0),
                                                           child: IconButton(
                                                             onPressed: () {
-                                                              Slidable.of(context)
+                                                              Slidable.of(
+                                                                      context)
                                                                   ?.openEndActionPane();
                                                             },
                                                             icon: const Icon(Icons
@@ -329,7 +341,8 @@ class ScheduledTests extends StatelessWidget {
                                         padding: const EdgeInsets.symmetric(
                                             vertical: 10.0),
                                         child: FadeIn(
-                                          duration: const Duration(milliseconds: 600),
+                                          duration:
+                                              const Duration(milliseconds: 600),
                                           child: Slidable(
                                             key: const ValueKey(0),
                                             endActionPane: ActionPane(
@@ -353,13 +366,22 @@ class ScheduledTests extends StatelessWidget {
                                                   color: Colors.white,
                                                   borderRadius:
                                                       BorderRadius.circular(10),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color: AppColors.textPrimary.withOpacity(0.1),
+                                                      spreadRadius: 1,
+                                                      blurRadius: 0.5,
+                                                      offset: const Offset(0, 0),
+                                                    ),
+                                                  ],
                                                 ),
                                                 child: Row(
                                                   children: [
                                                     Expanded(
                                                       child: Padding(
                                                         padding:
-                                                            const EdgeInsets.only(
+                                                            const EdgeInsets
+                                                                .only(
                                                                 left: 15.0,
                                                                 top: 10.0,
                                                                 bottom: 10.0),
@@ -376,7 +398,8 @@ class ScheduledTests extends StatelessWidget {
                                                                 fontFamily:
                                                                     'MontserratMedium',
                                                                 fontWeight:
-                                                                    FontWeight.w900,
+                                                                    FontWeight
+                                                                        .w900,
                                                                 fontSize:
                                                                     screenWidth *
                                                                         0.04,
@@ -387,11 +410,13 @@ class ScheduledTests extends StatelessWidget {
                                                             Text(
                                                               'Time:',
                                                               style: TextStyle(
-                                                                color: Colors.black,
+                                                                color: Colors
+                                                                    .black,
                                                                 fontFamily:
                                                                     'MontserratMedium',
                                                                 fontWeight:
-                                                                    FontWeight.w900,
+                                                                    FontWeight
+                                                                        .w900,
                                                                 fontSize:
                                                                     screenWidth *
                                                                         0.04,
@@ -401,11 +426,13 @@ class ScheduledTests extends StatelessWidget {
                                                               '${state.scheduledNotifications[index]['time']}',
                                                               style: TextStyle(
                                                                 color: Colors
-                                                                    .grey.shade700,
+                                                                    .grey
+                                                                    .shade700,
                                                                 fontFamily:
                                                                     'MontserratMedium',
                                                                 fontWeight:
-                                                                    FontWeight.w600,
+                                                                    FontWeight
+                                                                        .w600,
                                                                 fontSize:
                                                                     screenWidth *
                                                                         0.035,
@@ -417,23 +444,26 @@ class ScheduledTests extends StatelessWidget {
                                                     ),
                                                     Padding(
                                                       padding:
-                                                      const EdgeInsets.only(
-                                                          right: 10.0),
+                                                          const EdgeInsets.only(
+                                                              right: 10.0),
                                                       child: Container(
-                                                        decoration: BoxDecoration(
+                                                        decoration:
+                                                            BoxDecoration(
                                                           borderRadius:
-                                                          BorderRadius.circular(
-                                                              100.0),
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      100.0),
                                                           color: Colors.red
                                                               .withOpacity(0.2),
                                                         ),
                                                         child: Padding(
                                                           padding:
-                                                          const EdgeInsets.all(
-                                                              1.0),
+                                                              const EdgeInsets
+                                                                  .all(1.0),
                                                           child: IconButton(
                                                             onPressed: () {
-                                                              Slidable.of(context)
+                                                              Slidable.of(
+                                                                      context)
                                                                   ?.openEndActionPane();
                                                             },
                                                             icon: const Icon(Icons
@@ -475,11 +505,18 @@ class ScheduledTests extends StatelessWidget {
       onTap: () => onTap(),
       child: Container(
         decoration: BoxDecoration(
-          color:
-              isSelected ? AppColors.appColor.withOpacity(0.85) : Colors.white,
+          color: isSelected ? const Color(0xFF04438D) : Colors.white,
           borderRadius: BorderRadius.circular(25),
+          boxShadow: const [
+            BoxShadow(
+              color: AppColors.appColor,
+              spreadRadius: 1,
+              blurRadius: 0.5,
+              offset: Offset(0, 0),
+            ),
+          ],
         ),
-        padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 6.0),
+        padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8.0),
         child: Text(
           title,
           style: TextStyle(
