@@ -119,18 +119,21 @@ flutter:
   #   - images/a_dot_ham.jpeg
 
   fonts:
-    - family: Poppins
-      fonts:
-        - asset: assets/fonts/Poppins-Regular.ttf
-    - family: PoppinsBold
-      fonts:
-        - asset: assets/fonts/Poppins-Bold.ttf
+#    - family: Montserrat
+#      fonts:
+#        - asset: assets/fonts/Montserrat-Regular.ttf
+#    - family: MontserratMedium
+#      fonts:
+#        - asset: assets/fonts/Montserrat-Medium.ttf
+#    - family: MontserratBold
+#      fonts:
+#        - asset: assets/fonts/Montserrat-Bold.ttf
     - family: Montserrat
       fonts:
-        - asset: assets/fonts/Montserrat-Regular.ttf
+        - asset: assets/fonts/Poppins-Regular.ttf
     - family: MontserratMedium
       fonts:
-        - asset: assets/fonts/Montserrat-Medium.ttf
+        - asset: assets/fonts/Poppins-Regular.ttf
     - family: MontserratBold
       fonts:
-        - asset: assets/fonts/Montserrat-Bold.ttf
+        - asset: assets/fonts/Poppins-Medium.ttf
