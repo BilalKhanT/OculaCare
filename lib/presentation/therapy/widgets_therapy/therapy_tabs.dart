@@ -48,11 +48,19 @@ class TherapyTabs extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             color: isSelected
-                ? AppColors.appColor.withOpacity(0.85)
+                ? const Color(0xFF04438D)
                 : Colors.white,
             borderRadius: BorderRadius.circular(25),
+            boxShadow: const [
+              BoxShadow(
+                color: AppColors.appColor,
+                spreadRadius: 1,
+                blurRadius: 0.5,
+                offset: Offset(0, 0),
+              ),
+            ],
           ),
-          padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 6.0),
+          padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8.0),
           child: Text(
             title,
             style: TextStyle(
