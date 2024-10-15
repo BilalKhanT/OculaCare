@@ -18,7 +18,7 @@ Widget customWidget({
         borderRadius: BorderRadius.circular(10.0),
         boxShadow: [
           BoxShadow(
-            color: AppColors.appColor.withOpacity(0.5),
+            color: AppColors.textPrimary.withOpacity(0.1),
             spreadRadius: 1,
             blurRadius: 0.5,
             offset: const Offset(0, 0),
