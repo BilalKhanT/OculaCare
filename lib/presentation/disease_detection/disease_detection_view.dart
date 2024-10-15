@@ -15,8 +15,8 @@ import '../../configs/utils/utils.dart';
 import '../../data/repositories/local/preferences/shared_prefs.dart';
 import '../../logic/detection/detection_cubit.dart';
 import '../../logic/detection/question_cubit.dart';
-import '../../logic/image_capture/img_capture_cubit.dart';
 import '../home/widgets/custom_widget.dart';
+import '../result/result_view.dart';
 import '../widgets/need_to_setup_profile_widget.dart';
 
 class DiseaseDetectionScreen extends StatelessWidget {
@@ -26,6 +26,7 @@ class DiseaseDetectionScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.sizeOf(context).height;
     double screenWidth = MediaQuery.sizeOf(context).width;
+    context.read<DetectionCubit>().loadDiseaseResults();
     return Scaffold(
       backgroundColor: AppColors.screenBackground,
       appBar: AppBar(
@@ -39,21 +40,6 @@ class DiseaseDetectionScreen extends StatelessWidget {
             fontSize: screenWidth * 0.05,
           ),
         ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 10.0),
-            child: GestureDetector(
-                onTap: () => AppUtils.showToast(
-                    context,
-                    'Feature Under Development',
-                    'Hold on as we build this feature',
-                    false),
-                child: SvgPicture.asset(
-                  'assets/svgs/notifcation.svg',
-                  height: 35.h,
-                )),
-          ),
-        ],
       ),
       body: BlocBuilder<DetectionAnimationCubit, DetectionAnimationState>(
         builder: (context, state) {
@@ -62,91 +48,101 @@ class DiseaseDetectionScreen extends StatelessWidget {
               height: screenHeight,
               width: screenWidth,
               child: SafeArea(
-                child: Padding(
-                  padding:
-                  const EdgeInsets.symmetric(horizontal: 15.0, vertical: 20.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      SizedBox(
-                        height: 10.h,
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      SizedBox(
-                        width: screenWidth,
-                        height: screenHeight / 4,
-                        child: Center(
-                          child: Padding(
-                            padding: const EdgeInsets.only(top: 20.0),
-                            child: FadeInUp(
-                              duration: const Duration(milliseconds: 600),
-                              child: Lottie.asset(
-                                'assets/lotties/eye_scan.json',
-                                fit: BoxFit.cover,
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding:
+                    const EdgeInsets.symmetric(horizontal: 15.0, vertical: 20.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        SizedBox(
+                          height: 10.h,
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        SizedBox(
+                          width: screenWidth,
+                          height: screenHeight / 5,
+                          child: Center(
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 20.0),
+                              child: FadeInUp(
+                                duration: const Duration(milliseconds: 600),
+                                child: Lottie.asset(
+                                  'assets/lotties/eye_scan.json',
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                      Text(
-                        'Detect Disease',
-                        style: TextStyle(
-                            fontFamily: 'MontserratMedium',
-                            fontSize: 24.sp,
-                            color: AppColors.appColor,
-                            fontWeight: FontWeight.w800),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      customWidget(
-                        title: 'Capture Image',
-                        icon: SvgPicture.asset(
-                          'assets/svgs/eye_scan.svg',
-                          // ignore: deprecated_member_use
-                          color: Colors.white,
+                        customWidget(
+                          title: 'Capture Image',
+                          icon: SvgPicture.asset(
+                            'assets/svgs/eye_scan.svg',
+                            // ignore: deprecated_member_use
+                            color: Colors.white,
+                          ),
+                          text: "Capture Image for Disease\nDetection.",
+                          screenWidth: screenWidth,
+                          onTap: () {
+                            if (sharedPrefs.isProfileSetup) {
+                              isHome = false;
+                              isMore = false;
+                              context.read<QuestionCubit>().startQuestionnaire();
+                              context.push(RouteNames.questionRoute);
+                            } else {
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return const Dialog(
+                                      child: NeedToSetupProfileWidget());
+                                },
+                              );
+                            }
+                          },
+                          screenHeight: screenHeight,
                         ),
-                        text: "Capture Image for Disease\nDetection.",
-                        screenWidth: screenWidth,
-                        onTap: () {
-                          if (sharedPrefs.isProfileSetup) {
-                            isHome = false;
-                            isMore = false;
-                            context.read<QuestionCubit>().startQuestionnaire();
-                            context.push(RouteNames.questionRoute);
-                          } else {
-                            showDialog(
-                              context: context,
-                              builder: (context) {
-                                return const Dialog(
-                                    child: NeedToSetupProfileWidget());
-                              },
-                            );
-                          }
-                        },
-                        screenHeight: screenHeight,
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      customWidget(
-                        title: 'Detection Results',
-                        icon: SvgPicture.asset(
-                          'assets/svgs/results.svg',
-                          // ignore: deprecated_member_use
-                          color: Colors.white,
+                        const SizedBox(
+                          height: 20,
                         ),
-                        text: "View Disease Detection\nResults.",
-                        screenWidth: screenWidth,
-                        onTap: () {
-                          context.read<DetectionCubit>().loadDiseaseResults();
-                          context.push(RouteNames.resultRoute);
-                        },
-                        screenHeight: screenHeight,
-                      ),
-                    ],
+                        Text(
+                          'Disease Results',
+                          style: TextStyle(
+                              fontFamily: 'MontserratMedium',
+                              fontSize: 24.sp,
+                              color: AppColors.appColor,
+                              fontWeight: FontWeight.w800),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        SizedBox(
+                          height: screenHeight * 0.5,
+                          width: screenWidth,
+                          child: const Padding(
+                            padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 0),
+                            child: DiseaseResultView(),
+                          ),
+                        )
+                        // customWidget(
+                        //   title: 'Detection Results',
+                        //   icon: SvgPicture.asset(
+                        //     'assets/svgs/results.svg',
+                        //     // ignore: deprecated_member_use
+                        //     color: Colors.white,
+                        //   ),
+                        //   text: "View Disease Detection\nResults.",
+                        //   screenWidth: screenWidth,
+                        //   onTap: () {
+                        //     context.read<DetectionCubit>().loadDiseaseResults();
+                        //     context.push(RouteNames.resultRoute);
+                        //   },
+                        //   screenHeight: screenHeight,
+                        // ),
+                      ],
+                    ),
                   ),
                 ),
               ),
