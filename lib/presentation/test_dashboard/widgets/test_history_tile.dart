@@ -28,6 +28,14 @@ class TestHistoryTile extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.textPrimary.withOpacity(0.1),
+              spreadRadius: 1,
+              blurRadius: 0.5,
+              offset: const Offset(0, 0),
+            ),
+          ],
         ),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 13.0, vertical: 8.0),
@@ -66,7 +74,7 @@ class TestHistoryTile extends StatelessWidget {
                         fontFamily: 'MontserratMedium',
                         fontWeight: FontWeight.w800,
                         fontSize: screenWidth * 0.035,
-                        color: Colors.black,
+                        color: AppColors.appColor,
                       ),
                     ),
                     const SizedBox(height: 5.0),
@@ -82,7 +90,7 @@ class TestHistoryTile extends StatelessWidget {
                                 fontFamily: 'Montserrat',
                                 fontWeight: FontWeight.w900,
                                 fontSize: screenWidth * 0.032,
-                                color: AppColors.appColor,
+                                color: AppColors.textPrimary,
                               ),
                               overflow: TextOverflow.ellipsis,
                             ),
@@ -92,7 +100,7 @@ class TestHistoryTile extends StatelessWidget {
                             child: Text(
                               'View Report',
                               style: TextStyle(
-                                color: AppColors.appColor,
+                                color: AppColors.textPrimary,
                                 fontFamily: 'MontserratMedium',
                                 fontWeight: FontWeight.w700,
                                 fontSize: screenWidth * 0.03,
