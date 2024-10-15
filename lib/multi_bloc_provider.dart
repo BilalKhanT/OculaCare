@@ -2,6 +2,7 @@ import 'package:cculacare/logic/detection/med_cubit.dart';
 import 'package:cculacare/logic/detection/question_cubit.dart';
 import 'package:cculacare/logic/detection_animation/detection_animation_cubit.dart';
 import 'package:cculacare/logic/home_cubit/home_cubit.dart';
+import 'package:cculacare/logic/location_cubit/current_loc_cubit.dart';
 import 'package:cculacare/logic/treatment/treatment_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -66,6 +67,9 @@ class ProvideMultiBloc extends StatelessWidget {
       ),
       BlocProvider(
         create: (context) => MoreCubit(),
+      ),
+      BlocProvider(
+        create: (context) => CurrentLocationCubit(),
       ),
       BlocProvider(
         create: (context) => DetectionAnimationCubit(),
