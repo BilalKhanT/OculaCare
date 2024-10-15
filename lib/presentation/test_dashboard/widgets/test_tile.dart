@@ -27,6 +27,14 @@ class TestTile extends StatelessWidget {
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(10),
+            boxShadow: [
+              BoxShadow(
+                color: AppColors.textPrimary.withOpacity(0.1),
+                spreadRadius: 1,
+                blurRadius: 0.5,
+                offset: const Offset(0, 0),
+              ),
+            ],
           ),
           child: Padding(
             padding:
@@ -70,7 +78,7 @@ class TestTile extends StatelessWidget {
                             fontFamily: 'MontserratMedium',
                             fontWeight: FontWeight.w800,
                             fontSize: screenWidth * 0.035,
-                            color: Colors.black,
+                            color: AppColors.appColor,
                           ),
                         ),
                         const SizedBox(
@@ -80,18 +88,18 @@ class TestTile extends StatelessWidget {
                           description,
                           style: TextStyle(
                             fontFamily: 'Montserrat',
-                            fontWeight: FontWeight.w900,
+                            fontWeight: FontWeight.w600,
                             fontSize: screenWidth * 0.032,
-                            color: AppColors.appColor,
+                            color: AppColors.textPrimary,
                           ),
                         ),
                       ],
                     ),
                   ],
                 ),
-                Icon(
+                const Icon(
                   Icons.arrow_forward_ios_outlined,
-                  color: Colors.grey.shade800,
+                  color: AppColors.appColor,
                 )
               ],
             ),
