@@ -26,6 +26,14 @@ class TherapyTile extends StatelessWidget {
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(15.0),
+            boxShadow: [
+              BoxShadow(
+                color: AppColors.textPrimary.withOpacity(0.1),
+                spreadRadius: 1,
+                blurRadius: 0.5,
+                offset: const Offset(0, 0),
+              ),
+            ],
           ),
           child: Row(
             children: [
@@ -47,7 +55,7 @@ class TherapyTile extends StatelessWidget {
                     Text(
                       therapy['title'],
                       style: TextStyle(
-                        color: AppColors.textPrimary,
+                        color: AppColors.appColor,
                         fontFamily: 'MontserratMedium',
                         fontWeight: FontWeight.w700,
                         fontSize: screenWidth * 0.038,
@@ -60,7 +68,7 @@ class TherapyTile extends StatelessWidget {
                         fontFamily: 'Montserrat',
                         fontWeight: FontWeight.w900,
                         fontSize: screenWidth * 0.032,
-                        color: AppColors.appColor,
+                        color: AppColors.textPrimary,
                       ),
                     ),
                     const SizedBox(height: 5),
