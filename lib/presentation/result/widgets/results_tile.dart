@@ -41,6 +41,14 @@ class DiseaseResultTile extends StatelessWidget {
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(7.0),
+            boxShadow: [
+              BoxShadow(
+                color: AppColors.textPrimary.withOpacity(0.1),
+                spreadRadius: 1,
+                blurRadius: 0.5,
+                offset: const Offset(0, 0),
+              ),
+            ],
           ),
           child: Padding(
             padding: const EdgeInsets.all(16.0),
@@ -66,8 +74,8 @@ class DiseaseResultTile extends StatelessWidget {
                         Text(
                           'Date: ${result.date}',
                           style: TextStyle(
-                            color: Colors.black,
-                            fontFamily: 'MontserratMedium',
+                            color: Colors.grey.shade700,
+                            fontFamily: 'Montserrat',
                             fontWeight: FontWeight.w600,
                             fontSize: screenWidth * 0.032,
                           ),
@@ -109,23 +117,23 @@ class DiseaseResultTile extends StatelessWidget {
                         Text(
                           result.leftEye?.prediction ?? '',
                           style: TextStyle(
-                            color: Colors.black,
-                            fontFamily: 'MontserratMedium',
+                            color: Colors.grey.shade700,
+                            fontFamily: 'Montserrat',
                             fontWeight: FontWeight.w600,
                             fontSize: screenWidth * 0.033,
                           ),
                         ),
                       ],
                     ),
-                    Text(
-                      result.leftEye?.probability ?? '',
-                      style: TextStyle(
-                        color: AppColors.appColor,
-                        fontFamily: 'MontserratMedium',
-                        fontWeight: FontWeight.w600,
-                        fontSize: screenWidth * 0.032,
-                      ),
-                    ),
+                    // Text(
+                    //   result.leftEye?.probability ?? '',
+                    //   style: TextStyle(
+                    //     color: AppColors.appColor,
+                    //     fontFamily: 'MontserratMedium',
+                    //     fontWeight: FontWeight.w600,
+                    //     fontSize: screenWidth * 0.032,
+                    //   ),
+                    // ),
                   ],
                 ),
                 SizedBox(height: screenHeight * 0.008),
@@ -148,23 +156,23 @@ class DiseaseResultTile extends StatelessWidget {
                         Text(
                           result.rightEye?.prediction ?? '',
                           style: TextStyle(
-                            color: Colors.black,
-                            fontFamily: 'MontserratMedium',
+                            color: Colors.grey.shade700,
+                            fontFamily: 'Montserrat',
                             fontWeight: FontWeight.w600,
                             fontSize: screenWidth * 0.033,
                           ),
                         ),
                       ],
                     ),
-                    Text(
-                      result.rightEye?.probability ?? '',
-                      style: TextStyle(
-                        color: AppColors.appColor,
-                        fontFamily: 'MontserratMedium',
-                        fontWeight: FontWeight.w600,
-                        fontSize: screenWidth * 0.032,
-                      ),
-                    ),
+                    // Text(
+                    //   result.rightEye?.probability ?? '',
+                    //   style: TextStyle(
+                    //     color: AppColors.appColor,
+                    //     fontFamily: 'MontserratMedium',
+                    //     fontWeight: FontWeight.w600,
+                    //     fontSize: screenWidth * 0.032,
+                    //   ),
+                    // ),
                   ],
                 ),
               ],
