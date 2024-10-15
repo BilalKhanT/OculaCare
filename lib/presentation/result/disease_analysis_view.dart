@@ -59,81 +59,86 @@ class DiseaseAnalysisView extends StatelessWidget {
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        FadeInRight(
-                          duration: const Duration(milliseconds: 600),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: <Widget>[
-                              Container(
-                                height: screenHeight * 0.05,
-                                width: screenWidth * 0.35,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(50.0),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(5.0),
-                                  child: DropdownButton<String>(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                    dropdownColor: Colors.white,
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 5.0),
-                                    value: context
-                                        .read<TreatmentCubit>()
-                                        .selectedOption,
-                                    icon: const Icon(
-                                      Icons.keyboard_arrow_down_outlined,
-                                      color: Colors.black,
-                                    ),
-                                    iconSize: screenWidth * 0.05,
-                                    elevation: 10,
-                                    style: const TextStyle(
-                                        color: Colors.deepPurple),
-                                    underline: Container(
-                                      height: 0,
-                                      color: AppColors.appColor,
-                                    ),
-                                    onChanged: (String? newValue) {
-                                      if (newValue == 'Bulgy Eyes') {
-                                        if (result.bulgy!.prediction! == 'normal') {
-                                          AppUtils.showToast(
-                                              context,
-                                              'No Disease Detected',
-                                              'You do not have bulgy eyes',
-                                              false);
-                                          return;
-                                        }
-                                      }
-                                      context
-                                          .read<TreatmentCubit>()
-                                          .toggleOption(newValue!, result);
-                                    },
-                                    items: <String>[
-                                      'Left Eye',
-                                      'Right Eye',
-                                      'Bulgy Eyes',
-                                    ].map<DropdownMenuItem<String>>(
-                                        (String value) {
-                                      return DropdownMenuItem<String>(
-                                        value: value,
-                                        child: Text(
-                                          value,
-                                          style: TextStyle(
-                                            fontFamily: 'MontserratMedium',
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: screenWidth * 0.032,
-                                            letterSpacing: 1,
-                                            color: Colors.black,
-                                          ),
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                      );
-                                    }).toList(),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: <Widget>[
+                            Container(
+                              height: screenHeight * 0.05,
+                              width: screenWidth * 0.35,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(50.0),
+                                boxShadow: const [
+                                  BoxShadow(
+                                    color: AppColors.appColor,
+                                    spreadRadius: 1,
+                                    blurRadius: 0.5,
+                                    offset: Offset(0, 0),
                                   ),
+                                ],
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: DropdownButton<String>(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  dropdownColor: Colors.white,
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 5.0),
+                                  value: context
+                                      .read<TreatmentCubit>()
+                                      .selectedOption,
+                                  icon: const Icon(
+                                    Icons.keyboard_arrow_down_outlined,
+                                    color: Colors.black,
+                                  ),
+                                  iconSize: screenWidth * 0.05,
+                                  elevation: 10,
+                                  style: const TextStyle(
+                                      color: Colors.deepPurple),
+                                  underline: Container(
+                                    height: 0,
+                                    color: AppColors.appColor,
+                                  ),
+                                  onChanged: (String? newValue) {
+                                    if (newValue == 'Bulgy Eyes') {
+                                      if (result.bulgy!.prediction! == 'normal') {
+                                        AppUtils.showToast(
+                                            context,
+                                            'No Disease Detected',
+                                            'You do not have bulgy eyes',
+                                            false);
+                                        return;
+                                      }
+                                    }
+                                    context
+                                        .read<TreatmentCubit>()
+                                        .toggleOption(newValue!, result);
+                                  },
+                                  items: <String>[
+                                    'Left Eye',
+                                    'Right Eye',
+                                    'Bulgy Eyes',
+                                  ].map<DropdownMenuItem<String>>(
+                                      (String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(
+                                        value,
+                                        style: TextStyle(
+                                          fontFamily: 'MontserratMedium',
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: screenWidth * 0.032,
+                                          letterSpacing: 1,
+                                          color: Colors.black,
+                                        ),
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    );
+                                  }).toList(),
                                 ),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                         result.leftEye!.prediction! == 'normal'
                             ? Center(
@@ -174,7 +179,7 @@ class DiseaseAnalysisView extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Center(
-                                    child: FadeInDown(
+                                    child: FadeInUp(
                                       duration:
                                           const Duration(milliseconds: 600),
                                       child: ProbabilityChart(
@@ -186,96 +191,80 @@ class DiseaseAnalysisView extends StatelessWidget {
                                   SizedBox(
                                     height: screenHeight * 0.04,
                                   ),
-                                  FadeInLeft(
-                                    duration: const Duration(milliseconds: 600),
-                                    child: Text(
-                                      result.leftEye!.prediction!,
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontFamily: 'MontserratMedium',
-                                        fontWeight: FontWeight.w800,
-                                        fontSize: screenWidth * 0.05,
-                                      ),
+                                  Text(
+                                    result.leftEye!.prediction!,
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontFamily: 'MontserratMedium',
+                                      fontWeight: FontWeight.w800,
+                                      fontSize: screenWidth * 0.05,
                                     ),
                                   ),
                                   SizedBox(
                                     height: screenHeight * 0.005,
                                   ),
                                   Center(
-                                    child: FadeInLeft(
-                                      duration:
-                                          const Duration(milliseconds: 600),
-                                      child: Text(
-                                        'Note: This is is an AI guided diagnosis, seek medical expertise for professional guidance.',
-                                        style: TextStyle(
-                                          fontFamily: 'MontserratMedium',
-                                          fontSize: screenWidth * 0.027,
-                                          fontWeight: FontWeight.w400,
-                                          color: Colors.red,
-                                        ),
-                                        textAlign: TextAlign.justify,
+                                    child: Text(
+                                      'Note: This is is an AI guided diagnosis, seek medical expertise for professional guidance.',
+                                      style: TextStyle(
+                                        fontFamily: 'MontserratMedium',
+                                        fontSize: screenWidth * 0.027,
+                                        fontWeight: FontWeight.w400,
+                                        color: Colors.red,
                                       ),
+                                      textAlign: TextAlign.justify,
                                     ),
                                   ),
                                   SizedBox(
                                     height: screenHeight * 0.03,
                                   ),
-                                  FadeInRight(
-                                    duration: const Duration(milliseconds: 600),
-                                    child: Text(
-                                      'Description',
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontFamily: 'MontserratMedium',
-                                        fontWeight: FontWeight.w800,
-                                        fontSize: screenWidth * 0.05,
-                                      ),
+                                  Text(
+                                    'Description',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontFamily: 'MontserratMedium',
+                                      fontWeight: FontWeight.w800,
+                                      fontSize: screenWidth * 0.05,
                                     ),
                                   ),
                                   SizedBox(
                                     height: screenHeight * 0.005,
                                   ),
-                                  FadeInRight(
-                                    duration: const Duration(milliseconds: 600),
-                                    child: Text(
-                                      result.leftEye!.prediction! ==
-                                              'Cataracts Detected'
-                                          ? 'Cataracts are a clouding of the eye natural lens, causing blurred vision and, if untreated, eventual blindness. Common in aging, they can be surgically removed to restore clearvision.'
-                                          : result.leftEye!.prediction! ==
-                                                  'Uveitis Detected'
-                                              ? 'Uveitis is an inflammation of the middle layer of the eye, which can affect one or both eyes. It can cause redness, pain, and blurred vision. Early detection is essential to prevent potential complications.'
-                                              : result.leftEye!.prediction! ==
-                                                      'Pterygium Detected'
-                                                  ? 'Pterygium is a growth of tissue on the white of the eye that can extend onto the cornea, often caused by UV exposure. It may cause irritation or blurred vision and can be surgically removed if necessary.'
-                                                  : 'Bulgy eyes refer to the abnormal protrusion of the eyeballs, often caused by thyroid conditions like Graves disease. This can affect vision and may require treatment to prevent further complications.',
-                                      style: TextStyle(
-                                        color: Colors.grey.shade900,
-                                        fontFamily: 'Montserrat',
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: screenWidth * 0.032,
-                                      ),
+                                  Text(
+                                    result.leftEye!.prediction! ==
+                                            'Cataracts Detected'
+                                        ? 'Cataracts are a clouding of the eye natural lens, causing blurred vision and, if untreated, eventual blindness. Common in aging, they can be surgically removed to restore clearvision.'
+                                        : result.leftEye!.prediction! ==
+                                                'Uveitis Detected'
+                                            ? 'Uveitis is an inflammation of the middle layer of the eye, which can affect one or both eyes. It can cause redness, pain, and blurred vision. Early detection is essential to prevent potential complications.'
+                                            : result.leftEye!.prediction! ==
+                                                    'Pterygium Detected'
+                                                ? 'Pterygium is a growth of tissue on the white of the eye that can extend onto the cornea, often caused by UV exposure. It may cause irritation or blurred vision and can be surgically removed if necessary.'
+                                                : 'Bulgy eyes refer to the abnormal protrusion of the eyeballs, often caused by thyroid conditions like Graves disease. This can affect vision and may require treatment to prevent further complications.',
+                                    style: TextStyle(
+                                      color: Colors.grey.shade900,
+                                      fontFamily: 'Montserrat',
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: screenWidth * 0.032,
                                     ),
                                   ),
                                   SizedBox(
                                     height: screenHeight * 0.03,
                                   ),
-                                  FadeInUp(
-                                    duration: const Duration(milliseconds: 600),
-                                    child: Text(
-                                      'Your Test Results',
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontFamily: 'MontserratMedium',
-                                        fontWeight: FontWeight.w800,
-                                        fontSize: screenWidth * 0.045,
-                                      ),
+                                  Text(
+                                    'Your Test Results',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontFamily: 'MontserratMedium',
+                                      fontWeight: FontWeight.w800,
+                                      fontSize: screenWidth * 0.045,
                                     ),
                                   ),
                                   SizedBox(
                                     height: screenHeight * 0.015,
                                   ),
-                                  FadeInUp(
-                                    duration: const Duration(milliseconds: 600),
+                                  FadeIn(
+                                    duration: const Duration(milliseconds: 800),
                                     child: customTileWidget(
                                       title: 'Generate Diagnosis Report',
                                       icon: SvgPicture.asset(
@@ -298,8 +287,8 @@ class DiseaseAnalysisView extends StatelessWidget {
                                   SizedBox(
                                     height: screenHeight * 0.015,
                                   ),
-                                  FadeInUp(
-                                    duration: const Duration(milliseconds: 600),
+                                  FadeIn(
+                                    duration: const Duration(milliseconds: 800),
                                     child: customTileWidget(
                                       title: 'Medicine Recommendations',
                                       icon: SvgPicture.asset(
@@ -348,6 +337,14 @@ class DiseaseAnalysisView extends StatelessWidget {
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(50.0),
+                                  boxShadow: const [
+                                    BoxShadow(
+                                      color: AppColors.appColor,
+                                      spreadRadius: 1,
+                                      blurRadius: 0.5,
+                                      offset: Offset(0, 0),
+                                    ),
+                                  ],
                                 ),
                                 child: Padding(
                                   padding: const EdgeInsets.all(5.0),
@@ -628,6 +625,14 @@ class DiseaseAnalysisView extends StatelessWidget {
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(50.0),
+                                  boxShadow: const [
+                                    BoxShadow(
+                                      color: AppColors.appColor,
+                                      spreadRadius: 1,
+                                      blurRadius: 0.5,
+                                      offset: Offset(0, 0),
+                                    ),
+                                  ],
                                 ),
                                 child: Padding(
                                   padding: const EdgeInsets.all(5.0),
@@ -900,7 +905,16 @@ class DiseaseAnalysisView extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(10.0),
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.textPrimary.withOpacity(0.1),
+              spreadRadius: 1,
+              blurRadius: 0.5,
+              offset: const Offset(0, 0),
+            ),
+          ],
         ),
+
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 13.0, vertical: 8.0),
           child: Row(
