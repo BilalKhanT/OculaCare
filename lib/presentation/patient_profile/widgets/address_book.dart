@@ -1,7 +1,7 @@
+import 'package:cculacare/presentation/patient_profile/widgets/address_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-
 import '../../../configs/presentation/constants/colors.dart';
 import '../../../configs/routes/route_names.dart';
 import '../../../logic/location_cubit/location_cubit.dart';
@@ -43,17 +43,22 @@ class AddressBook extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Expanded(child: Container()),
+              Expanded(
+                  child: ListView.builder(
+                physics: const BouncingScrollPhysics(),
+                itemCount: 6,
+                itemBuilder: (context, index) {
+                  return AddressTile();
+                },
+              )),
               SizedBox(
-                height: screenHeight * 0.05,
+                height: screenHeight * 0.03,
               ),
               ButtonFlat(
                   btnColor: AppColors.appColor,
                   textColor: AppColors.whiteColor,
                   onPress: () {
-                    context
-                        .read<LocationCubit>()
-                        .setLocation();
+                    context.read<LocationCubit>().setLocation();
                     context.push(RouteNames.locationRoute, extra: true);
                   },
                   text: 'Add new address'),
