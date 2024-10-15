@@ -16,6 +16,14 @@ Widget customWidget({
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10.0),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.appColor.withOpacity(0.5),
+            spreadRadius: 1,
+            blurRadius: 0.5,
+            offset: const Offset(0, 0),
+          ),
+        ],
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 13.0, vertical: 8.0),
