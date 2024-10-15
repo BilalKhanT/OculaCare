@@ -25,35 +25,31 @@ class GeneralEyeExercises extends StatelessWidget {
       itemCount: exercisesList.length,
       itemBuilder: (context, index) {
         final therapy = exercisesList[index];
-        return FadeIn(
-          duration: Duration(
-              milliseconds: 1000 + (index * 100)),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 2.0),
-            child: TherapyTile(
-              therapy: therapy,
-              screenHeight: screenHeight,
-              onTap: () {
-                if (!sharedPrefs.isProfileSetup) {
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      return const Dialog(child: NeedToSetupProfileWidget());
-                    },
-                  );
-                  return;
-                }
-                showModalBottomSheet(
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 2.0),
+          child: TherapyTile(
+            therapy: therapy,
+            screenHeight: screenHeight,
+            onTap: () {
+              if (!sharedPrefs.isProfileSetup) {
+                showDialog(
                   context: context,
-                  isScrollControlled: true,
-                  enableDrag: false,
-                  isDismissible: false,
-                  builder: (BuildContext bc) {
-                    return TherapyModel(therapy: therapy);
+                  builder: (context) {
+                    return const Dialog(child: NeedToSetupProfileWidget());
                   },
                 );
-              },
-            ),
+                return;
+              }
+              showModalBottomSheet(
+                context: context,
+                isScrollControlled: true,
+                enableDrag: false,
+                isDismissible: false,
+                builder: (BuildContext bc) {
+                  return TherapyModel(therapy: therapy);
+                },
+              );
+            },
           ),
         );
       },
