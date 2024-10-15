@@ -66,39 +66,33 @@ class ScheduledTherapies extends StatelessWidget {
                           vertical: 10.0, horizontal: 5.0),
                       child: Row(
                         children: [
-                          FadeInDown(
-                            duration: const Duration(milliseconds: 600),
-                            child: _buildScheduleTab(
-                              context,
-                              'General',
-                              generalSelected,
-                              () {
-                                context
-                                    .read<TherapyScheduleTabCubit>()
-                                    .toggleTab(0);
-                                context
-                                    .read<TherapyScheduleCubit>()
-                                    .loadGeneralTherapies();
-                              },
-                            ),
+                          _buildScheduleTab(
+                            context,
+                            'General',
+                            generalSelected,
+                            () {
+                              context
+                                  .read<TherapyScheduleTabCubit>()
+                                  .toggleTab(0);
+                              context
+                                  .read<TherapyScheduleCubit>()
+                                  .loadGeneralTherapies();
+                            },
                           ),
                           SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.02),
-                          FadeInDown(
-                            duration: const Duration(milliseconds: 600),
-                            child: _buildScheduleTab(
-                              context,
-                              'Disease Specific',
-                              diseaseSpecificSelected,
-                              () {
-                                context
-                                    .read<TherapyScheduleTabCubit>()
-                                    .toggleTab(1);
-                                context
-                                    .read<TherapyScheduleCubit>()
-                                    .loadDiseaseSpecificTherapies();
-                              },
-                            ),
+                              width: MediaQuery.of(context).size.width * 0.03),
+                          _buildScheduleTab(
+                            context,
+                            'Disease Specific',
+                            diseaseSpecificSelected,
+                            () {
+                              context
+                                  .read<TherapyScheduleTabCubit>()
+                                  .toggleTab(1);
+                              context
+                                  .read<TherapyScheduleCubit>()
+                                  .loadDiseaseSpecificTherapies();
+                            },
                           ),
                         ],
                       ),
@@ -178,6 +172,14 @@ class ScheduledTherapies extends StatelessWidget {
                                               color: Colors.white,
                                               borderRadius:
                                                   BorderRadius.circular(10),
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: AppColors.textPrimary.withOpacity(0.1),
+                                                  spreadRadius: 1,
+                                                  blurRadius: 0.5,
+                                                  offset: const Offset(0, 0),
+                                                ),
+                                              ],
                                             ),
                                             child: Row(
                                               children: [
@@ -320,11 +322,18 @@ class ScheduledTherapies extends StatelessWidget {
       onTap: () => onTap(),
       child: Container(
         decoration: BoxDecoration(
-          color:
-              isSelected ? AppColors.appColor.withOpacity(0.85) : Colors.white,
+          color: isSelected ? const Color(0xFF04438D) : Colors.white,
           borderRadius: BorderRadius.circular(25),
+          boxShadow: const [
+            BoxShadow(
+              color: AppColors.appColor,
+              spreadRadius: 1,
+              blurRadius: 0.5,
+              offset: Offset(0, 0),
+            ),
+          ],
         ),
-        padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 6.0),
+        padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8.0),
         child: Text(
           title,
           style: TextStyle(
