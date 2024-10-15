@@ -8,27 +8,27 @@ abstract class AppUtils {
       BuildContext context, String title, String description, bool isError) {
     toastification.show(
       context: context,
-      type: ToastificationType.success,
-      style: ToastificationStyle.flat,
-      autoCloseDuration: const Duration(seconds: 6),
+      type: ToastificationType.info,
+      style: ToastificationStyle.flatColored,
+      autoCloseDuration: const Duration(seconds: 3),
       title: title,
       description: description,
       alignment: Alignment.topRight,
       direction: TextDirection.ltr,
       icon: isError
           ? const Icon(
-              Icons.cancel_outlined,
+              Icons.info_outline,
               color: Colors.red,
               size: 30,
             )
           : const Icon(
-              Icons.check,
+              Icons.info_outline,
               color: AppColors.appColor,
               size: 30,
             ),
       primaryColor: AppColors.appColor,
       backgroundColor: Colors.white,
-      foregroundColor: AppColors.appColor,
+      foregroundColor: AppColors.textPrimary,
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
       margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       borderRadius: BorderRadius.circular(12),
@@ -42,7 +42,7 @@ abstract class AppUtils {
       ],
       showProgressBar: true,
       progressBarTheme: ProgressIndicatorThemeData(
-          color: isError ? Colors.red : Colors.green),
+          color: isError ? Colors.red : AppColors.appColor),
       closeButtonShowType: CloseButtonShowType.onHover,
       closeOnClick: false,
       pauseOnHover: true,
