@@ -26,6 +26,20 @@ class SharedPrefs {
     _sharedPrefs?.setBool('therapyFetched', value);
   }
 
+  Future<void> setAddressList(List<Address> addressList) async {
+    final List<String> jsonStringList = addressList.map((address) => jsonEncode(address.toJson())).toList();
+    await _sharedPrefs?.setStringList('address_list', jsonStringList);
+  }
+
+  List<Address> getAddressList() {
+    final List<String>? jsonStringList = _sharedPrefs?.getStringList('address_list');
+    if (jsonStringList == null || jsonStringList.isEmpty) {
+      return [];
+    }
+    final List<Address> addressList = jsonStringList.map((jsonString) => Address.fromJson(jsonDecode(jsonString))).toList();
+    return addressList;
+  }
+
   Future<void> setAddress(Address address) async {
     final jsonString = jsonEncode(address.toJson());
     await _sharedPrefs?.setString('current_address', jsonString);
@@ -38,6 +52,14 @@ class SharedPrefs {
     }
     final jsonMap = jsonDecode(jsonString);
     return Address.fromJson(jsonMap);
+  }
+
+  Future<void> clearAddressList() async {
+    await _sharedPrefs?.remove('address_list');
+  }
+
+  Future<void> clearCurrentAddress() async {
+    await _sharedPrefs?.remove('current_address');
   }
 
   bool get bottomFirst => _sharedPrefs?.getBool('bottomFirst') ?? true;

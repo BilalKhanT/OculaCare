@@ -10,6 +10,10 @@ import 'package:permission_handler/permission_handler.dart';
 class CurrentLocationCubit extends Cubit<CurrentLocationState> {
   CurrentLocationCubit() : super(CurrentLocationInitial());
 
+  void loadBottomSheet(){
+    emit(CurrentLocationLoaded(Address(lat: -97765999.9, locationName: 'aa', long: -99665799.9)));
+  }
+
   Future<String> fetchAddressFromLatLng(double lat, double lng) async {
     try {
       List<Placemark> places = await placemarkFromCoordinates(lat, lng);
@@ -23,8 +27,22 @@ class CurrentLocationCubit extends Cubit<CurrentLocationState> {
     }
   }
 
+  void selectAddress(Address add) {
+    sharedPrefs.setAddress(add);
+    emit(CurrentLocationLoaded(add));
+  }
+
+  Future<void> setCurrentLocation(Address add) async {
+    emit(CurrentLocationLoading());
+    try {
+      sharedPrefs.setAddress(add);
+      emit(CurrentLocationSet());
+    } catch (e) {
+      emit(CurrentLocationError());
+    }
+  }
+
   Future<void> getCurrentLocation() async {
-    print('HEHEHEH');
     emit(CurrentLocationLoading());
     var permissionStatus = await Permission.location.request();
     if (!permissionStatus.isGranted) {
@@ -35,17 +53,17 @@ class CurrentLocationCubit extends Cubit<CurrentLocationState> {
       Position position = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.high);
       String address =
-          await fetchAddressFromLatLng(position.latitude, position.longitude);
+      await fetchAddressFromLatLng(position.latitude, position.longitude);
       Address add = Address(
           lat: position.latitude,
           long: position.longitude,
           locationName: address);
       sharedPrefs.setAddress(add);
-      emit(
-        CurrentLocationSet(),
-      );
+      emit(CurrentLocationSet());
     } catch (e) {
       emit(CurrentLocationError());
     }
   }
 }
+
+

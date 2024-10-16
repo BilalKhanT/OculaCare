@@ -328,13 +328,16 @@ class HistorySection extends StatelessWidget {
           final TherapyModel therapy = therapies[index];
           final HistoryArgsModel assetData =
               getTherapyAsset(therapy.therapyName);
-          return TherapyHistoryTile(
-            title: therapy.therapyName,
-            date: therapy.date,
-            type: therapy.therapyType,
-            duration: therapy.duration,
-            image: assetData.imagePath,
-            avatarColor: assetData.avatarColor,
+          return FadeIn(
+            duration: const Duration(milliseconds: 600),
+            child: TherapyHistoryTile(
+              title: therapy.therapyName,
+              date: therapy.date,
+              type: therapy.therapyType,
+              duration: therapy.duration,
+              image: assetData.imagePath,
+              avatarColor: assetData.avatarColor,
+            ),
           );
         },
       ),

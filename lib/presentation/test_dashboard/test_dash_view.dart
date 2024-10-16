@@ -710,17 +710,20 @@ class TestDashView extends StatelessWidget {
                                         return Padding(
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 3, vertical: 2.0),
-                                          child: TestHistoryTile(
-                                              title: state.data[index].testName,
-                                              description:
-                                                  state.data[index].date,
-                                              image: data.imagePath,
-                                              onPress: () {
-                                                context.push(
-                                                    RouteNames.testReportRoute,
-                                                    extra: state.data[index]);
-                                              },
-                                              avatarColor: data.color),
+                                          child: FadeIn(
+                                            duration: const Duration(milliseconds: 600),
+                                            child: TestHistoryTile(
+                                                title: state.data[index].testName,
+                                                description:
+                                                    state.data[index].date,
+                                                image: data.imagePath,
+                                                onPress: () {
+                                                  context.push(
+                                                      RouteNames.testReportRoute,
+                                                      extra: state.data[index]);
+                                                },
+                                                avatarColor: data.color),
+                                          ),
                                         );
                                       },
                                     ),
@@ -765,19 +768,22 @@ class TestDashView extends StatelessWidget {
                                         return Padding(
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 8, vertical: 2.0),
-                                          child: TestHistoryTile(
-                                              title: state
-                                                  .dataColor[index].testName,
-                                              description:
-                                                  state.dataColor[index].date,
-                                              image: data.imagePath,
-                                              onPress: () {
-                                                context.push(
-                                                    RouteNames.testReportRoute,
-                                                    extra:
-                                                        state.dataColor[index]);
-                                              },
-                                              avatarColor: data.color),
+                                          child: FadeIn(
+                                            duration: const Duration(milliseconds: 600),
+                                            child: TestHistoryTile(
+                                                title: state
+                                                    .dataColor[index].testName,
+                                                description:
+                                                    state.dataColor[index].date,
+                                                image: data.imagePath,
+                                                onPress: () {
+                                                  context.push(
+                                                      RouteNames.testReportRoute,
+                                                      extra:
+                                                          state.dataColor[index]);
+                                                },
+                                                avatarColor: data.color),
+                                          ),
                                         );
                                       },
                                     ),

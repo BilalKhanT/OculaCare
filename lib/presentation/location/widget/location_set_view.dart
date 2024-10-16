@@ -1,3 +1,4 @@
+import 'package:cculacare/logic/address_book/address_book_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -87,7 +88,18 @@ class LocationSetView extends StatelessWidget {
                     child: GestureDetector(
                       onTap: () async {
                         if (isBook) {
-                          context.pop();
+                          context
+                              .read<AddressBookCubit>()
+                              .addressController
+                              .text = userAddress;
+                          await context
+                              .read<AddressBookCubit>()
+                              .setCoordinates(lat, long);
+                          if (context.mounted) {
+                            context
+                                .read<AddressBookCubit>().addAddress();
+                            context.pop();
+                          }
                         }
                         else {
                           context

@@ -1,3 +1,4 @@
+import 'package:cculacare/logic/address_book/address_book_cubit.dart';
 import 'package:cculacare/logic/detection/med_cubit.dart';
 import 'package:cculacare/logic/detection/question_cubit.dart';
 import 'package:cculacare/logic/detection_animation/detection_animation_cubit.dart';
@@ -70,6 +71,9 @@ class ProvideMultiBloc extends StatelessWidget {
       ),
       BlocProvider(
         create: (context) => CurrentLocationCubit(),
+      ),
+      BlocProvider(
+        create: (context) => AddressBookCubit(),
       ),
       BlocProvider(
         create: (context) => DetectionAnimationCubit(),
