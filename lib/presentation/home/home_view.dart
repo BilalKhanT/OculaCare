@@ -6,6 +6,7 @@ import 'package:cculacare/logic/home_cubit/home_cubit.dart';
 import 'package:cculacare/logic/home_cubit/home_state.dart';
 import 'package:cculacare/logic/location_cubit/current_loc_cubit.dart';
 import 'package:cculacare/logic/location_cubit/current_loc_state.dart';
+import 'package:cculacare/presentation/home/widgets/current_add_tile.dart';
 import 'package:cculacare/presentation/home/widgets/grid_btn_widget.dart';
 import 'package:cculacare/presentation/widgets/btn_flat.dart';
 import 'package:cculacare/presentation/widgets/cstm_loader.dart';
@@ -42,10 +43,11 @@ class HomeScreen extends StatelessWidget {
     showModalBottomSheet(
       context: context,
       builder: (context) {
+        List<Address> addresses = sharedPrefs.getAddressList();
         return Container(
           color: AppColors.screenBackground,
           padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
-          height: screenHeight * 0.5,
+          height: screenHeight * 0.6,
           width: screenWidth,
           child: BlocConsumer<CurrentLocationCubit, CurrentLocationState>(
             listener: (context, state) {
@@ -71,7 +73,7 @@ class HomeScreen extends StatelessWidget {
                   ],
                 );
               }
-              else if (state is CurrentLocationInitial) {
+              else if (state is CurrentLocationLoaded) {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
@@ -102,7 +104,7 @@ class HomeScreen extends StatelessWidget {
                         color: AppColors.textPrimary,
                       ),
                     ),
-                    SizedBox(height: screenHeight * 0.009),
+                    SizedBox(height: screenHeight * 0.02),
                     GestureDetector(
                       onTap: () => context.read<CurrentLocationCubit>().getCurrentLocation(),
                       child: Row(
@@ -126,11 +128,32 @@ class HomeScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Expanded(child: Container()),
+                    SizedBox(height: screenHeight * 0.02),
+                    Expanded(
+                      child: ListView.builder(
+                        physics: const BouncingScrollPhysics(),
+                        itemCount: addresses.length,
+                        itemBuilder: (context, index) {
+                          final address = addresses[index];
+                          return CurrentAddressTile(
+                            address: address,
+                            isSelected: address.lat == state.currentAddress.lat,
+                          );
+                        },
+                      ),
+                    ),
+                    SizedBox(height: screenHeight * 0.005),
                     ButtonFlat(
                         btnColor: AppColors.appColor,
                         textColor: AppColors.whiteColor,
-                        onPress: () {},
+                        onPress: () {
+                          if (state.currentAddress.lat == -97765999.9) {
+                            AppUtils.showToast(context, 'Select an address',
+                                'Please select an address', true);
+                            return;
+                          }
+                          context.read<CurrentLocationCubit>().setCurrentLocation(state.currentAddress);
+                        },
                         text: 'Confirm location'),
                   ],
                 );
