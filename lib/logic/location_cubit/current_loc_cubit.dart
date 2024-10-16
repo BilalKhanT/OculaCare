@@ -27,6 +27,21 @@ class CurrentLocationCubit extends Cubit<CurrentLocationState> {
     }
   }
 
+  void selectAddress(Address add) {
+    sharedPrefs.setAddress(add);
+    emit(CurrentLocationLoaded(add));
+  }
+
+  Future<void> setCurrentLocation(Address add) async {
+    emit(CurrentLocationLoading());
+    try {
+      sharedPrefs.setAddress(add);
+      emit(CurrentLocationSet());
+    } catch (e) {
+      emit(CurrentLocationError());
+    }
+  }
+
   Future<void> getCurrentLocation() async {
     emit(CurrentLocationLoading());
     var permissionStatus = await Permission.location.request();
@@ -38,34 +53,17 @@ class CurrentLocationCubit extends Cubit<CurrentLocationState> {
       Position position = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.high);
       String address =
-          await fetchAddressFromLatLng(position.latitude, position.longitude);
+      await fetchAddressFromLatLng(position.latitude, position.longitude);
       Address add = Address(
           lat: position.latitude,
           long: position.longitude,
           locationName: address);
       sharedPrefs.setAddress(add);
-      emit(
-        CurrentLocationSet(),
-      );
-    } catch (e) {
-      emit(CurrentLocationError());
-    }
-  }
-
-  void selectAddress(Address add) {
-    emit(CurrentLocationLoading());
-    emit(CurrentLocationLoaded(add));
-  }
-
-  Future<void> setCurrentLocation(Address add) async {
-    emit(CurrentLocationLoading());
-    try {
-      sharedPrefs.setAddress(add);
-      emit(
-        CurrentLocationSet(),
-      );
+      emit(CurrentLocationSet());
     } catch (e) {
       emit(CurrentLocationError());
     }
   }
 }
+
+
