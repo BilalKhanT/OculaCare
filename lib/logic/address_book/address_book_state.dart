@@ -14,8 +14,9 @@ class AddressBookLoading extends AddressBookState {}
 
 class AddressBookLoaded extends AddressBookState {
   final List<Address> addresses;
+  final Address currentAddress;
 
-  const AddressBookLoaded(this.addresses);
+  const AddressBookLoaded(this.addresses, this.currentAddress);
 
   @override
   List<Object?> get props => [addresses];
