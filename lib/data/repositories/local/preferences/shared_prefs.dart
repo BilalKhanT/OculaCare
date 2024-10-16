@@ -54,6 +54,14 @@ class SharedPrefs {
     return Address.fromJson(jsonMap);
   }
 
+  Future<void> clearAddressList() async {
+    await _sharedPrefs?.remove('address_list');
+  }
+
+  Future<void> clearCurrentAddress() async {
+    await _sharedPrefs?.remove('current_address');
+  }
+
   bool get bottomFirst => _sharedPrefs?.getBool('bottomFirst') ?? true;
   set bottomFirst(bool value) {
     _sharedPrefs?.setBool('bottomFirst', value);
