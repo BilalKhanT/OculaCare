@@ -44,7 +44,8 @@ class LoginCubit extends Cubit<LoginState> {
 
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
-        Patient patient = Patient.fromJson(data);
+        PatientModel patientModel = PatientModel.fromJson(data);
+        Patient patient = patientModel.patient;
         if (patient.gender != null &&
             patient.address != null &&
             patient.profileImage != null) {
@@ -52,6 +53,7 @@ class LoginCubit extends Cubit<LoginState> {
           sharedPrefs.userName = patient.username!;
           sharedPrefs.email = patient.email!;
           sharedPrefs.patientData = jsonEncode(patient.toJson());
+          sharedPrefs.setAddressList(patientModel.addressBook);
         } else {
           sharedPrefs.isProfileSetup = false;
           sharedPrefs.patientData = '';
@@ -59,6 +61,7 @@ class LoginCubit extends Cubit<LoginState> {
         sharedPrefs.isLoggedIn = true;
         emit(LoginSuccess());
       } else {
+        log(response.body);
         emit(LoginFailure());
       }
     } catch (e) {
