@@ -13,6 +13,7 @@ import '../../configs/presentation/constants/colors.dart';
 import '../../configs/routes/route_names.dart';
 import '../../configs/utils/utils.dart';
 import '../../data/repositories/local/preferences/shared_prefs.dart';
+import '../../logic/address_book/address_book_cubit.dart';
 import '../../logic/detection/detection_cubit.dart';
 import '../../logic/detection/question_cubit.dart';
 import '../../logic/login_cubit/login_cubit.dart';
@@ -188,6 +189,7 @@ class MoreView extends StatelessWidget {
                                   );
                                   return;
                                 }
+                                context.read<AddressBookCubit>().getAddresses();
                                 context.push(RouteNames.addressBookRoute);
                               },
                             ),
@@ -397,6 +399,8 @@ class MoreView extends StatelessWidget {
                             sharedPrefs.password = '';
                             sharedPrefs.therapyFetched = false;
                             sharedPrefs.historyFetched = false;
+                            sharedPrefs.clearAddressList();
+                            sharedPrefs.clearCurrentAddress();
                             context.read<LoginCubit>().loadLoginScreen();
                             context.go(RouteNames.loginRoute);
                           },
