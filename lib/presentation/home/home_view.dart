@@ -143,18 +143,18 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: screenHeight * 0.005),
-                    ButtonFlat(
-                        btnColor: AppColors.appColor,
-                        textColor: AppColors.whiteColor,
-                        onPress: () {
-                          if (state.currentAddress.lat == -97765999.9) {
-                            AppUtils.showToast(context, 'Select an address',
-                                'Please select an address', true);
-                            return;
-                          }
-                          context.read<CurrentLocationCubit>().setCurrentLocation(state.currentAddress);
-                        },
-                        text: 'Confirm location'),
+                    // ButtonFlat(
+                    //     btnColor: AppColors.appColor,
+                    //     textColor: AppColors.whiteColor,
+                    //     onPress: () {
+                    //       if (state.currentAddress.lat == -97765999.9) {
+                    //         AppUtils.showToast(context, 'Select an address',
+                    //             'Please select an address', true);
+                    //         return;
+                    //       }
+                    //       context.read<CurrentLocationCubit>().setCurrentLocation(state.currentAddress);
+                    //     },
+                    //     text: 'Confirm location'),
                   ],
                 );
               }
