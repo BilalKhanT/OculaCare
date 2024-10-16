@@ -1,3 +1,4 @@
+import 'package:cculacare/logic/location_cubit/current_loc_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -44,6 +45,8 @@ class MyApp extends StatelessWidget {
     sharedPrefs.historyFetched = false;
     sharedPrefs.resultsFetched = false;
     sharedPrefs.bottomFirst = true;
+    sharedPrefs.clearCurrentAddress();
+    context.read<CurrentLocationCubit>().loadBottomSheet();
     context.read<HomeCubit>().emitHomeAnimation();
     return ScreenUtilInit(
       builder: (context, child) {
