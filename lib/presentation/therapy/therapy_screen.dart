@@ -255,8 +255,8 @@ class TherapyScreen extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 30.0),
                         child: ButtonFlat(
-                            btnColor: AppColors.whiteColor,
-                            textColor: Colors.black,
+                            btnColor: AppColors.secondaryBtnColor,
+                            textColor: Colors.white,
                             onPress: () {
                               BlocProvider.of<TherapyCubit>(context)
                                   .resetTherapy();
