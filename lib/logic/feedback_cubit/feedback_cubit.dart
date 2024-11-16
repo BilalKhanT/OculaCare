@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:nb_utils/nb_utils.dart';
 import '../../data/repositories/feedback_repo/feedback_repo.dart';
 import '../../data/repositories/local/preferences/shared_prefs.dart';
@@ -114,6 +115,7 @@ class FeedbackCubit extends Cubit<FeedbackState> {
         category,
         data,
         customFeedback,
+        getCurrentDateString(),
       );
       if (isSuccess) {
         emit(FeedbackCompleted());
@@ -149,5 +151,12 @@ class FeedbackCubit extends Cubit<FeedbackState> {
 
   void toggleFeedbackCompleted() {
     emit(FeedbackCompleted());
+  }
+
+  String getCurrentDateString() {
+    DateTime now = DateTime.now();
+    DateFormat formatter = DateFormat('dd-MM-yyyy');
+    String formattedDate = formatter.format(now);
+    return formattedDate;
   }
 }
