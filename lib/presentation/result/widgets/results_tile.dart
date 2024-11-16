@@ -125,15 +125,6 @@ class DiseaseResultTile extends StatelessWidget {
                         ),
                       ],
                     ),
-                    // Text(
-                    //   result.leftEye?.probability ?? '',
-                    //   style: TextStyle(
-                    //     color: AppColors.appColor,
-                    //     fontFamily: 'MontserratMedium',
-                    //     fontWeight: FontWeight.w600,
-                    //     fontSize: screenWidth * 0.032,
-                    //   ),
-                    // ),
                   ],
                 ),
                 SizedBox(height: screenHeight * 0.008),
@@ -164,15 +155,6 @@ class DiseaseResultTile extends StatelessWidget {
                         ),
                       ],
                     ),
-                    // Text(
-                    //   result.rightEye?.probability ?? '',
-                    //   style: TextStyle(
-                    //     color: AppColors.appColor,
-                    //     fontFamily: 'MontserratMedium',
-                    //     fontWeight: FontWeight.w600,
-                    //     fontSize: screenWidth * 0.032,
-                    //   ),
-                    // ),
                   ],
                 ),
               ],

@@ -35,4 +35,6 @@ class RouteNames {
   static const String diagnosisRoute = '/diagnosisRoute';
   static const String questionRoute = '/questionRoute';
   static const String addressBookRoute = '/addressBookRoute';
+  static const String hospitalLocatorRoute = '/hospitalLocatorRoute';
+  static const String bookmarkRoute = '/bookmarkRoute';
 }

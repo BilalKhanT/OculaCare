@@ -1,4 +1,5 @@
 import 'package:cculacare/logic/address_book/address_book_cubit.dart';
+import 'package:cculacare/logic/bookmark_cubit/bookmark_cubit.dart';
 import 'package:cculacare/logic/detection/med_cubit.dart';
 import 'package:cculacare/logic/detection/question_cubit.dart';
 import 'package:cculacare/logic/detection_animation/detection_animation_cubit.dart';
@@ -11,6 +12,7 @@ import 'logic/auth_cubit/auth_cubit.dart';
 import 'logic/camera/camera_cubit.dart';
 import 'logic/detection/detection_cubit.dart';
 import 'logic/feedback_cubit/feedback_cubit.dart';
+import 'logic/hospital_locator_cubit/hospital_locator_cubit.dart';
 import 'logic/image_capture/img_capture_cubit.dart';
 import 'logic/image_capture/toggle_capture_btn_cubit.dart';
 import 'logic/keyboard_listener_cubit/keyboard_list_cubit.dart';
@@ -205,6 +207,12 @@ class ProvideMultiBloc extends StatelessWidget {
       BlocProvider(
         create: (context) =>
             TherapyFeedbackCubit(context.read<KeyboardListenerCubit>()),
+      ),
+      BlocProvider(
+        create: (context) => HospitalCubit(),
+      ),
+      BlocProvider(
+        create: (context) => BookmarkCubit(),
       ),
     ], child: child);
   }

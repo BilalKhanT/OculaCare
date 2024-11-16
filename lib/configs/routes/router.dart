@@ -1,5 +1,6 @@
 import 'package:cculacare/configs/routes/route_names.dart';
 import 'package:cculacare/data/models/disease_result/diagnosis_result_model.dart';
+import 'package:cculacare/presentation/bookmarks/bookmark_view.dart';
 import 'package:cculacare/presentation/disease_detection/question_view.dart';
 import 'package:cculacare/presentation/patient_profile/widgets/address_book.dart';
 import 'package:cculacare/presentation/result/widgets/diagnosis_report.dart';
@@ -19,6 +20,7 @@ import '../../logic/therapy_cubit/timer_cubit.dart';
 import '../../presentation/disease_detection/disease_detection_view.dart';
 import '../../presentation/feedback/feedback_view.dart';
 import '../../presentation/home/home_view.dart';
+import '../../presentation/hospital_locator/map_view.dart';
 import '../../presentation/img_capture/img_capture_view.dart';
 import '../../presentation/location/location_view.dart';
 import '../../presentation/login/login_view.dart';
@@ -346,6 +348,19 @@ final router = GoRouter(
           TherapyModel therapy = state.extra as TherapyModel;
           return TherapyFeedbackView(therapy: therapy);
         }),
+    GoRoute(
+        parentNavigatorKey: navigatorKey,
+        path: RouteNames.hospitalLocatorRoute,
+        builder: (context, state) {
+          return const MapView();
+        }),
+    GoRoute(
+        parentNavigatorKey: navigatorKey,
+        path: RouteNames.bookmarkRoute,
+        builder: (context, state) {
+          return const BookmarkView();
+        }),
+
   ],
   initialLocation: sharedPrefs.isLoggedIn
       ? RouteNames.homeRoute

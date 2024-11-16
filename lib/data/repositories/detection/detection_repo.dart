@@ -18,6 +18,7 @@ class DetectionRepo {
         headers: {"Content-Type": "application/json"},
         body: json.encode(payload),
       );
+      print(response.statusCode);
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
         DiseaseResultModel result = DiseaseResultModel.fromJson(data);

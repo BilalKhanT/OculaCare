@@ -1,4 +1,5 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:cculacare/logic/hospital_locator_cubit/hospital_locator_cubit.dart';
 import 'package:cculacare/logic/more_animate/more_cubit.dart';
 import 'package:cculacare/logic/more_animate/more_state.dart';
 import 'package:flutter/material.dart';
@@ -209,11 +210,7 @@ class MoreView extends StatelessWidget {
                                   );
                                   return;
                                 } else {
-                                  AppUtils.showToast(
-                                      context,
-                                      'Feature Under Development',
-                                      'This feature will be available in next version',
-                                      false);
+                                  context.push(RouteNames.hospitalLocatorRoute);
                                 }
                               },
                             ),
@@ -232,11 +229,7 @@ class MoreView extends StatelessWidget {
                                   );
                                   return;
                                 } else {
-                                  AppUtils.showToast(
-                                      context,
-                                      'Feature Under Development',
-                                      'This feature will be available in next version',
-                                      false);
+                                  context.push(RouteNames.bookmarkRoute);
                                 }
                               },
                             ),

@@ -638,6 +638,7 @@ class ImageCaptureScreen extends StatelessWidget {
                                         btnColor: AppColors.appColor,
                                         textColor: Colors.white,
                                         onPress: () async {
+                                          print("uploading");
                                           context
                                               .read<ImageCaptureCubit>()
                                               .uploadImageToServer(
