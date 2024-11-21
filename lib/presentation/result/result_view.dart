@@ -2,6 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:cculacare/presentation/result/widgets/results_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../configs/presentation/constants/colors.dart';
@@ -103,6 +104,14 @@ class DiseaseResultView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
+                FadeIn(
+                  duration: const Duration(milliseconds: 600),
+                  child: Lottie.asset(
+                    'assets/lotties/require_profile.json',
+                    height: screenHeight * 0.3,
+                    width: screenHeight * 0.3,
+                  ),
+                ),
                 Center(
                   child: Text(
                     'No History Available',
@@ -110,7 +119,7 @@ class DiseaseResultView extends StatelessWidget {
                       color: Colors.black,
                       fontFamily: 'MontserratMedium',
                       fontWeight: FontWeight.w800,
-                      fontSize: screenWidth * 0.05,
+                      fontSize: screenWidth * 0.045,
                     ),
                   ),
                 ),
