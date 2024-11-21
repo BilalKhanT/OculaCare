@@ -25,7 +25,7 @@ class OnBoardingView extends StatelessWidget {
           PageController controller =
               context.read<OnBoardingCubit>().pageController;
           return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            padding: const EdgeInsets.symmetric(horizontal: 0.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -57,16 +57,19 @@ class OnBoardingView extends StatelessWidget {
                             ),
                           ),
                           SizedBox(height: screenHeight * 0.02),
-                          Text(
-                            context
-                                .read<OnBoardingCubit>()
-                                .contents[i]
-                                .discription!,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontFamily: 'Montserrat',
-                              fontSize: screenWidth * 0.037,
-                              color: Colors.grey.shade900,
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
+                            child: Text(
+                              context
+                                  .read<OnBoardingCubit>()
+                                  .contents[i]
+                                  .discription!,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontFamily: 'Montserrat',
+                                fontSize: screenWidth * 0.037,
+                                color: Colors.grey.shade900,
+                              ),
                             ),
                           ),
                         ],
@@ -94,8 +97,8 @@ class OnBoardingView extends StatelessWidget {
                         );
                   },
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 60.0, vertical: 40.0),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: screenWidth * 0.2, vertical: 40.0),
                     child: Container(
                       width: double.infinity,
                       decoration: BoxDecoration(
@@ -130,7 +133,7 @@ class OnBoardingView extends StatelessWidget {
                                     fontFamily: 'Montserrat',
                                     fontSize: screenWidth * 0.045,
                                     color: Colors.white,
-                                    fontWeight: FontWeight.w800),
+                                    fontWeight: FontWeight.w400),
                               ),
                               SizedBox(
                                 width: screenWidth * 0.05,
