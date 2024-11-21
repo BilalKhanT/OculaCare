@@ -21,7 +21,7 @@ class AddressBookCubit extends Cubit<AddressBookState> {
     try {
       final List<Address> address = sharedPrefs.getAddressList();
       if (address.isEmpty) {
-        emit(AddressBookError());
+        emit(AddressBookEmpty());
         return;
       }
       emit(AddressBookLoaded(address, currentAdd));
