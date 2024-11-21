@@ -22,4 +22,6 @@ class AddressBookLoaded extends AddressBookState {
   List<Object?> get props => [addresses];
 }
 
+class AddressBookEmpty extends AddressBookState {}
+
 class AddressBookError extends AddressBookState {}
