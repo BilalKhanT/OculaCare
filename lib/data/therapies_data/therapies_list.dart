@@ -7,7 +7,7 @@ final List<Map<String, dynamic>> therapiesList = [
     "type": "image",
     "description": "Relieve stress, enhance clarity",
     "svgPath": "assets/images/mind_chest_breathing/mind-chest_breathing.png",
-    "sound": "assets/audio/relaxing_breathing.mp3",
+    "sound": "audio/relaxing_breathing.mp3",
     "benefits": [
       "Helps to reduce stress",
       "Improves oxygen flow",
@@ -180,7 +180,7 @@ final List<Map<String, dynamic>> therapiesList = [
     "type": "animation_jumping_stripes",
     "description": "Boost focus, follow movement",
     "svgPath": "assets/images/jumping_stripes/jumping_stripes.png",
-    "sound": "assets/audio/relaxing_breathing.mp3",
+    "sound": "audio/relaxing_breathing.mp3",
     "benefits": [
       "Enhances eye-hand coordination",
       "Improves focus and concentration"
@@ -210,7 +210,7 @@ final List<Map<String, dynamic>> therapiesList = [
     "type": "image",
     "description": "Relax and soothe tired eyes",
     "svgPath": "assets/images/palming/palming.png",
-    "sound": "assets/audio/relaxing_breathing.mp3",
+    "sound": "audio/relaxing_breathing.mp3",
     "benefits": [
       "Relieves eye strain",
       "Promotes relaxation",
@@ -373,7 +373,7 @@ final List<Map<String, dynamic>> therapiesList = [
     "type": "animation_kaleidoscope",
     "description": "Stimulate focus with patterns",
     "svgPath": "assets/images/kaleidoscope_focus/kaleidoscope.png",
-    "sound": "assets/audio/relaxing_breathing.mp3",
+    "sound": "audio/relaxing_breathing.mp3",
     "benefits": [
       "Improves focus and attention",
       "Stimulates visual processing"
@@ -402,7 +402,7 @@ final List<Map<String, dynamic>> therapiesList = [
     "type": "animation_yin_yang",
     "description": "Balance mind, enhance mindfulness",
     "svgPath": "assets/images/yin_yang_clarity/yin-yang.png",
-    "sound": "assets/audio/relaxing_breathing.mp3",
+    "sound": "audio/relaxing_breathing.mp3",
     "benefits": [
       "Balances the mind and body",
       "Enhances focus and mindfulness"
@@ -431,7 +431,7 @@ final List<Map<String, dynamic>> therapiesList = [
     "type": "animation_eye_rolling",
     "svgPath": "assets/images/eye_rolling/eye_rolling.png",
     "description": "Strengthen and relax eye muscles",
-    "sound": "assets/audio/relaxing_breathing.mp3",
+    "sound": "audio/relaxing_breathing.mp3",
     "benefits": [
       "Strengthens eye muscles",
       "Reduces eye strain",
@@ -455,7 +455,7 @@ final List<Map<String, dynamic>> therapiesList = [
     "type": "animation_figure_8",
     "description": "Improve visual tracking, focus",
     "svgPath": "assets/images/figure_eight_focus/figure_eight.png",
-    "sound": "assets/audio/relaxing_breathing.mp3",
+    "sound": "audio/relaxing_breathing.mp3",
     "benefits": ["Enhances visual tracking", "Improves focus and attention"],
     "instructions": [
       {
@@ -481,7 +481,7 @@ final List<Map<String, dynamic>> therapiesList = [
     "type": "image",
     "description": "Reduce eye strain, improve focus",
     "svgPath": "assets/images/distance_gazing/distance_gazing.png",
-    "sound": "assets/audio/relaxing_breathing.mp3",
+    "sound": "audio/relaxing_breathing.mp3",
     "benefits": [
       "Relieves digital eye strain",
       "Improves eye flexibility",
@@ -547,7 +547,7 @@ final List<Map<String, dynamic>> therapiesList = [
     "type": "image",
     "description": "Lubricate eyes, reduce dryness",
     "svgPath": "assets/images/blinking_exercise/blinking_eye.png",
-    "sound": "assets/audio/relaxing_breathing.mp3",
+    "sound": "audio/relaxing_breathing.mp3",
     "benefits": [
       "Lubricates the eyes",
       "Reduces dryness",
@@ -625,7 +625,7 @@ final List<Map<String, dynamic>> therapiesList = [
     "type": "image",
     "description": "Enhance eye flexibility, reduce strain",
     "svgPath": "assets/images/focus_shifting/focus_shifting.png",
-    "sound": "assets/audio/relaxing_breathing.mp3",
+    "sound": "audio/relaxing_breathing.mp3",
     "benefits": [
       "Improves eye focus and flexibility",
       "Reduces eye strain from close work"
