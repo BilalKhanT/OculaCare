@@ -1,21 +1,17 @@
-import 'package:animate_do/animate_do.dart';
 import 'package:cculacare/logic/detection_animation/detection_animation_cubit.dart';
 import 'package:cculacare/logic/detection_animation/detection_animation_state.dart';
+import 'package:cculacare/presentation/disease_detection/widgets/cstm_detection_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:lottie/lottie.dart';
-
 import '../../configs/global/app_globals.dart';
 import '../../configs/presentation/constants/colors.dart';
 import '../../configs/routes/route_names.dart';
-import '../../configs/utils/utils.dart';
 import '../../data/repositories/local/preferences/shared_prefs.dart';
 import '../../logic/detection/detection_cubit.dart';
 import '../../logic/detection/question_cubit.dart';
-import '../home/widgets/custom_widget.dart';
 import '../result/result_view.dart';
 import '../widgets/need_to_setup_profile_widget.dart';
 
@@ -32,7 +28,7 @@ class DiseaseDetectionScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: AppColors.screenBackground,
         title: Text(
-          'Disease Detection',
+          'Diagnose',
           style: TextStyle(
             color: Colors.black,
             fontFamily: 'MontserratMedium',
@@ -58,33 +54,14 @@ class DiseaseDetectionScreen extends StatelessWidget {
                         SizedBox(
                           height: 10.h,
                         ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        SizedBox(
-                          width: screenWidth,
-                          height: screenHeight / 5,
-                          child: Center(
-                            child: Padding(
-                              padding: const EdgeInsets.only(top: 20.0),
-                              child: FadeInUp(
-                                duration: const Duration(milliseconds: 600),
-                                child: Lottie.asset(
-                                  'assets/lotties/eye_scan.json',
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        customWidget(
-                          title: 'Capture Image',
+                        customDetectionBtnWidget(
+                          title: 'Check Your Eyes',
                           icon: SvgPicture.asset(
                             'assets/svgs/eye_scan.svg',
                             // ignore: deprecated_member_use
                             color: Colors.white,
                           ),
-                          text: "Capture Image for Disease\nDetection.",
+                          text: "Take photos, diagnose\ndisease get care tips.",
                           screenWidth: screenWidth,
                           onTap: () {
                             if (sharedPrefs.isProfileSetup) {
@@ -108,10 +85,10 @@ class DiseaseDetectionScreen extends StatelessWidget {
                           height: 20,
                         ),
                         Text(
-                          'Disease Results',
+                          'Diagnose History',
                           style: TextStyle(
                               fontFamily: 'MontserratMedium',
-                              fontSize: 24.sp,
+                              fontSize: screenWidth * 0.045,
                               color: AppColors.appColor,
                               fontWeight: FontWeight.w800),
                         ),
@@ -126,21 +103,6 @@ class DiseaseDetectionScreen extends StatelessWidget {
                             child: DiseaseResultView(),
                           ),
                         )
-                        // customWidget(
-                        //   title: 'Detection Results',
-                        //   icon: SvgPicture.asset(
-                        //     'assets/svgs/results.svg',
-                        //     // ignore: deprecated_member_use
-                        //     color: Colors.white,
-                        //   ),
-                        //   text: "View Disease Detection\nResults.",
-                        //   screenWidth: screenWidth,
-                        //   onTap: () {
-                        //     context.read<DetectionCubit>().loadDiseaseResults();
-                        //     context.push(RouteNames.resultRoute);
-                        //   },
-                        //   screenHeight: screenHeight,
-                        // ),
                       ],
                     ),
                   ),
