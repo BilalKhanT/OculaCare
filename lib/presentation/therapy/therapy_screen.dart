@@ -158,12 +158,15 @@ class TherapyScreen extends StatelessWidget {
               body: Column(
                 children: [
                   Expanded(
-                    child: Stack(children: [
-                      rive.RiveAnimation.asset(
-                        state.animationPath,
-                        fit: BoxFit.contain,
-                      ),
-                    ]),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: width * 0.1),
+                      child: Stack(children: [
+                        rive.RiveAnimation.asset(
+                          state.animationPath,
+                          fit: BoxFit.contain,
+                        ),
+                      ]),
+                    ),
                   ),
                   _buildInstructionsAndTimer(context, "Roll Your Eyes", width),
                 ],
