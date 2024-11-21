@@ -24,7 +24,7 @@ class MapView extends StatelessWidget {
       body: BlocBuilder<HospitalCubit, HospitalState>(
         builder: (context, state) {
           if (state is HospitalLoading) {
-            return const Center(child: DotLoader());
+            return const Center(child: DotLoader(loaderColor: AppColors.appColor,));
           } else if (state is HospitalError) {
             return Center(child: Text(state.message));
           } else if (state is HospitalLoaded) {
