@@ -1,17 +1,17 @@
-import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:bloc/bloc.dart';
+import 'package:audioplayers/audioplayers.dart';
+
 
 class MusicCubit extends Cubit<void> {
-  final AssetsAudioPlayer _audioPlayer = AssetsAudioPlayer();
+  final AudioPlayer _audioPlayer = AudioPlayer();
 
   MusicCubit() : super(null);
 
-  void playMusic(String soundPath) {
-    _audioPlayer.open(
-      Audio(soundPath),
-      autoStart: true,
-      loopMode: LoopMode.single,
-    );
+  Future<void> playMusic(String soundPath) async {
+    await _audioPlayer.setSource(AssetSource(soundPath));
+    await _audioPlayer.setVolume(0.1);
+    _audioPlayer.setReleaseMode(ReleaseMode.loop);
+    await _audioPlayer.resume();
   }
 
   void stopMusic() {
