@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:cculacare/logic/address_book/address_book_cubit.dart';
 import 'package:cculacare/logic/address_book/address_book_state.dart';
 import 'package:cculacare/presentation/patient_profile/widgets/address_tile.dart';
@@ -5,6 +6,7 @@ import 'package:cculacare/presentation/widgets/cstm_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lottie/lottie.dart';
 import '../../../configs/presentation/constants/colors.dart';
 import '../../../configs/routes/route_names.dart';
 import '../../../logic/location_cubit/location_cubit.dart';
@@ -45,7 +47,8 @@ class AddressBook extends StatelessWidget {
           builder: (context, state) {
             if (state is AddressBookLoaded) {
               return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 20.0),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 15.0, vertical: 20.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
@@ -77,17 +80,65 @@ class AddressBook extends StatelessWidget {
                   ],
                 ),
               );
-            }
-            else if (state is AddressBookLoading) {
+            } else if (state is AddressBookEmpty) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 15.0, vertical: 20.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          FadeIn(
+                            duration: const Duration(milliseconds: 600),
+                            child: Lottie.asset(
+                              'assets/lotties/require_profile.json',
+                              height: screenHeight * 0.35,
+                              width: screenHeight * 0.35,
+                            ),
+                          ),
+                          Center(
+                              child: Text(
+                            'Address Book is empty',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontFamily: 'MontserratMedium',
+                              fontWeight: FontWeight.w800,
+                              fontSize: screenWidth * 0.045,
+                            ),
+                          ))
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: screenHeight * 0.03,
+                    ),
+                    ButtonFlat(
+                      btnColor: AppColors.appColor,
+                      textColor: AppColors.whiteColor,
+                      onPress: () {
+                        context.read<LocationCubit>().setLocation();
+                        context.push(RouteNames.locationRoute, extra: true);
+                      },
+                      text: 'Add new address',
+                    ),
+                  ],
+                ),
+              );
+            } else if (state is AddressBookLoading) {
               return const Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  DotLoader(loaderColor: AppColors.appColor,),
+                  DotLoader(
+                    loaderColor: AppColors.appColor,
+                  ),
                 ],
               );
-            }
-            else if (state is AddressBookError) {
+            } else if (state is AddressBookError) {
               return Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -112,8 +163,7 @@ class AddressBook extends StatelessWidget {
                   ),
                 ],
               );
-            }
-            else {
+            } else {
               return const SizedBox.shrink();
             }
           },
