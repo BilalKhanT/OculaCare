@@ -398,122 +398,92 @@ class PatientProfileScreen extends StatelessWidget {
                     SizedBox(
                       height: screenHeight * 0.03,
                     ),
-                    FadeInLeft(
-                      duration: const Duration(milliseconds: 600),
-                      child: ProfileListTile(
-                        leading: SvgPicture.asset("assets/svgs/profileEmail.svg"),
-                        title: 'Email',
-                        value: patient.email!,
-                      ),
+                    ProfileListTile(
+                      leading: SvgPicture.asset("assets/svgs/profileEmail.svg"),
+                      title: 'Email',
+                      value: patient.email!,
                     ),
                     SizedBox(
                       height: screenHeight * 0.02,
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 8.w),
-                      child: FadeInLeft(
-                        duration: const Duration(milliseconds: 600),
-                        child: Divider(
-                          height: 0.2,
-                          color: Colors.grey.withOpacity(0.3),
-                        ),
+                      child: Divider(
+                        height: 0.2,
+                        color: Colors.grey.withOpacity(0.3),
                       ),
                     ),
                     SizedBox(
                       height: screenHeight * 0.02,
                     ),
-                    FadeInRight(
-                      duration: const Duration(milliseconds: 600),
-                      child: ProfileListTile(
-                        leading: SvgPicture.asset("assets/svgs/account.svg"),
-                        title: 'Gender',
-                        value: patient.gender!,
-                      ),
+                    ProfileListTile(
+                      leading: SvgPicture.asset("assets/svgs/account.svg"),
+                      title: 'Gender',
+                      value: patient.gender!,
                     ),
                     SizedBox(
                       height: screenHeight * 0.02,
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 8.w),
-                      child: FadeInRight(
-                        duration: const Duration(milliseconds: 600),
-                        child: Divider(
-                          height: 0.2,
-                          color: Colors.grey.withOpacity(0.3),
-                        ),
+                      child: Divider(
+                        height: 0.2,
+                        color: Colors.grey.withOpacity(0.3),
                       ),
                     ),
                     SizedBox(
                       height: screenHeight * 0.02,
                     ),
-                    FadeInLeft(
-                      duration: const Duration(milliseconds: 600),
-                      child: ProfileListTile(
-                        leading: SvgPicture.asset("assets/svgs/profileAge.svg"),
-                        title: 'Age',
-                        value: patient.age.toString(),
-                      ),
+                    ProfileListTile(
+                      leading: SvgPicture.asset("assets/svgs/profileAge.svg"),
+                      title: 'Age',
+                      value: patient.age.toString(),
                     ),
                     SizedBox(
                       height: screenHeight * 0.02,
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 8.w),
-                      child: FadeInLeft(
-                        duration: const Duration(milliseconds: 600),
-                        child: Divider(
-                          height: 0.2,
-                          color: Colors.grey.withOpacity(0.3),
-                        ),
+                      child: Divider(
+                        height: 0.2,
+                        color: Colors.grey.withOpacity(0.3),
                       ),
                     ),
                     SizedBox(
                       height: screenHeight * 0.02,
                     ),
-                    FadeInRight(
-                      duration: const Duration(milliseconds: 600),
-                      child: ProfileListTile(
-                        leading: SvgPicture.asset("assets/svgs/profilePhone.svg"),
-                        title: 'Contact',
-                        value: patient.contactNumber!,
-                      ),
+                    ProfileListTile(
+                      leading: SvgPicture.asset("assets/svgs/profilePhone.svg"),
+                      title: 'Contact',
+                      value: patient.contactNumber!,
                     ),
                     SizedBox(
                       height: screenHeight * 0.02,
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 8.w),
-                      child: FadeInRight(
-                        duration: const Duration(milliseconds: 600),
-                        child: Divider(
-                          height: 0.2,
-                          color: Colors.grey.withOpacity(0.3),
-                        ),
+                      child: Divider(
+                        height: 0.2,
+                        color: Colors.grey.withOpacity(0.3),
                       ),
                     ),
                     SizedBox(
                       height: screenHeight * 0.02,
                     ),
-                    FadeInLeft(
-                      duration: const Duration(milliseconds: 600),
-                      child: ProfileListTile(
-                        leading:
-                            SvgPicture.asset("assets/svgs/profileAddress.svg"),
-                        title: 'Address',
-                        value: patient.address!.locationName!,
-                      ),
+                    ProfileListTile(
+                      leading:
+                          SvgPicture.asset("assets/svgs/profileAddress.svg"),
+                      title: 'Address',
+                      value: patient.address!.locationName!,
                     ),
                     SizedBox(
                       height: screenHeight * 0.02,
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 8.w),
-                      child: FadeInLeft(
-                        duration: const Duration(milliseconds: 600),
-                        child: Divider(
-                          height: 0.2,
-                          color: Colors.grey.withOpacity(0.3),
-                        ),
+                      child: Divider(
+                        height: 0.2,
+                        color: Colors.grey.withOpacity(0.3),
                       ),
                     ),
                     SizedBox(
