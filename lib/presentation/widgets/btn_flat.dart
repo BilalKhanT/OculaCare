@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../configs/presentation/constants/colors.dart';
 
 class ButtonFlat extends StatelessWidget {
   final Color btnColor;

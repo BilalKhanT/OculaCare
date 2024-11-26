@@ -1,17 +1,15 @@
+import 'package:cculacare/logic/hospital_locator_cubit/bookmark_icon_state.dart';
 import 'package:flutter/material.dart';
-import 'package:cculacare/configs/presentation/constants/colors.dart';
-import 'package:cculacare/presentation/widgets/btn_flat.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import '../../../data/models/hospital_locator_model/hospital_bookmark_model.dart';
+import '../../../configs/presentation/constants/colors.dart';
 import '../../../data/models/hospital_locator_model/hospital_model.dart';
-import '../../../data/repositories/local/preferences/shared_prefs.dart';
-import '../../../logic/hospital_locator_cubit/hospital_locator_cubit.dart';
+import '../../../logic/hospital_locator_cubit/bookmark_icon_cubit.dart';
+import '../../widgets/btn_flat.dart';
 
 class HospitalInfoBottomSheet extends StatelessWidget {
   final Hospital hospital;
   final bool isBookmarked;
-  final VoidCallback onPressed; // Add this parameter
+  final VoidCallback onPressed;
 
   const HospitalInfoBottomSheet({
     Key? key,
@@ -50,126 +48,126 @@ class HospitalInfoBottomSheet extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    hospital.name,
-                    style: TextStyle(
-                      fontSize: height * 0.025,
-                      fontWeight: FontWeight.w700,
-                      color: AppColors.appColor,
-                      fontFamily: 'MontserratMedium',
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      hospital.name,
+                      style: TextStyle(
+                        fontSize: height * 0.025,
+                        fontWeight: FontWeight.w700,
+                        color: AppColors.appColor,
+                        fontFamily: 'MontserratMedium',
+                      ),
+                      maxLines: 2, // Limit to 2 lines
+                      overflow: TextOverflow.ellipsis,
                     ),
-                  ),
-                  SizedBox(height: height * 0.005),
-                  Text(
-                    "Eye Specialist • ★ 4.5",
-                    style: TextStyle(
-                      fontSize: height * 0.02,
-                      color: AppColors.textGrey,
-                      fontFamily: 'MontserratRegular',
+                    SizedBox(height: height * 0.005),
+                    Text(
+                      hospital.businessStatus == "OPERATIONAL"
+                          ? "Status: Open"
+                          : "Status: Closed",
+                      style: TextStyle(
+                        fontSize: height * 0.02,
+                        color: hospital.businessStatus == "OPERATIONAL"
+                            ? AppColors.lightGreen
+                            : AppColors.brightRed,
+                        fontFamily: 'MontserratRegular',
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              IconButton(
-                icon: SvgPicture.asset(
-                  isBookmarked ? 'assets/svgs/bookmark_filled.svg' : 'assets/svgs/bookmark_outlined.svg',
-                  height: height * 0.03,
-                  width: height * 0.03,
-                  color: isBookmarked ? AppColors.appColor : Colors.blue,
+                  ],
                 ),
-                onPressed: () {
-                  if (isBookmarked) {
-                    print("delete");
-                  } else {
-                    context.read<HospitalCubit>().addBookmark(hospital);
+              ),
+              BlocBuilder<BookmarkIconCubit, BookmarkIconState>(
+                builder: (context, state) {
+                  bool isBookmarked = false;
+                  if (state is BookmarkIconFilled) {
+                    isBookmarked = state.isBookmarked;
                   }
+                  return IconButton(
+                    icon: Icon(
+                      isBookmarked ? Icons.bookmark : Icons.bookmark_outline,
+                      color: isBookmarked ? AppColors.appColor : Colors.grey,
+                      size: height * 0.03,
+                    ),
+                    onPressed: () {
+                      context.read<BookmarkIconCubit>().toggleBookmark(hospital);
+                    },
+                  );
                 },
-              )
-
+              ),
             ],
           ),
           SizedBox(height: height * 0.02),
 
+          // Hospital Details
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 children: [
-                  Icon(Icons.location_on, color: AppColors.brightRed, size: height * 0.03),
+                  Icon(Icons.location_on,
+                      color: AppColors.brightRed, size: height * 0.03),
                   SizedBox(width: width * 0.02),
-                  Text(
-                    "${hospital.distance} m away",
-                    style: TextStyle(
-                      fontSize: height * 0.02,
-                      color: AppColors.textGrey,
-                      fontFamily: 'MontserratRegular',
+                  Expanded(
+                    child: Text(
+                      hospital.address,
+                      style: TextStyle(
+                        fontSize: height * 0.02,
+                        color: AppColors.textGrey,
+                        fontFamily: 'MontserratRegular',
+                      ),
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
                 ],
               ),
               SizedBox(height: height * 0.01),
-              Row(
-                children: [
-                  Icon(Icons.access_time, color: AppColors.lightGreen, size: height * 0.03),
-                  SizedBox(width: width * 0.02),
-                  Text(
-                    "Open: 9:00 AM - 6:00 PM",
-                    style: TextStyle(
-                      fontSize: height * 0.02,
-                      color: AppColors.textGrey,
-                      fontFamily: 'MontserratRegular',
+              if (hospital.rating != null) ...[
+                Row(
+                  children: [
+                    Icon(Icons.star, color: Colors.amber, size: height * 0.03),
+                    SizedBox(width: width * 0.02),
+                    Text(
+                      "Rating: ${hospital.rating} (${hospital.userRatingsTotal ?? 0} reviews)",
+                      style: TextStyle(
+                        fontSize: height * 0.02,
+                        color: AppColors.textGrey,
+                        fontFamily: 'MontserratRegular',
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(height: height * 0.01),
-              Row(
-                children: [
-                  Icon(Icons.local_hospital, color: AppColors.purple, size: height * 0.03),
-                  SizedBox(width: width * 0.02),
-                  Text(
-                    "Emergency Services Available",
-                    style: TextStyle(
-                      fontSize: height * 0.02,
-                      color: AppColors.textGrey,
-                      fontFamily: 'MontserratRegular',
-                    ),
-                  ),
-                ],
-              ),
+                  ],
+                ),
+              ],
             ],
           ),
-          SizedBox(height: height * 0.02),
+          SizedBox(height: height * 0.06),
 
-          // Action buttons
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10.0),
-              child: ButtonFlat(
-                btnColor: AppColors.appColor,
-                textColor: AppColors.whiteColor,
-                onPress: onPressed, // Use the onPressed callback here
-                text: "Start Navigation",
+          // Action Buttons
+          Row(
+            children: [
+              Expanded(
+                child: ButtonFlat(
+                  btnColor: AppColors.appColor,
+                  textColor: AppColors.whiteColor,
+                  onPress: onPressed,
+                  text: "Navigate",
+                ),
               ),
-            ),
-          ),
-          SizedBox(width: width * 0.02),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10.0),
-              child: ButtonFlat(
-                btnColor: Colors.grey[300]!,
-                textColor: Colors.black,
-                onPress: () {
-                  Navigator.pop(context);
-                },
-                text: "Close",
-
+              SizedBox(width: width * 0.02),
+              Expanded(
+                child: ButtonFlat(
+                  btnColor: Colors.grey[300]!,
+                  textColor: Colors.black,
+                  onPress: () {
+                    Navigator.pop(context);
+                  },
+                  text: "Close",
+                ),
               ),
-            ),
+            ],
           ),
         ],
       ),

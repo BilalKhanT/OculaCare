@@ -1,22 +1,21 @@
 import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:cculacare/configs/global/app_globals.dart';
+import 'package:cculacare/data/repositories/bookmark/bookmark_repo.dart';
 import 'package:cculacare/data/repositories/local/preferences/shared_prefs.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../data/models/address/address_model.dart';
-import '../../data/models/hospital_locator_model/hospital_bookmark_model.dart';
-import '../../data/models/hospital_locator_model/hospital_model.dart';
 import '../../data/repositories/hospital_locator_repo/hospital_locator_repo.dart';
 import 'hospital_locator_states.dart';
 
 class HospitalCubit extends Cubit<HospitalState> {
   HospitalCubit() : super(HospitalLoading());
 
-  final List<Hospital> hospitals = [];
-  final List<Bookmark> bookmarks = [];
   final HospitalRepository hospitalRepository = HospitalRepository();
+  final BookmarkRepository bookmarkRepository = BookmarkRepository();
+
   final TextEditingController destinationController = TextEditingController();
   final TextEditingController sourceController = TextEditingController();
   late GoogleMapController _mapController;
@@ -25,7 +24,10 @@ class HospitalCubit extends Cubit<HospitalState> {
     emit(HospitalLoading());
     try {
       if (hospital.isEmpty){
-        final hospital = await hospitalRepository.fetchHospitals();
+        await hospitalRepository.fetchHospitals();
+      }
+      if(bookmarks.isEmpty){
+        await bookmarkRepository.fetchBookmarks();
       }
       emit(HospitalLoaded(hospital));
     } on SocketException {
@@ -41,27 +43,15 @@ class HospitalCubit extends Cubit<HospitalState> {
     _mapController.setMapStyle(style);
   }
 
-  void addBookmark(Hospital hospital) async {
+  void endNavigation() {
     emit(HospitalLoading());
-    try {
-      print("Adding bookmark");
-      final email = sharedPrefs.email;
-      final bookmarkToAdd = Bookmark(email: email, hospitals: [hospital]);
-
-      final isSuccess = await hospitalRepository.addBookmark(bookmarkToAdd);
-
-      if (isSuccess) {
-        this.hospitals.add(hospital);
-        emit(HospitalBookmarkLoaded(bookmark));
-      } else {
-        emit(HospitalError('Failed to add bookmark: Server did not confirm addition.'));
-      }
-    } catch (e) {
-      emit(HospitalError('Failed to add bookmark: $e'));
+    try{
+      clearControllers();
+      emit(HospitalLoaded(hospital));
+    }catch (e){
+      emit(HospitalError("Oops! Something went Wrong"));
     }
   }
-
-
 
 
 

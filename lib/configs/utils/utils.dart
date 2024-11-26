@@ -11,8 +11,8 @@ abstract class AppUtils {
       type: ToastificationType.info,
       style: ToastificationStyle.flatColored,
       autoCloseDuration: const Duration(seconds: 3),
-      title: title,
-      description: description,
+      title: Text(title),
+      description: Text(description),
       alignment: Alignment.topRight,
       direction: TextDirection.ltr,
       icon: isError

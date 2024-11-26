@@ -1,19 +1,19 @@
 import 'package:bloc/bloc.dart';
+import 'package:cculacare/data/repositories/bookmark/bookmark_repo.dart';
 import '../../configs/global/app_globals.dart';
-import '../../data/repositories/hospital_locator_repo/hospital_locator_repo.dart';
 import 'bookmark_states.dart';
 
 class BookmarkCubit extends Cubit<BookmarkState> {
   BookmarkCubit() : super(BookmarkLoading());
 
-  final HospitalRepository hospitalRepository = HospitalRepository();
-
+  final BookmarkRepository bookmarkRepo = BookmarkRepository();
 
   void fetchBookmarks() async {
     emit(BookmarkLoading());
     try {
       if(bookmarks.isEmpty){
-        await hospitalRepository.fetchBookmarks();
+        bookmarks.clear();
+        await bookmarkRepo.fetchBookmarks();
       }
       emit(BookmarkLoaded(bookmarks));
     } catch (e) {
@@ -21,20 +21,20 @@ class BookmarkCubit extends Cubit<BookmarkState> {
     }
   }
 
-  void deleteBookmark(String placeId) async {
+  void deleteBookmark(String email, String placeId) async {
     emit(BookmarkLoading());
 
     try {
-      bool isDeleted = await hospitalRepository.deleteBookmark(placeId);
-
+      final bool isDeleted = await bookmarkRepo.deleteBookmark(email, placeId);
       if (isDeleted) {
-        bookmarks.removeWhere((bookmark) => bookmark.placeId == placeId);
-        emit(BookmarkLoaded(List.from(bookmarks)));
+        bookmarks.removeWhere((bookmark) => bookmark.placeId == placeId && bookmark.email == email);
+        emit(BookmarkLoaded(bookmarks));
+        print("Bookmark removed from global list and database.");
       } else {
-        emit(BookmarkError("Failed to delete the bookmark."));
+        emit(BookmarkError("Failed to delete bookmark from the database."));
       }
     } catch (e) {
-      emit(BookmarkError(e.toString()));
+      emit(BookmarkError("An error occurred while deleting the bookmark: $e"));
     }
   }
 

@@ -1,11 +1,12 @@
+import 'package:cculacare/data/repositories/local/preferences/shared_prefs.dart';
+import 'package:cculacare/presentation/bookmarks/widgets/cstm_bookmark_tile_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:cculacare/presentation/bookmarks/widgets/cstm_bookmark_tile_widget.dart';
 import 'package:shimmer/shimmer.dart';
+import '../../configs/global/app_globals.dart';
 import '../../configs/presentation/constants/colors.dart';
 import '../../logic/bookmark_cubit/bookmark_cubit.dart';
 import '../../logic/bookmark_cubit/bookmark_states.dart';
-import '../../../configs/global/app_globals.dart';
 
 class BookmarkView extends StatelessWidget {
   const BookmarkView({super.key});
@@ -18,8 +19,9 @@ class BookmarkView extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.screenBackground,
       appBar: AppBar(
-          backgroundColor: AppColors.screenBackground,
-          title: const Text('Bookmarks')),
+        backgroundColor: AppColors.screenBackground,
+        title: const Text('Bookmarks'),
+      ),
       body: BlocBuilder<BookmarkCubit, BookmarkState>(
         builder: (context, state) {
           if (state is BookmarkLoading) {
@@ -46,14 +48,15 @@ class BookmarkView extends StatelessWidget {
               child: ListView.builder(
                 itemCount: bookmarks.length,
                 itemBuilder: (context, index) {
-                  final hospital = bookmarks[index];
+                  final bookmark = bookmarks[index];
                   return CstmBookmarkTile(
-                    hospital: hospital,
+                    bookmark: bookmark,
                     onDelete: () {
-                      print('Delete ${hospital.name}');
+                      bookmarkCubit.deleteBookmark(sharedPrefs.email, bookmark.placeId);
                     },
                     onNavigate: () {
-                      print('Navigate to ${hospital.name}');
+                      print('Navigate to ${bookmark.name}');
+                      // Add navigation logic here
                     },
                   );
                 },

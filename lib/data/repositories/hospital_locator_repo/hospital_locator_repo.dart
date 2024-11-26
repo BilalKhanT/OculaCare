@@ -3,100 +3,50 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../../../configs/global/app_globals.dart';
 import '../../models/address/address_model.dart';
-import '../../models/hospital_locator_model/helper_model/hospital_helper_model.dart';
-import '../../models/hospital_locator_model/hospital_bookmark_model.dart';
 import '../../models/hospital_locator_model/hospital_model.dart';
 import '../local/preferences/shared_prefs.dart';
 
 class HospitalRepository {
   Address? address = sharedPrefs.getAddress();
-  final String apiUrl = '$ipServer/api/bookmark';
-  final String email = sharedPrefs.email;
+
 
   Future<void> fetchHospitals() async {
     final double? lat = address?.lat;
     final double? long = address?.long;
 
     if (lat == null || long == null) {
+      print('Error: Latitude and Longitude are required.');
       return;
     }
-
     final String apiUrl =
-        'https://us1.locationiq.com/v1/nearby.php?key=pk.fb821087f33ba23b0d4c001665006bc0&lat=$lat&lon=$long&tag=hospital&radius=9000&format=json';
+        'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=$lat,$long&radius=5000&type=hospital&keyword=eye%20hospital&key=AIzaSyDHNB_Azk_lm5DKrrtWxO5xlZ5jPPClisI';
 
     try {
-      print("hospital api call");
+      print("Fetching hospital data...");
       final response = await http.get(Uri.parse(apiUrl));
 
       if (response.statusCode == 200) {
-        List<dynamic> jsonData = json.decode(response.body);
-        hospital = jsonData.map((hospitalData) => Hospital.fromJson(hospitalData)).toList();
-        print('Hospitals loaded: ${hospital.length}');
-      } else {
-        print('Error: Failed to fetch hospitals, status code: ${response.statusCode}');
-      }
-    } catch (error) {
-      print('Error fetching hospitals: $error');
-    }
-  }
+        final Map<String, dynamic> jsonResponse = json.decode(response.body);
 
-  Future<void> fetchBookmarks() async {
-      try {
-        final response = await http.get(Uri.parse('$apiUrl/$email'));
-        if (response.statusCode == 200) {
-          final List<dynamic> data = json.decode(response.body);
-          bookmarks = data.map((hospitalData) => HospitalHelper.fromJson(hospitalData)).toList();
-          print('Bookmarks loaded: ${bookmark.length}');
+        if (jsonResponse['results'] != null) {
+          hospital.clear();
+          List<dynamic> results = jsonResponse['results'];
+          hospital = results.map((hospitalJson) {
+            return Hospital.fromJson(hospitalJson);
+          }).toList();
+
+          print("Loaded ${hospital.length} hospitals.");
         } else {
-          print('Failed to fetch bookmarks. Status code: ${response.statusCode}');
-          bookmark = [];
+          print("No hospital data found.");
         }
-      } catch (e) {
-        print('Error occurred while fetching bookmarks: $e');
-        bookmark = [];
-      }
-
-  }
-
-  Future<bool> addBookmark(Bookmark bookmark) async {
-    try {
-      final response = await http.post(
-        Uri.parse("$apiUrl/add"),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: jsonEncode(bookmark.toJson()),
-      );
-
-      print(response.statusCode);
-      if (response.statusCode == 201 || response.statusCode == 200) {
-        return true;
-      } else if (response.statusCode == 404) {
-        return false;
       } else {
-        return false;
+        print(
+            "Error: Failed to fetch hospital data. Status code: ${response.statusCode}");
       }
     } catch (error) {
-      return false;
+      print("Error fetching hospital data: $error");
     }
   }
-
-
-  Future<bool> deleteBookmark(String placeId) async {
-    try {
-      final response = await http.delete(Uri.parse('$apiUrl/delete/$email/$placeId'));
-      if (response.statusCode == 200) {
-        return true;
-      } else {
-        print('Failed to delete bookmark: ${response.statusCode}');
-        return false;
-      }
-    } catch (e) {
-      throw Exception('Error occurred while deleting bookmark: $e');
-    }
-  }
-
-
 
   Future<List<LatLng>> getDirections(double sourceLat, double sourceLong, double destinationLat, double destinationLong, String mode) async {
     const String accessToken = 'pk.eyJ1IjoiYXdhaXN1cnJlaG1hbiIsImEiOiJjbTJoamtkbXcwYm9lMmtzYWduYXk2N3RqIn0.ctzTZGNR4piVoiCGNb-lew';

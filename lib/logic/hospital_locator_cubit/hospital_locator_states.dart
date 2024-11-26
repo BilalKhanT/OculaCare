@@ -1,7 +1,5 @@
 import 'package:equatable/equatable.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-
-import '../../data/models/hospital_locator_model/hospital_bookmark_model.dart';
 import '../../data/models/hospital_locator_model/hospital_model.dart';
 
 abstract class HospitalState extends Equatable {
@@ -33,9 +31,9 @@ class HospitalNavigationStarted extends HospitalState {
 }
 
 class HospitalBookmarkLoaded extends HospitalState {
-  final List<Bookmark> bookmarks;
-
-  HospitalBookmarkLoaded(this.bookmarks);
+  // final List<Bookmark> bookmarks;
+  //
+  // HospitalBookmarkLoaded(this.bookmarks);
 }
 
 

@@ -1,5 +1,5 @@
+import 'package:cculacare/data/models/bookmark/bookmark_model.dart';
 import 'package:equatable/equatable.dart';
-import '../../data/models/hospital_locator_model/helper_model/hospital_helper_model.dart';
 
 abstract class BookmarkState extends Equatable {
   @override
@@ -15,7 +15,7 @@ class BookmarkError extends BookmarkState {
 }
 
 class BookmarkLoaded extends BookmarkState {
-  final List<HospitalHelper> bookmark;
+  final List<Bookmark> bookmark;
 
   BookmarkLoaded(this.bookmark);
 }
