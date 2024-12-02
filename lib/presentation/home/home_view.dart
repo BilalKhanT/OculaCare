@@ -322,11 +322,18 @@ class HomeScreen extends StatelessWidget {
                                 const EdgeInsets.symmetric(horizontal: 20.0),
                             child: GestureDetector(
                               onTap: () {
-                                AppUtils.showToast(
-                                    context,
-                                    'Feature under development',
-                                    'This feature will be available in future versions',
-                                    false);
+                                if (!sharedPrefs.isProfileSetup) {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return const Dialog(
+                                          child: NeedToSetupProfileWidget());
+                                    },
+                                  );
+                                  return;
+                                } else {
+                                  context.push(RouteNames.hospitalLocatorRoute);
+                                }
                               },
                               child: Container(
                                 width: MediaQuery.sizeOf(context).width * 0.9,
