@@ -1,5 +1,4 @@
 import 'package:animate_do/animate_do.dart';
-import 'package:cculacare/logic/hospital_locator_cubit/hospital_locator_cubit.dart';
 import 'package:cculacare/logic/more_animate/more_cubit.dart';
 import 'package:cculacare/logic/more_animate/more_state.dart';
 import 'package:flutter/material.dart';
@@ -8,11 +7,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import '../../configs/global/app_globals.dart';
 import '../../configs/presentation/constants/colors.dart';
 import '../../configs/routes/route_names.dart';
-import '../../configs/utils/utils.dart';
 import '../../data/repositories/local/preferences/shared_prefs.dart';
 import '../../logic/address_book/address_book_cubit.dart';
 import '../../logic/detection/detection_cubit.dart';

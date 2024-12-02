@@ -8,7 +8,6 @@ import 'package:cculacare/logic/location_cubit/current_loc_cubit.dart';
 import 'package:cculacare/logic/location_cubit/current_loc_state.dart';
 import 'package:cculacare/presentation/home/widgets/current_add_tile.dart';
 import 'package:cculacare/presentation/home/widgets/grid_btn_widget.dart';
-import 'package:cculacare/presentation/widgets/btn_flat.dart';
 import 'package:cculacare/presentation/widgets/cstm_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -487,11 +486,7 @@ class HomeScreen extends StatelessWidget {
                                       ),
                                       GridButtonWidget(
                                         onTap: () {
-                                          AppUtils.showToast(
-                                              context,
-                                              'Feature Under Development',
-                                              'Hold on as we build this feature',
-                                              false);
+                                          context.push(RouteNames.hospitalLocatorRoute);
                                         },
                                         iconData: "assets/svgs/hospital.svg",
                                         constraints: constraints,
@@ -537,6 +532,8 @@ class HomeScreen extends StatelessWidget {
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 15.0),
                             child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
                                   'Vision & Wellness',
@@ -549,23 +546,41 @@ class HomeScreen extends StatelessWidget {
                                   ),
                                 ),
                                 SizedBox(width: screenWidth * 0.02,),
-                                Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(100),
-                                    color:
-                                        Colors.grey,
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: SvgPicture.asset(
-                                      'assets/svgs/leaflet.svg',
-                                      height: screenHeight * 0.018,
-                                      width: screenHeight * 0.018,
-                                      // ignore: deprecated_member_use
-                                      color: AppColors.whiteColor,
+                                InkWell(
+                                  onTap: () {
+                                    context
+                                        .read<PDFCubit>()
+                                        .fetchAndInitializePDFList();
+                                    context.push(RouteNames.pdfViewRoute);
+                                  },
+                                  child: Text(
+                                    'View more',
+                                    style: TextStyle(
+                                      fontFamily: 'MontserratMedium',
+                                      fontSize: screenWidth * 0.04,
+                                      fontWeight: FontWeight.w800,
+                                      color: AppColors.appColor,
+                                      letterSpacing: 0.5,
                                     ),
                                   ),
                                 ),
+                                // Container(
+                                //   decoration: BoxDecoration(
+                                //     borderRadius: BorderRadius.circular(100),
+                                //     color:
+                                //         Colors.grey,
+                                //   ),
+                                //   child: Padding(
+                                //     padding: const EdgeInsets.all(8.0),
+                                //     child: SvgPicture.asset(
+                                //       'assets/svgs/leaflet.svg',
+                                //       height: screenHeight * 0.018,
+                                //       width: screenHeight * 0.018,
+                                //       // ignore: deprecated_member_use
+                                //       color: AppColors.whiteColor,
+                                //     ),
+                                //   ),
+                                // ),
                               ],
                             ),
                           ),
