@@ -69,6 +69,8 @@ class MatchColorGameScreen extends StatelessWidget {
                       context, screenHeight, screenWidth);
                 } else if (state is MatchColorGameLoading) {
                   return Container(
+                    height: screenHeight,
+                    width: screenWidth,
                     color: AppColors.screenBackground,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
