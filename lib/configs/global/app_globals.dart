@@ -7,7 +7,7 @@ import '../../data/models/tests/test_result_model.dart';
 import '../../data/models/therapy/therapy_results_model.dart';
 
 class AppGlobals {}
-String ipServer = dotenv.env['SERVER_IP'] ?? '';
+String ipServer = dotenv.env['LOCAL_IP'] ?? '';
 String flask = dotenv.env['FLASK'] ?? '';
 List<DiseaseResultModel> globalResults = [];
 List<TherapyModel> globalTherapies = [];

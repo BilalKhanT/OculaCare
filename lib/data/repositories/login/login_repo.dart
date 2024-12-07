@@ -21,6 +21,7 @@ class LoginRepository {
 
   Future<bool> updatePassword(String email, String newPassword) async {
     try {
+      print(email);
       var url = Uri.parse('$ipServer/api/patients/update-password');
       var response = await http.post(
         url,
@@ -30,6 +31,7 @@ class LoginRepository {
           'newPassword': newPassword.trim(),
         }),
       );
+      print(response.body);
       return response.statusCode == 200;
     } catch (e) {
       log('$e');

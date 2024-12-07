@@ -137,8 +137,9 @@ class OtpCubit extends Cubit<OtpState> {
     }
   }
 
-  bool verifyOtp() {
+  bool verifyOtp(String email) {
     if (userOTP == verificationOTP) {
+      sharedPrefs.email = email;
       return true;
     } else {
       return false;

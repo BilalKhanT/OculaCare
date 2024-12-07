@@ -546,7 +546,7 @@ class HomeScreen extends StatelessWidget {
                                   'Vision & Wellness',
                                   style: TextStyle(
                                     fontFamily: 'MontserratMedium',
-                                    fontSize: screenWidth * 0.06,
+                                    fontSize: screenWidth * 0.05,
                                     fontWeight: FontWeight.w800,
                                     color: AppColors.textPrimary,
                                     letterSpacing: 0.5,
@@ -564,30 +564,13 @@ class HomeScreen extends StatelessWidget {
                                     'View more',
                                     style: TextStyle(
                                       fontFamily: 'MontserratMedium',
-                                      fontSize: screenWidth * 0.04,
+                                      fontSize: screenWidth * 0.03,
                                       fontWeight: FontWeight.w800,
                                       color: AppColors.appColor,
                                       letterSpacing: 0.5,
                                     ),
                                   ),
                                 ),
-                                // Container(
-                                //   decoration: BoxDecoration(
-                                //     borderRadius: BorderRadius.circular(100),
-                                //     color:
-                                //         Colors.grey,
-                                //   ),
-                                //   child: Padding(
-                                //     padding: const EdgeInsets.all(8.0),
-                                //     child: SvgPicture.asset(
-                                //       'assets/svgs/leaflet.svg',
-                                //       height: screenHeight * 0.018,
-                                //       width: screenHeight * 0.018,
-                                //       // ignore: deprecated_member_use
-                                //       color: AppColors.whiteColor,
-                                //     ),
-                                //   ),
-                                // ),
                               ],
                             ),
                           ),
