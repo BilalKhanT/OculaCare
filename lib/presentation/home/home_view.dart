@@ -71,8 +71,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ],
                 );
-              }
-              else if (state is CurrentLocationLoaded) {
+              } else if (state is CurrentLocationLoaded) {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
@@ -105,7 +104,9 @@ class HomeScreen extends StatelessWidget {
                     ),
                     SizedBox(height: screenHeight * 0.02),
                     GestureDetector(
-                      onTap: () => context.read<CurrentLocationCubit>().getCurrentLocation(),
+                      onTap: () => context
+                          .read<CurrentLocationCubit>()
+                          .getCurrentLocation(),
                       child: Row(
                         children: <Widget>[
                           const Icon(
@@ -156,13 +157,11 @@ class HomeScreen extends StatelessWidget {
                     //     text: 'Confirm location'),
                   ],
                 );
-              }
-              else {
+              } else {
                 return const SizedBox.shrink();
               }
             },
           ),
-
         );
       },
       isScrollControlled: true,
@@ -341,7 +340,8 @@ class HomeScreen extends StatelessWidget {
                                   color: Colors.white,
                                   boxShadow: [
                                     BoxShadow(
-                                      color: AppColors.textPrimary.withOpacity(0.3),
+                                      color: AppColors.textPrimary
+                                          .withOpacity(0.3),
                                       spreadRadius: 1,
                                       blurRadius: 0.5,
                                       offset: const Offset(0, 0),
@@ -360,42 +360,31 @@ class HomeScreen extends StatelessWidget {
                                           color: AppColors.textSecondary,
                                         ),
                                         Expanded(
-                                            child: TextFormField(
-                                          readOnly: true,
-                                          decoration: InputDecoration(
-                                            fillColor: Colors.white,
-                                            filled: true,
-                                            hintStyle: context.appTheme
-                                                .textTheme.labelMedium
-                                                ?.copyWith(
-                                                    fontFamily:
-                                                        'MontserratMedium',
-                                                    color:
-                                                        Colors.grey.shade400,
-                                                    fontSize:
-                                                        MediaQuery.sizeOf(
-                                                                    context)
-                                                                .width *
-                                                            0.04),
-                                            hintText: 'Search for hospital',
-                                            border: InputBorder.none,
-                                            contentPadding: EdgeInsets.only(
-                                              top: MediaQuery.sizeOf(context)
-                                                      .height *
-                                                  0.015,
-                                              left: 20.w,
-                                              bottom:
-                                                  MediaQuery.sizeOf(context)
-                                                          .height *
-                                                      0.015,
-                                            ),
-                                          ),
+                                            child: GestureDetector(
+                                          onTap: () {
+                                            if (!sharedPrefs.isProfileSetup) {
+                                              showDialog(
+                                                context: context,
+                                                builder: (context) {
+                                                  return const Dialog(
+                                                      child:
+                                                          NeedToSetupProfileWidget());
+                                                },
+                                              );
+                                              return;
+                                            } else {
+                                              context.push(RouteNames
+                                                  .hospitalLocatorRoute);
+                                            }
+                                          },
+                                          child: Text('      Search for hospital',
                                           style: TextStyle(
-                                            fontFamily: 'MontserratMedium',
-                                            fontSize: screenWidth * 0.035,
-                                            fontWeight: FontWeight.w800,
-                                            color: AppColors.appColor,
-                                          ),
+                                            fontFamily: 'Montserrat',
+                                            fontSize: screenWidth * 0.04,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.grey.shade500,
+                                            letterSpacing: 0.5,
+                                          ),),
                                         )),
                                         Padding(
                                           padding: EdgeInsets.all(15.h),
@@ -449,11 +438,10 @@ class HomeScreen extends StatelessWidget {
                                             context
                                                 .read<QuestionCubit>()
                                                 .startQuestionnaire();
-                                            context.push(
-                                                RouteNames.questionRoute);
+                                            context
+                                                .push(RouteNames.questionRoute);
                                           },
-                                          iconData:
-                                              "assets/svgs/eye_scan.svg",
+                                          iconData: "assets/svgs/eye_scan.svg",
                                           constraints: constraints,
                                           title: "Fast Way",
                                           subtitle: "To Detect",
@@ -485,23 +473,22 @@ class HomeScreen extends StatelessWidget {
                                         title: "Tests",
                                         subtitle: 'Vision-Color',
                                         color: const Color(0xFF59AFCC),
-                                        colorSecondary:
-                                            const Color(0xFF357C92),
+                                        colorSecondary: const Color(0xFF357C92),
                                       ),
                                       SizedBox(
                                         width: screenHeight * 0.025,
                                       ),
                                       GridButtonWidget(
                                         onTap: () {
-                                          context.push(RouteNames.hospitalLocatorRoute);
+                                          context.push(
+                                              RouteNames.hospitalLocatorRoute);
                                         },
                                         iconData: "assets/svgs/hospital.svg",
                                         constraints: constraints,
                                         title: "Hospital",
                                         subtitle: "Explore",
                                         color: const Color(0xFFF683A2),
-                                        colorSecondary:
-                                            const Color(0xFFCF617F),
+                                        colorSecondary: const Color(0xFFCF617F),
                                       ),
                                       SizedBox(
                                         width: screenHeight * 0.025,
@@ -514,8 +501,8 @@ class HomeScreen extends StatelessWidget {
                                             context
                                                 .read<PDFCubit>()
                                                 .fetchAndInitializePDFList();
-                                            context.push(
-                                                RouteNames.pdfViewRoute);
+                                            context
+                                                .push(RouteNames.pdfViewRoute);
                                           },
                                           constraints: constraints,
                                           iconData: 'assets/svgs/leaflet.svg',
@@ -552,7 +539,9 @@ class HomeScreen extends StatelessWidget {
                                     letterSpacing: 0.5,
                                   ),
                                 ),
-                                SizedBox(width: screenWidth * 0.02,),
+                                SizedBox(
+                                  width: screenWidth * 0.02,
+                                ),
                                 InkWell(
                                   onTap: () {
                                     context
@@ -619,8 +608,8 @@ class HomeScreen extends StatelessWidget {
                                           color: Colors.transparent,
                                           boxShadow: [
                                             BoxShadow(
-                                              color: Colors.grey
-                                                  .withOpacity(0.5),
+                                              color:
+                                                  Colors.grey.withOpacity(0.5),
                                               spreadRadius: 2,
                                               blurRadius: 8,
                                               offset: const Offset(0, 3),
@@ -674,8 +663,7 @@ class HomeScreen extends StatelessWidget {
                                         color: Colors.transparent,
                                         boxShadow: [
                                           BoxShadow(
-                                            color:
-                                                Colors.grey.withOpacity(0.5),
+                                            color: Colors.grey.withOpacity(0.5),
                                             spreadRadius: 2,
                                             blurRadius: 8,
                                             offset: const Offset(0, 3),
@@ -730,8 +718,7 @@ class HomeScreen extends StatelessWidget {
                                         color: Colors.transparent,
                                         boxShadow: [
                                           BoxShadow(
-                                            color:
-                                                Colors.grey.withOpacity(0.5),
+                                            color: Colors.grey.withOpacity(0.5),
                                             spreadRadius: 2,
                                             blurRadius: 8,
                                             offset: const Offset(0, 3),
@@ -787,8 +774,7 @@ class HomeScreen extends StatelessWidget {
                                         color: Colors.transparent,
                                         boxShadow: [
                                           BoxShadow(
-                                            color:
-                                                Colors.blue.withOpacity(0.5),
+                                            color: Colors.blue.withOpacity(0.5),
                                             spreadRadius: 2,
                                             blurRadius: 8,
                                             offset: const Offset(0, 3),
