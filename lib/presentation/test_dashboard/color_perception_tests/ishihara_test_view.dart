@@ -52,26 +52,31 @@ class IshiharaScreen extends StatelessWidget {
         body: BlocBuilder<IshiharaCubit, IshiharaState>(
           builder: (context, state) {
             if (state.loading) {
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const DotLoader(
-                    loaderColor: AppColors.appColor,
-                  ),
-                  SizedBox(
-                    height: screenHeight * 0.1,
-                  ),
-                  Text(
-                    'Analysing, please wait.',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: AppColors.appColor,
-                      fontFamily: 'MontserratMedium',
-                      fontWeight: FontWeight.w800,
-                      fontSize: screenWidth * 0.05,
+              return Container(
+                height: screenHeight,
+                width: screenWidth,
+                color: AppColors.screenBackground,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const DotLoader(
+                      loaderColor: AppColors.appColor,
                     ),
-                  ),
-                ],
+                    SizedBox(
+                      height: screenHeight * 0.1,
+                    ),
+                    Text(
+                      'Analysing, please wait.',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: AppColors.appColor,
+                        fontFamily: 'MontserratMedium',
+                        fontWeight: FontWeight.w800,
+                        fontSize: screenWidth * 0.05,
+                      ),
+                    ),
+                  ],
+                ),
               );
             } else if (state.testCompleted) {
               return SingleChildScrollView(
