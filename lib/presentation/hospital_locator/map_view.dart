@@ -18,6 +18,7 @@ class MapView extends StatelessWidget {
     context.read<BookmarkCubit>().fetchBookmarks();
 
     return Scaffold(
+      backgroundColor: AppColors.screenBackground,
       body: BlocBuilder<HospitalCubit, HospitalState>(
         builder: (context, state) {
           if (state is HospitalLoading) {
