@@ -17,14 +17,18 @@ class HospitalError extends HospitalState {
 
 class HospitalLoaded extends HospitalState {
   final List<Hospital> hospital;
+  final double lat;
+  final double long;
 
-  HospitalLoaded(this.hospital);
+  HospitalLoaded(this.hospital, this.lat, this.long);
 }
 
 class HospitalNavigationStarted extends HospitalState {
   final List<LatLng> polylineCoordinates;
+  final double lat;
+  final double long;
 
-  HospitalNavigationStarted(this.polylineCoordinates);
+  HospitalNavigationStarted(this.polylineCoordinates, this.lat, this.long);
 
   @override
   List<Object> get props => [polylineCoordinates];

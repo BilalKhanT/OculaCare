@@ -1,23 +1,17 @@
-import 'package:cculacare/logic/hospital_locator_cubit/bookmark_icon_state.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import '../../../configs/presentation/constants/colors.dart';
-import '../../../data/models/hospital_locator_model/hospital_model.dart';
-import '../../../logic/hospital_locator_cubit/bookmark_icon_cubit.dart';
+import '../../../data/models/bookmark/bookmark_model.dart';
 
 
-class HospitalInfoBottomSheet extends StatelessWidget {
-  final Hospital hospital;
-  final bool isBookmarked;
+class BookmarkInfoBottomSheet extends StatelessWidget {
+  final Bookmark bookmark;
   final VoidCallback onPressed;
   final VoidCallback onStart;
 
-  const HospitalInfoBottomSheet({
+  const BookmarkInfoBottomSheet({
     Key? key,
-    required this.hospital,
-    required this.isBookmarked,
+    required this.bookmark,
     required this.onPressed,
     required this.onStart,
   }) : super(key: key);
@@ -57,12 +51,12 @@ class HospitalInfoBottomSheet extends StatelessWidget {
         children: [
           Center(
             child: Container(
-              height: height * 0.004,
-              width: width * 0.1,
-            decoration: BoxDecoration(
-            color: AppColors.textGrey,
-            borderRadius: const BorderRadius.all(Radius.circular(25)),
-          )
+                height: height * 0.004,
+                width: width * 0.1,
+                decoration: BoxDecoration(
+                  color: AppColors.textGrey,
+                  borderRadius: const BorderRadius.all(Radius.circular(25)),
+                )
             ),
           ),
           Row(
@@ -91,27 +85,27 @@ class HospitalInfoBottomSheet extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      hospital.name,
-                      style: TextStyle(
-                        fontSize: height * 0.022,
-                        fontWeight: FontWeight.w700,
-                        color: AppColors.textPrimary,
-                        fontFamily: 'MontserratMedium',
-                      ),
-                      maxLines: 3, // Limit to 2 lines
-                      overflow: TextOverflow.ellipsis,
-                      textAlign: TextAlign.left
+                        bookmark.name,
+                        style: TextStyle(
+                          fontSize: height * 0.022,
+                          fontWeight: FontWeight.w700,
+                          color: AppColors.textPrimary,
+                          fontFamily: 'MontserratMedium',
+                        ),
+                        maxLines: 3, // Limit to 2 lines
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.left
                     ),
                     SizedBox(height: height * 0.005),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Text(hospital.userRatingsTotal.toString(),
+                        Text(bookmark.userRatingsTotal.toString(),
                           style: TextStyle(
-                                 fontSize: height * 0.018,
-                                 color: AppColors.textPrimary,
-                                 fontFamily: 'MontserratRegular',
-                              ),
+                            fontSize: height * 0.018,
+                            color: AppColors.textPrimary,
+                            fontFamily: 'MontserratRegular',
+                          ),
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -119,7 +113,7 @@ class HospitalInfoBottomSheet extends StatelessWidget {
                             5,
                                 (index) => Icon(
                               Icons.star,
-                              color: index <= hospital.rating!.round() ? AppColors.orange : AppColors.secondaryText,
+                              color: index <= bookmark.rating!.round() ? AppColors.orange : AppColors.secondaryText,
                               size: 28,
                             ),
                           ),
@@ -139,28 +133,17 @@ class HospitalInfoBottomSheet extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Text(
-                      hospital.address,
+                      bookmark.address,
                       style: TextStyle(
                         fontSize: height * 0.02,
                         color: AppColors.textGrey,
                         fontFamily: 'MontserratRegular',
                       ),
-                      maxLines: 2,
+                      maxLines: 3,
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
                 ],
-              ),
-              SizedBox(height: height * 0.01),
-              Text(
-                hospital.businessStatus == "OPERATIONAL" ? "Open" : "Closed",
-                style: TextStyle(
-                  fontSize: height * 0.02,
-                  color: hospital.businessStatus == "OPERATIONAL" ? AppColors.contentColorGreen : AppColors.brightRed  ,
-                  fontFamily: 'MontserratRegular',
-                ),
-                maxLines: 3,
-                overflow: TextOverflow.ellipsis,
               ),
             ],
           ),
@@ -180,7 +163,7 @@ class HospitalInfoBottomSheet extends StatelessWidget {
                 ),
                 child: Center(
                   child: InkWell(
-                    onTap: onPressed,
+                      onTap: onPressed,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -230,49 +213,6 @@ class HospitalInfoBottomSheet extends StatelessWidget {
                         ],
                       )
                   ),
-                ),
-              ),
-              SizedBox(width: width * 0.02),
-              Container(
-                height: height * 0.05,
-                width: width * 0.26,
-                decoration: BoxDecoration(
-                  color: AppColors.screenBackground,
-                  borderRadius: const BorderRadius.all(Radius.circular(100)),
-                  border: Border.all(
-                    color: Colors.blue,
-                    width: 2.0,
-                  ),
-                ),
-                child: BlocBuilder<BookmarkIconCubit, BookmarkIconState>(
-                  builder: (context, state) {
-                    bool isBookmarked = false;
-                    if (state is BookmarkIconFilled) {
-                      isBookmarked = state.isBookmarked;
-                    }
-                    return InkWell(
-                        onTap: (){
-                          context.read<BookmarkIconCubit>().toggleBookmark(hospital);
-                        },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Icon(isBookmarked ? Icons.bookmark : Icons.bookmark_outline,
-                              color: isBookmarked ? Colors.blue : Colors.grey,
-                              size: height * 0.02,),
-                            SizedBox(width: width * 0.01,),
-                            Text(isBookmarked ? "Remove" : "Save",
-                              style: TextStyle(
-                                fontSize: height * 0.013,
-                                color: AppColors.textPrimary,
-                                fontFamily: 'MontserratRegular',
-                              ),
-                            ),
-                          ],
-                        )
-                    );
-                  },
                 ),
               ),
             ],

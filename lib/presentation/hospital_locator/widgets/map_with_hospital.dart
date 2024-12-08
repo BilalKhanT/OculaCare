@@ -1,73 +1,146 @@
-import 'package:cculacare/presentation/hospital_locator/widgets/search_bottom_sheet.dart';
+import 'package:cculacare/configs/routes/router.dart';
+import 'package:cculacare/data/models/address/address_model.dart';
+import 'package:cculacare/presentation/hospital_locator/widgets/cstm_searchbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../../configs/global/app_globals.dart';
 import '../../../configs/presentation/constants/colors.dart';
 import '../../../data/models/hospital_locator_model/hospital_model.dart';
 import '../../../data/repositories/local/preferences/shared_prefs.dart';
+import '../../../logic/hospital_locator_cubit/Search_visibility_cubit.dart';
 import '../../../logic/hospital_locator_cubit/bookmark_icon_cubit.dart';
 import '../../../logic/hospital_locator_cubit/hospital_locator_cubit.dart';
+import '../../../logic/hospital_locator_cubit/hospital_locator_states.dart';
+import '../../../logic/hospital_locator_cubit/search_visibility_state.dart';
 import 'hospital_info_bottom_model.dart';
 
 class MapWithHospitalsWidget extends StatelessWidget {
   final List<Hospital> hospitals;
   final HospitalCubit cubit;
+  final double lat;
+  final double long;
 
   const MapWithHospitalsWidget({
     Key? key,
     required this.hospitals,
     required this.cubit,
+    required this.lat,
+    required this.long,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final address = sharedPrefs.getAddress();
-    final double? lat = address?.lat;
-    final double? long = address?.long;
-
-    if (lat == null || long == null) {
-      return const Center(child: Text("User location not found."));
-    }
-
-    Set<Marker> markers = _buildMarkers(context, hospitals, cubit, lat, long);
 
     return Stack(
       children: [
         GoogleMap(
-          initialCameraPosition:
-              CameraPosition(target: LatLng(lat, long), zoom: 16),
+          initialCameraPosition: CameraPosition(target: LatLng(lat, long), zoom: 16),
           onMapCreated: cubit.onMapCreated,
-          markers: markers,
+          markers: _buildMarkers(context, hospitals, cubit, lat, long),
         ),
         Positioned(
           top: 40,
-          left: 15,
-          child: _buildCircularButton(
-            icon: Icons.arrow_back_ios_new,
-            onPressed: () {
-              cubit.clearControllers();
-              Navigator.pop(context);
-            },
-          ),
-        ),
-        Positioned(
-          top: 40,
-          right: 15,
-          child: _buildCircularButton(
-            icon: Icons.search,
-            onPressed: () {
-              cubit.initializeSourceWithUserLocation();
-              _showSearchBottomSheet(context, cubit);
-            },
+          left: 0,
+          right: 0,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              BlocBuilder<SearchVisibilityCubit, SearchVisibilityState>(
+                builder: (context, state) {
+                  return CustomSearchBar(
+                    controller: context.read<SearchVisibilityCubit>().searchQueryController,
+                    hintText: "Search Hospitals",
+                    onChanged: (query) {
+                      if (query.isEmpty) {
+                        context.read<SearchVisibilityCubit>().hide();
+                      } else {
+                        context.read<SearchVisibilityCubit>().show();
+                        context.read<SearchVisibilityCubit>().filterHospitals(query, hospitals);
+                      }
+                    },
+                  );
+                },
+              ),
+              BlocBuilder<SearchVisibilityCubit, SearchVisibilityState>(
+                builder: (context, state) {
+                  if (state is SearchVisibleState || state is SearchingState || state is SearchingSuccessState) {
+                    final filteredHospitals = state is SearchingSuccessState ? state.filteredHospitals : [];
+                    return Visibility(
+                      visible: true,
+                      child: Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 20.0),
+                        padding: const EdgeInsets.all(10.0),
+                        decoration: const BoxDecoration(
+                          color: Colors.white,
+                        ),
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: filteredHospitals.length,
+                          itemBuilder: (context, index) {
+                            final hospital = filteredHospitals[index];
+                            return ListTile(
+                              title: Text(
+                                hospital.name,
+                                style: const TextStyle(
+                                  fontFamily: 'MontserratMedium',
+                                  fontSize: 14.0,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              onTap: () {
+                                context.read<SearchVisibilityCubit>().searchQueryController.clear();
+                                context.read<SearchVisibilityCubit>().hide();
+                                showModalBottomSheet(
+                                  context: context,
+                                  shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.vertical(
+                                      top: Radius.circular(20),
+                                    ),
+                                  ),
+                                  builder: (context) {
+                                    return BlocProvider(
+                                      create: (context) => BookmarkIconCubit()..initializeIconState(hospital),
+                                      child: HospitalInfoBottomSheet(
+                                        hospital: hospital,
+                                        isBookmarked: bookmarks.any((bookmark) => bookmark.placeId == hospital.placeId),
+                                        onPressed: () {
+                                          context.pop();
+                                          cubit.startNavigation(
+                                            lat,
+                                            long,
+                                            hospital.location.latitude,
+                                            hospital.location.longitude,
+                                            'driving',
+                                          );
+                                        },
+                                        onStart: (){
+                                          context.pop();
+                                          context.read<HospitalCubit>().navigateToLocation(hospital.location.latitude, hospital.location.longitude);
+                                        },
+                                      ),
+                                    );
+                                  },
+                                );
+                              },
+                            );
+                          },
+                        ),
+                      ),
+                    );
+                  }
+                  return const SizedBox();
+                },
+              ),
+            ],
           ),
         ),
       ],
     );
   }
 
-  Set<Marker> _buildMarkers(BuildContext context, List<Hospital> hospitals,
-      HospitalCubit cubit, double lat, double long) {
+  Set<Marker> _buildMarkers(BuildContext context, List<Hospital> hospitals, HospitalCubit cubit, double lat, double long) {
     Set<Marker> markers = hospitals.map((hospital) {
       return Marker(
         markerId: MarkerId(hospital.placeId),
@@ -82,16 +155,12 @@ class MapWithHospitalsWidget extends StatelessWidget {
             ),
             builder: (context) {
               return BlocProvider(
-                create: (context) {
-                  final bookmarkIconCubit = BookmarkIconCubit();
-                  bookmarkIconCubit.initializeIconState(hospital);
-                  return bookmarkIconCubit;
-                },
+                create: (context) => BookmarkIconCubit()..initializeIconState(hospital),
                 child: HospitalInfoBottomSheet(
                   hospital: hospital,
                   isBookmarked: bookmarks.any((bookmark) => bookmark.placeId == hospital.placeId),
                   onPressed: () {
-                    Navigator.pop(context);
+                    context.pop();
                     cubit.startNavigation(
                       lat,
                       long,
@@ -99,6 +168,10 @@ class MapWithHospitalsWidget extends StatelessWidget {
                       hospital.location.longitude,
                       'driving',
                     );
+                  },
+                  onStart: (){
+                    context.pop();
+                    context.read<HospitalCubit>().navigateToLocation(hospital.location.latitude, hospital.location.longitude);
                   },
                 ),
               );
@@ -119,39 +192,4 @@ class MapWithHospitalsWidget extends StatelessWidget {
 
     return markers;
   }
-
-  Widget _buildCircularButton(
-      {required IconData icon, required void Function() onPressed}) {
-    return Container(
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        color: AppColors.whiteColor,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.2),
-            spreadRadius: 2,
-            blurRadius: 5,
-            offset: const Offset(0, 3),
-          ),
-        ],
-      ),
-      child: IconButton(
-        icon: Icon(icon, color: AppColors.appColor),
-        onPressed: onPressed,
-      ),
-    );
-  }
-
-  void _showSearchBottomSheet(BuildContext context, HospitalCubit cubit) {
-    showModalBottomSheet(
-      context: context,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      builder: (context) {
-        return SearchBottomSheet(cubit: cubit);
-      },
-    );
-  }
-
 }

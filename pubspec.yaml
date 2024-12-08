@@ -96,6 +96,7 @@ flutter:
     - assets/pdfs/
     - assets/audio/
     - assets/map_styles/
+    - assets/images/hospitals/
     - assets/images/mind_chest_breathing/
     - assets/images/jumping_stripes/
     - assets/images/palming/

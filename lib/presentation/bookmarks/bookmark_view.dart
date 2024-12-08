@@ -1,10 +1,15 @@
+import 'package:cculacare/configs/routes/route_names.dart';
 import 'package:cculacare/data/repositories/local/preferences/shared_prefs.dart';
+import 'package:cculacare/logic/hospital_locator_cubit/hospital_locator_cubit.dart';
 import 'package:cculacare/presentation/bookmarks/widgets/cstm_bookmark_tile_widget.dart';
+import 'package:cculacare/presentation/bookmarks/widgets/cstm_bottom_bookmark_info_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../configs/global/app_globals.dart';
 import '../../configs/presentation/constants/colors.dart';
+import '../../configs/routes/router.dart';
 import '../../logic/bookmark_cubit/bookmark_cubit.dart';
 import '../../logic/bookmark_cubit/bookmark_states.dart';
 
@@ -55,8 +60,35 @@ class BookmarkView extends StatelessWidget {
                       bookmarkCubit.deleteBookmark(sharedPrefs.email, bookmark.placeId);
                     },
                     onNavigate: () {
-                      print('Navigate to ${bookmark.name}');
-                      // Add navigation logic here
+                      showModalBottomSheet(
+                        context: context,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                        ),
+                        builder: (context) {
+                          return BookmarkInfoBottomSheet(
+                            bookmark: bookmark,
+                            onPressed: () {
+                              final address = sharedPrefs.getAddress();
+                              final double? lat = address?.lat;
+                              final double? long = address?.long;
+                              context.pop();
+                              router.push(RouteNames.hospitalLocatorRoute);
+                              context.read<HospitalCubit>().startNavigation(
+                                lat!,
+                                long!,
+                                bookmark.location.latitude,
+                                bookmark.location.longitude,
+                                'driving',
+                              );
+                            },
+                            onStart: (){
+                              context.pop();
+                              bookmarkCubit.navigateToLocation(bookmark.location.latitude, bookmark.location.longitude);
+                            },
+                          );
+                        },
+                      );
                     },
                   );
                 },
