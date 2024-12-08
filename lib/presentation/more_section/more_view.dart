@@ -1,4 +1,5 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:cculacare/logic/bookmark_cubit/bookmark_cubit.dart';
 import 'package:cculacare/logic/more_animate/more_cubit.dart';
 import 'package:cculacare/logic/more_animate/more_state.dart';
 import 'package:flutter/material.dart';
@@ -226,6 +227,7 @@ class MoreView extends StatelessWidget {
                                   );
                                   return;
                                 } else {
+                                  context.read<BookmarkCubit>().fetchBookmarks();
                                   context.push(RouteNames.bookmarkRoute);
                                 }
                               },

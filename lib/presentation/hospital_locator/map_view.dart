@@ -35,8 +35,10 @@ class MapView extends StatelessWidget {
           } else if (state is HospitalNavigationStarted) {
             return SafeArea(
               child: MapWithNavigationWidget(
+                lat: state.lat, long: state.long,
                 polylineCoordinates: state.polylineCoordinates,
                 cubit: cubit,
+                flag: true,
               ),
             );
           }

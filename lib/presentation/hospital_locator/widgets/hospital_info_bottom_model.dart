@@ -52,217 +52,143 @@ class HospitalInfoBottomSheet extends StatelessWidget {
           ),
         ],
       ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Center(
-            child: Container(
-              height: height * 0.004,
-              width: width * 0.1,
-            decoration: BoxDecoration(
-            color: AppColors.textGrey,
-            borderRadius: const BorderRadius.all(Radius.circular(25)),
-          )
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Center(
+              child: Container(
+                height: height * 0.004,
+                width: width * 0.1,
+              decoration: BoxDecoration(
+              color: AppColors.textGrey,
+              borderRadius: const BorderRadius.all(Radius.circular(25)),
+            )
+              ),
             ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(
-                height: height * 0.05,
-                width: width * 0.07,
-              ),
-              SizedBox(
-                height: height * 0.05,
-                width: width * 0.22,
-                child: GestureDetector(
-                  onTap: (){
-                    context.pop();
-                  },
-                  child: const Icon(Icons.cancel, color: AppColors.textSecondary, size: 44,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(
+                  height: height * 0.05,
+                  width: width * 0.07,
                 ),
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      hospital.name,
-                      style: TextStyle(
-                        fontSize: height * 0.022,
-                        fontWeight: FontWeight.w700,
-                        color: AppColors.textPrimary,
-                        fontFamily: 'MontserratMedium',
-                      ),
-                      maxLines: 3, // Limit to 2 lines
-                      overflow: TextOverflow.ellipsis,
-                      textAlign: TextAlign.left
-                    ),
-                    SizedBox(height: height * 0.005),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(hospital.userRatingsTotal.toString(),
-                          style: TextStyle(
-                                 fontSize: height * 0.018,
-                                 color: AppColors.textPrimary,
-                                 fontFamily: 'MontserratRegular',
-                              ),
+                SizedBox(
+                  height: height * 0.05,
+                  width: width * 0.22,
+                  child: GestureDetector(
+                    onTap: (){
+                      context.pop();
+                    },
+                    child: const Icon(Icons.cancel, color: AppColors.textSecondary, size: 44,),
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        hospital.name,
+                        style: TextStyle(
+                          fontSize: height * 0.022,
+                          fontWeight: FontWeight.w700,
+                          color: AppColors.textPrimary,
+                          fontFamily: 'MontserratMedium',
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: List.generate(
-                            5,
-                                (index) => Icon(
-                              Icons.star,
-                              color: index <= hospital.rating!.round() ? AppColors.orange : AppColors.secondaryText,
-                              size: 28,
+                        maxLines: 3, // Limit to 2 lines
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.left
+                      ),
+                      SizedBox(height: height * 0.005),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(hospital.userRatingsTotal.toString(),
+                            style: TextStyle(
+                                   fontSize: height * 0.018,
+                                   color: AppColors.textPrimary,
+                                   fontFamily: 'MontserratRegular',
+                                ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: List.generate(
+                              5,
+                                  (index) => Icon(
+                                Icons.star,
+                                color: index <= hospital.rating!.round() ? AppColors.orange : AppColors.secondaryText,
+                                size: 28,
+                              ),
                             ),
                           ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: height * 0.012),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        hospital.address,
+                        style: TextStyle(
+                          fontSize: height * 0.02,
+                          color: AppColors.textGrey,
+                          fontFamily: 'MontserratRegular',
                         ),
-                      ],
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                   ],
                 ),
-              ),
-            ],
-          ),
-          SizedBox(height: height * 0.012),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      hospital.address,
-                      style: TextStyle(
-                        fontSize: height * 0.02,
-                        color: AppColors.textGrey,
-                        fontFamily: 'MontserratRegular',
-                      ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
+                SizedBox(height: height * 0.01),
+                Text(
+                  hospital.businessStatus == "OPERATIONAL" ? "Open" : "Closed",
+                  style: TextStyle(
+                    fontSize: height * 0.02,
+                    color: hospital.businessStatus == "OPERATIONAL" ? AppColors.contentColorGreen : AppColors.brightRed  ,
+                    fontFamily: 'MontserratRegular',
+                  ),
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+            ),
+            SizedBox(height: height * 0.01,),
+            Row(
+              children: [
+                Container(
+                  height: height * 0.05,
+                  width: width * 0.26,
+                  decoration: BoxDecoration(
+                    color: AppColors.screenBackground,
+                    borderRadius: const BorderRadius.all(Radius.circular(100)),
+                    border: Border.all(
+                      color: Colors.blue,
+                      width: 2.0,
                     ),
                   ),
-                ],
-              ),
-              SizedBox(height: height * 0.01),
-              Text(
-                hospital.businessStatus == "OPERATIONAL" ? "Open" : "Closed",
-                style: TextStyle(
-                  fontSize: height * 0.02,
-                  color: hospital.businessStatus == "OPERATIONAL" ? AppColors.contentColorGreen : AppColors.brightRed  ,
-                  fontFamily: 'MontserratRegular',
-                ),
-                maxLines: 3,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ],
-          ),
-          SizedBox(height: height * 0.01,),
-          Row(
-            children: [
-              Container(
-                height: height * 0.05,
-                width: width * 0.26,
-                decoration: BoxDecoration(
-                  color: AppColors.screenBackground,
-                  borderRadius: const BorderRadius.all(Radius.circular(100)),
-                  border: Border.all(
-                    color: Colors.blue,
-                    width: 2.0,
-                  ),
-                ),
-                child: Center(
-                  child: InkWell(
-                    onTap: onPressed,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Icon(Icons.directions, color: Colors.blue, size: height * 0.02,),
-                          SizedBox(width: width * 0.01,),
-                          Text("Directions",
-                            style: TextStyle(
-                              fontSize: height * 0.013,
-                              color: AppColors.textPrimary,
-                              fontFamily: 'MontserratRegular',
-                            ),
-                          ),
-                        ],
-                      )
-                  ),
-                ),
-              ),
-              SizedBox(width: width * 0.02),
-              Container(
-                height: height * 0.05,
-                width: width * 0.26,
-                decoration: BoxDecoration(
-                  color: AppColors.screenBackground,
-                  borderRadius: const BorderRadius.all(Radius.circular(100)),
-                  border: Border.all(
-                    color: Colors.blue,
-                    width: 2.0,
-                  ),
-                ),
-                child: Center(
-                  child: InkWell(
-                      onTap: onStart,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Icon(Icons.directions, color: Colors.blue, size: height * 0.02,),
-                          SizedBox(width: width * 0.01,),
-                          Text("Start",
-                            style: TextStyle(
-                              fontSize: height * 0.013,
-                              color: AppColors.textPrimary,
-                              fontFamily: 'MontserratRegular',
-                            ),
-                          ),
-                        ],
-                      )
-                  ),
-                ),
-              ),
-              SizedBox(width: width * 0.02),
-              Container(
-                height: height * 0.05,
-                width: width * 0.26,
-                decoration: BoxDecoration(
-                  color: AppColors.screenBackground,
-                  borderRadius: const BorderRadius.all(Radius.circular(100)),
-                  border: Border.all(
-                    color: Colors.blue,
-                    width: 2.0,
-                  ),
-                ),
-                child: BlocBuilder<BookmarkIconCubit, BookmarkIconState>(
-                  builder: (context, state) {
-                    bool isBookmarked = false;
-                    if (state is BookmarkIconFilled) {
-                      isBookmarked = state.isBookmarked;
-                    }
-                    return InkWell(
-                        onTap: (){
-                          context.read<BookmarkIconCubit>().toggleBookmark(hospital);
-                        },
+                  child: Center(
+                    child: InkWell(
+                      onTap: onPressed,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Icon(isBookmarked ? Icons.bookmark : Icons.bookmark_outline,
-                              color: isBookmarked ? Colors.blue : Colors.grey,
-                              size: height * 0.02,),
+                            Icon(Icons.directions, color: Colors.blue, size: height * 0.02,),
                             SizedBox(width: width * 0.01,),
-                            Text(isBookmarked ? "Remove" : "Save",
+                            Text("Directions",
                               style: TextStyle(
                                 fontSize: height * 0.013,
                                 color: AppColors.textPrimary,
@@ -271,42 +197,118 @@ class HospitalInfoBottomSheet extends StatelessWidget {
                             ),
                           ],
                         )
-                    );
-                  },
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: height * 0.01,),
-          SizedBox(
-            height: height * 0.2,
-            width: width,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: imagePaths.length,
-              itemBuilder: (BuildContext context, int index) {
-                return Padding(
-                  padding: EdgeInsets.symmetric(
-                    vertical: height * 0.01,
-                    horizontal: width * 0.02,
-                  ),
-                  child: SizedBox(
-                    width: width * 0.7, // Ensure items have proper width
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(12),
-                      child: Image.asset(
-                        imagePaths[index],
-                        fit: BoxFit.cover,
-                      ),
                     ),
                   ),
-                );
-              },
+                ),
+                SizedBox(width: width * 0.02),
+                Container(
+                  height: height * 0.05,
+                  width: width * 0.26,
+                  decoration: BoxDecoration(
+                    color: AppColors.screenBackground,
+                    borderRadius: const BorderRadius.all(Radius.circular(100)),
+                    border: Border.all(
+                      color: Colors.blue,
+                      width: 2.0,
+                    ),
+                  ),
+                  child: Center(
+                    child: InkWell(
+                        onTap: onStart,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Icon(Icons.directions, color: Colors.blue, size: height * 0.02,),
+                            SizedBox(width: width * 0.01,),
+                            Text("Start",
+                              style: TextStyle(
+                                fontSize: height * 0.013,
+                                color: AppColors.textPrimary,
+                                fontFamily: 'MontserratRegular',
+                              ),
+                            ),
+                          ],
+                        )
+                    ),
+                  ),
+                ),
+                SizedBox(width: width * 0.02),
+                Container(
+                  height: height * 0.05,
+                  width: width * 0.26,
+                  decoration: BoxDecoration(
+                    color: AppColors.screenBackground,
+                    borderRadius: const BorderRadius.all(Radius.circular(100)),
+                    border: Border.all(
+                      color: Colors.blue,
+                      width: 2.0,
+                    ),
+                  ),
+                  child: BlocBuilder<BookmarkIconCubit, BookmarkIconState>(
+                    builder: (context, state) {
+                      bool isBookmarked = false;
+                      if (state is BookmarkIconFilled) {
+                        isBookmarked = state.isBookmarked;
+                      }
+                      return InkWell(
+                          onTap: (){
+                            context.read<BookmarkIconCubit>().toggleBookmark(hospital);
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Icon(isBookmarked ? Icons.bookmark : Icons.bookmark_outline,
+                                color: isBookmarked ? Colors.blue : Colors.grey,
+                                size: height * 0.02,),
+                              SizedBox(width: width * 0.01,),
+                              Text(isBookmarked ? "Remove" : "Save",
+                                style: TextStyle(
+                                  fontSize: height * 0.013,
+                                  color: AppColors.textPrimary,
+                                  fontFamily: 'MontserratRegular',
+                                ),
+                              ),
+                            ],
+                          )
+                      );
+                    },
+                  ),
+                ),
+              ],
             ),
-          ),
-
-
-        ],
+            SizedBox(height: height * 0.01,),
+            SizedBox(
+              height: height * 0.2,
+              width: width,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: imagePaths.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Padding(
+                    padding: EdgeInsets.symmetric(
+                      vertical: height * 0.01,
+                      horizontal: width * 0.02,
+                    ),
+                    child: SizedBox(
+                      width: width * 0.7, // Ensure items have proper width
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(12),
+                        child: Image.asset(
+                          imagePaths[index],
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+        
+        
+          ],
+        ),
       ),
     );
   }

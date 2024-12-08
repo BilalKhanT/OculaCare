@@ -105,7 +105,7 @@ class HospitalCubit extends Cubit<HospitalState> {
       List<LatLng> polylineCoordinates = await hospitalRepository.getDirections(
           sourceLat, sourceLong, destinationLat, destinationLong, mode
       );
-
+      emit(HospitalLoaded(hospital, address!.lat!, address.long!));
       emit(HospitalNavigationStarted(polylineCoordinates, address!.lat!, address!.long!));
     } catch (e) {
       emit(HospitalError("Failed to load directions"));

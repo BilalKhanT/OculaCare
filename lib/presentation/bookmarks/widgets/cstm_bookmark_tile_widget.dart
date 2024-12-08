@@ -28,15 +28,13 @@ class CstmBookmarkTile extends StatelessWidget {
           // Navigate Action
           SlidableAction(
             onPressed: (context) => onNavigate(),
-            icon: Icons.navigation,
-            label: 'Navigate',
+            icon: Icons.info_outline,
             backgroundColor: Colors.green,
           ),
           // Delete Action
           SlidableAction(
             onPressed: (context) => onDelete(),
-            icon: Icons.delete,
-            label: 'Delete',
+            icon: Icons.delete_outlined,
             backgroundColor: Colors.red,
           ),
         ],
