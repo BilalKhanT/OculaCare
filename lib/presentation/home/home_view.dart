@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:animate_do/animate_do.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:cculacare/configs/extension/extensions.dart';
 import 'package:cculacare/logic/home_cubit/home_cubit.dart';
 import 'package:cculacare/logic/home_cubit/home_state.dart';
 import 'package:cculacare/logic/location_cubit/current_loc_cubit.dart';
@@ -143,18 +142,6 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: screenHeight * 0.005),
-                    // ButtonFlat(
-                    //     btnColor: AppColors.appColor,
-                    //     textColor: AppColors.whiteColor,
-                    //     onPress: () {
-                    //       if (state.currentAddress.lat == -97765999.9) {
-                    //         AppUtils.showToast(context, 'Select an address',
-                    //             'Please select an address', true);
-                    //         return;
-                    //       }
-                    //       context.read<CurrentLocationCubit>().setCurrentLocation(state.currentAddress);
-                    //     },
-                    //     text: 'Confirm location'),
                   ],
                 );
               } else {
@@ -172,8 +159,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       checkIfFirstTime(context);
-    });
-    Patient patient = Patient(
+    });Patient patient = Patient(
         email: '',
         username: '',
         profileImage: '',
@@ -185,11 +171,7 @@ class HomeScreen extends StatelessWidget {
     final String date = DateFormat('d MMMM').format(DateTime.now());
     double screenHeight = MediaQuery.sizeOf(context).height;
     double screenWidth = MediaQuery.sizeOf(context).width;
-    String? patientData = sharedPrefs.patientData;
-    if (patientData != '') {
-      Map<String, dynamic> decodedData = jsonDecode(patientData);
-      patient = Patient.fromJson(decodedData);
-    }
+
     return PopScope(
       canPop: false,
       child: Scaffold(
@@ -198,6 +180,12 @@ class HomeScreen extends StatelessWidget {
           child: BlocBuilder<HomeCubit, HomeState>(
             builder: (context, state) {
               if (state is HomeStateAnimate) {
+                String? patientData = sharedPrefs.patientData;
+                if (patientData != '') {
+                  Map<String, dynamic> decodedData = jsonDecode(patientData);
+                  patient = Patient.fromJson(decodedData);
+                }
+
                 return SizedBox(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
@@ -290,7 +278,7 @@ class HomeScreen extends StatelessWidget {
                                           height: screenHeight * 0.06,
                                           width: screenHeight * 0.06,
                                           color: Colors.white,
-                                          child: patient.profileImage == ''
+                                          child: (patient.profileImage == null || patient.profileImage == '')
                                               ? Padding(
                                                   padding:
                                                       const EdgeInsets.all(8.0),
