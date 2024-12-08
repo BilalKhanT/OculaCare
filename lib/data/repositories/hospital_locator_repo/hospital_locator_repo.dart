@@ -8,15 +8,8 @@ import '../local/preferences/shared_prefs.dart';
 
 class HospitalRepository {
   Address? address = sharedPrefs.getAddress();
-  final List<Address> Listaddress = sharedPrefs.getAddressList();
 
-  Future<void> fetchHospitals() async {
-    final double? lat = address?.lat;
-    final double? long = address?.long;
-
-    if (lat == null || long == null) {
-      return;
-    }
+  Future<void> fetchHospitals(double lat, double long) async {
     final String apiUrl =
         'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=$lat,$long&radius=5000&type=hospital&keyword=eye%20hospital&key=AIzaSyDHNB_Azk_lm5DKrrtWxO5xlZ5jPPClisI';
 

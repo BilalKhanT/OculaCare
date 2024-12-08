@@ -1,4 +1,3 @@
-import 'package:cculacare/configs/routes/router.dart';
 import 'package:cculacare/logic/hospital_locator_cubit/bookmark_icon_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -13,12 +12,14 @@ class HospitalInfoBottomSheet extends StatelessWidget {
   final Hospital hospital;
   final bool isBookmarked;
   final VoidCallback onPressed;
+  final VoidCallback onStart;
 
   const HospitalInfoBottomSheet({
     Key? key,
     required this.hospital,
     required this.isBookmarked,
     required this.onPressed,
+    required this.onStart,
   }) : super(key: key);
 
   @override
@@ -144,7 +145,7 @@ class HospitalInfoBottomSheet extends StatelessWidget {
                         color: AppColors.textGrey,
                         fontFamily: 'MontserratRegular',
                       ),
-                      maxLines: 3,
+                      maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
@@ -212,7 +213,7 @@ class HospitalInfoBottomSheet extends StatelessWidget {
                 ),
                 child: Center(
                   child: InkWell(
-                      onTap: (){},
+                      onTap: onStart,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,

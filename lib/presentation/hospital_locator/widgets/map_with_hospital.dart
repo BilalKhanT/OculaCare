@@ -1,6 +1,9 @@
+import 'package:cculacare/configs/routes/router.dart';
+import 'package:cculacare/data/models/address/address_model.dart';
 import 'package:cculacare/presentation/hospital_locator/widgets/cstm_searchbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../../configs/global/app_globals.dart';
 import '../../../configs/presentation/constants/colors.dart';
@@ -16,22 +19,19 @@ import 'hospital_info_bottom_model.dart';
 class MapWithHospitalsWidget extends StatelessWidget {
   final List<Hospital> hospitals;
   final HospitalCubit cubit;
+  final double lat;
+  final double long;
 
   const MapWithHospitalsWidget({
     Key? key,
     required this.hospitals,
     required this.cubit,
+    required this.lat,
+    required this.long,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final address = sharedPrefs.getAddress();
-    final double? lat = address?.lat;
-    final double? long = address?.long;
-
-    if (lat == null || long == null) {
-      return const Center(child: Text("User location not found."));
-    }
 
     return Stack(
       children: [
@@ -106,7 +106,7 @@ class MapWithHospitalsWidget extends StatelessWidget {
                                         hospital: hospital,
                                         isBookmarked: bookmarks.any((bookmark) => bookmark.placeId == hospital.placeId),
                                         onPressed: () {
-                                          Navigator.pop(context);
+                                          context.pop();
                                           cubit.startNavigation(
                                             lat,
                                             long,
@@ -114,6 +114,10 @@ class MapWithHospitalsWidget extends StatelessWidget {
                                             hospital.location.longitude,
                                             'driving',
                                           );
+                                        },
+                                        onStart: (){
+                                          context.pop();
+                                          context.read<HospitalCubit>().navigateToLocation(hospital.location.latitude, hospital.location.longitude);
                                         },
                                       ),
                                     );
@@ -156,7 +160,7 @@ class MapWithHospitalsWidget extends StatelessWidget {
                   hospital: hospital,
                   isBookmarked: bookmarks.any((bookmark) => bookmark.placeId == hospital.placeId),
                   onPressed: () {
-                    Navigator.pop(context);
+                    context.pop();
                     cubit.startNavigation(
                       lat,
                       long,
@@ -164,6 +168,10 @@ class MapWithHospitalsWidget extends StatelessWidget {
                       hospital.location.longitude,
                       'driving',
                     );
+                  },
+                  onStart: (){
+                    context.pop();
+                    context.read<HospitalCubit>().navigateToLocation(hospital.location.latitude, hospital.location.longitude);
                   },
                 ),
               );

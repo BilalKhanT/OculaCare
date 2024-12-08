@@ -1,3 +1,4 @@
+import 'package:cculacare/data/models/address/address_model.dart';
 import 'package:cculacare/presentation/hospital_locator/widgets/map_with_hospital.dart';
 import 'package:cculacare/presentation/hospital_locator/widgets/map_with_navigation.dart';
 import 'package:cculacare/presentation/widgets/cstm_loader.dart';
@@ -30,7 +31,7 @@ class MapView extends StatelessWidget {
           } else if (state is HospitalLoaded) {
             return SafeArea(
                 child: MapWithHospitalsWidget(
-                    hospitals: state.hospital, cubit: cubit));
+                    hospitals: state.hospital, cubit: cubit, lat: state.lat, long: state.long,));
           } else if (state is HospitalNavigationStarted) {
             return SafeArea(
               child: MapWithNavigationWidget(

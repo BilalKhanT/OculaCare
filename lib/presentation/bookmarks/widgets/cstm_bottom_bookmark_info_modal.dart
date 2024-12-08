@@ -7,11 +7,13 @@ import '../../../data/models/bookmark/bookmark_model.dart';
 class BookmarkInfoBottomSheet extends StatelessWidget {
   final Bookmark bookmark;
   final VoidCallback onPressed;
+  final VoidCallback onStart;
 
   const BookmarkInfoBottomSheet({
     Key? key,
     required this.bookmark,
     required this.onPressed,
+    required this.onStart,
   }) : super(key: key);
 
   @override
@@ -194,7 +196,7 @@ class BookmarkInfoBottomSheet extends StatelessWidget {
                 ),
                 child: Center(
                   child: InkWell(
-                      onTap: (){},
+                      onTap: onStart,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
