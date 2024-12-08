@@ -46,12 +46,12 @@ class LoginCubit extends Cubit<LoginState> {
         var data = jsonDecode(response.body);
         PatientModel patientModel = PatientModel.fromJson(data);
         Patient patient = patientModel.patient;
+        sharedPrefs.userName = patient.username!;
+        sharedPrefs.email = patient.email!;
         if (patient.gender != null &&
             patient.address != null &&
             patient.profileImage != null) {
           sharedPrefs.isProfileSetup = true;
-          sharedPrefs.userName = patient.username!;
-          sharedPrefs.email = patient.email!;
           sharedPrefs.patientData = jsonEncode(patient.toJson());
           sharedPrefs.setAddressList(patientModel.addressBook);
         } else {

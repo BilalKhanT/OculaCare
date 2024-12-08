@@ -1,3 +1,4 @@
+import 'package:cculacare/data/repositories/local/preferences/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,6 +8,7 @@ import 'package:pinput/pinput.dart';
 import '../../configs/presentation/constants/colors.dart';
 import '../../configs/routes/route_names.dart';
 import '../../configs/utils/utils.dart';
+import '../../logic/home_cubit/home_cubit.dart';
 import '../../logic/login_cubit/login_cubit.dart';
 import '../../logic/otp_cubit/otp_cubit.dart';
 import '../../logic/otp_cubit/otp_state.dart';
@@ -62,10 +64,10 @@ class OtpScreen extends StatelessWidget {
               context.read<LoginCubit>().resetPassword();
               context.pushReplacement(RouteNames.loginRoute);
             } else if (state is Registered) {
-              AppUtils.showToast(context, 'Account Registered Successfully',
-                  'Your account has been registered, please login.', false);
-              context.read<LoginCubit>().loadLoginScreen();
-              context.pushReplacement(RouteNames.loginRoute);
+              AppUtils.showToast(context, 'Welcome ${sharedPrefs.userName}',
+                  'Your account has been registered successfully.', false);
+              context.read<HomeCubit>().emitHomeAnimation();
+              context.go(RouteNames.homeRoute);
             }
           },
           builder: (context, state) {

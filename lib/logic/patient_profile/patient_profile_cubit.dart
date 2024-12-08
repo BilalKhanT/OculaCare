@@ -183,21 +183,16 @@ class PatientProfileCubit extends Cubit<PatientProfileState> {
           }),
         );
         if (response.statusCode == 200) {
-          sharedPrefs.isProfileSetup = true;
-          final patientAddress = Address(
-            lat: lat,
-            long: long,
-            locationName: address,
-          );
           final patient = Patient(
-            email: sharedPrefs.email,
-            username: sharedPrefs.userName,
-            profileImage: imageBase64,
-            age: int.parse(age),
-            gender: gender,
-            contactNumber: phone,
-            address: patientAddress,
-          );
+              email: sharedPrefs.email,
+              username: sharedPrefs.userName,
+              profileImage: imageBase64,
+              age: int.parse(age),
+              gender: gender,
+              contactNumber: phone,
+              address: Address(lat: lat, long: long, locationName: address));
+          sharedPrefs.patientData = jsonEncode(patient.toJson());
+          sharedPrefs.isProfileSetup = true;
           emit(PatientProfileStateLoaded(patient));
         } else {
           emit(PatientProfileStateFailure(

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:bloc/bloc.dart';
+import 'package:cculacare/data/models/patient/patient_model.dart';
 import '../../configs/global/app_globals.dart';
 import '../../data/repositories/local/preferences/shared_prefs.dart';
 import 'otp_state.dart';
@@ -40,7 +41,7 @@ class OtpCubit extends Cubit<OtpState> {
       } else if (response.statusCode == 400) {
         emit(InvalidEmail());
       } else {
-        log('Server error with status code: ${response.statusCode}');
+        log('Server error with status code: ${response.body}');
         emit(OtpStateFailure('Ops, something went wrong'));
       }
     } catch (e) {
@@ -167,6 +168,10 @@ class OtpCubit extends Cubit<OtpState> {
         sharedPrefs.isProfileSetup = false;
         sharedPrefs.userName = userName;
         sharedPrefs.password = userPassword;
+        Patient patient = Patient(email: userEmail, username: userName, profileImage: null, age: null, gender: null, contactNumber: null, address: null);
+        sharedPrefs.patientData = jsonEncode(patient.toJson());
+        sharedPrefs.setAddressList([]);
+        sharedPrefs.isLoggedIn = true;
         emit(Registered());
       } else {
         log('Server error with status code: ${response.statusCode}');
