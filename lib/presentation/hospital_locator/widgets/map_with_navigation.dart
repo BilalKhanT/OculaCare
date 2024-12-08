@@ -45,17 +45,6 @@ class MapWithNavigationWidget extends StatelessWidget {
             },
           ),
         ),
-        Positioned(
-          top: 40,
-          right: 15,
-          child: _buildCircularButton(
-            icon: Icons.search,
-            onPressed: () {
-              cubit.initializeSourceWithUserLocation();
-              _showSearchBottomSheet(context, cubit);
-            },
-          ),
-        ),
       ],
     );
   }

@@ -13,6 +13,7 @@ import 'logic/auth_cubit/auth_cubit.dart';
 import 'logic/camera/camera_cubit.dart';
 import 'logic/detection/detection_cubit.dart';
 import 'logic/feedback_cubit/feedback_cubit.dart';
+import 'logic/hospital_locator_cubit/Search_visibility_cubit.dart';
 import 'logic/hospital_locator_cubit/hospital_locator_cubit.dart';
 import 'logic/image_capture/img_capture_cubit.dart';
 import 'logic/image_capture/toggle_capture_btn_cubit.dart';
@@ -217,6 +218,9 @@ class ProvideMultiBloc extends StatelessWidget {
       ),
       BlocProvider(
         create: (context) => BookmarkIconCubit(),
+      ),
+      BlocProvider(
+        create: (context) => SearchVisibilityCubit(),
       ),
     ], child: child);
   }

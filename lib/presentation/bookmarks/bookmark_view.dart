@@ -1,5 +1,6 @@
 import 'package:cculacare/data/repositories/local/preferences/shared_prefs.dart';
 import 'package:cculacare/presentation/bookmarks/widgets/cstm_bookmark_tile_widget.dart';
+import 'package:cculacare/presentation/bookmarks/widgets/cstm_bottom_bookmark_info_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shimmer/shimmer.dart';
@@ -55,8 +56,21 @@ class BookmarkView extends StatelessWidget {
                       bookmarkCubit.deleteBookmark(sharedPrefs.email, bookmark.placeId);
                     },
                     onNavigate: () {
-                      print('Navigate to ${bookmark.name}');
-                      // Add navigation logic here
+                      showModalBottomSheet(
+                        context: context,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                        ),
+                        builder: (context) {
+                          return BookmarkInfoBottomSheet(
+                            bookmark: bookmark,
+                            onPressed: () {
+                              Navigator.pop(context);
+                              bookmarkCubit.navigateToLocation(bookmark.location.latitude, bookmark.location.longitude);
+                            },
+                          );
+                        },
+                      );
                     },
                   );
                 },

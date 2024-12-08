@@ -8,14 +8,13 @@ import '../local/preferences/shared_prefs.dart';
 
 class HospitalRepository {
   Address? address = sharedPrefs.getAddress();
-
+  final List<Address> Listaddress = sharedPrefs.getAddressList();
 
   Future<void> fetchHospitals() async {
     final double? lat = address?.lat;
     final double? long = address?.long;
 
     if (lat == null || long == null) {
-      print('Error: Latitude and Longitude are required.');
       return;
     }
     final String apiUrl =
