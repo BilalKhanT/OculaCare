@@ -102,15 +102,14 @@ class OnBoardingView extends StatelessWidget {
                     child: Container(
                       width: double.infinity,
                       decoration: BoxDecoration(
-                        color: AppColors.appColor,
-                        borderRadius: BorderRadius.circular(30.0),
-                        boxShadow: [
-                          BoxShadow(
-                            offset: const Offset(1, 1),
-                            blurRadius: 15,
-                            color: Colors.grey.withOpacity(0.66),
-                          ),
-                        ],
+                        color: AppColors.screenBackground,
+                        border: context.read<OnBoardingCubit>().currentIndex ==
+                            context
+                                .read<OnBoardingCubit>()
+                                .contents
+                                .length -
+                                1 ? Border.all(color: AppColors.appColor, width: 3) : Border.all(color: Colors.transparent, width: 3),
+                        borderRadius: BorderRadius.circular(30),
                       ),
                       child: Center(
                         child: Padding(
@@ -130,17 +129,28 @@ class OnBoardingView extends StatelessWidget {
                                     ? 'Get Started'
                                     : 'Next',
                                 style: TextStyle(
-                                    fontFamily: 'Montserrat',
+                                    fontFamily: 'MontserratMedium',
                                     fontSize: screenWidth * 0.045,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w400),
+                                    color: context.read<OnBoardingCubit>().currentIndex ==
+                                        context
+                                            .read<OnBoardingCubit>()
+                                            .contents
+                                            .length -
+                                            1 ? AppColors.appColor : AppColors.screenBackground,
+                                    fontWeight: FontWeight.w800),
                               ),
                               SizedBox(
-                                width: screenWidth * 0.05,
+                                width: screenWidth * 0.01,
                               ),
-                              const Icon(
+                              Icon(
                                 Icons.navigate_next_outlined,
-                                color: Colors.white,
+                                size: screenWidth * 0.065,
+                                color: context.read<OnBoardingCubit>().currentIndex ==
+                                    context
+                                        .read<OnBoardingCubit>()
+                                        .contents
+                                        .length -
+                                        1 ? AppColors.appColor : AppColors.screenBackground,
                               )
                             ],
                           ),
