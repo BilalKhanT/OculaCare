@@ -31,7 +31,6 @@ import '../../presentation/onboarding/onboarding_view.dart';
 import '../../presentation/otp/otp_view.dart';
 import '../../presentation/patient_profile/profile_view.dart';
 import '../../presentation/result/disease_analysis_view.dart';
-import '../../presentation/result/result_view.dart';
 import '../../presentation/result/widgets/med_view.dart';
 import '../../presentation/sign_up/sign_up_view.dart';
 import '../../presentation/test_dashboard/test_dash_view.dart';
@@ -360,7 +359,6 @@ final router = GoRouter(
         builder: (context, state) {
           return const BookmarkView();
         }),
-
   ],
   initialLocation: sharedPrefs.isLoggedIn
       ? RouteNames.homeRoute

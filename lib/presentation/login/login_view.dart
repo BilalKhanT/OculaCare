@@ -224,7 +224,9 @@ class LoginScreen extends StatelessWidget {
                               ),
                               GestureDetector(
                                 onTap: () {
-                                  context.read<SignUpCubit>().loadSignUpScreen();
+                                  context
+                                      .read<SignUpCubit>()
+                                      .loadSignUpScreen();
                                   context.go(RouteNames.signUpRoute,
                                       extra: 'login');
                                 },

@@ -223,7 +223,7 @@ class TestDashView extends StatelessWidget {
                             decoration: BoxDecoration(
                               color: progressionSelected
                                   ? const Color(0xFF04438D)
-                              : Colors.white,
+                                  : Colors.white,
                               borderRadius: BorderRadius.circular(50),
                               boxShadow: const [
                                 BoxShadow(
@@ -375,8 +375,7 @@ class TestDashView extends StatelessWidget {
                                   RouteNames.snellanRoute,
                                 );
                               },
-                              avatarColor:
-                                  AppColors.appColor.withOpacity(0.4)),
+                              avatarColor: AppColors.appColor.withOpacity(0.4)),
                           TestTile(
                               title: 'Animal Tracking',
                               description:
@@ -397,8 +396,7 @@ class TestDashView extends StatelessWidget {
                                   RouteNames.trackInitialRoute,
                                 );
                               },
-                              avatarColor:
-                                  Colors.blueAccent.withOpacity(0.2)),
+                              avatarColor: Colors.blueAccent.withOpacity(0.2)),
                           BlocBuilder<TestMoreCubit, TestMoreState>(
                             builder: (context, state) {
                               bool flag = false;
@@ -426,12 +424,10 @@ class TestDashView extends StatelessWidget {
                                                 style: TextStyle(
                                                     fontFamily:
                                                         'MontserratMedium',
-                                                    fontWeight:
-                                                        FontWeight.w800,
+                                                    fontWeight: FontWeight.w800,
                                                     fontSize:
                                                         screenWidth * 0.035,
-                                                    color:
-                                                        AppColors.appColor),
+                                                    color: AppColors.appColor),
                                               ),
                                             ),
                                           ],
@@ -490,12 +486,10 @@ class TestDashView extends StatelessWidget {
                                                 style: TextStyle(
                                                     fontFamily:
                                                         'MontserratMedium',
-                                                    fontWeight:
-                                                        FontWeight.w800,
+                                                    fontWeight: FontWeight.w800,
                                                     fontSize:
                                                         screenWidth * 0.035,
-                                                    color:
-                                                        AppColors.appColor),
+                                                    color: AppColors.appColor),
                                               ),
                                             ),
                                           ],
@@ -585,12 +579,10 @@ class TestDashView extends StatelessWidget {
                                                 style: TextStyle(
                                                     fontFamily:
                                                         'MontserratMedium',
-                                                    fontWeight:
-                                                        FontWeight.w800,
+                                                    fontWeight: FontWeight.w800,
                                                     fontSize:
                                                         screenWidth * 0.035,
-                                                    color:
-                                                        AppColors.appColor),
+                                                    color: AppColors.appColor),
                                               ),
                                             ),
                                           ],
@@ -648,12 +640,10 @@ class TestDashView extends StatelessWidget {
                                                 style: TextStyle(
                                                     fontFamily:
                                                         'MontserratMedium',
-                                                    fontWeight:
-                                                        FontWeight.w800,
+                                                    fontWeight: FontWeight.w800,
                                                     fontSize:
                                                         screenWidth * 0.035,
-                                                    color:
-                                                        AppColors.appColor),
+                                                    color: AppColors.appColor),
                                               ),
                                             ),
                                           ],
@@ -711,15 +701,18 @@ class TestDashView extends StatelessWidget {
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 3, vertical: 2.0),
                                           child: FadeIn(
-                                            duration: const Duration(milliseconds: 600),
+                                            duration: const Duration(
+                                                milliseconds: 600),
                                             child: TestHistoryTile(
-                                                title: state.data[index].testName,
+                                                title:
+                                                    state.data[index].testName,
                                                 description:
                                                     state.data[index].date,
                                                 image: data.imagePath,
                                                 onPress: () {
                                                   context.push(
-                                                      RouteNames.testReportRoute,
+                                                      RouteNames
+                                                          .testReportRoute,
                                                       extra: state.data[index]);
                                                 },
                                                 avatarColor: data.color),
@@ -769,7 +762,8 @@ class TestDashView extends StatelessWidget {
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 8, vertical: 2.0),
                                           child: FadeIn(
-                                            duration: const Duration(milliseconds: 600),
+                                            duration: const Duration(
+                                                milliseconds: 600),
                                             child: TestHistoryTile(
                                                 title: state
                                                     .dataColor[index].testName,
@@ -778,9 +772,10 @@ class TestDashView extends StatelessWidget {
                                                 image: data.imagePath,
                                                 onPress: () {
                                                   context.push(
-                                                      RouteNames.testReportRoute,
-                                                      extra:
-                                                          state.dataColor[index]);
+                                                      RouteNames
+                                                          .testReportRoute,
+                                                      extra: state
+                                                          .dataColor[index]);
                                                 },
                                                 avatarColor: data.color),
                                           ),
@@ -815,10 +810,10 @@ class TestDashView extends StatelessWidget {
                         ),
                         Center(
                             child: FadeIn(
-                              duration: const Duration(milliseconds: 600),
-                              child: ProgressCalendarScreen(
-                                  data: state.progressData),
-                            )),
+                          duration: const Duration(milliseconds: 600),
+                          child:
+                              ProgressCalendarScreen(data: state.progressData),
+                        )),
                         SizedBox(
                           height: screenHeight * 0.035,
                         ),

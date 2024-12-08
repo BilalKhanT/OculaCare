@@ -32,5 +32,4 @@ class TreatmentCubit extends Cubit<TreatmentState> {
     emit(TreatmentInitial());
     emit(TreatmentBulgy(result));
   }
-
 }

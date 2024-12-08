@@ -3,10 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import '../../configs/presentation/constants/colors.dart';
-import '../../configs/routes/route_names.dart';
 import '../../logic/detection/question_cubit.dart';
 import '../../logic/detection/question_state.dart';
-import '../../logic/image_capture/img_capture_cubit.dart';
 
 class QuestionScreen extends StatelessWidget {
   const QuestionScreen({super.key});
@@ -109,11 +107,13 @@ class QuestionScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  DotLoader(loaderColor: AppColors.appColor,)
+                  DotLoader(
+                    loaderColor: AppColors.appColor,
+                  )
                 ],
               ),
             );
-          }else {
+          } else {
             return const Center(child: Text('Something went wrong!'));
           }
         },

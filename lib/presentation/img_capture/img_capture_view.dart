@@ -368,6 +368,15 @@ class ImageCaptureScreen extends StatelessWidget {
                                     decoration: BoxDecoration(
                                       color: Colors.white,
                                       borderRadius: BorderRadius.circular(10.0),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: AppColors.textPrimary
+                                              .withOpacity(0.1),
+                                          spreadRadius: 1,
+                                          blurRadius: 0.5,
+                                          offset: const Offset(0, 0),
+                                        ),
+                                      ],
                                     ),
                                     child: Column(
                                       mainAxisAlignment:
@@ -502,6 +511,15 @@ class ImageCaptureScreen extends StatelessWidget {
                                     decoration: BoxDecoration(
                                       color: Colors.white,
                                       borderRadius: BorderRadius.circular(10.0),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: AppColors.textPrimary
+                                              .withOpacity(0.1),
+                                          spreadRadius: 1,
+                                          blurRadius: 0.5,
+                                          offset: const Offset(0, 0),
+                                        ),
+                                      ],
                                     ),
                                     child: Column(
                                       mainAxisAlignment:
@@ -638,7 +656,6 @@ class ImageCaptureScreen extends StatelessWidget {
                                         btnColor: AppColors.appColor,
                                         textColor: Colors.white,
                                         onPress: () async {
-                                          print("uploading");
                                           context
                                               .read<ImageCaptureCubit>()
                                               .uploadImageToServer(

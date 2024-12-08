@@ -57,7 +57,8 @@ class TestGraphProgress extends StatelessWidget {
                         borderRadius: BorderRadius.circular(10.0),
                         dropdownColor: Colors.white,
                         padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                        value: context.read<TestProgressionCubit>().selectedTest,
+                        value:
+                            context.read<TestProgressionCubit>().selectedTest,
                         icon: const Icon(
                           Icons.keyboard_arrow_down_outlined,
                           color: Colors.black,

@@ -132,7 +132,8 @@ class OtpScreen extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 20.0),
                     child: CustomFlatButton(
                         onTap: () {
-                          bool flag = context.read<OtpCubit>().verifyOtp(state.email);
+                          bool flag =
+                              context.read<OtpCubit>().verifyOtp(state.email);
                           if (!flag) {
                             AppUtils.showToast(context, 'Invalid OTP',
                                 'Please enter the correct OTP', true);

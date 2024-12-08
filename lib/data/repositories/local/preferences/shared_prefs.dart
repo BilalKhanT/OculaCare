@@ -27,16 +27,20 @@ class SharedPrefs {
   }
 
   Future<void> setAddressList(List<Address> addressList) async {
-    final List<String> jsonStringList = addressList.map((address) => jsonEncode(address.toJson())).toList();
+    final List<String> jsonStringList =
+        addressList.map((address) => jsonEncode(address.toJson())).toList();
     await _sharedPrefs?.setStringList('address_list', jsonStringList);
   }
 
   List<Address> getAddressList() {
-    final List<String>? jsonStringList = _sharedPrefs?.getStringList('address_list');
+    final List<String>? jsonStringList =
+        _sharedPrefs?.getStringList('address_list');
     if (jsonStringList == null || jsonStringList.isEmpty) {
       return [];
     }
-    final List<Address> addressList = jsonStringList.map((jsonString) => Address.fromJson(jsonDecode(jsonString))).toList();
+    final List<Address> addressList = jsonStringList
+        .map((jsonString) => Address.fromJson(jsonDecode(jsonString)))
+        .toList();
     return addressList;
   }
 
@@ -44,7 +48,7 @@ class SharedPrefs {
     final jsonString = jsonEncode(address.toJson());
     await _sharedPrefs?.setString('current_address', jsonString);
   }
-  
+
   Address? getAddress() {
     final jsonString = _sharedPrefs?.getString('current_address');
     if (jsonString == null) {

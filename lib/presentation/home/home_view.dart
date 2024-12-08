@@ -159,7 +159,8 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       checkIfFirstTime(context);
-    });Patient patient = Patient(
+    });
+    Patient patient = Patient(
         email: '',
         username: '',
         profileImage: '',
@@ -278,7 +279,9 @@ class HomeScreen extends StatelessWidget {
                                           height: screenHeight * 0.06,
                                           width: screenHeight * 0.06,
                                           color: Colors.white,
-                                          child: (patient.profileImage == null || patient.profileImage == '')
+                                          child: (patient.profileImage ==
+                                                      null ||
+                                                  patient.profileImage == '')
                                               ? Padding(
                                                   padding:
                                                       const EdgeInsets.all(8.0),
@@ -365,14 +368,16 @@ class HomeScreen extends StatelessWidget {
                                                   .hospitalLocatorRoute);
                                             }
                                           },
-                                          child: Text('      Search for hospital',
-                                          style: TextStyle(
-                                            fontFamily: 'Montserrat',
-                                            fontSize: screenWidth * 0.04,
-                                            fontWeight: FontWeight.w500,
-                                            color: Colors.grey.shade500,
-                                            letterSpacing: 0.5,
-                                          ),),
+                                          child: Text(
+                                            '      Search for hospital',
+                                            style: TextStyle(
+                                              fontFamily: 'Montserrat',
+                                              fontSize: screenWidth * 0.04,
+                                              fontWeight: FontWeight.w500,
+                                              color: Colors.grey.shade500,
+                                              letterSpacing: 0.5,
+                                            ),
+                                          ),
                                         )),
                                         Padding(
                                           padding: EdgeInsets.all(15.h),
@@ -468,8 +473,20 @@ class HomeScreen extends StatelessWidget {
                                       ),
                                       GridButtonWidget(
                                         onTap: () {
-                                          context.push(
-                                              RouteNames.hospitalLocatorRoute);
+                                          if (!sharedPrefs.isProfileSetup) {
+                                            showDialog(
+                                              context: context,
+                                              builder: (context) {
+                                                return const Dialog(
+                                                    child:
+                                                        NeedToSetupProfileWidget());
+                                              },
+                                            );
+                                            return;
+                                          } else {
+                                            context.push(RouteNames
+                                                .hospitalLocatorRoute);
+                                          }
                                         },
                                         iconData: "assets/svgs/hospital.svg",
                                         constraints: constraints,

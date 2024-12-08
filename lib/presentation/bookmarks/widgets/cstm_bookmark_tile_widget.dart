@@ -111,7 +111,8 @@ class CstmBookmarkTile extends StatelessWidget {
                   if (bookmark.rating != null)
                     Row(
                       children: [
-                        Icon(Icons.star, color: Colors.amber, size: screenWidth * 0.04),
+                        Icon(Icons.star,
+                            color: Colors.amber, size: screenWidth * 0.04),
                         SizedBox(width: screenWidth * 0.01),
                         Text(
                           '${bookmark.rating} (${bookmark.userRatingsTotal ?? 0} reviews)',

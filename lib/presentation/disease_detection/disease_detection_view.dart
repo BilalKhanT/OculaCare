@@ -46,8 +46,8 @@ class DiseaseDetectionScreen extends StatelessWidget {
               child: SafeArea(
                 child: SingleChildScrollView(
                   child: Padding(
-                    padding:
-                    const EdgeInsets.symmetric(horizontal: 15.0, vertical: 20.0),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 15.0, vertical: 20.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
@@ -67,7 +67,9 @@ class DiseaseDetectionScreen extends StatelessWidget {
                             if (sharedPrefs.isProfileSetup) {
                               isHome = false;
                               isMore = false;
-                              context.read<QuestionCubit>().startQuestionnaire();
+                              context
+                                  .read<QuestionCubit>()
+                                  .startQuestionnaire();
                               context.push(RouteNames.questionRoute);
                             } else {
                               showDialog(
@@ -99,7 +101,8 @@ class DiseaseDetectionScreen extends StatelessWidget {
                           height: screenHeight * 0.5,
                           width: screenWidth,
                           child: const Padding(
-                            padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 0),
+                            padding: EdgeInsets.symmetric(
+                                vertical: 10.0, horizontal: 0),
                             child: DiseaseResultView(),
                           ),
                         )

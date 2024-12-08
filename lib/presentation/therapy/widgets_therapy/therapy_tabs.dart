@@ -47,9 +47,7 @@ class TherapyTabs extends StatelessWidget {
         onTap: () => onTap(),
         child: Container(
           decoration: BoxDecoration(
-            color: isSelected
-                ? const Color(0xFF04438D)
-                : Colors.white,
+            color: isSelected ? const Color(0xFF04438D) : Colors.white,
             borderRadius: BorderRadius.circular(25),
             boxShadow: const [
               BoxShadow(

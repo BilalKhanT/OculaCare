@@ -1,4 +1,3 @@
-import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_tts/flutter_tts.dart';
@@ -71,7 +70,8 @@ class QuestionCubit extends Cubit<QuestionState> {
       },
     ),
     Question(
-      questionText: "Have you experienced any of the following light-related issues?",
+      questionText:
+          "Have you experienced any of the following light-related issues?",
       options: [
         "Glare from lights",
         "Sensitivity to light",
@@ -119,7 +119,8 @@ class QuestionCubit extends Cubit<QuestionState> {
     final currentState = state as QuestionLoaded;
     final question = currentState.questions[currentState.currentQuestionIndex];
 
-    final updatedAnswers = Map<String, String>.from(currentState.selectedAnswers);
+    final updatedAnswers =
+        Map<String, String>.from(currentState.selectedAnswers);
     updatedAnswers[question.questionText] = selectedOption;
 
     if (currentState.currentQuestionIndex < currentState.questions.length - 1) {
@@ -152,7 +153,8 @@ class QuestionCubit extends Cubit<QuestionState> {
       }
     }
 
-    final maxRelevance = relevanceCount.entries.reduce((a, b) => a.value > b.value ? a : b);
+    final maxRelevance =
+        relevanceCount.entries.reduce((a, b) => a.value > b.value ? a : b);
 
     if (maxRelevance.value == 0) {
       return "No Significant Disease";

@@ -2,8 +2,6 @@ import 'package:bloc/bloc.dart';
 import 'package:cculacare/data/repositories/bookmark/bookmark_repo.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../configs/global/app_globals.dart';
-import '../../data/models/bookmark/bookmark_model.dart';
-import '../../data/repositories/local/preferences/shared_prefs.dart';
 import 'bookmark_states.dart';
 
 class BookmarkCubit extends Cubit<BookmarkState> {
@@ -14,7 +12,7 @@ class BookmarkCubit extends Cubit<BookmarkState> {
   void fetchBookmarks() async {
     emit(BookmarkLoading());
     try {
-      if(bookmarks.isEmpty){
+      if (bookmarks.isEmpty) {
         bookmarks.clear();
         await bookmarkRepo.fetchBookmarks();
       }
@@ -30,9 +28,9 @@ class BookmarkCubit extends Cubit<BookmarkState> {
     try {
       final bool isDeleted = await bookmarkRepo.deleteBookmark(email, placeId);
       if (isDeleted) {
-        bookmarks.removeWhere((bookmark) => bookmark.placeId == placeId && bookmark.email == email);
+        bookmarks.removeWhere((bookmark) =>
+            bookmark.placeId == placeId && bookmark.email == email);
         emit(BookmarkLoaded(bookmarks));
-        print("Bookmark removed from global list and database.");
       } else {
         emit(BookmarkError("Failed to delete bookmark from the database."));
       }
@@ -42,13 +40,14 @@ class BookmarkCubit extends Cubit<BookmarkState> {
   }
 
   Future<void> navigateToLocation(double latitude, double longitude) async {
-    final googleMapsUrl = 'https://www.google.com/maps/search/?api=1&query=$latitude,$longitude';
+    final googleMapsUrl =
+        'https://www.google.com/maps/search/?api=1&query=$latitude,$longitude';
 
     if (await canLaunchUrl(Uri.parse(googleMapsUrl))) {
-      await launchUrl(Uri.parse(googleMapsUrl), mode: LaunchMode.externalApplication);
+      await launchUrl(Uri.parse(googleMapsUrl),
+          mode: LaunchMode.externalApplication);
     } else {
       emit(BookmarkError('Could not launch Google Maps'));
     }
   }
-
 }

@@ -28,8 +28,7 @@ class MedCubit extends Cubit<MedState> {
         image: 'assets/images/cat3.png',
         name: 'Zeaxanthin Supplements',
         dosage: '2 mg of zeaxanthin per day',
-        usage:
-            'Helps to protect eye against the formation of cataracts',
+        usage: 'Helps to protect eye against the formation of cataracts',
         duration: 6,
       ),
     ],
@@ -82,8 +81,7 @@ class MedCubit extends Cubit<MedState> {
         image: 'assets/images/uv3.png',
         name: 'Methotrexate',
         dosage: '7.5-25 mg orally once a week',
-        usage:
-            'Suppresses the immune system and control inflammation',
+        usage: 'Suppresses the immune system and control inflammation',
         duration: 3,
       ),
     ],

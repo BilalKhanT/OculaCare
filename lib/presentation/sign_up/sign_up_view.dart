@@ -97,7 +97,8 @@ class SignUpScreen extends StatelessWidget {
                           height: screenHeight * 0.01,
                         ),
                         FadeInDown(
-                            duration: const Duration(milliseconds: 600),child: const SignUpForm()),
+                            duration: const Duration(milliseconds: 600),
+                            child: const SignUpForm()),
                         Center(
                           child: FadeInLeft(
                             duration: const Duration(milliseconds: 600),
@@ -154,7 +155,9 @@ class SignUpScreen extends StatelessWidget {
                                           'Update Password',
                                           'Your account password has been set as \'******\', update it in profile',
                                           false);
-                                      context.read<HomeCubit>().emitHomeAnimation();
+                                      context
+                                          .read<HomeCubit>()
+                                          .emitHomeAnimation();
                                       context.go(RouteNames.homeRoute);
                                     }
                                   }
@@ -182,7 +185,9 @@ class SignUpScreen extends StatelessWidget {
                                           'Update Password',
                                           'Your account password has been set as \'******\', update it in profile',
                                           false);
-                                      context.read<HomeCubit>().emitHomeAnimation();
+                                      context
+                                          .read<HomeCubit>()
+                                          .emitHomeAnimation();
                                       context.go(RouteNames.homeRoute);
                                     }
                                   }

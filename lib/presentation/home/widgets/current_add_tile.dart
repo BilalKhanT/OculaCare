@@ -24,7 +24,8 @@ class CurrentAddressTile extends StatelessWidget {
         duration: const Duration(milliseconds: 1000 + (5 * 100)),
         child: GestureDetector(
           // Use selectAddress to mark the address as selected
-          onTap: () => context.read<CurrentLocationCubit>().selectAddress(address),
+          onTap: () =>
+              context.read<CurrentLocationCubit>().selectAddress(address),
           child: Container(
             width: double.infinity,
             decoration: BoxDecoration(
@@ -32,24 +33,25 @@ class CurrentAddressTile extends StatelessWidget {
               borderRadius: BorderRadius.circular(9.0),
               boxShadow: isSelected
                   ? [
-                BoxShadow(
-                  color: AppColors.appColor.withOpacity(0.9),
-                  spreadRadius: 1,
-                  blurRadius: 0.5,
-                  offset: const Offset(0, 0),
-                ),
-              ]
+                      BoxShadow(
+                        color: AppColors.appColor.withOpacity(0.9),
+                        spreadRadius: 1,
+                        blurRadius: 0.5,
+                        offset: const Offset(0, 0),
+                      ),
+                    ]
                   : [
-                BoxShadow(
-                  color: AppColors.textPrimary.withOpacity(0.1),
-                  spreadRadius: 1,
-                  blurRadius: 0.5,
-                  offset: const Offset(0, 0),
-                ),
-              ],
+                      BoxShadow(
+                        color: AppColors.textPrimary.withOpacity(0.1),
+                        spreadRadius: 1,
+                        blurRadius: 0.5,
+                        offset: const Offset(0, 0),
+                      ),
+                    ],
             ),
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 17.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 10.0, vertical: 17.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
@@ -75,4 +77,3 @@ class CurrentAddressTile extends StatelessWidget {
     );
   }
 }
-

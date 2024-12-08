@@ -64,7 +64,9 @@ Widget customDetectionBtnWidget({
                     borderRadius: BorderRadius.circular(50.0),
                   ),
                   child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05, vertical: screenHeight * 0.01),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: screenWidth * 0.05,
+                        vertical: screenHeight * 0.01),
                     child: Text(
                       'Start Diagnosis',
                       style: TextStyle(
@@ -79,8 +81,11 @@ Widget customDetectionBtnWidget({
               ),
             ],
           ),
-          Image.asset('assets/images/eye_diagnosis.png',
-          height: screenHeight * 0.17, width: screenHeight * 0.21,)
+          Image.asset(
+            'assets/images/eye_diagnosis.png',
+            height: screenHeight * 0.17,
+            width: screenHeight * 0.21,
+          )
         ],
       ),
     ),

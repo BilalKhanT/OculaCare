@@ -18,12 +18,14 @@ class DetectionRepo {
         headers: {"Content-Type": "application/json"},
         body: json.encode(payload),
       );
-      print(response.statusCode);
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
         DiseaseResultModel result = DiseaseResultModel.fromJson(data);
         globalResults.add(result);
-        NotificationService.resultReadyNotification('Disease Analysis', 'Analysis report is ready', DateTime.now().add(const Duration(seconds: 2)));
+        NotificationService.resultReadyNotification(
+            'Disease Analysis',
+            'Analysis report is ready',
+            DateTime.now().add(const Duration(seconds: 2)));
       } else {
         log("Nothing ${response.body}");
       }

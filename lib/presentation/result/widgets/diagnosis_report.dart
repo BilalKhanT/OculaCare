@@ -15,20 +15,17 @@ class DiagnosisReport extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const String cataractsCauses =
-        '1: Aging and oxidative stress.\n'
+    const String cataractsCauses = '1: Aging and oxidative stress.\n'
         '2: Prolonged exposure to UV light.\n'
         '3: Smoking and alcohol consumption.';
     const String uveitisCauses =
         '1: Autoimmune diseases like rheumatoid arthritis.\n'
         '2: Infections like herpes or tuberculosis.\n'
         '3: Eye injuries or trauma.';
-    const String pterygiumCauses =
-        '1: Prolonged exposure to wind and dust.\n'
+    const String pterygiumCauses = '1: Prolonged exposure to wind and dust.\n'
         '2: UV radiation from the sun.\n'
         '3: Dry, arid climates.';
-    const String bulgyEyesCauses =
-        '1: Overactive thyroid (Graves\' disease).\n'
+    const String bulgyEyesCauses = '1: Overactive thyroid (Graves\' disease).\n'
         '2: Autoimmune reactions.\n'
         '3: Inflammation of the eye muscles and tissues.';
 
@@ -50,8 +47,8 @@ class DiagnosisReport extends StatelessWidget {
     final String decisionFlag = diagnosis.flag == 'left'
         ? diagnosis.result.leftEye!.prediction!
         : diagnosis.flag == 'right'
-        ? diagnosis.result.rightEye!.prediction!
-        : diagnosis.result.bulgy!.prediction!;
+            ? diagnosis.result.rightEye!.prediction!
+            : diagnosis.result.bulgy!.prediction!;
     return Scaffold(
       backgroundColor: AppColors.screenBackground,
       appBar: AppBar(
@@ -199,7 +196,13 @@ class DiagnosisReport extends StatelessWidget {
                 height: screenHeight * 0.005,
               ),
               Text(
-                decisionFlag == 'Cataracts Detected' ? cataractsCauses : decisionFlag == 'Pterygium Detected' ? pterygiumCauses : decisionFlag == 'Uveitis Detected' ? uveitisCauses : bulgyEyesCauses,
+                decisionFlag == 'Cataracts Detected'
+                    ? cataractsCauses
+                    : decisionFlag == 'Pterygium Detected'
+                        ? pterygiumCauses
+                        : decisionFlag == 'Uveitis Detected'
+                            ? uveitisCauses
+                            : bulgyEyesCauses,
                 style: TextStyle(
                   color: AppColors.textPrimary,
                   fontFamily: 'Montserrat',
@@ -223,8 +226,9 @@ class DiagnosisReport extends StatelessWidget {
                 height: screenHeight * 0.005,
               ),
               Text(
-                decisionFlag == 'Bulgy Eyes Detected' ?
-                '${diagnosis.result.treatment2}' : '${diagnosis.result.treatment1}',
+                decisionFlag == 'Bulgy Eyes Detected'
+                    ? '${diagnosis.result.treatment2}'
+                    : '${diagnosis.result.treatment1}',
                 textAlign: TextAlign.left,
                 style: TextStyle(
                   color: AppColors.textPrimary,
@@ -249,8 +253,9 @@ class DiagnosisReport extends StatelessWidget {
                 height: screenHeight * 0.005,
               ),
               Text(
-                decisionFlag == 'Bulgy Eyes Detected' ?
-                '${diagnosis.result.precaution2}' : '${diagnosis.result.precaution1}',
+                decisionFlag == 'Bulgy Eyes Detected'
+                    ? '${diagnosis.result.precaution2}'
+                    : '${diagnosis.result.precaution1}',
                 textAlign: TextAlign.left,
                 style: TextStyle(
                   color: AppColors.textPrimary,

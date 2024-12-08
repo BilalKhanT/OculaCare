@@ -1,8 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
-import '../../../configs/presentation/constants/colors.dart';
-
 class ProbabilityChart extends StatelessWidget {
   final double score;
 
@@ -26,7 +24,7 @@ class ProbabilityChart extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(100.0),
             color: Colors.transparent,
-            boxShadow:  [
+            boxShadow: [
               BoxShadow(
                 color: Colors.grey.shade200,
                 spreadRadius: 0.1,

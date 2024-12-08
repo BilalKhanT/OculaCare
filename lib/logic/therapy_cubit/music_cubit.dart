@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:audioplayers/audioplayers.dart';
 
-
 class MusicCubit extends Cubit<void> {
   final AudioPlayer _audioPlayer = AudioPlayer();
 

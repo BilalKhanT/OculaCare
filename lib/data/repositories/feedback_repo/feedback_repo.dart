@@ -6,7 +6,8 @@ import '../../../configs/global/app_globals.dart';
 class FeedbackRepository {
   final String apiUrl = '$ipServer/api/feedback/submit';
 
-  Future<bool> submitTherapyFeedback(String email, String category, List<String> data, String customFeedback, String date) async {
+  Future<bool> submitTherapyFeedback(String email, String category,
+      List<String> data, String customFeedback, String date) async {
     try {
       final Map<String, dynamic> feedbackData = {
         'email': email,

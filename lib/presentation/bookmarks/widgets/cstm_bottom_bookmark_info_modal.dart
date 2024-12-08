@@ -3,7 +3,6 @@ import 'package:go_router/go_router.dart';
 import '../../../configs/presentation/constants/colors.dart';
 import '../../../data/models/bookmark/bookmark_model.dart';
 
-
 class BookmarkInfoBottomSheet extends StatelessWidget {
   final Bookmark bookmark;
   final VoidCallback onPressed;
@@ -56,8 +55,7 @@ class BookmarkInfoBottomSheet extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: AppColors.textGrey,
                   borderRadius: const BorderRadius.all(Radius.circular(25)),
-                )
-            ),
+                )),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -70,10 +68,14 @@ class BookmarkInfoBottomSheet extends StatelessWidget {
                 height: height * 0.05,
                 width: width * 0.22,
                 child: GestureDetector(
-                  onTap: (){
+                  onTap: () {
                     context.pop();
                   },
-                  child: const Icon(Icons.cancel, color: AppColors.textSecondary, size: 44,),
+                  child: const Icon(
+                    Icons.cancel,
+                    color: AppColors.textSecondary,
+                    size: 44,
+                  ),
                 ),
               ),
             ],
@@ -84,8 +86,7 @@ class BookmarkInfoBottomSheet extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                        bookmark.name,
+                    Text(bookmark.name,
                         style: TextStyle(
                           fontSize: height * 0.022,
                           fontWeight: FontWeight.w700,
@@ -94,13 +95,13 @@ class BookmarkInfoBottomSheet extends StatelessWidget {
                         ),
                         maxLines: 3, // Limit to 2 lines
                         overflow: TextOverflow.ellipsis,
-                        textAlign: TextAlign.left
-                    ),
+                        textAlign: TextAlign.left),
                     SizedBox(height: height * 0.005),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Text(bookmark.userRatingsTotal.toString(),
+                        Text(
+                          bookmark.userRatingsTotal.toString(),
                           style: TextStyle(
                             fontSize: height * 0.018,
                             color: AppColors.textPrimary,
@@ -111,9 +112,11 @@ class BookmarkInfoBottomSheet extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: List.generate(
                             5,
-                                (index) => Icon(
+                            (index) => Icon(
                               Icons.star,
-                              color: index <= bookmark.rating!.round() ? AppColors.orange : AppColors.secondaryText,
+                              color: index <= bookmark.rating!.round()
+                                  ? AppColors.orange
+                                  : AppColors.secondaryText,
                               size: 28,
                             ),
                           ),
@@ -147,7 +150,9 @@ class BookmarkInfoBottomSheet extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: height * 0.01,),
+          SizedBox(
+            height: height * 0.01,
+          ),
           Row(
             children: [
               Container(
@@ -168,9 +173,16 @@ class BookmarkInfoBottomSheet extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Icon(Icons.directions, color: Colors.blue, size: height * 0.02,),
-                          SizedBox(width: width * 0.01,),
-                          Text("Directions",
+                          Icon(
+                            Icons.directions,
+                            color: Colors.blue,
+                            size: height * 0.02,
+                          ),
+                          SizedBox(
+                            width: width * 0.01,
+                          ),
+                          Text(
+                            "Directions",
                             style: TextStyle(
                               fontSize: height * 0.013,
                               color: AppColors.textPrimary,
@@ -178,8 +190,7 @@ class BookmarkInfoBottomSheet extends StatelessWidget {
                             ),
                           ),
                         ],
-                      )
-                  ),
+                      )),
                 ),
               ),
               SizedBox(width: width * 0.02),
@@ -201,9 +212,16 @@ class BookmarkInfoBottomSheet extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Icon(Icons.directions, color: Colors.blue, size: height * 0.02,),
-                          SizedBox(width: width * 0.01,),
-                          Text("Start",
+                          Icon(
+                            Icons.directions,
+                            color: Colors.blue,
+                            size: height * 0.02,
+                          ),
+                          SizedBox(
+                            width: width * 0.01,
+                          ),
+                          Text(
+                            "Start",
                             style: TextStyle(
                               fontSize: height * 0.013,
                               color: AppColors.textPrimary,
@@ -211,13 +229,14 @@ class BookmarkInfoBottomSheet extends StatelessWidget {
                             ),
                           ),
                         ],
-                      )
-                  ),
+                      )),
                 ),
               ),
             ],
           ),
-          SizedBox(height: height * 0.01,),
+          SizedBox(
+            height: height * 0.01,
+          ),
           SizedBox(
             height: height * 0.2,
             width: width,
@@ -244,8 +263,6 @@ class BookmarkInfoBottomSheet extends StatelessWidget {
               },
             ),
           ),
-
-
         ],
       ),
     );

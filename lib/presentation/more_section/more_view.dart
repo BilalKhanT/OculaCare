@@ -91,7 +91,9 @@ class MoreView extends StatelessWidget {
                               }
                               isHome = false;
                               isMore = true;
-                              context.read<QuestionCubit>().startQuestionnaire();
+                              context
+                                  .read<QuestionCubit>()
+                                  .startQuestionnaire();
                               context.push(RouteNames.questionRoute);
                             },
                             child: Container(
@@ -103,7 +105,8 @@ class MoreView extends StatelessWidget {
                                 child: Column(
                                   children: [
                                     Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: <Widget>[
                                         SvgPicture.asset(
                                           "assets/svgs/eye_scan.svg",
@@ -149,11 +152,11 @@ class MoreView extends StatelessWidget {
                         margin: EdgeInsets.symmetric(
                           horizontal: 20.h,
                         ),
-                        padding:
-                        EdgeInsets.symmetric(vertical: 20.h, horizontal: 10.h),
+                        padding: EdgeInsets.symmetric(
+                            vertical: 20.h, horizontal: 10.h),
                         decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
                           boxShadow: [
                             BoxShadow(
                               color: AppColors.textPrimary.withOpacity(0.1),
@@ -161,7 +164,8 @@ class MoreView extends StatelessWidget {
                               blurRadius: 0.5,
                               offset: const Offset(0, 0),
                             ),
-                          ],),
+                          ],
+                        ),
                         child: Column(
                           children: [
                             MoreTab(
@@ -227,7 +231,9 @@ class MoreView extends StatelessWidget {
                                   );
                                   return;
                                 } else {
-                                  context.read<BookmarkCubit>().fetchBookmarks();
+                                  context
+                                      .read<BookmarkCubit>()
+                                      .fetchBookmarks();
                                   context.push(RouteNames.bookmarkRoute);
                                 }
                               },
@@ -247,8 +253,12 @@ class MoreView extends StatelessWidget {
                                   );
                                   return;
                                 } else {
-                                  context.read<DetectionAnimationCubit>().emitHomeAnimation();
-                                  context.read<DetectionCubit>().loadDiseaseResults();
+                                  context
+                                      .read<DetectionAnimationCubit>()
+                                      .emitHomeAnimation();
+                                  context
+                                      .read<DetectionCubit>()
+                                      .loadDiseaseResults();
                                   context.go(RouteNames.detectionRoute);
                                 }
                               },
@@ -263,11 +273,11 @@ class MoreView extends StatelessWidget {
                         margin: EdgeInsets.symmetric(
                           horizontal: 20.h,
                         ),
-                        padding:
-                        EdgeInsets.symmetric(vertical: 20.h, horizontal: 10.h),
+                        padding: EdgeInsets.symmetric(
+                            vertical: 20.h, horizontal: 10.h),
                         decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
                           boxShadow: [
                             BoxShadow(
                               color: AppColors.textPrimary.withOpacity(0.1),
@@ -275,7 +285,8 @@ class MoreView extends StatelessWidget {
                               blurRadius: 0.5,
                               offset: const Offset(0, 0),
                             ),
-                          ],),
+                          ],
+                        ),
                         child: Column(
                           children: [
                             MoreTab(
@@ -295,7 +306,8 @@ class MoreView extends StatelessWidget {
                                 Uri privacyPolicyLaunchUrl = Uri.parse(
                                   url,
                                 );
-                                if (await canLaunchUrl(privacyPolicyLaunchUrl)) {
+                                if (await canLaunchUrl(
+                                    privacyPolicyLaunchUrl)) {
                                   await launchUrl(privacyPolicyLaunchUrl);
                                 }
                               },
@@ -325,7 +337,8 @@ class MoreView extends StatelessWidget {
                                 Uri privacyPolicyLaunchUrl = Uri.parse(
                                   url,
                                 );
-                                if (await canLaunchUrl(privacyPolicyLaunchUrl)) {
+                                if (await canLaunchUrl(
+                                    privacyPolicyLaunchUrl)) {
                                   await launchUrl(privacyPolicyLaunchUrl);
                                 }
                               },
@@ -338,68 +351,70 @@ class MoreView extends StatelessWidget {
                       ),
                       sharedPrefs.isLoggedIn
                           ? Container(
-                        margin: EdgeInsets.symmetric(
-                          horizontal: 20.h,
-                        ),
-                        padding: EdgeInsets.symmetric(
-                            vertical: 20.h, horizontal: 10.h),
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                          boxShadow: [
-                            BoxShadow(
-                              color: AppColors.textPrimary.withOpacity(0.1),
-                              spreadRadius: 1,
-                              blurRadius: 0.5,
-                              offset: const Offset(0, 0),
-                            ),
-                          ],),
-                        child: MoreTab(
-                          text: "Logout",
-                          icon: "assets/svgs/log_out.svg",
-                          onTap: () {
-                            clearGlobalDataOnLogout();
-                            sharedPrefs.isLoggedIn = false;
-                            sharedPrefs.isProfileSetup = false;
-                            sharedPrefs.patientData = '';
-                            sharedPrefs.userName = '';
-                            sharedPrefs.email = '';
-                            sharedPrefs.password = '';
-                            sharedPrefs.therapyFetched = false;
-                            sharedPrefs.historyFetched = false;
-                            context.go(RouteNames.loginRoute);
-                          },
-                        ),
-                      )
+                              margin: EdgeInsets.symmetric(
+                                horizontal: 20.h,
+                              ),
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 20.h, horizontal: 10.h),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color:
+                                        AppColors.textPrimary.withOpacity(0.1),
+                                    spreadRadius: 1,
+                                    blurRadius: 0.5,
+                                    offset: const Offset(0, 0),
+                                  ),
+                                ],
+                              ),
+                              child: MoreTab(
+                                text: "Logout",
+                                icon: "assets/svgs/log_out.svg",
+                                onTap: () {
+                                  clearGlobalDataOnLogout();
+                                  sharedPrefs.isLoggedIn = false;
+                                  sharedPrefs.isProfileSetup = false;
+                                  sharedPrefs.patientData = '';
+                                  sharedPrefs.userName = '';
+                                  sharedPrefs.email = '';
+                                  sharedPrefs.password = '';
+                                  sharedPrefs.therapyFetched = false;
+                                  sharedPrefs.historyFetched = false;
+                                  context.go(RouteNames.loginRoute);
+                                },
+                              ),
+                            )
                           : Container(
-                        margin: EdgeInsets.symmetric(
-                          horizontal: 20.h,
-                        ),
-                        padding: EdgeInsets.symmetric(
-                            vertical: 20.h, horizontal: 10.h),
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10)),
-                        child: MoreTab(
-                          text: "Logout",
-                          icon: "assets/svgs/log_out.svg",
-                          onTap: () async {
-                            clearGlobalDataOnLogout();
-                            sharedPrefs.isLoggedIn = false;
-                            sharedPrefs.isProfileSetup = false;
-                            sharedPrefs.patientData = '';
-                            sharedPrefs.userName = '';
-                            sharedPrefs.email = '';
-                            sharedPrefs.password = '';
-                            sharedPrefs.therapyFetched = false;
-                            sharedPrefs.historyFetched = false;
-                            sharedPrefs.clearAddressList();
-                            sharedPrefs.clearCurrentAddress();
-                            context.read<LoginCubit>().loadLoginScreen();
-                            context.go(RouteNames.loginRoute);
-                          },
-                        ),
-                      ),
+                              margin: EdgeInsets.symmetric(
+                                horizontal: 20.h,
+                              ),
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 20.h, horizontal: 10.h),
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: MoreTab(
+                                text: "Logout",
+                                icon: "assets/svgs/log_out.svg",
+                                onTap: () async {
+                                  clearGlobalDataOnLogout();
+                                  sharedPrefs.isLoggedIn = false;
+                                  sharedPrefs.isProfileSetup = false;
+                                  sharedPrefs.patientData = '';
+                                  sharedPrefs.userName = '';
+                                  sharedPrefs.email = '';
+                                  sharedPrefs.password = '';
+                                  sharedPrefs.therapyFetched = false;
+                                  sharedPrefs.historyFetched = false;
+                                  sharedPrefs.clearAddressList();
+                                  sharedPrefs.clearCurrentAddress();
+                                  context.read<LoginCubit>().loadLoginScreen();
+                                  context.go(RouteNames.loginRoute);
+                                },
+                              ),
+                            ),
                       const SizedBox(
                         height: 20,
                       ),

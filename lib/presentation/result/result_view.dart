@@ -88,7 +88,8 @@ class DiseaseResultView extends StatelessWidget {
                       return FadeIn(
                         duration: Duration(milliseconds: 1000 + (index * 100)),
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 7.0, horizontal: 10),
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 7.0, horizontal: 10),
                           child: DiseaseResultTile(
                             result: state.diseaseResults[index],
                           ),

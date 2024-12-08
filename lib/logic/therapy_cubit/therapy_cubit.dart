@@ -62,14 +62,14 @@ class TherapyCubit extends Cubit<TherapyState> {
 
           globalTherapyProgressData.update(
             date,
-                (existingDuration) => existingDuration + therapy.duration,
+            (existingDuration) => existingDuration + therapy.duration,
             ifAbsent: () => therapy.duration,
           );
 
           if (categoryDateTherapyCount.containsKey(therapy.therapyType)) {
             categoryDateTherapyCount[therapy.therapyType]!.update(
               date,
-                  (existingCount) => existingCount + 1,
+              (existingCount) => existingCount + 1,
               ifAbsent: () => 1,
             );
           } else {
@@ -85,7 +85,6 @@ class TherapyCubit extends Cubit<TherapyState> {
           therapyProgressErr: 'Failed to load therapy history: $e'));
     }
   }
-
 
   // Future<void> mapTherapies(String patientName) async {
   //   emit(TherapyLoading());

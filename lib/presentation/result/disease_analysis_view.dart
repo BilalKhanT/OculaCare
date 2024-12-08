@@ -93,15 +93,16 @@ class DiseaseAnalysisView extends StatelessWidget {
                                   ),
                                   iconSize: screenWidth * 0.05,
                                   elevation: 10,
-                                  style: const TextStyle(
-                                      color: Colors.deepPurple),
+                                  style:
+                                      const TextStyle(color: Colors.deepPurple),
                                   underline: Container(
                                     height: 0,
                                     color: AppColors.appColor,
                                   ),
                                   onChanged: (String? newValue) {
                                     if (newValue == 'Bulgy Eyes') {
-                                      if (result.bulgy!.prediction! == 'normal') {
+                                      if (result.bulgy!.prediction! ==
+                                          'normal') {
                                         AppUtils.showToast(
                                             context,
                                             'No Disease Detected',
@@ -370,7 +371,8 @@ class DiseaseAnalysisView extends StatelessWidget {
                                     ),
                                     onChanged: (String? newValue) {
                                       if (newValue == 'Bulgy Eyes') {
-                                        if (result.bulgy!.prediction! == 'normal') {
+                                        if (result.bulgy!.prediction! ==
+                                            'normal') {
                                           AppUtils.showToast(
                                               context,
                                               'No Disease Detected',
@@ -658,7 +660,8 @@ class DiseaseAnalysisView extends StatelessWidget {
                                     ),
                                     onChanged: (String? newValue) {
                                       if (newValue == 'Bulgy Eyes') {
-                                        if (result.bulgy!.prediction! == 'normal') {
+                                        if (result.bulgy!.prediction! ==
+                                            'normal') {
                                           AppUtils.showToast(
                                               context,
                                               'No Disease Detected',
@@ -914,7 +917,6 @@ class DiseaseAnalysisView extends StatelessWidget {
             ),
           ],
         ),
-
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 13.0, vertical: 8.0),
           child: Row(

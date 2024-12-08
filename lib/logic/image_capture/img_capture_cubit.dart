@@ -26,6 +26,7 @@ class ImageCaptureCubit extends Cubit<ImageCaptureState> {
   List<Face>? facesList;
   bool isProcessing = false;
   bool isCapturing = false;
+  bool faceDetectedVar = false;
 
   Future<void> dispose() async {
     cameraController.stopImageStream();
@@ -57,7 +58,7 @@ class ImageCaptureCubit extends Cubit<ImageCaptureState> {
           options: FaceDetectorOptions(
         performanceMode: FaceDetectorMode.accurate,
         enableLandmarks: true,
-            enableClassification: true,
+        enableClassification: true,
       ));
       isInitializing = false;
       emit(ImageCaptureStateLoaded(true, 1));
@@ -101,13 +102,12 @@ class ImageCaptureCubit extends Cubit<ImageCaptureState> {
       } else {
         emit(ImageCaptureStateInitial());
         for (Face face in faces) {
-          if (face.leftEyeOpenProbability != null && face.rightEyeOpenProbability != null) {
+          if (face.leftEyeOpenProbability != null &&
+              face.rightEyeOpenProbability != null) {
             if (face.leftEyeOpenProbability! < 0.2 ||
                 face.rightEyeOpenProbability! < 0.2) {
-              print('hhhhhhkkkkkkk');
               emit(ImageCaptureStateLoaded(true, 0));
             } else {
-              print('hhhhhh');
               emit(ImageCaptureStateLoaded(false, 1));
             }
           }
@@ -168,34 +168,32 @@ class ImageCaptureCubit extends Cubit<ImageCaptureState> {
     try {
       InputImage eyeImage = InputImage.fromFilePath(image.path);
       faceImage = eyeImage;
-      bool faceDetected = false;
-      //  Future.delayed(const Duration(seconds: 10), () async {
-      //   if (!faceDetected) {
-      //     emit(ImageCaptureStateFailure('No face detected within 10 seconds.'));
-      //   }
-      // });
-
       final List<Face>? faces = await faceDetector?.processImage(eyeImage);
 
       if (faces != null && faces.isNotEmpty) {
-        faceDetected = true;
+        faceDetectedVar = true;
         for (Face face in faces) {
-          final FaceLandmark? leftEye = face.landmarks[FaceLandmarkType.leftEye];
-          final FaceLandmark? rightEye = face.landmarks[FaceLandmarkType.rightEye];
+          final FaceLandmark? leftEye =
+              face.landmarks[FaceLandmarkType.leftEye];
+          final FaceLandmark? rightEye =
+              face.landmarks[FaceLandmarkType.rightEye];
 
           if (leftEye != null && rightEye != null) {
             await cropImage(leftEye.position, rightEye.position, image);
           } else {
             isCapturing = false;
+            faceDetectedVar = false;
             emit(ImageCaptureStateFailure('Could not detect both eyes.'));
           }
         }
       } else {
         isCapturing = false;
+        faceDetectedVar = false;
         emit(ImageCaptureStateFailure('No face detected.'));
       }
     } catch (e) {
       isCapturing = false;
+      faceDetectedVar = false;
       emit(ImageCaptureStateFailure('Error processing image.'));
     }
   }
@@ -216,12 +214,18 @@ class ImageCaptureCubit extends Cubit<ImageCaptureState> {
     final int rightX = rightEyePosition.x.clamp(0, faceImageWidth - 1);
     final int rightY = rightEyePosition.y.clamp(0, faceImageHeight - 1);
 
-    final int boundingBoxX = (leftX - padding - extraPaddingSides).clamp(0, faceImageWidth - 1);
-    final int boundingBoxY = (min(leftY, rightY) - padding).clamp(0, faceImageHeight - 1);
+    final int boundingBoxX =
+        (leftX - padding - extraPaddingSides).clamp(0, faceImageWidth - 1);
+    final int boundingBoxY =
+        (min(leftY, rightY) - padding).clamp(0, faceImageHeight - 1);
 
-    final int boundingBoxWidth = (rightX - leftX + 2 * padding + 2 * extraPaddingSides).clamp(0, faceImageWidth - boundingBoxX);
+    final int boundingBoxWidth =
+        (rightX - leftX + 2 * padding + 2 * extraPaddingSides)
+            .clamp(0, faceImageWidth - boundingBoxX);
 
-    final int boundingBoxHeight = ((max(leftY, rightY) as int) - (min(leftY, rightY) as int) + 2 * padding).clamp(0, faceImageHeight - boundingBoxY);
+    final int boundingBoxHeight =
+        ((max(leftY, rightY)) - (min(leftY, rightY).toInt()) + 2 * padding)
+            .clamp(0, faceImageHeight - boundingBoxY);
 
     img.Image croppedImage = img.copyCrop(
       originalImage,
@@ -233,16 +237,14 @@ class ImageCaptureCubit extends Cubit<ImageCaptureState> {
 
     croppedImage = img.adjustColor(croppedImage, brightness: 1.0);
 
-    String newPath = faceImage.path.replaceAll('.jpg', '_bounding_box_cropped.jpg');
+    String newPath =
+        faceImage.path.replaceAll('.jpg', '_bounding_box_cropped.jpg');
     File(newPath).writeAsBytesSync(img.encodeJpg(croppedImage));
 
     XFile boundingBoxCroppedXFile = XFile(newPath);
     isCapturing = false;
     return boundingBoxCroppedXFile;
   }
-
-
-
 
   Future<void> cropImage(
       Point<int> leftEyePosition, Point<int> rightEyePosition, XFile faceImage,
@@ -282,15 +284,15 @@ class ImageCaptureCubit extends Cubit<ImageCaptureState> {
     File(newPathRight).writeAsBytesSync(img.encodeJpg(rightCroppedImage));
     XFile leftEyeXFile = XFile(newPathLeft);
     XFile rightEyeXFile = XFile(newPathRight);
-    XFile? fullFace = await cropImageWithBoundingBox(leftEyePosition, rightEyePosition, faceImage);
+    XFile? fullFace = await cropImageWithBoundingBox(
+        leftEyePosition, rightEyePosition, faceImage);
     if (fullFace != null) {
       emit(ImagesCropped(
         leftEyeXFile,
         rightEyeXFile,
         fullFace,
       ));
-    }
-    else {
+    } else {
       emit(ImageCaptureStateFailure('Could not detect both eyes.'));
     }
     isCapturing = false;
@@ -314,7 +316,8 @@ class ImageCaptureCubit extends Cubit<ImageCaptureState> {
     return formattedDate;
   }
 
-  Future<void> uploadImageToServer(XFile leftEye, XFile rightEye, XFile fullFace, String modelFlag) async {
+  Future<void> uploadImageToServer(
+      XFile leftEye, XFile rightEye, XFile fullFace, String modelFlag) async {
     String leftEyeBase64 = await imageToBase64(leftEye);
     String rightEyeBase64 = await imageToBase64(rightEye);
     String fullBase64 = await imageToBase64(fullFace);
@@ -324,101 +327,11 @@ class ImageCaptureCubit extends Cubit<ImageCaptureState> {
       'right_eye': rightEyeBase64,
       'date': date,
       'bulgy_eye': fullBase64,
-      'patient_name':  sharedPrefs.userName,
+      'patient_name': sharedPrefs.userName,
       'email': sharedPrefs.email,
       'flag': modelFlag,
     };
     detectionRepo.predictDisease(payload);
-  }
-
-  Future<bool> detectStrabismusWithFullAlignment(InputImage inputImage) async {
-    final List<Face> faces = await faceDetector!.processImage(inputImage);
-    if (faces.isNotEmpty) {
-      final face = faces.first;
-      final leftEye = face.landmarks[FaceLandmarkType.leftEye];
-      final rightEye = face.landmarks[FaceLandmarkType.rightEye];
-
-      if (leftEye != null && rightEye != null) {
-        // Get positions of the left and right eyes
-        final int leftEyeX = leftEye.position.x;
-        final int leftEyeY = leftEye.position.y;
-        final int rightEyeX = rightEye.position.x;
-        final int rightEyeY = rightEye.position.y;
-
-        // Calculate padding for top and bottom lines
-        const double padding = 20.0;
-
-        // Line through the center of both eyes (middle line)
-        final double midLineY = (leftEyeY + rightEyeY) / 2;
-
-        // Top and bottom lines
-        final double topLineY = midLineY - padding;
-        final double bottomLineY = midLineY + padding;
-
-        // Horizontal alignment check: difference in X-axis between eyes
-        final double horizontalThreshold = 50.0;  // You can adjust this threshold
-        final int eyeDistance = (rightEyeX - leftEyeX);
-
-        // Ideal eye distance based on facial structure (modify based on dataset)
-        final double idealEyeDistance = 50.0;  // You may adjust this value
-
-        // Check if eyes are aligned vertically and horizontally
-        bool isLeftEyeAlignedVertically = (leftEyeY >= topLineY) && (leftEyeY <= bottomLineY);
-        bool isRightEyeAlignedVertically = (rightEyeY >= topLineY) && (rightEyeY <= bottomLineY);
-
-        // Horizontal check: eye distance should be within the threshold
-        bool isEyesAlignedHorizontally = (eyeDistance >= idealEyeDistance - horizontalThreshold) &&
-            (eyeDistance <= idealEyeDistance + horizontalThreshold);
-
-        // Detect strabismus if either eye deviates vertically or horizontally
-        if (!isLeftEyeAlignedVertically || !isRightEyeAlignedVertically || !isEyesAlignedHorizontally) {
-          return true; // Strabismus detected
-        } else {
-          return false; // No Strabismus
-        }
-      }
-    }
-    return false;
-  }
-
-
-
-  Future<bool> detectStrabismusPresence(InputImage inputImage) async {
-    final List<Face> faces = await faceDetector!.processImage(inputImage);
-    if (faces.isNotEmpty) {
-      final face = faces.first;
-      final leftEye = face.landmarks[FaceLandmarkType.leftEye];
-      final rightEye = face.landmarks[FaceLandmarkType.rightEye];
-      final noseBase = face.landmarks[FaceLandmarkType.noseBase];
-
-      if (leftEye != null && rightEye != null && noseBase != null) {
-        double leftEyeToNoseDistance = calculateDistance(
-          leftEye.position.x, leftEye.position.y,
-          noseBase.position.x, noseBase.position.y,
-        );
-
-        double rightEyeToNoseDistance = calculateDistance(
-          rightEye.position.x, rightEye.position.y,
-          noseBase.position.x, noseBase.position.y,
-        );
-
-        bool isStrabismus = detectCrossedEyes(leftEyeToNoseDistance, rightEyeToNoseDistance);
-
-        return isStrabismus;
-      }
-    }
-    return false;
-  }
-
-  double calculateDistance(int x1, int y1, int x2, int y2) {
-    return sqrt(pow((x2 - x1), 2) + pow((y2 - y1), 2));
-  }
-
-  bool detectCrossedEyes(double leftEyeToNose, double rightEyeToNose) {
-    const double threshold = 5.0;
-    double res = (leftEyeToNose - rightEyeToNose).abs();
-    print(res);
-    return res > threshold;
   }
 
   Future<String> imageToBase64(XFile file) async {

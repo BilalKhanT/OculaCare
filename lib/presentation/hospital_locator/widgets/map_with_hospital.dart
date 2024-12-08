@@ -1,18 +1,13 @@
-import 'package:cculacare/configs/routes/router.dart';
-import 'package:cculacare/data/models/address/address_model.dart';
 import 'package:cculacare/presentation/hospital_locator/widgets/cstm_searchbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../../configs/global/app_globals.dart';
-import '../../../configs/presentation/constants/colors.dart';
 import '../../../data/models/hospital_locator_model/hospital_model.dart';
-import '../../../data/repositories/local/preferences/shared_prefs.dart';
 import '../../../logic/hospital_locator_cubit/Search_visibility_cubit.dart';
 import '../../../logic/hospital_locator_cubit/bookmark_icon_cubit.dart';
 import '../../../logic/hospital_locator_cubit/hospital_locator_cubit.dart';
-import '../../../logic/hospital_locator_cubit/hospital_locator_states.dart';
 import '../../../logic/hospital_locator_cubit/search_visibility_state.dart';
 import 'hospital_info_bottom_model.dart';
 
@@ -32,11 +27,11 @@ class MapWithHospitalsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Stack(
       children: [
         GoogleMap(
-          initialCameraPosition: CameraPosition(target: LatLng(lat, long), zoom: 16),
+          initialCameraPosition:
+              CameraPosition(target: LatLng(lat, long), zoom: 16),
           onMapCreated: cubit.onMapCreated,
           markers: _buildMarkers(context, hospitals, cubit, lat, long),
         ),
@@ -50,14 +45,18 @@ class MapWithHospitalsWidget extends StatelessWidget {
               BlocBuilder<SearchVisibilityCubit, SearchVisibilityState>(
                 builder: (context, state) {
                   return CustomSearchBar(
-                    controller: context.read<SearchVisibilityCubit>().searchQueryController,
+                    controller: context
+                        .read<SearchVisibilityCubit>()
+                        .searchQueryController,
                     hintText: "Search Hospitals",
                     onChanged: (query) {
                       if (query.isEmpty) {
                         context.read<SearchVisibilityCubit>().hide();
                       } else {
                         context.read<SearchVisibilityCubit>().show();
-                        context.read<SearchVisibilityCubit>().filterHospitals(query, hospitals);
+                        context
+                            .read<SearchVisibilityCubit>()
+                            .filterHospitals(query, hospitals);
                       }
                     },
                   );
@@ -65,8 +64,12 @@ class MapWithHospitalsWidget extends StatelessWidget {
               ),
               BlocBuilder<SearchVisibilityCubit, SearchVisibilityState>(
                 builder: (context, state) {
-                  if (state is SearchVisibleState || state is SearchingState || state is SearchingSuccessState) {
-                    final filteredHospitals = state is SearchingSuccessState ? state.filteredHospitals : [];
+                  if (state is SearchVisibleState ||
+                      state is SearchingState ||
+                      state is SearchingSuccessState) {
+                    final filteredHospitals = state is SearchingSuccessState
+                        ? state.filteredHospitals
+                        : [];
                     return Visibility(
                       visible: true,
                       child: Container(
@@ -90,7 +93,10 @@ class MapWithHospitalsWidget extends StatelessWidget {
                                 ),
                               ),
                               onTap: () {
-                                context.read<SearchVisibilityCubit>().searchQueryController.clear();
+                                context
+                                    .read<SearchVisibilityCubit>()
+                                    .searchQueryController
+                                    .clear();
                                 context.read<SearchVisibilityCubit>().hide();
                                 showModalBottomSheet(
                                   context: context,
@@ -101,10 +107,14 @@ class MapWithHospitalsWidget extends StatelessWidget {
                                   ),
                                   builder: (context) {
                                     return BlocProvider(
-                                      create: (context) => BookmarkIconCubit()..initializeIconState(hospital),
+                                      create: (context) => BookmarkIconCubit()
+                                        ..initializeIconState(hospital),
                                       child: HospitalInfoBottomSheet(
                                         hospital: hospital,
-                                        isBookmarked: bookmarks.any((bookmark) => bookmark.placeId == hospital.placeId),
+                                        isBookmarked: bookmarks.any(
+                                            (bookmark) =>
+                                                bookmark.placeId ==
+                                                hospital.placeId),
                                         onPressed: () {
                                           context.pop();
                                           cubit.startNavigation(
@@ -115,9 +125,13 @@ class MapWithHospitalsWidget extends StatelessWidget {
                                             'driving',
                                           );
                                         },
-                                        onStart: (){
+                                        onStart: () {
                                           context.pop();
-                                          context.read<HospitalCubit>().navigateToLocation(hospital.location.latitude, hospital.location.longitude);
+                                          context
+                                              .read<HospitalCubit>()
+                                              .navigateToLocation(
+                                                  hospital.location.latitude,
+                                                  hospital.location.longitude);
                                         },
                                       ),
                                     );
@@ -140,7 +154,8 @@ class MapWithHospitalsWidget extends StatelessWidget {
     );
   }
 
-  Set<Marker> _buildMarkers(BuildContext context, List<Hospital> hospitals, HospitalCubit cubit, double lat, double long) {
+  Set<Marker> _buildMarkers(BuildContext context, List<Hospital> hospitals,
+      HospitalCubit cubit, double lat, double long) {
     Set<Marker> markers = hospitals.map((hospital) {
       return Marker(
         markerId: MarkerId(hospital.placeId),
@@ -155,10 +170,12 @@ class MapWithHospitalsWidget extends StatelessWidget {
             ),
             builder: (context) {
               return BlocProvider(
-                create: (context) => BookmarkIconCubit()..initializeIconState(hospital),
+                create: (context) =>
+                    BookmarkIconCubit()..initializeIconState(hospital),
                 child: HospitalInfoBottomSheet(
                   hospital: hospital,
-                  isBookmarked: bookmarks.any((bookmark) => bookmark.placeId == hospital.placeId),
+                  isBookmarked: bookmarks
+                      .any((bookmark) => bookmark.placeId == hospital.placeId),
                   onPressed: () {
                     context.pop();
                     cubit.startNavigation(
@@ -169,9 +186,11 @@ class MapWithHospitalsWidget extends StatelessWidget {
                       'driving',
                     );
                   },
-                  onStart: (){
+                  onStart: () {
                     context.pop();
-                    context.read<HospitalCubit>().navigateToLocation(hospital.location.latitude, hospital.location.longitude);
+                    context.read<HospitalCubit>().navigateToLocation(
+                        hospital.location.latitude,
+                        hospital.location.longitude);
                   },
                 ),
               );

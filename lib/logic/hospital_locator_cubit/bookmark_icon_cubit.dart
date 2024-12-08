@@ -13,21 +13,26 @@ class BookmarkIconCubit extends Cubit<BookmarkIconState> {
 
   void initializeIconState(Hospital hospital) {
     try {
-      bool isBookmarked = bookmarks.any((bookmark) => bookmark.placeId == hospital.placeId);
+      bool isBookmarked =
+          bookmarks.any((bookmark) => bookmark.placeId == hospital.placeId);
       emit(BookmarkIconFilled(isBookmarked));
     } catch (e) {
-      emit(const BookmarkIconError("Failed to initialize bookmark icon state."));
+      emit(
+          const BookmarkIconError("Failed to initialize bookmark icon state."));
     }
   }
 
   Future<void> toggleBookmark(Hospital hospital) async {
     try {
       if (state is BookmarkIconFilled) {
-        final isCurrentlyBookmarked = (state as BookmarkIconFilled).isBookmarked;
+        final isCurrentlyBookmarked =
+            (state as BookmarkIconFilled).isBookmarked;
 
         if (isCurrentlyBookmarked) {
-          await bookmarkRepository.deleteBookmark(sharedPrefs.email, hospital.placeId);
-          bookmarks.removeWhere((bookmark) => bookmark.placeId == hospital.placeId);
+          await bookmarkRepository.deleteBookmark(
+              sharedPrefs.email, hospital.placeId);
+          bookmarks
+              .removeWhere((bookmark) => bookmark.placeId == hospital.placeId);
           emit(const BookmarkIconFilled(false));
         } else {
           final bookmark = Bookmark(

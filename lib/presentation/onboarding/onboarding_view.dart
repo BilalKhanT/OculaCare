@@ -58,7 +58,8 @@ class OnBoardingView extends StatelessWidget {
                           ),
                           SizedBox(height: screenHeight * 0.02),
                           Padding(
-                            padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: screenWidth * 0.05),
                             child: Text(
                               context
                                   .read<OnBoardingCubit>()
@@ -104,11 +105,13 @@ class OnBoardingView extends StatelessWidget {
                       decoration: BoxDecoration(
                         color: AppColors.screenBackground,
                         border: context.read<OnBoardingCubit>().currentIndex ==
-                            context
-                                .read<OnBoardingCubit>()
-                                .contents
-                                .length -
-                                1 ? Border.all(color: AppColors.appColor, width: 3) : Border.all(color: Colors.transparent, width: 3),
+                                context
+                                        .read<OnBoardingCubit>()
+                                        .contents
+                                        .length -
+                                    1
+                            ? Border.all(color: AppColors.appColor, width: 3)
+                            : Border.all(color: Colors.transparent, width: 3),
                         borderRadius: BorderRadius.circular(30),
                       ),
                       child: Center(
@@ -131,12 +134,16 @@ class OnBoardingView extends StatelessWidget {
                                 style: TextStyle(
                                     fontFamily: 'MontserratMedium',
                                     fontSize: screenWidth * 0.045,
-                                    color: context.read<OnBoardingCubit>().currentIndex ==
-                                        context
-                                            .read<OnBoardingCubit>()
-                                            .contents
-                                            .length -
-                                            1 ? AppColors.appColor : AppColors.screenBackground,
+                                    color: context
+                                                .read<OnBoardingCubit>()
+                                                .currentIndex ==
+                                            context
+                                                    .read<OnBoardingCubit>()
+                                                    .contents
+                                                    .length -
+                                                1
+                                        ? AppColors.appColor
+                                        : AppColors.screenBackground,
                                     fontWeight: FontWeight.w800),
                               ),
                               SizedBox(
@@ -145,12 +152,16 @@ class OnBoardingView extends StatelessWidget {
                               Icon(
                                 Icons.navigate_next_outlined,
                                 size: screenWidth * 0.065,
-                                color: context.read<OnBoardingCubit>().currentIndex ==
-                                    context
-                                        .read<OnBoardingCubit>()
-                                        .contents
-                                        .length -
-                                        1 ? AppColors.appColor : AppColors.screenBackground,
+                                color: context
+                                            .read<OnBoardingCubit>()
+                                            .currentIndex ==
+                                        context
+                                                .read<OnBoardingCubit>()
+                                                .contents
+                                                .length -
+                                            1
+                                    ? AppColors.appColor
+                                    : AppColors.screenBackground,
                               )
                             ],
                           ),

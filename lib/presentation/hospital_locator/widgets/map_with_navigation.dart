@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../../configs/presentation/constants/colors.dart';
-import '../../../data/repositories/local/preferences/shared_prefs.dart';
 import '../../../logic/hospital_locator_cubit/hospital_locator_cubit.dart';
 
 class MapWithNavigationWidget extends StatelessWidget {
@@ -15,19 +14,22 @@ class MapWithNavigationWidget extends StatelessWidget {
   const MapWithNavigationWidget({
     Key? key,
     required this.polylineCoordinates,
-    required this.cubit, required this.lat, required this.long, this.flag,
+    required this.cubit,
+    required this.lat,
+    required this.long,
+    this.flag,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
     Set<Marker> markers = _buildMarkers(lat, long);
     Set<Polyline> polylines = _buildPolylines();
 
     return Stack(
       children: [
         GoogleMap(
-          initialCameraPosition: CameraPosition(target: LatLng(lat, long), zoom: 16),
+          initialCameraPosition:
+              CameraPosition(target: LatLng(lat, long), zoom: 16),
           onMapCreated: cubit.onMapCreated,
           markers: markers,
           polylines: polylines,
@@ -40,8 +42,7 @@ class MapWithNavigationWidget extends StatelessWidget {
             onPressed: () {
               if (flag!) {
                 context.pop();
-              }
-              else {
+              } else {
                 cubit.endNavigation();
               }
             },
@@ -73,7 +74,8 @@ class MapWithNavigationWidget extends StatelessWidget {
     };
   }
 
-  Widget _buildCircularButton({required IconData icon, required void Function() onPressed}) {
+  Widget _buildCircularButton(
+      {required IconData icon, required void Function() onPressed}) {
     return Container(
       decoration: BoxDecoration(
         shape: BoxShape.circle,

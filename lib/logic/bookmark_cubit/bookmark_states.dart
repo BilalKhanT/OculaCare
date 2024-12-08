@@ -19,6 +19,3 @@ class BookmarkLoaded extends BookmarkState {
 
   BookmarkLoaded(this.bookmark);
 }
-
-
-

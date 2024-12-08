@@ -256,7 +256,8 @@ class PatientProfileScreen extends StatelessWidget {
                                         context
                                             .read<LocationCubit>()
                                             .setLocation();
-                                        context.push(RouteNames.locationRoute, extra: false);
+                                        context.push(RouteNames.locationRoute,
+                                            extra: false);
                                       },
                                       icon: const Icon(
                                         Icons.location_on_outlined,
@@ -500,15 +501,17 @@ class PatientProfileScreen extends StatelessWidget {
                               context
                                   .read<GenderCubit>()
                                   .setGender(patient.gender!);
-                              context.read<PatientProfileCubit>().emitEditProfile(
-                                  context,
-                                  patient.age.toString(),
-                                  patient.gender,
-                                  patient.address!.locationName.toString(),
-                                  patient.contactNumber!,
-                                  patient.profileImage!,
-                                  patient.address!.lat!,
-                                  patient.address!.long!);
+                              context
+                                  .read<PatientProfileCubit>()
+                                  .emitEditProfile(
+                                      context,
+                                      patient.age.toString(),
+                                      patient.gender,
+                                      patient.address!.locationName.toString(),
+                                      patient.contactNumber!,
+                                      patient.profileImage!,
+                                      patient.address!.lat!,
+                                      patient.address!.long!);
                             },
                             text: 'Edit Profile'),
                       ),
@@ -699,7 +702,8 @@ class PatientProfileScreen extends StatelessWidget {
                                       context
                                           .read<LocationCubit>()
                                           .setLocation();
-                                      context.push(RouteNames.locationRoute, extra: false);
+                                      context.push(RouteNames.locationRoute,
+                                          extra: false);
                                     },
                                     icon: const Icon(
                                       Icons.location_on_outlined,

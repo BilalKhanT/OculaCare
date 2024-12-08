@@ -161,8 +161,8 @@ class SignUpForm extends StatelessWidget {
                     bool hasUpperCase = value.contains(RegExp(r'[A-Z]'));
                     bool hasLowerCase = value.contains(RegExp(r'[a-z]'));
                     bool hasDigits = value.contains(RegExp(r'\d'));
-                    bool hasSpecialCharacters = value.contains(RegExp(
-                        r'[!@#\$&*~%^()_+=|<>?{}\[\]\/\\.,-]'));
+                    bool hasSpecialCharacters = value.contains(
+                        RegExp(r'[!@#\$&*~%^()_+=|<>?{}\[\]\/\\.,-]'));
 
                     if (!hasUpperCase) {
                       return 'Password must include at least one uppercase letter';

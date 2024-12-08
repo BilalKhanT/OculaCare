@@ -15,7 +15,9 @@ class BookmarkRepository {
       if (response.statusCode == 200) {
         final List<dynamic> data = json.decode(response.body);
         bookmarks.clear();
-        bookmarks = data.map((bookmarkJson) => Bookmark.fromJson(bookmarkJson)).toList();
+        bookmarks = data
+            .map((bookmarkJson) => Bookmark.fromJson(bookmarkJson))
+            .toList();
         return true;
       } else {
         return false;
@@ -46,10 +48,12 @@ class BookmarkRepository {
 
   Future<bool> deleteBookmark(String email, String placeId) async {
     try {
-      final response = await http.delete(Uri.parse('$apiUrl/delete/$email/$placeId'));
+      final response =
+          await http.delete(Uri.parse('$apiUrl/delete/$email/$placeId'));
 
       if (response.statusCode == 200) {
-        bookmarks.removeWhere((bookmark) => bookmark.placeId == placeId && bookmark.email == email);
+        bookmarks.removeWhere((bookmark) =>
+            bookmark.placeId == placeId && bookmark.email == email);
         return true;
       } else {
         return false;

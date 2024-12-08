@@ -116,7 +116,9 @@ class MedView extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: screenHeight * 0.02,),
+                  SizedBox(
+                    height: screenHeight * 0.02,
+                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15.0),
                     child: Text(
@@ -130,7 +132,9 @@ class MedView extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: screenHeight * 0.02,),
+                  SizedBox(
+                    height: screenHeight * 0.02,
+                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15.0),
                     child: Text(
@@ -144,7 +148,9 @@ class MedView extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: screenHeight * 0.015,),
+                  SizedBox(
+                    height: screenHeight * 0.015,
+                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15.0),
                     child: Container(
@@ -154,7 +160,8 @@ class MedView extends StatelessWidget {
                         color: AppColors.appColor.withOpacity(0.5),
                       ),
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 15.0, vertical: 10.0),
                         child: Text(
                           '${state.medicines.dosage}.',
                           textAlign: TextAlign.left,
@@ -168,7 +175,9 @@ class MedView extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: screenHeight * 0.02,),
+                  SizedBox(
+                    height: screenHeight * 0.02,
+                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15.0),
                     child: Text(
@@ -182,23 +191,28 @@ class MedView extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: screenHeight * 0.015,),
+                  SizedBox(
+                    height: screenHeight * 0.015,
+                  ),
                   Center(
                       child: FadeIn(
-                        duration: const Duration(milliseconds: 600),
-                        child: DurationCalendar(medicine: state.medicines),
-                      )),
+                    duration: const Duration(milliseconds: 600),
+                    child: DurationCalendar(medicine: state.medicines),
+                  )),
                 ],
               );
-            }
-            else if (state is MedLoading) {
-              return  Center(
+            } else if (state is MedLoading) {
+              return Center(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(height: screenHeight * 0.3,),
-                    const DotLoader(loaderColor: AppColors.appColor,),
+                    SizedBox(
+                      height: screenHeight * 0.3,
+                    ),
+                    const DotLoader(
+                      loaderColor: AppColors.appColor,
+                    ),
                   ],
                 ),
               );

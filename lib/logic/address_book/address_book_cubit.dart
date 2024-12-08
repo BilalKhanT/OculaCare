@@ -17,7 +17,8 @@ class AddressBookCubit extends Cubit<AddressBookState> {
   Future<void> getAddresses() async {
     emit(AddressBookLoading());
     Address? currentAdd = sharedPrefs.getAddress();
-    currentAdd ??= Address(lat: -98798.99, long: -98798.99, locationName: 'kkk');
+    currentAdd ??=
+        Address(lat: -98798.99, long: -98798.99, locationName: 'kkk');
     try {
       final List<Address> address = sharedPrefs.getAddressList();
       if (address.isEmpty) {
@@ -45,7 +46,8 @@ class AddressBookCubit extends Cubit<AddressBookState> {
   Future<bool> addAddress() async {
     emit(AddressBookLoading());
     Address? currentAdd = sharedPrefs.getAddress();
-    currentAdd ??= Address(lat: -98798.99, long: -98798.99, locationName: 'kkk');
+    currentAdd ??=
+        Address(lat: -98798.99, long: -98798.99, locationName: 'kkk');
     try {
       if (lat != -9999.9 &&
           long != -9999.9 &&
@@ -77,7 +79,8 @@ class AddressBookCubit extends Cubit<AddressBookState> {
   Future<bool> deleteAddress(Address add) async {
     emit(AddressBookLoading());
     Address? currentAdd = sharedPrefs.getAddress();
-    currentAdd ??= Address(lat: -98798.99, long: -98798.99, locationName: 'kkk');
+    currentAdd ??=
+        Address(lat: -98798.99, long: -98798.99, locationName: 'kkk');
     try {
       final bool flag = await addressBookRepo.deleteAddress(
           email: sharedPrefs.email, address: add);

@@ -73,6 +73,7 @@ class CustomSearchBar extends StatelessWidget {
                 padding: const EdgeInsets.all(15.0),
                 child: SvgPicture.asset(
                   'assets/svgs/charm_search.svg',
+                  // ignore: deprecated_member_use
                   color: Colors.grey,
                 ),
               ),

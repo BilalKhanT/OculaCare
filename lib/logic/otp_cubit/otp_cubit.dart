@@ -168,7 +168,14 @@ class OtpCubit extends Cubit<OtpState> {
         sharedPrefs.isProfileSetup = false;
         sharedPrefs.userName = userName;
         sharedPrefs.password = userPassword;
-        Patient patient = Patient(email: userEmail, username: userName, profileImage: null, age: null, gender: null, contactNumber: null, address: null);
+        Patient patient = Patient(
+            email: userEmail,
+            username: userName,
+            profileImage: null,
+            age: null,
+            gender: null,
+            contactNumber: null,
+            address: null);
         sharedPrefs.patientData = jsonEncode(patient.toJson());
         sharedPrefs.setAddressList([]);
         sharedPrefs.isLoggedIn = true;

@@ -10,7 +10,8 @@ class DotLoader extends StatefulWidget {
   CustomLoaderState createState() => CustomLoaderState();
 }
 
-class CustomLoaderState extends State<DotLoader> with SingleTickerProviderStateMixin {
+class CustomLoaderState extends State<DotLoader>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
 
   @override
@@ -69,9 +70,12 @@ class _GapCircularLoaderPainter extends CustomPainter {
     const double gapAngle = pi / 2;
     const double segmentAngle = pi / 2;
 
-    for (double startAngle = 0; startAngle < 2 * pi; startAngle += segmentAngle + gapAngle) {
+    for (double startAngle = 0;
+        startAngle < 2 * pi;
+        startAngle += segmentAngle + gapAngle) {
       canvas.drawArc(
-        Rect.fromCircle(center: Offset(size.width / 2, size.height / 2), radius: radius),
+        Rect.fromCircle(
+            center: Offset(size.width / 2, size.height / 2), radius: radius),
         startAngle,
         segmentAngle,
         false,

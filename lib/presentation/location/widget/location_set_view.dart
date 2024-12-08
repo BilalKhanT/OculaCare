@@ -96,12 +96,10 @@ class LocationSetView extends StatelessWidget {
                               .read<AddressBookCubit>()
                               .setCoordinates(lat, long);
                           if (context.mounted) {
-                            context
-                                .read<AddressBookCubit>().addAddress();
+                            context.read<AddressBookCubit>().addAddress();
                             context.pop();
                           }
-                        }
-                        else {
+                        } else {
                           context
                               .read<PatientProfileCubit>()
                               .addressController

@@ -43,7 +43,6 @@ class SnellanTestCubit extends Cubit<SnellanTestState> {
     ['SCALE', 'CLEAN', 'CLOUD', 'FLASH', 'DRINK', 'PAINT', 'CLASS', 'POWER'],
   ];
 
-
   // List<List<String>> snellanList = [
   //   ['PR'],
   //   ['BK', 'LW'],

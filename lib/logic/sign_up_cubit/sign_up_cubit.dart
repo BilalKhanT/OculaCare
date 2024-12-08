@@ -49,7 +49,7 @@ class SignUpCubit extends Cubit<SignUpState> {
         idToken: googleAuth.idToken,
       );
       final UserCredential authResult =
-      await auth.signInWithCredential(credential);
+          await auth.signInWithCredential(credential);
       final User? user = authResult.user;
       String? email = user?.email;
       String? name = user?.displayName;
@@ -71,9 +71,9 @@ class SignUpCubit extends Cubit<SignUpState> {
       if (result.status == LoginStatus.success) {
         final AccessToken accessToken = result.accessToken!;
         final AuthCredential credential =
-        FacebookAuthProvider.credential(accessToken.token);
+            FacebookAuthProvider.credential(accessToken.token);
         final UserCredential authResult =
-        await auth.signInWithCredential(credential);
+            await auth.signInWithCredential(credential);
         final User? user = authResult.user;
         String? name = user?.displayName;
         final flag = await registerFacebookUser(name!);

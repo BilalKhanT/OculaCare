@@ -4,7 +4,6 @@ import '../../../configs/presentation/constants/colors.dart';
 import '../../../logic/hospital_locator_cubit/hospital_locator_cubit.dart';
 import '../../widgets/btn_flat.dart';
 
-
 class SearchBottomSheet extends StatelessWidget {
   final HospitalCubit cubit;
 
@@ -38,13 +37,12 @@ class SearchBottomSheet extends StatelessWidget {
                 final double sourceLong = double.parse(source[1]);
 
                 final destinationParts = destination.split(", ");
-                final double destinationLat =
-                double.parse(destinationParts[0]);
+                final double destinationLat = double.parse(destinationParts[0]);
                 final double destinationLong =
-                double.parse(destinationParts[1]);
+                    double.parse(destinationParts[1]);
 
-                cubit.startNavigation(
-                    sourceLat, sourceLong, destinationLat, destinationLong, 'driving');
+                cubit.startNavigation(sourceLat, sourceLong, destinationLat,
+                    destinationLong, 'driving');
                 Navigator.pop(context);
               } else {
                 ScaffoldMessenger.of(context).showSnackBar(

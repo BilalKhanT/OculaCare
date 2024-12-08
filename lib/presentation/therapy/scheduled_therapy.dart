@@ -136,10 +136,11 @@ class ScheduledTherapies extends StatelessWidget {
                                     padding: const EdgeInsets.symmetric(
                                         vertical: 10.0),
                                     child: FadeIn(
-                                      duration: const Duration(milliseconds: 600),
+                                      duration:
+                                          const Duration(milliseconds: 600),
                                       child: Slidable(
-                                        key: ValueKey(
-                                            state.scheduledTherapies[index]['id']),
+                                        key: ValueKey(state
+                                            .scheduledTherapies[index]['id']),
                                         endActionPane: ActionPane(
                                           motion: const StretchMotion(),
                                           children: [
@@ -174,7 +175,8 @@ class ScheduledTherapies extends StatelessWidget {
                                                   BorderRadius.circular(10),
                                               boxShadow: [
                                                 BoxShadow(
-                                                  color: AppColors.textPrimary.withOpacity(0.1),
+                                                  color: AppColors.textPrimary
+                                                      .withOpacity(0.1),
                                                   spreadRadius: 1,
                                                   blurRadius: 0.5,
                                                   offset: const Offset(0, 0),
@@ -185,28 +187,32 @@ class ScheduledTherapies extends StatelessWidget {
                                               children: [
                                                 Expanded(
                                                   child: Padding(
-                                                    padding: const EdgeInsets.only(
-                                                        left: 15.0,
-                                                        top: 10.0,
-                                                        bottom: 10.0),
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            left: 15.0,
+                                                            top: 10.0,
+                                                            bottom: 10.0),
                                                     child: Column(
                                                       crossAxisAlignment:
-                                                          CrossAxisAlignment.start,
+                                                          CrossAxisAlignment
+                                                              .start,
                                                       children: <Widget>[
                                                         Text(
                                                           '${state.scheduledTherapies[index]['title']}',
                                                           style: TextStyle(
-                                                            color:
-                                                                AppColors.appColor,
+                                                            color: AppColors
+                                                                .appColor,
                                                             fontFamily:
                                                                 'MontserratMedium',
                                                             fontWeight:
                                                                 FontWeight.w900,
                                                             fontSize:
-                                                                screenWidth * 0.04,
+                                                                screenWidth *
+                                                                    0.04,
                                                           ),
                                                         ),
-                                                        const SizedBox(height: 5),
+                                                        const SizedBox(
+                                                            height: 5),
                                                         Text(
                                                           'Time:',
                                                           style: TextStyle(
@@ -216,7 +222,8 @@ class ScheduledTherapies extends StatelessWidget {
                                                             fontWeight:
                                                                 FontWeight.w900,
                                                             fontSize:
-                                                                screenWidth * 0.04,
+                                                                screenWidth *
+                                                                    0.04,
                                                           ),
                                                         ),
                                                         Text(
@@ -235,7 +242,8 @@ class ScheduledTherapies extends StatelessWidget {
                                                             fontWeight:
                                                                 FontWeight.w600,
                                                             fontSize:
-                                                                screenWidth * 0.035,
+                                                                screenWidth *
+                                                                    0.035,
                                                           ),
                                                         ),
                                                       ],
@@ -243,8 +251,9 @@ class ScheduledTherapies extends StatelessWidget {
                                                   ),
                                                 ),
                                                 Padding(
-                                                  padding: const EdgeInsets.only(
-                                                      right: 10.0),
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          right: 10.0),
                                                   child: Container(
                                                     decoration: BoxDecoration(
                                                       borderRadius:
@@ -255,14 +264,15 @@ class ScheduledTherapies extends StatelessWidget {
                                                     ),
                                                     child: Padding(
                                                       padding:
-                                                          const EdgeInsets.all(2.0),
+                                                          const EdgeInsets.all(
+                                                              2.0),
                                                       child: IconButton(
                                                         onPressed: () {
                                                           Slidable.of(context)
                                                               ?.openEndActionPane();
                                                         },
-                                                        icon: const Icon(
-                                                            Icons.delete_outlined),
+                                                        icon: const Icon(Icons
+                                                            .delete_outlined),
                                                         color: Colors.red,
                                                         iconSize: 26,
                                                       ),

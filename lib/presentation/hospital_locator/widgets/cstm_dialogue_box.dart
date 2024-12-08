@@ -1,5 +1,4 @@
 import 'package:cculacare/presentation/widgets/btn_flat.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../configs/presentation/constants/colors.dart';
@@ -29,30 +28,40 @@ class CstmDialogueBox extends StatelessWidget {
             ],
           ),
           child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
             child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Error!",
+                  Text(
+                    "Error!",
                     style: TextStyle(
                       fontFamily: 'MontserratMedium',
                       fontWeight: FontWeight.w800,
                       fontSize: height * 0.025,
                       color: AppColors.appColor,
-                  ),),
-                  SizedBox(height: height * 0.02,),
-                  Text("User Location Not Available.",
+                    ),
+                  ),
+                  SizedBox(
+                    height: height * 0.02,
+                  ),
+                  Text(
+                    "User Location Not Available.",
                     style: TextStyle(
                       fontFamily: 'MontserratMedium',
                       fontWeight: FontWeight.w800,
                       fontSize: width * 0.035,
                       color: Colors.black,
-                    ),),
-                  SizedBox(height: height * 0.02,),
-                  ButtonFlat(btnColor: AppColors.appColor, textColor: AppColors.whiteColor, onPress: () {
-
-                  }, text: "Try Again")
+                    ),
+                  ),
+                  SizedBox(
+                    height: height * 0.02,
+                  ),
+                  ButtonFlat(
+                      btnColor: AppColors.appColor,
+                      textColor: AppColors.whiteColor,
+                      onPress: () {},
+                      text: "Try Again")
                 ],
               ),
             ),

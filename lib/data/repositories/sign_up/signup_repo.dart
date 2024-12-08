@@ -4,7 +4,8 @@ import 'package:http/http.dart' as http;
 import '../../../configs/global/app_globals.dart';
 
 class SignUpRepository {
-  Future<http.Response> registerGoogleUser(String email, String userName) async {
+  Future<http.Response> registerGoogleUser(
+      String email, String userName) async {
     try {
       var url = Uri.parse('$ipServer/api/patients/register-google');
       var response = await http.post(

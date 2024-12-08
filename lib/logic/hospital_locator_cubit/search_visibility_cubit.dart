@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 
-import '../../configs/global/app_globals.dart';
 import '../../data/models/hospital_locator_model/hospital_model.dart';
 import 'search_visibility_state.dart';
 
@@ -23,7 +22,7 @@ class SearchVisibilityCubit extends Cubit<SearchVisibilityState> {
       } else {
         filteredHospitals = hospitals
             .where((hospitals) =>
-            hospitals.name.toLowerCase().contains(query.toLowerCase()))
+                hospitals.name.toLowerCase().contains(query.toLowerCase()))
             .toList();
       }
       emit(SearchingSuccessState(filteredHospitals));

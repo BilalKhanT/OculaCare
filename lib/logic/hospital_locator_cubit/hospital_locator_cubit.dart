@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../data/models/address/address_model.dart';
@@ -24,37 +25,38 @@ class HospitalCubit extends Cubit<HospitalState> {
 
   final TextEditingController destinationController = TextEditingController();
   final TextEditingController sourceController = TextEditingController();
-  late GoogleMapController _mapController;
+  late GoogleMapController mapController;
 
   void loadHospitals() async {
     emit(HospitalLoading());
     try {
       Address? address = await getUserAddress();
-      if (hospital.isEmpty){
+      if (hospital.isEmpty) {
         await hospitalRepository.fetchHospitals(address!.lat!, address.long!);
       }
-      if(bookmarks.isEmpty){
+      if (bookmarks.isEmpty) {
         await bookmarkRepository.fetchBookmarks();
       }
       emit(HospitalLoaded(hospital, address!.lat!, address.long!));
     } on SocketException {
-      emit(HospitalError("Network error: Unable to connect to the hospital service."));
+      emit(HospitalError(
+          "Network error: Unable to connect to the hospital service."));
     } catch (e) {
       emit(HospitalError("An unexpected error occurred: ${e.toString()}"));
     }
   }
 
   void onMapCreated(GoogleMapController controller) async {
-    _mapController = controller;
+    mapController = controller;
   }
 
   Future<void> endNavigation() async {
     emit(HospitalLoading());
-    try{
+    try {
       clearControllers();
       Address? address = await getUserAddress();
       emit(HospitalLoaded(hospital, address!.lat!, address.long!));
-    }catch (e){
+    } catch (e) {
       emit(HospitalError("Oops! Something went Wrong"));
     }
   }
@@ -83,36 +85,40 @@ class HospitalCubit extends Cubit<HospitalState> {
     }
   }
 
-  Future<Address?> getUserAddress() async{
+  Future<Address?> getUserAddress() async {
     final double? lat = sharedPrefs.getAddress()?.lat;
     final double? long = sharedPrefs.getAddress()?.long;
     final String? locationName = sharedPrefs.getAddress()?.locationName;
-    if(lat==null && long==null){
+    if (lat == null && long == null) {
       Position position = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.high);
-      String address = await fetchAddressFromLatLng(position.latitude, position.longitude);
-      return Address(lat: position.latitude, long: position.longitude, locationName: address);
-    }
-    else{
+      String address =
+          await fetchAddressFromLatLng(position.latitude, position.longitude);
+      return Address(
+          lat: position.latitude,
+          long: position.longitude,
+          locationName: address);
+    } else {
       return Address(lat: lat, long: long, locationName: locationName);
     }
   }
 
-  void startNavigation(double sourceLat, double sourceLong, double destinationLat, double destinationLong, String mode) async {
+  void startNavigation(double sourceLat, double sourceLong,
+      double destinationLat, double destinationLong, String mode) async {
     emit(HospitalLoading());
     try {
       Address? address = await getUserAddress();
       List<LatLng> polylineCoordinates = await hospitalRepository.getDirections(
-          sourceLat, sourceLong, destinationLat, destinationLong, mode
-      );
+          sourceLat, sourceLong, destinationLat, destinationLong, mode);
       emit(HospitalLoaded(hospital, address!.lat!, address.long!));
-      emit(HospitalNavigationStarted(polylineCoordinates, address!.lat!, address!.long!));
+      emit(HospitalNavigationStarted(
+          polylineCoordinates, address.lat!, address.long!));
     } catch (e) {
       emit(HospitalError("Failed to load directions"));
     }
   }
 
-  Future<List<double>> getCurrentLocation() async{
+  Future<List<double>> getCurrentLocation() async {
     var permissionStatus = await Permission.location.request();
     if (!permissionStatus.isGranted) {
       return [];
@@ -126,12 +132,10 @@ class HospitalCubit extends Cubit<HospitalState> {
     }
   }
 
-
   void clearControllers() {
     destinationController.clear();
     sourceController.clear();
   }
-
 
   Future<BitmapDescriptor> createImageMarker(String base64Image) async {
     final ui.PictureRecorder pictureRecorder = ui.PictureRecorder();
@@ -141,7 +145,7 @@ class HospitalCubit extends Cubit<HospitalState> {
 
     // Draw a circular background
     canvas.drawCircle(
-      Offset(size / 2, size / 2),
+      const Offset(size / 2, size / 2),
       size / 2,
       paint,
     );
@@ -156,40 +160,36 @@ class HospitalCubit extends Cubit<HospitalState> {
       canvas.drawImageRect(
         image,
         Rect.fromLTWH(0, 0, image.width.toDouble(), image.height.toDouble()),
-        Rect.fromLTWH(10, 10, size - 20, size - 20), // Adjust image padding
+        const Rect.fromLTWH(
+            10, 10, size - 20, size - 20), // Adjust image padding
         paint,
       );
     } catch (e) {
       debugPrint("Error loading Base64 image: $e");
     }
 
-    // Convert to BitmapDescriptor
     final ui.Image markerAsImage = await pictureRecorder
         .endRecording()
         .toImage(size.toInt(), size.toInt());
     final ByteData? byteData =
-    await markerAsImage.toByteData(format: ui.ImageByteFormat.png);
+        await markerAsImage.toByteData(format: ui.ImageByteFormat.png);
     final Uint8List markerBytes = byteData!.buffer.asUint8List();
-
+    // ignore: deprecated_member_use
     return BitmapDescriptor.fromBytes(markerBytes);
   }
-
 
   Future<BitmapDescriptor> getUserLocationMarker() async {
     try {
       String? patientData = sharedPrefs.patientData;
-      if (patientData == null) {
-        throw Exception("Patient data is null");
-      }
 
       Map<String, dynamic> decodedData = jsonDecode(patientData);
       String? base64Image = decodedData['profileImage'];
 
       if (base64Image == null || base64Image.isEmpty) {
-        throw Exception("Base64 image data is null or empty");
+        log("Base64 image data is null or empty");
       }
 
-      return await createImageMarker(base64Image);
+      return await createImageMarker(base64Image!);
     } catch (e) {
       debugPrint("Error generating user location marker: $e");
       return BitmapDescriptor.defaultMarker;
@@ -197,12 +197,13 @@ class HospitalCubit extends Cubit<HospitalState> {
   }
 
   Future<void> navigateToLocation(double latitude, double longitude) async {
-    final googleMapsUrl = 'https://www.google.com/maps/search/?api=1&query=$latitude,$longitude';
+    final googleMapsUrl =
+        'https://www.google.com/maps/search/?api=1&query=$latitude,$longitude';
     if (await canLaunchUrl(Uri.parse(googleMapsUrl))) {
-      await launchUrl(Uri.parse(googleMapsUrl), mode: LaunchMode.externalApplication);
+      await launchUrl(Uri.parse(googleMapsUrl),
+          mode: LaunchMode.externalApplication);
     } else {
       emit(HospitalError('Could not launch Google Maps'));
     }
   }
-
 }

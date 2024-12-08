@@ -19,7 +19,8 @@ class DetectionCubit extends Cubit<DetectionState> {
       if (globalResults.isEmpty || sharedPrefs.resultsFetched == false) {
         sharedPrefs.resultsFetched = true;
         globalResults.clear();
-        List<DiseaseResultModel> diseaseResults = await detectionRepo.getPatientDiseaseResults();
+        List<DiseaseResultModel> diseaseResults =
+            await detectionRepo.getPatientDiseaseResults();
         if (diseaseResults.isEmpty) {
           emit(DetectionServerError());
         } else {

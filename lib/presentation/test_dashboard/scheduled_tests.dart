@@ -177,10 +177,13 @@ class ScheduledTests extends StatelessWidget {
                                                       BorderRadius.circular(10),
                                                   boxShadow: [
                                                     BoxShadow(
-                                                      color: AppColors.textPrimary.withOpacity(0.1),
+                                                      color: AppColors
+                                                          .textPrimary
+                                                          .withOpacity(0.1),
                                                       spreadRadius: 1,
                                                       blurRadius: 0.5,
-                                                      offset: const Offset(0, 0),
+                                                      offset:
+                                                          const Offset(0, 0),
                                                     ),
                                                   ],
                                                 ),
@@ -368,10 +371,13 @@ class ScheduledTests extends StatelessWidget {
                                                       BorderRadius.circular(10),
                                                   boxShadow: [
                                                     BoxShadow(
-                                                      color: AppColors.textPrimary.withOpacity(0.1),
+                                                      color: AppColors
+                                                          .textPrimary
+                                                          .withOpacity(0.1),
                                                       spreadRadius: 1,
                                                       blurRadius: 0.5,
-                                                      offset: const Offset(0, 0),
+                                                      offset:
+                                                          const Offset(0, 0),
                                                     ),
                                                   ],
                                                 ),

@@ -32,15 +32,18 @@ class AddressTile extends StatelessWidget {
             children: [
               SlidableAction(
                 onPressed: (context) {
-                  context.read<AddressBookCubit>().selectCurrentAddress(address);
+                  context
+                      .read<AddressBookCubit>()
+                      .selectCurrentAddress(address);
                 },
                 icon: Icons.location_on_outlined,
                 backgroundColor: AppColors.appColor.withOpacity(0.7),
               ),
               SlidableAction(
                 onPressed: (context) async {
-                  final bool flag =
-                  await context.read<AddressBookCubit>().deleteAddress(address);
+                  final bool flag = await context
+                      .read<AddressBookCubit>()
+                      .deleteAddress(address);
                   if (context.mounted) {
                     if (flag) {
                       AppUtils.showToast(context, 'Address Removed',
@@ -62,25 +65,27 @@ class AddressTile extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(9.0),
-                boxShadow: isSelected ? [
-                BoxShadow(
-                  color: AppColors.appColor.withOpacity(0.9),
-                  spreadRadius: 1,
-                  blurRadius: 0.5,
-                  offset: const Offset(0, 0),
-                ),
-                  ] : [
-                  BoxShadow(
-                    color: AppColors.textPrimary.withOpacity(0.1),
-                    spreadRadius: 1,
-                    blurRadius: 0.5,
-                    offset: const Offset(0, 0),
-                  ),
-                ],
+                boxShadow: isSelected
+                    ? [
+                        BoxShadow(
+                          color: AppColors.appColor.withOpacity(0.9),
+                          spreadRadius: 1,
+                          blurRadius: 0.5,
+                          offset: const Offset(0, 0),
+                        ),
+                      ]
+                    : [
+                        BoxShadow(
+                          color: AppColors.textPrimary.withOpacity(0.1),
+                          spreadRadius: 1,
+                          blurRadius: 0.5,
+                          offset: const Offset(0, 0),
+                        ),
+                      ],
               ),
               child: Padding(
-                padding:
-                const EdgeInsets.symmetric(horizontal: 10.0, vertical: 17.0),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 10.0, vertical: 17.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[

@@ -39,6 +39,3 @@ class HospitalBookmarkLoaded extends HospitalState {
   //
   // HospitalBookmarkLoaded(this.bookmarks);
 }
-
-
-

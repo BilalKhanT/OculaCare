@@ -63,11 +63,13 @@ class DurationCalendar extends StatelessWidget {
     Map<DateTime, int> data = {};
     DateTime currentDate = startDate;
 
-    while (currentDate.isBefore(endDate) || currentDate.isAtSameMomentAs(endDate)) {
-      DateTime dateWithoutTime = DateTime(currentDate.year, currentDate.month, currentDate.day);
+    while (currentDate.isBefore(endDate) ||
+        currentDate.isAtSameMomentAs(endDate)) {
+      DateTime dateWithoutTime =
+          DateTime(currentDate.year, currentDate.month, currentDate.day);
       data[dateWithoutTime] = 1;
       currentDate = currentDate.add(const Duration(days: 1));
-    };
+    }
     return data;
   }
 }

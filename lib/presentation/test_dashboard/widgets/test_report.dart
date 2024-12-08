@@ -101,11 +101,9 @@ class TestReport extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding:
-              const EdgeInsets.symmetric(horizontal: 5, vertical: 5.0),
+          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5.0),
           child: Padding(
-            padding: const EdgeInsets.symmetric(
-                horizontal: 15, vertical: 20.0),
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -117,8 +115,8 @@ class TestReport extends StatelessWidget {
                       child: Container(
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          border: Border.all(
-                              color: AppColors.appColor, width: 1.5),
+                          border:
+                              Border.all(color: AppColors.appColor, width: 1.5),
                         ),
                         child: ClipOval(
                           child: Container(
@@ -236,19 +234,18 @@ class TestReport extends StatelessWidget {
                 ),
                 test.testName == 'Animal Track'
                     ? FadeIn(
-                  duration: const Duration(milliseconds: 600),
-                      child: TrackChart(
+                        duration: const Duration(milliseconds: 600),
+                        child: TrackChart(
                           score: test.testScore,
                         ),
-                    )
+                      )
                     : test.testName == 'Snellan Chart'
                         ? Center(
                             child: FadeIn(
                               duration: const Duration(milliseconds: 600),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment:
-                                    CrossAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Image.asset(
                                     'assets/images/result_test.png',
