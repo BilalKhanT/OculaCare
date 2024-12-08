@@ -139,7 +139,7 @@ class OddOutCubit extends Cubit<OddOutState> {
       if (questions >= 10) {
         endGame();
       } else {
-        Future.delayed(const Duration(milliseconds: 200), _nextQuestion);
+        _nextQuestion;
       }
     } else {
       _isHandlingSelection = false;
