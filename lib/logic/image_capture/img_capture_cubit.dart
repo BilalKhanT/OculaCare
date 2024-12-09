@@ -11,6 +11,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../../configs/global/app_globals.dart';
+import '../../data/models/disease_result/qa_model.dart';
 import 'img_capture_state.dart';
 import 'package:google_mlkit_face_detection/google_mlkit_face_detection.dart';
 
@@ -317,7 +318,7 @@ class ImageCaptureCubit extends Cubit<ImageCaptureState> {
   }
 
   Future<void> uploadImageToServer(
-      XFile leftEye, XFile rightEye, XFile fullFace, String modelFlag) async {
+      XFile leftEye, XFile rightEye, XFile fullFace, Diagnosis modelFlag) async {
     String leftEyeBase64 = await imageToBase64(leftEye);
     String rightEyeBase64 = await imageToBase64(rightEye);
     String fullBase64 = await imageToBase64(fullFace);

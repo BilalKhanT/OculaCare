@@ -27,7 +27,7 @@ class DetectionRepo {
             'Analysis report is ready',
             DateTime.now().add(const Duration(seconds: 2)));
       } else {
-        log("Nothing ${response.body}");
+        log("Nothing ${response.statusCode}");
       }
     } catch (e) {
       log('error $e');

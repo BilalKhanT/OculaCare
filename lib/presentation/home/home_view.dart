@@ -430,7 +430,7 @@ class HomeScreen extends StatelessWidget {
                                             isMore = false;
                                             context
                                                 .read<QuestionCubit>()
-                                                .startQuestionnaire();
+                                                .initiateSymptomCheck();
                                             context
                                                 .push(RouteNames.questionRoute);
                                           },

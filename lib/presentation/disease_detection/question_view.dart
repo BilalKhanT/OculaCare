@@ -1,7 +1,10 @@
+import 'package:cculacare/configs/extension/extensions.dart';
 import 'package:cculacare/presentation/widgets/cstm_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lottie/lottie.dart';
 import '../../configs/presentation/constants/colors.dart';
 import '../../logic/detection/question_cubit.dart';
 import '../../logic/detection/question_state.dart';
@@ -11,6 +14,8 @@ class QuestionScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController controller = TextEditingController();
+    FocusNode node = FocusNode();
     double screenHeight = MediaQuery.sizeOf(context).height;
     double screenWidth = MediaQuery.sizeOf(context).width;
     return Scaffold(
@@ -38,78 +43,111 @@ class QuestionScreen extends StatelessWidget {
       ),
       body: BlocBuilder<QuestionCubit, QuestionState>(
         builder: (context, state) {
-          if (state is QuestionLoaded) {
-            final question = state.questions[state.currentQuestionIndex];
+          if (state is QuestionLoading) {
+            return const Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  DotLoader(loaderColor: AppColors.appColor),
+                ],
+              ),
+            );
+          }
+          else if (state is QuestionLoaded) {
+            context.read<QuestionCubit>().startSpeaking(state.question);
             return Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 15.0, vertical: 20.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    question.questionText,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontFamily: 'MontserratMedium',
-                      fontWeight: FontWeight.w800,
-                      fontSize: screenWidth * 0.05,
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Colors.grey.shade300,
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.08, vertical: screenHeight * 0.015),
+                            child: Text(state.question,
+                            maxLines: 3,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              fontFamily: 'Montserrat',
+                              fontWeight: FontWeight.w800,
+                              fontSize: screenWidth * 0.035,
+                            ),),
+                          ),
+                        ),
+                        SizedBox(height: screenHeight * 0.03,),
+                        Lottie.asset(
+                          'assets/lotties/robot.json',
+                          height: screenHeight * 0.25,
+                          width: screenHeight * 0.25,
+                        ),
+                      ],
                     ),
                   ),
-                  SizedBox(height: screenHeight * 0.03),
-                  SizedBox(
-                    height: screenHeight * 0.6,
-                    child: ListView.builder(
-                      itemCount: question.options.length,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 8.0, horizontal: 20.0),
-                          child: GestureDetector(
-                            onTap: () {
-                              context
-                                  .read<QuestionCubit>()
-                                  .selectOption(question.options[index]);
-                            },
-                            child: Container(
-                              width: screenWidth,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10.0),
-                                color: AppColors.appColor,
-                              ),
-                              child: Center(
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 17.0),
-                                  child: Text(
-                                    question.options[index],
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontFamily: 'MontserratMedium',
-                                      fontWeight: FontWeight.w800,
-                                      fontSize: screenWidth * 0.04,
-                                    ),
-                                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: SizedBox(
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(30.r),
+                            child: TextFormField(
+                              controller: controller,
+                              focusNode: node,
+                              cursorColor: AppColors.appColor,
+                              style: context.appTheme.textTheme.labelMedium?.copyWith(
+                                  color: AppColors.secondaryText,
+                                  fontSize: MediaQuery.sizeOf(context).width * 0.04),
+                              decoration: InputDecoration(
+                                suffixIcon: IconButton(
+                                  icon: const Icon(Icons.send),
+                                  onPressed: () {
+                                    final String answer = controller.text;
+                                    controller.clear();
+                                    context.read<QuestionCubit>().nextQuestion(answer);
+                                  },
+                                  color: AppColors.appColor,
+                                ),
+                                fillColor: Colors.grey.shade300,
+                                filled: true,
+                                hintStyle: context.appTheme.textTheme.labelMedium?.copyWith(
+                                    color: Colors.grey.shade400,
+                                    fontSize: MediaQuery.sizeOf(context).width * 0.04),
+                                hintText: 'Type Yes or No',
+                                border: InputBorder.none,
+                                contentPadding: EdgeInsets.only(
+                                  top: MediaQuery.sizeOf(context).height * 0.015,
+                                  left: 20.w,
+                                  bottom: MediaQuery.sizeOf(context).height * 0.015,
                                 ),
                               ),
                             ),
                           ),
-                        );
-                      },
-                    ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
             );
           } else if (state is QuestionFinished) {
-            context.read<QuestionCubit>().startSpeaking(context, state.result);
-            return const Center(
+            context.read<QuestionCubit>().completeCheck(context, state.result.diagnosis!);
+            return Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  DotLoader(
-                    loaderColor: AppColors.appColor,
-                  )
+                  Lottie.asset(
+                    'assets/lotties/robot.json',
+                    height: screenHeight * 0.3,
+                    width: screenHeight * 0.3,
+                  ),
                 ],
               ),
             );

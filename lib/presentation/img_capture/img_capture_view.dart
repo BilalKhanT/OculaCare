@@ -11,6 +11,7 @@ import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../configs/presentation/constants/colors.dart';
 import '../../configs/utils/utils.dart';
+import '../../data/models/disease_result/qa_model.dart';
 import '../../logic/image_capture/img_capture_cubit.dart';
 import '../../logic/image_capture/img_capture_state.dart';
 import '../widgets/border_painter.dart';
@@ -18,8 +19,8 @@ import '../widgets/btn_flat.dart';
 import '../widgets/cstm_loader.dart';
 
 class ImageCaptureScreen extends StatelessWidget {
-  final String modelFlag;
-  const ImageCaptureScreen({Key? key, required this.modelFlag})
+  final Diagnosis modelResult;
+  const ImageCaptureScreen({Key? key, required this.modelResult})
       : super(key: key);
 
   @override
@@ -656,13 +657,15 @@ class ImageCaptureScreen extends StatelessWidget {
                                         btnColor: AppColors.appColor,
                                         textColor: Colors.white,
                                         onPress: () async {
+                                          print(modelResult.analysis);
+                                          print(modelResult.disease);
                                           context
                                               .read<ImageCaptureCubit>()
                                               .uploadImageToServer(
                                                   state.leftEye,
                                                   state.rightEye,
                                                   state.fullFace,
-                                                  modelFlag);
+                                                  modelResult);
                                         },
                                         text: 'Upload to Server'),
                                   ),

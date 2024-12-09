@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import '../../data/models/disease_result/disease_result_model.dart';
+import '../../data/models/disease_result/qa_model.dart';
 import '../../data/models/tests/score_model.dart';
 import '../../data/models/tests/test_result_model.dart';
 import '../../data/models/therapy/therapy_results_model.dart';
@@ -173,9 +174,9 @@ final router = GoRouter(
         parentNavigatorKey: navigatorKey,
         path: RouteNames.imgCaptureRoute,
         builder: (context, state) {
-          final String data = state.extra as String;
+          final Diagnosis data = state.extra as Diagnosis;
           return ImageCaptureScreen(
-            modelFlag: data,
+            modelResult: data,
           );
         }),
     GoRoute(

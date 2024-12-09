@@ -72,7 +72,7 @@ class MoreView extends StatelessWidget {
                               )
                             ]),
                       ),
-                      FadeInUp(
+                      FadeInLeft(
                         duration: const Duration(milliseconds: 500),
                         child: Container(
                           color: AppColors.appColor.withOpacity(0.2),
@@ -93,7 +93,7 @@ class MoreView extends StatelessWidget {
                               isMore = true;
                               context
                                   .read<QuestionCubit>()
-                                  .startQuestionnaire();
+                                  .initiateSymptomCheck();
                               context.push(RouteNames.questionRoute);
                             },
                             child: Container(
