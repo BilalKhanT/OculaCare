@@ -1,5 +1,4 @@
 class RouteNames {
-  // Parent project routes
   static const String onBoardingRoute = '/onBoarding';
   static const String loginRoute = '/login';
   static const String signUpRoute = '/signUp';
@@ -37,4 +36,5 @@ class RouteNames {
   static const String addressBookRoute = '/addressBookRoute';
   static const String hospitalLocatorRoute = '/hospitalLocatorRoute';
   static const String bookmarkRoute = '/bookmarkRoute';
+  static const String chatBotRoute = '/chatBotRoute';
 }

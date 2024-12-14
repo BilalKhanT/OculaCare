@@ -47,6 +47,15 @@ class DiseaseAnalysisView extends StatelessWidget {
           ),
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.white,
+        onPressed: () => context.push(RouteNames.chatBotRoute),
+        child: Image.asset(
+          'assets/images/botsvg.png',
+          height: screenHeight * 0.05,
+          width: screenHeight * 0.05,
+        ),
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),

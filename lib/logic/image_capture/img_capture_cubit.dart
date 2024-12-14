@@ -331,6 +331,8 @@ class ImageCaptureCubit extends Cubit<ImageCaptureState> {
       'patient_name': sharedPrefs.userName,
       'email': sharedPrefs.email,
       'flag': modelFlag,
+      'disease': modelFlag.disease,
+      'analysis': modelFlag.analysis,
     };
     detectionRepo.predictDisease(payload);
   }

@@ -3,6 +3,7 @@ import 'package:cculacare/data/models/disease_result/diagnosis_result_model.dart
 import 'package:cculacare/presentation/bookmarks/bookmark_view.dart';
 import 'package:cculacare/presentation/disease_detection/question_view.dart';
 import 'package:cculacare/presentation/patient_profile/widgets/address_book.dart';
+import 'package:cculacare/presentation/result/widgets/chatbot_view.dart';
 import 'package:cculacare/presentation/result/widgets/diagnosis_report.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -271,6 +272,11 @@ final router = GoRouter(
       parentNavigatorKey: navigatorKey,
       path: RouteNames.snellanRoute,
       builder: (context, state) => const SnellanChart(),
+    ),
+    GoRoute(
+      parentNavigatorKey: navigatorKey,
+      path: RouteNames.chatBotRoute,
+      builder: (context, state) => const ChatbotView(),
     ),
     GoRoute(
       parentNavigatorKey: navigatorKey,
