@@ -1,4 +1,5 @@
 import 'package:cculacare/configs/presentation/constants/colors.dart';
+import 'package:cculacare/logic/detection/chat_loading_cubit.dart';
 import 'package:cculacare/logic/detection/chatbot_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -67,6 +68,30 @@ class ChatbotView extends StatelessWidget {
                 },
               ),
             ),
+            BlocBuilder<ChatLoadingCubit, bool>(
+                builder: (context, state) {
+                  return state == true ? Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Container(
+                        margin: const EdgeInsets.symmetric(vertical: 5.0),
+                        padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
+                        decoration: BoxDecoration(
+                          color: Colors.grey[200],
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        child: const Text(
+                          '....',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontFamily: 'Montserrat',
+                          ),
+                        ),
+                      ),
+                    ),
+                  ) : const SizedBox.shrink();
+                }),
             Container(
               padding: const EdgeInsets.all(10.0),
               decoration: BoxDecoration(
@@ -106,7 +131,9 @@ class ChatbotView extends StatelessWidget {
                       Icons.send,
                       color: AppColors.appColor,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      context.read<ChatBotCubit>().sendChat(context);
+                    },
                   ),
                 ],
               ),

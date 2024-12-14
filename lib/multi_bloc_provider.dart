@@ -1,5 +1,7 @@
 import 'package:cculacare/logic/address_book/address_book_cubit.dart';
 import 'package:cculacare/logic/bookmark_cubit/bookmark_cubit.dart';
+import 'package:cculacare/logic/detection/chat_loading_cubit.dart';
+import 'package:cculacare/logic/detection/chatbot_cubit.dart';
 import 'package:cculacare/logic/detection/med_cubit.dart';
 import 'package:cculacare/logic/detection/question_cubit.dart';
 import 'package:cculacare/logic/detection_animation/detection_animation_cubit.dart';
@@ -199,6 +201,12 @@ class ProvideMultiBloc extends StatelessWidget {
       ),
       BlocProvider(
         create: (context) => PassCubit(),
+      ),
+      BlocProvider(
+        create: (context) => ChatBotCubit(),
+      ),
+      BlocProvider(
+        create: (context) => ChatLoadingCubit(),
       ),
       BlocProvider(
         create: (context) => OnBoardingCubit(),
