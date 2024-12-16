@@ -1,4 +1,3 @@
-import 'package:animate_do/animate_do.dart';
 import 'package:cculacare/presentation/login/widgets/forgot_password_form.dart';
 import 'package:cculacare/presentation/login/widgets/login_form.dart';
 import 'package:cculacare/presentation/login/widgets/reset_password_form.dart';
@@ -14,6 +13,7 @@ import '../../logic/home_cubit/home_cubit.dart';
 import '../../logic/login_cubit/login_cubit.dart';
 import '../../logic/login_cubit/login_cubit_state.dart';
 import '../../logic/sign_up_cubit/sign_up_cubit.dart';
+import '../sign_up/widgets/cstm_img_btn.dart';
 import '../widgets/cstm_loader.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -147,101 +147,148 @@ class LoginScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Center(
-                            child: FadeInDown(
-                          duration: const Duration(milliseconds: 600),
-                          child: Image.asset(
-                            "assets/images/logo_ocula_login.png",
-                            height: screenHeight * 0.15,
-                          ),
-                        )),
+                            child: Image.asset(
+                              "assets/images/logo_ocula_login.png",
+                              height: screenHeight * 0.15,
+                            )),
                         Center(
-                          child: FadeInDown(
-                            duration: const Duration(milliseconds: 600),
-                            child: Text(
-                              'OculaCare',
-                              style: TextStyle(
-                                fontFamily: 'MontserratMedium',
-                                fontSize: 32.sp,
-                                color: AppColors.appColor,
-                                fontWeight: FontWeight.bold,
-                                letterSpacing: 1.0,
-                              ),
+                          child: Text(
+                            'OculaCare',
+                            style: TextStyle(
+                              fontFamily: 'MontserratMedium',
+                              fontSize: 32.sp,
+                              color: AppColors.appColor,
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 1.0,
                             ),
                           ),
                         ),
                         SizedBox(
                           height: 30.h,
                         ),
-                        FadeInLeft(
-                          duration: const Duration(milliseconds: 600),
-                          child: Text(
-                            'Login',
-                            style: TextStyle(
-                              fontFamily: 'MontserratMedium',
-                              fontSize: 32.sp,
-                              color: AppColors.appColor,
-                              fontWeight: FontWeight.w800,
-                              letterSpacing: 1.0,
-                            ),
+                        Text(
+                          'Login',
+                          style: TextStyle(
+                            fontFamily: 'MontserratMedium',
+                            fontSize: 32.sp,
+                            color: AppColors.appColor,
+                            fontWeight: FontWeight.w800,
+                            letterSpacing: 1.0,
                           ),
                         ),
-                        FadeInLeft(
-                          duration: const Duration(milliseconds: 600),
-                          child: Text(
-                            'Welcome Back!',
-                            style: TextStyle(
-                              fontFamily: 'MontserratMedium',
-                              fontSize: 16.sp,
-                              color: AppColors.textGrey,
-                            ),
+                        Text(
+                          'Welcome Back!',
+                          style: TextStyle(
+                            fontFamily: 'MontserratMedium',
+                            fontSize: 16.sp,
+                            color: AppColors.textGrey,
                           ),
                         ),
                         SizedBox(
                           height: screenHeight * 0.03,
                         ),
-                        FadeInUp(
-                            duration: const Duration(milliseconds: 600),
-                            child: const LoginForm()),
+                        const LoginForm(),
                         SizedBox(
-                          height: screenHeight * 0.01,
+                          height: screenHeight * 0.02,
                         ),
-                        FadeInUp(
-                          duration: const Duration(milliseconds: 600),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                        Center(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Text(
-                                'Don\'t have an account.',
+                                'or',
                                 style: TextStyle(
                                   fontFamily: 'MontserratMedium',
-                                  fontSize: 16.sp,
+                                  fontSize: screenWidth * 0.035,
                                   fontWeight: FontWeight.w100,
                                   color: AppColors.textGrey,
+                                  letterSpacing: 1.0,
                                 ),
                               ),
-                              const SizedBox(
-                                width: 5.0,
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  context
-                                      .read<SignUpCubit>()
-                                      .loadSignUpScreen();
-                                  context.go(RouteNames.signUpRoute,
-                                      extra: 'login');
-                                },
-                                child: Text(
-                                  'Signup',
-                                  style: TextStyle(
-                                    fontFamily: 'Montserrat',
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.bold,
-                                    color: AppColors.appColor,
-                                  ),
+                              Text(
+                                'continue with',
+                                style: TextStyle(
+                                  fontFamily: 'MontserratMedium',
+                                  fontSize: screenWidth * 0.035,
+                                  fontWeight: FontWeight.w100,
+                                  color: AppColors.textGrey,
+                                  letterSpacing: 1.0,
                                 ),
-                              )
+                              ),
                             ],
                           ),
+                        ),
+                        SizedBox(
+                          height: screenHeight * 0.02,
+                        ),
+                        Padding(
+                          padding:  EdgeInsets.symmetric(horizontal: screenWidth * 0.02),
+                          child: CustomImageButton(
+                            text: 'Google',
+                            onTap: () async {
+                              bool flag = await context
+                                  .read<SignUpCubit>()
+                                  .createUserWithGoogle();
+                              if (!flag && context.mounted) {
+                                AppUtils.showToast(
+                                    context,
+                                    'Email Already Registered',
+                                    'Please use a different google account to register a new account',
+                                    true);
+                              } else {
+                                if (context.mounted) {
+                                  AppUtils.showToast(
+                                      context,
+                                      'Update Password',
+                                      'Your account password has been set as \'******\', update it in profile',
+                                      false);
+                                  context
+                                      .read<HomeCubit>()
+                                      .emitHomeAnimation();
+                                  context.go(RouteNames.homeRoute);
+                                }
+                              }
+                            },
+                            imagePath: 'assets/images/googleIcon.png',
+                          ),
+                        ),
+                        SizedBox(
+                          height: screenHeight * 0.02,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Don\'t have an account.',
+                              style: TextStyle(
+                                fontFamily: 'MontserratMedium',
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w100,
+                                color: AppColors.textGrey,
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 5.0,
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                context
+                                    .read<SignUpCubit>()
+                                    .loadSignUpScreen();
+                                context.go(RouteNames.signUpRoute,
+                                    extra: 'login');
+                              },
+                              child: Text(
+                                'Signup',
+                                style: TextStyle(
+                                  fontFamily: 'Montserrat',
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColors.appColor,
+                                ),
+                              ),
+                            )
+                          ],
                         ),
                       ],
                     ),

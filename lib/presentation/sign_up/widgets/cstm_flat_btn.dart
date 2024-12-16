@@ -1,5 +1,5 @@
+import 'package:cculacare/configs/global/app_globals.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomFlatButton extends StatelessWidget {
   final VoidCallback onTap;
@@ -23,16 +23,16 @@ class CustomFlatButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(8.0),
         ),
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10.0),
+          padding: EdgeInsets.symmetric(vertical: screenHeight * 0.01),
           child: Center(
             child: Text(
               text,
               style: TextStyle(
                 fontFamily: 'MontserratMedium',
-                fontSize: 20.sp,
+                fontSize: screenWidth * 0.05,
                 fontWeight: FontWeight.w500,
                 color: Colors.white,
-                letterSpacing: 1.0,
+                letterSpacing: 0.5,
               ),
             ),
           ),

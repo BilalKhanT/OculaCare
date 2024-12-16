@@ -1,3 +1,4 @@
+import 'package:cculacare/configs/global/app_globals.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,7 +21,7 @@ class LoginForm extends StatelessWidget {
     return Form(
       key: formKey,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
+        padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.02,),
         child: Column(
           children: <Widget>[
             TextFormField(

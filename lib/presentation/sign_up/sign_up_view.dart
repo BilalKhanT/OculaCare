@@ -1,4 +1,3 @@
-import 'package:animate_do/animate_do.dart';
 import 'package:cculacare/presentation/sign_up/widgets/cstm_img_btn.dart';
 import 'package:cculacare/presentation/sign_up/widgets/sign_up_form.dart';
 import 'package:flutter/material.dart';
@@ -59,7 +58,12 @@ class SignUpScreen extends StatelessWidget {
                 );
               } else if (state is SignUpStateFailure) {
                 return Center(
-                  child: Text(state.errorMsg),
+                  child: Text(state.errorMsg,
+                    style: TextStyle(
+                      fontFamily: 'MontserratMedium',
+                      fontSize: 16.sp,
+                      color: AppColors.textGrey,
+                    ),),
                 );
               } else if (state is SignUpStateLoaded) {
                 return Padding(
@@ -69,171 +73,95 @@ class SignUpScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        FadeInLeft(
-                          duration: const Duration(milliseconds: 600),
-                          child: Text(
-                            'Register',
-                            style: TextStyle(
-                              fontFamily: 'MontserratMedium',
-                              fontSize: 32.sp,
-                              color: AppColors.appColor,
-                              fontWeight: FontWeight.bold,
-                              letterSpacing: 1.0,
-                            ),
+                        Text(
+                          'Register',
+                          style: TextStyle(
+                            fontFamily: 'MontserratMedium',
+                            fontSize: 32.sp,
+                            color: AppColors.appColor,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 1.0,
                           ),
                         ),
-                        FadeInLeft(
-                          duration: const Duration(milliseconds: 600),
-                          child: Text(
-                            'Create Your New Account',
-                            style: TextStyle(
-                              fontFamily: 'MontserratMedium',
-                              fontSize: 16.sp,
-                              color: AppColors.textGrey,
-                            ),
+                        Text(
+                          'Create Your New Account',
+                          style: TextStyle(
+                            fontFamily: 'MontserratMedium',
+                            fontSize: 16.sp,
+                            color: AppColors.textGrey,
                           ),
                         ),
                         SizedBox(
                           height: screenHeight * 0.01,
                         ),
-                        FadeInDown(
-                            duration: const Duration(milliseconds: 600),
-                            child: const SignUpForm()),
-                        Center(
-                          child: FadeInLeft(
-                            duration: const Duration(milliseconds: 600),
-                            child: Text(
-                              'or',
-                              style: TextStyle(
-                                fontFamily: 'MontserratMedium',
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.w100,
-                                color: AppColors.textGrey,
-                                letterSpacing: 1.0,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Center(
-                          child: FadeInLeft(
-                            duration: const Duration(milliseconds: 600),
-                            child: Text(
-                              'signup with',
-                              style: TextStyle(
-                                fontFamily: 'MontserratMedium',
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.w100,
-                                color: AppColors.textGrey,
-                                letterSpacing: 1.0,
-                              ),
-                            ),
-                          ),
-                        ),
+                        const SignUpForm(),
                         SizedBox(
-                          height: screenHeight * 0.03,
+                          height: screenHeight * 0.015,
                         ),
-                        FadeInRight(
-                          duration: const Duration(milliseconds: 600),
+                        Center(
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              CustomImageButton(
-                                onTap: () async {
-                                  bool flag = await context
-                                      .read<SignUpCubit>()
-                                      .createUserWithGoogle();
-                                  if (!flag && context.mounted) {
-                                    AppUtils.showToast(
-                                        context,
-                                        'Email Already Registered',
-                                        'Please use a different google account to register a new account',
-                                        true);
-                                  } else {
-                                    if (context.mounted) {
-                                      AppUtils.showToast(
-                                          context,
-                                          'Update Password',
-                                          'Your account password has been set as \'******\', update it in profile',
-                                          false);
-                                      context
-                                          .read<HomeCubit>()
-                                          .emitHomeAnimation();
-                                      context.go(RouteNames.homeRoute);
-                                    }
-                                  }
-                                },
-                                imagePath: 'assets/images/googleIcon.png',
+                              Container(
+                                color: Colors.grey.shade400,
+                                height: screenHeight * 0.0015,
+                                width: screenWidth * 0.3,
                               ),
-                              const SizedBox(
-                                width: 5.0,
-                              ),
-                              CustomImageButton(
-                                onTap: () async {
-                                  bool flag = await context
-                                      .read<SignUpCubit>()
-                                      .createUserWithFacebook();
-                                  if (!flag && context.mounted) {
-                                    AppUtils.showToast(
-                                        context,
-                                        'Email Already Registered',
-                                        'Please use a different google account to register a new account',
-                                        true);
-                                  } else {
-                                    if (context.mounted) {
-                                      AppUtils.showToast(
-                                          context,
-                                          'Update Password',
-                                          'Your account password has been set as \'******\', update it in profile',
-                                          false);
-                                      context
-                                          .read<HomeCubit>()
-                                          .emitHomeAnimation();
-                                      context.go(RouteNames.homeRoute);
-                                    }
-                                  }
-                                },
-                                imagePath: 'assets/images/fbIcon.png',
-                              )
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          height: screenHeight * 0.03,
-                        ),
-                        FadeInUp(
-                          duration: const Duration(milliseconds: 600),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Already have an account.',
-                                style: TextStyle(
-                                  fontFamily: 'MontserratMedium',
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.w100,
-                                  color: AppColors.textGrey,
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 5.0,
-                              ),
-                              InkWell(
-                                onTap: () {
-                                  context.read<LoginCubit>().loadLoginScreen();
-                                  context.push(RouteNames.loginRoute);
-                                },
+                              Padding(
+                                padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.03),
                                 child: Text(
-                                  'Signin',
+                                  'or',
                                   style: TextStyle(
-                                    fontFamily: 'Montserrat',
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.bold,
-                                    color: AppColors.appColor,
+                                    fontFamily: 'MontserratMedium',
+                                    fontSize: screenWidth * 0.035,
+                                    fontWeight: FontWeight.w100,
+                                    color: AppColors.textGrey,
+                                    letterSpacing: 1.0,
                                   ),
                                 ),
-                              )
+                              ),
+                              Container(
+                                color: Colors.grey.shade400,
+                                height: screenHeight * 0.0015,
+                                width: screenWidth * 0.3,
+                              ),
                             ],
                           ),
+                        ),
+                        SizedBox(
+                          height: screenHeight * 0.03,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Already have an account.',
+                              style: TextStyle(
+                                fontFamily: 'MontserratMedium',
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w100,
+                                color: AppColors.textGrey,
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 5.0,
+                            ),
+                            InkWell(
+                              onTap: () {
+                                context.read<LoginCubit>().loadLoginScreen();
+                                context.push(RouteNames.loginRoute);
+                              },
+                              child: Text(
+                                'Signin',
+                                style: TextStyle(
+                                  fontFamily: 'Montserrat',
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColors.appColor,
+                                ),
+                              ),
+                            )
+                          ],
                         ),
                       ],
                     ),

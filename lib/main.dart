@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'configs/app/notification/notification_service.dart';
+import 'configs/global/app_globals.dart';
 import 'configs/routes/router.dart';
 import 'data/repositories/local/preferences/shared_prefs.dart';
 import 'logic/home_cubit/home_cubit.dart';
@@ -39,8 +40,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.sizeOf(context).height;
-    double screenWidth = MediaQuery.sizeOf(context).width;
+    screenHeight = MediaQuery.sizeOf(context).height;
+    screenWidth = MediaQuery.sizeOf(context).width;
     sharedPrefs.therapyFetched = false;
     sharedPrefs.historyFetched = false;
     sharedPrefs.resultsFetched = false;

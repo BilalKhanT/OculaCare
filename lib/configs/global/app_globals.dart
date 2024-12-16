@@ -10,6 +10,8 @@ class AppGlobals {}
 
 String ipServer = dotenv.env['SERVER_IP'] ?? '';
 String flask = dotenv.env['FLASK'] ?? '';
+double screenHeight = 0.0;
+double screenWidth = 0.0;
 List<DiseaseResultModel> globalResults = [];
 List<TherapyModel> globalTherapies = [];
 Map<DateTime, int> globalTherapyProgressData = {};
