@@ -9,7 +9,6 @@ import 'package:go_router/go_router.dart';
 import '../../configs/presentation/constants/colors.dart';
 import '../../configs/routes/route_names.dart';
 import '../../configs/utils/utils.dart';
-import '../../logic/home_cubit/home_cubit.dart';
 import '../../logic/login_cubit/login_cubit.dart';
 import '../../logic/login_cubit/login_cubit_state.dart';
 import '../../logic/sign_up_cubit/sign_up_cubit.dart';
@@ -50,7 +49,6 @@ class LoginScreen extends StatelessWidget {
                 AppUtils.showToast(context, 'Invalid Login Credentials',
                     'Please enter valid login credentials', true);
               } else if (state is LoginSuccess) {
-                context.read<HomeCubit>().emitHomeAnimation();
                 context.go(RouteNames.homeRoute);
               }
             }, builder: (context, state) {
@@ -242,9 +240,6 @@ class LoginScreen extends StatelessWidget {
                                       'Update Password',
                                       'Your account password has been set as \'******\', update it in profile',
                                       false);
-                                  context
-                                      .read<HomeCubit>()
-                                      .emitHomeAnimation();
                                   context.go(RouteNames.homeRoute);
                                 }
                               }

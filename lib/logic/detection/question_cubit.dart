@@ -16,20 +16,23 @@ class QuestionCubit extends Cubit<QuestionState> {
   SymptomCheckerRepo symptomCheckerRepo = SymptomCheckerRepo();
   FlutterTts flutterTts = FlutterTts();
 
-  Future<void> startSpeaking(String res,) async {
+  Future<void> startSpeaking(
+    String res,
+  ) async {
     try {
-      await flutterTts.speak(
-          res);
+      await flutterTts.speak(res);
     } catch (error) {
       log("Error in TTS: $error");
     }
     await flutterTts.stop();
   }
 
-  Future<void> completeCheck(BuildContext context, Diagnosis res,) async {
+  Future<void> completeCheck(
+    BuildContext context,
+    Diagnosis res,
+  ) async {
     try {
-      await flutterTts.speak(
-          res.analysis!);
+      await flutterTts.speak(res.analysis!);
     } catch (error) {
       log("Error in TTS: $error");
     }
@@ -38,6 +41,11 @@ class QuestionCubit extends Cubit<QuestionState> {
     await flutterTts.stop();
   }
 
+  Future<void> skipAnalysis(BuildContext context, Diagnosis res) async {
+    context.read<ImageCaptureCubit>().initializeCamera();
+    context.go(RouteNames.imgCaptureRoute, extra: res);
+    await flutterTts.stop();
+  }
 
   Future<void> initiateSymptomCheck() async {
     emit(QuestionLoading());
@@ -46,12 +54,11 @@ class QuestionCubit extends Cubit<QuestionState> {
     await flutterTts.setVolume(1.0);
     await flutterTts.setPitch(1.0);
     await flutterTts.awaitSpeakCompletion(true);
-    final qaResponse = await symptomCheckerRepo.startConversation('I might be suffering from an eye disease');
+    final qaResponse = await symptomCheckerRepo
+        .startConversation('I might be suffering from an eye disease');
     if (qaResponse != null) {
-
-        emit(QuestionLoaded(question: qaResponse.nextQuestion!));
-    }
-    else {
+      emit(QuestionLoaded(question: qaResponse.nextQuestion!));
+    } else {
       emit(QuestionError());
     }
   }
@@ -62,11 +69,9 @@ class QuestionCubit extends Cubit<QuestionState> {
     if (qaResponse != null) {
       if (qaResponse.diagnosis != null) {
         emit(QuestionFinished(result: qaResponse));
-      }
-      else {
+      } else {
         emit(QuestionLoaded(question: qaResponse.nextQuestion!));
       }
-
     }
   }
 }

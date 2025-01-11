@@ -1,5 +1,4 @@
 import 'package:cculacare/logic/detection_animation/detection_animation_cubit.dart';
-import 'package:cculacare/logic/home_cubit/home_cubit.dart';
 import 'package:cculacare/logic/more_animate/more_cubit.dart';
 import 'package:cculacare/logic/tests/test_dash_tab_cubit.dart';
 import 'package:flutter/material.dart';
@@ -135,7 +134,6 @@ class ScaffoldWithNavBar extends StatelessWidget {
 
   void _onTap(BuildContext context, int index) {
     if (index == 0) {
-      context.read<HomeCubit>().emitHomeAnimation();
       context.read<MoreCubit>().emitInitial();
       context.read<TestCubit>().emitInitial();
       context.read<TestDashTabCubit>().emitInitial();
@@ -144,20 +142,17 @@ class ScaffoldWithNavBar extends StatelessWidget {
     } else if (index == 1) {
       context.read<DetectionAnimationCubit>().emitHomeAnimation();
       context.read<TestCubit>().emitInitial();
-      context.read<HomeCubit>().emitInitial();
       context.read<MoreCubit>().emitInitial();
       context.read<TestDashTabCubit>().emitInitial();
       context.read<TherapyDashboardCubit>().loadHistory();
     } else if (index == 3) {
       context.read<TherapyDashboardCubit>().loadInitial();
       context.read<TestCubit>().emitInitial();
-      context.read<HomeCubit>().emitInitial();
       context.read<MoreCubit>().emitInitial();
       context.read<TestDashTabCubit>().emitInitial();
       context.read<DetectionAnimationCubit>().emitInitial();
     } else if (index == 4) {
       context.read<MoreCubit>().emitHomeAnimation();
-      context.read<HomeCubit>().emitInitial();
       context.read<TestCubit>().emitInitial();
       context.read<TestDashTabCubit>().emitInitial();
       context.read<TherapyDashboardCubit>().loadHistory();
@@ -165,13 +160,11 @@ class ScaffoldWithNavBar extends StatelessWidget {
     } else if (index == 2) {
       context.read<TestCubit>().loadTests();
       context.read<TestDashTabCubit>().toggleTab(0);
-      context.read<HomeCubit>().emitInitial();
       context.read<MoreCubit>().emitInitial();
       context.read<TherapyDashboardCubit>().loadHistory();
       context.read<DetectionAnimationCubit>().emitInitial();
     } else {
       context.read<TestCubit>().emitInitial();
-      context.read<HomeCubit>().emitInitial();
       context.read<MoreCubit>().emitInitial();
       context.read<TestDashTabCubit>().emitInitial();
       context.read<TherapyDashboardCubit>().loadHistory();

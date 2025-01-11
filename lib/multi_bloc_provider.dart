@@ -5,7 +5,6 @@ import 'package:cculacare/logic/detection/chatbot_cubit.dart';
 import 'package:cculacare/logic/detection/med_cubit.dart';
 import 'package:cculacare/logic/detection/question_cubit.dart';
 import 'package:cculacare/logic/detection_animation/detection_animation_cubit.dart';
-import 'package:cculacare/logic/home_cubit/home_cubit.dart';
 import 'package:cculacare/logic/hospital_locator_cubit/bookmark_icon_cubit.dart';
 import 'package:cculacare/logic/location_cubit/current_loc_cubit.dart';
 import 'package:cculacare/logic/treatment/treatment_cubit.dart';
@@ -68,9 +67,6 @@ class ProvideMultiBloc extends StatelessWidget {
     return MultiBlocProvider(providers: [
       BlocProvider(
         create: (context) => SignUpCubit(),
-      ),
-      BlocProvider(
-        create: (context) => HomeCubit(),
       ),
       BlocProvider(
         create: (context) => MoreCubit(),

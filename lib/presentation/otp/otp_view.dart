@@ -8,7 +8,6 @@ import 'package:pinput/pinput.dart';
 import '../../configs/presentation/constants/colors.dart';
 import '../../configs/routes/route_names.dart';
 import '../../configs/utils/utils.dart';
-import '../../logic/home_cubit/home_cubit.dart';
 import '../../logic/login_cubit/login_cubit.dart';
 import '../../logic/otp_cubit/otp_cubit.dart';
 import '../../logic/otp_cubit/otp_state.dart';
@@ -66,7 +65,6 @@ class OtpScreen extends StatelessWidget {
             } else if (state is Registered) {
               AppUtils.showToast(context, 'Welcome ${sharedPrefs.userName}',
                   'Your account has been registered successfully.', false);
-              context.read<HomeCubit>().emitHomeAnimation();
               context.go(RouteNames.homeRoute);
             }
           },

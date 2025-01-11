@@ -10,7 +10,6 @@ import 'configs/app/notification/notification_service.dart';
 import 'configs/global/app_globals.dart';
 import 'configs/routes/router.dart';
 import 'data/repositories/local/preferences/shared_prefs.dart';
-import 'logic/home_cubit/home_cubit.dart';
 import 'multi_bloc_provider.dart';
 import 'package:timezone/data/latest.dart' as tz;
 
@@ -48,7 +47,6 @@ class MyApp extends StatelessWidget {
     sharedPrefs.bottomFirst = true;
     sharedPrefs.clearCurrentAddress();
     context.read<CurrentLocationCubit>().loadBottomSheet();
-    context.read<HomeCubit>().emitHomeAnimation();
     return ScreenUtilInit(
       builder: (context, child) {
         return Listener(

@@ -1,4 +1,5 @@
 import 'package:cculacare/configs/extension/extensions.dart';
+import 'package:cculacare/presentation/widgets/btn_flat.dart';
 import 'package:cculacare/presentation/widgets/cstm_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -148,6 +149,10 @@ class QuestionScreen extends StatelessWidget {
                     height: screenHeight * 0.3,
                     width: screenHeight * 0.3,
                   ),
+                  SizedBox(height: screenHeight * 0.02,),
+                  ButtonFlat(btnColor: AppColors.appColor, textColor: Colors.white, onPress: () {
+                    context.read<QuestionCubit>().skipAnalysis(context, state.result.diagnosis!);
+                  }, text: 'Skip')
                 ],
               ),
             );
